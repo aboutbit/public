@@ -1,0 +1,366 @@
+/**
+ * Google Apps Script - 숙소 예약 홈페이지 정보 수집 폼 생성
+ *
+ * 사용법:
+ * 1. https://script.google.com 접속
+ * 2. 새 프로젝트 생성
+ * 3. 이 코드 전체를 붙여넣기
+ * 4. createMotelBookingForm() 함수 실행
+ * 5. 생성된 폼 URL이 로그에 출력됩니다 (Ctrl+Enter 로 로그 확인)
+ */
+
+function createMotelBookingForm() {
+  const form = FormApp.create('숙소 예약 홈페이지 - 필요 정보');
+  form.setDescription(
+    '홈페이지 완성을 위해 아래 정보가 필요합니다.\n' +
+    '한꺼번에 다 작성하지 않으셔도 됩니다. 아는 항목부터 채워주시고, 나머지는 추후 업데이트 가능합니다.\n\n' +
+    '* 표시 항목은 필수입니다.'
+  );
+  form.setConfirmationMessage('감사합니다! 보내주신 내용을 확인 후 반영하겠습니다.');
+  form.setAllowResponseEdits(true);
+
+  // ──────────────────────────────
+  // 섹션 1: 숙소 기본 정보
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('1. 숙소 기본 정보')
+    .setHelpText('홈페이지에 표시될 기본 정보입니다.');
+
+  form.addTextItem()
+    .setTitle('숙소 이름 (브랜드명)')
+    .setHelpText('예: Gangnam Residence, Seoul Monthly Stay')
+    .setRequired(true);
+
+  form.addParagraphTextItem()
+    .setTitle('주소 (한글)')
+    .setHelpText('예: 서울시 강남구 강남대로 123')
+    .setRequired(true);
+
+  form.addParagraphTextItem()
+    .setTitle('주소 (영문)')
+    .setHelpText('예: 123, Gangnam-daero, Gangnam-gu, Seoul, South Korea')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('전화번호')
+    .setHelpText('국제 형식 포함. 예: +82-10-1234-5678')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('이메일')
+    .setHelpText('문의/예약 확인용. 예: info@yourstay.com')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('카카오톡 / LINE / WeChat ID')
+    .setHelpText('외국인 메신저 문의용 (선택)');
+
+  form.addTextItem()
+    .setTitle('체크인 시간')
+    .setHelpText('예: 15:00 (오후 3시)')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('체크아웃 시간')
+    .setHelpText('예: 11:00 (오전 11시)')
+    .setRequired(true);
+
+  // ──────────────────────────────
+  // 섹션 2: 객실 타입 1
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('2. 객실 정보 - 타입 1')
+    .setHelpText('가장 기본이 되는 객실 타입부터 작성해주세요.');
+
+  form.addTextItem()
+    .setTitle('[타입1] 방 이름')
+    .setHelpText('예: 스탠다드, 원룸, A타입')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('[타입1] 월 가격')
+    .setHelpText('통화 포함. 예: 80만원, $800')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('[타입1] 해당 타입 총 방 개수')
+    .setHelpText('예: 3개')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('[타입1] 최대 인원')
+    .setHelpText('예: 2명')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('[타입1] 방 크기')
+    .setHelpText('예: 25m² (7.5평)');
+
+  form.addTextItem()
+    .setTitle('[타입1] 침대 타입')
+    .setHelpText('예: 퀸베드, 더블, 싱글×2')
+    .setRequired(true);
+
+  form.addCheckboxItem()
+    .setTitle('[타입1] 편의시설')
+    .setHelpText('해당되는 항목을 모두 선택해주세요.')
+    .setChoiceValues([
+      'WiFi', '에어컨', 'TV', '냉장고', '전자레인지',
+      '세탁기', '건조기', '풀 키친 (가스/인덕션+싱크대)',
+      '간이 주방 (전자레인지+전기포트)', '개인 욕실',
+      '헤어드라이어', '다리미', '책상', '옷장/수납장',
+      '발코니', '시티뷰'
+    ])
+    .setRequired(true);
+
+  form.addParagraphTextItem()
+    .setTitle('[타입1] 방 설명 (한국어)')
+    .setHelpText('2~3문장이면 충분합니다. 영어/일어/중국어는 번역해드립니다.');
+
+  // ──────────────────────────────
+  // 섹션 3: 객실 타입 2
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('3. 객실 정보 - 타입 2')
+    .setHelpText('두 번째 객실 타입. 없으면 비워두셔도 됩니다.');
+
+  form.addTextItem()
+    .setTitle('[타입2] 방 이름')
+    .setHelpText('예: 디럭스, 투룸, B타입');
+
+  form.addTextItem()
+    .setTitle('[타입2] 월 가격')
+    .setHelpText('통화 포함');
+
+  form.addTextItem()
+    .setTitle('[타입2] 해당 타입 총 방 개수');
+
+  form.addTextItem()
+    .setTitle('[타입2] 최대 인원');
+
+  form.addTextItem()
+    .setTitle('[타입2] 방 크기');
+
+  form.addTextItem()
+    .setTitle('[타입2] 침대 타입');
+
+  form.addCheckboxItem()
+    .setTitle('[타입2] 편의시설')
+    .setChoiceValues([
+      'WiFi', '에어컨', 'TV', '냉장고', '전자레인지',
+      '세탁기', '건조기', '풀 키친 (가스/인덕션+싱크대)',
+      '간이 주방 (전자레인지+전기포트)', '개인 욕실',
+      '헤어드라이어', '다리미', '책상', '옷장/수납장',
+      '발코니', '시티뷰'
+    ]);
+
+  form.addParagraphTextItem()
+    .setTitle('[타입2] 방 설명 (한국어)');
+
+  // ──────────────────────────────
+  // 섹션 4: 객실 타입 3
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('4. 객실 정보 - 타입 3')
+    .setHelpText('세 번째 객실 타입. 없으면 비워두셔도 됩니다.');
+
+  form.addTextItem()
+    .setTitle('[타입3] 방 이름');
+
+  form.addTextItem()
+    .setTitle('[타입3] 월 가격');
+
+  form.addTextItem()
+    .setTitle('[타입3] 해당 타입 총 방 개수');
+
+  form.addTextItem()
+    .setTitle('[타입3] 최대 인원');
+
+  form.addTextItem()
+    .setTitle('[타입3] 방 크기');
+
+  form.addTextItem()
+    .setTitle('[타입3] 침대 타입');
+
+  form.addCheckboxItem()
+    .setTitle('[타입3] 편의시설')
+    .setChoiceValues([
+      'WiFi', '에어컨', 'TV', '냉장고', '전자레인지',
+      '세탁기', '건조기', '풀 키친 (가스/인덕션+싱크대)',
+      '간이 주방 (전자레인지+전기포트)', '개인 욕실',
+      '헤어드라이어', '다리미', '책상', '옷장/수납장',
+      '발코니', '시티뷰'
+    ]);
+
+  form.addParagraphTextItem()
+    .setTitle('[타입3] 방 설명 (한국어)');
+
+  // ──────────────────────────────
+  // 섹션 5: 사진
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('5. 사진')
+    .setHelpText(
+      '사진이 예약 전환율에 가장 큰 영향을 줍니다.\n' +
+      '밝은 자연광 아래에서, 방을 정리한 후, 가로 방향으로 촬영해주세요.\n\n' +
+      '아래 업로드가 불편하시면 카카오톡이나 구글 드라이브 링크로 보내주셔도 됩니다.'
+    );
+
+  form.addFileUploadItem()
+    .setTitle('건물 외관 사진')
+    .setHelpText('1~2장')
+    .setMaxFiles(3);
+
+  form.addFileUploadItem()
+    .setTitle('[타입1] 객실 사진')
+    .setHelpText('침실, 욕실, 주방, 전경 포함 4~6장')
+    .setMaxFiles(8);
+
+  form.addFileUploadItem()
+    .setTitle('[타입2] 객실 사진')
+    .setHelpText('없으면 건너뛰세요')
+    .setMaxFiles(8);
+
+  form.addFileUploadItem()
+    .setTitle('[타입3] 객실 사진')
+    .setHelpText('없으면 건너뛰세요')
+    .setMaxFiles(8);
+
+  form.addFileUploadItem()
+    .setTitle('기타 사진 (공용시설, 주변환경 등)')
+    .setMaxFiles(5);
+
+  form.addTextItem()
+    .setTitle('또는 사진 공유 링크')
+    .setHelpText('Google Drive, 네이버 MYBOX 등 공유 링크');
+
+  // ──────────────────────────────
+  // 섹션 6: 위치 / 주변 정보
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('6. 위치 / 주변 정보')
+    .setHelpText('외국인 게스트를 위한 교통 및 주변 정보입니다.');
+
+  form.addTextItem()
+    .setTitle('가장 가까운 지하철역')
+    .setHelpText('역명 + 호선 + 도보 소요시간. 예: 강남역 2호선 도보 5분')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('공항버스 / 공항 접근성')
+    .setHelpText('가까운 공항버스 정류장 또는 공항까지 이동 방법');
+
+  form.addParagraphTextItem()
+    .setTitle('주변 편의시설')
+    .setHelpText('편의점, 마트, 병원, 약국, 세탁소 등. 도보 거리 포함');
+
+  form.addParagraphTextItem()
+    .setTitle('주변 추천 장소')
+    .setHelpText('맛집, 카페, 관광지 등 외국인에게 추천할 곳');
+
+  // ──────────────────────────────
+  // 섹션 7: 결제 / 예약 정책
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('7. 결제 / 예약 정책');
+
+  form.addMultipleChoiceItem()
+    .setTitle('결제 통화')
+    .setChoiceValues(['USD (달러)', 'KRW (원화)', '둘 다 표시'])
+    .setRequired(true);
+
+  form.addMultipleChoiceItem()
+    .setTitle('온라인 보증금 비율')
+    .setHelpText('예약 시 온라인으로 선결제할 금액 비율')
+    .setChoiceValues(['20%', '30%', '50%', '100% (전액 선결제)', '기타 (아래에 입력)'])
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('보증금 비율 - 기타')
+    .setHelpText('위에서 "기타"를 선택한 경우 입력');
+
+  form.addTextItem()
+    .setTitle('최소 숙박 기간')
+    .setHelpText('예: 1개월 (28일), 2주')
+    .setRequired(true);
+
+  form.addTextItem()
+    .setTitle('최대 숙박 기간')
+    .setHelpText('예: 6개월, 제한 없음');
+
+  form.addParagraphTextItem()
+    .setTitle('취소/환불 정책')
+    .setHelpText('예: 체크인 7일 전 100% 환불 / 3일 전 50% / 이후 환불 불가')
+    .setRequired(true);
+
+  form.addParagraphTextItem()
+    .setTitle('추가 요금')
+    .setHelpText('인원 추가 비용, 청소비, 공과금 정책 등. 예: 1인 추가 월 10만원, 공과금 포함');
+
+  form.addCheckboxItem()
+    .setTitle('잔금 결제 방법 (체크인 시)')
+    .setHelpText('현장에서 받으실 수 있는 결제 방법')
+    .setChoiceValues(['현금', '계좌이체', '카드'])
+    .setRequired(true);
+
+  // ──────────────────────────────
+  // 섹션 8: 도메인 / 기타
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('8. 도메인 / 기타');
+
+  form.addTextItem()
+    .setTitle('원하시는 도메인')
+    .setHelpText('예: seoulstay.com, gangnamresidence.kr / 없으면 "추천 부탁"');
+
+  form.addTextItem()
+    .setTitle('관리자 로그인용 이메일')
+    .setHelpText('어드민 대시보드 접속에 사용됩니다')
+    .setRequired(true);
+
+  form.addMultipleChoiceItem()
+    .setTitle('새 예약 알림 방법')
+    .setChoiceValues(['이메일', '카카오톡', 'SMS', '알림 불필요'])
+    .setRequired(true);
+
+  // ──────────────────────────────
+  // 섹션 9: 하우스 룰
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('9. 입주 안내 / 하우스 룰 (선택)')
+    .setHelpText('게스트에게 안내할 내용이 있으면 작성해주세요.');
+
+  form.addCheckboxItem()
+    .setTitle('하우스 룰')
+    .setChoiceValues([
+      '금연',
+      '반려동물 불가',
+      '밤 10시 이후 소음 자제',
+      '주차 가능',
+      '주차 불가'
+    ]);
+
+  form.addParagraphTextItem()
+    .setTitle('기타 안내사항')
+    .setHelpText('WiFi 정보, 쓰레기 분리수거, 택배 수령, 비상 연락처 등');
+
+  // ──────────────────────────────
+  // 마무리
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('감사합니다!')
+    .setHelpText(
+      '보내주신 정보를 바탕으로 홈페이지를 완성하겠습니다.\n' +
+      '추가 사항이 있으시면 언제든 연락주세요.'
+    );
+
+  // 결과 출력
+  const editUrl = form.getEditUrl();
+  const publishedUrl = form.getPublishedUrl();
+
+  Logger.log('=== 폼 생성 완료 ===');
+  Logger.log('편집 URL: ' + editUrl);
+  Logger.log('공유 URL (클라이언트에게 보낼 링크): ' + publishedUrl);
+
+  return { editUrl, publishedUrl };
+}
