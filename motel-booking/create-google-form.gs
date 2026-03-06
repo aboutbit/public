@@ -332,6 +332,58 @@ function createMotelBookingForm() {
     .setHelpText('WiFi 정보, 쓰레기 분리수거, 택배 수령, 비상 연락처 등');
 
   // ──────────────────────────────
+  // 섹션 10: 디자인 선호도
+  // ──────────────────────────────
+  form.addSectionHeaderItem()
+    .setTitle('10. 홈페이지 디자인 분위기 (선택)')
+    .setHelpText(
+      '원하시는 홈페이지 분위기를 알려주시면 맞춰서 디자인합니다.\n' +
+      '잘 모르시겠으면 비워두셔도 괜찮습니다.'
+    );
+
+  form.addMultipleChoiceItem()
+    .setTitle('전체적인 분위기')
+    .setHelpText('가장 가까운 느낌을 하나 선택해주세요.')
+    .setChoiceValues([
+      '깔끔하고 모던한 (미니멀, 화이트 톤)',
+      '따뜻하고 아늑한 (우드톤, 베이지)',
+      '고급스럽고 세련된 (다크톤, 호텔 느낌)',
+      '밝고 활기찬 (컬러풀, 젊은 느낌)',
+      '잘 모르겠음 / 알아서 해주세요'
+    ]);
+
+  form.addMultipleChoiceItem()
+    .setTitle('주 타겟 고객층')
+    .setHelpText('어떤 고객을 주로 생각하고 계신가요?')
+    .setChoiceValues([
+      '관광 / 여행객',
+      '비즈니스 출장',
+      '어학연수 / 유학생',
+      '디지털 노마드 / 원격근무자',
+      '다양한 고객 모두'
+    ]);
+
+  form.addParagraphTextItem()
+    .setTitle('참고할 웹사이트 (레퍼런스)')
+    .setHelpText(
+      '"이런 느낌이 좋다"는 웹사이트가 있으면 URL을 적어주세요.\n' +
+      '숙소 사이트가 아니어도 괜찮습니다. 분위기만 비슷하면 됩니다.\n\n' +
+      '예시:\n' +
+      '- Airbnb (airbnb.com) - 사진 중심, 직관적 예약\n' +
+      '- Hmlet (hmlet.com) - 미니멀, 풀스크린 사진\n' +
+      '- STAY256 (stay256.com) - 한국 서비스드 레지던스\n' +
+      '- 호텔/펜션 사이트 중 마음에 드는 곳'
+    );
+
+  form.addParagraphTextItem()
+    .setTitle('기타 디자인 요청사항')
+    .setHelpText(
+      '특별히 원하시는 것이 있으면 자유롭게 적어주세요.\n' +
+      '예: "사진을 크게 보여줬으면 좋겠다", "지도가 잘 보이면 좋겠다",\n' +
+      '"너무 화려하지 않았으면 좋겠다" 등'
+    );
+
+  // ──────────────────────────────
   // 마무리
   // ──────────────────────────────
   form.addSectionHeaderItem()
