@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숙소 예약 홈페이지 - 필요 정보 안내</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      background: #f8f9fa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .header p { font-size: 16px; opacity: 0.85; max-width: 500px; margin: 0 auto; }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    .intro {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 32px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .intro p { font-size: 15px; color: #4b5563; }
+    .intro strong { color: #1e3a5f; }
+
+    .section {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 24px;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: default;
+    }
+    .section-header .num {
+      width: 32px; height: 32px;
+      background: #1e3a5f;
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 700; }
+    .section-header .priority {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+    .priority.must { background: #fef2f2; color: #dc2626; }
+    .priority.high { background: #fff7ed; color: #ea580c; }
+    .priority.mid  { background: #eff6ff; color: #2563eb; }
+    .priority.low  { background: #f0fdf4; color: #16a34a; }
+
+    .section-body { padding: 20px 24px; }
+
+    .desc { font-size: 14px; color: #6b7280; margin-bottom: 16px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    table th, table td {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 14px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    table th {
+      background: #f9fafb;
+      font-weight: 600;
+      color: #374151;
+      width: 180px;
+      white-space: nowrap;
+    }
+    table td { color: #4b5563; }
+    table tr:last-child th,
+    table tr:last-child td { border-bottom: none; }
+    table td .example {
+      display: inline-block;
+      background: #f3f4f6;
+      color: #6b7280;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    table td .note {
+      display: block;
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .photo-item {
+      background: #f9fafb;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .photo-item .icon { font-size: 32px; margin-bottom: 8px; }
+    .photo-item .label { font-size: 13px; font-weight: 600; color: #374151; }
+    .photo-item .count { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+
+    .tip {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #92400e;
+      margin-top: 16px;
+    }
+    .tip::before { content: "TIP  "; font-weight: 700; }
+
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 14px;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li .check {
+      width: 20px; height: 20px;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .footer-note {
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    .room-type-block {
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .room-type-block h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 36px 20px; }
+      .header h1 { font-size: 22px; }
+      .section-header { flex-wrap: wrap; gap: 8px; }
+      .section-header .priority { margin-left: 44px; }
+      table th { width: 120px; font-size: 13px; }
+      table td { font-size: 13px; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>숙소 예약 홈페이지 제작</h1>
+  <p>홈페이지 완성을 위해 아래 정보가 필요합니다.<br>확인 후 회신 부탁드립니다.</p>
+</div>
+
+<div class="container">
+
+  <!-- Intro -->
+  <div class="intro">
+    <p>
+      현재 홈페이지의 <strong>전체 구조와 기능(예약, 결제, 어드민)</strong>은 완성된 상태입니다.
+      아래 내용을 채워주시면 실제 운영 가능한 사이트로 마무리됩니다.
+      <strong>표시 항목은 필수</strong>이고, 나머지는 있으면 좋은 항목입니다.
+    </p>
+  </div>
+
+  <!-- 1. 숙소 기본 정보 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">1</div>
+      <h2>숙소 기본 정보</h2>
+      <span class="priority must">필수</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr>
+          <th>숙소 이름 *</th>
+          <td>
+            홈페이지에 표시될 브랜드명
+            <span class="example">예: Gangnam Residence, Seoul Monthly Stay</span>
+          </td>
+        </tr>
+        <tr>
+          <th>주소 *</th>
+          <td>
+            한글 주소 + 영문 주소
+            <span class="note">지도 표시 및 외국인 안내에 사용</span>
+          </td>
+        </tr>
+        <tr>
+          <th>전화번호 *</th>
+          <td>
+            국제 형식 포함
+            <span class="example">예: +82-10-1234-5678</span>
+          </td>
+        </tr>
+        <tr>
+          <th>이메일 *</th>
+          <td>
+            문의/예약 확인용
+            <span class="example">예: info@yourstay.com</span>
+          </td>
+        </tr>
+        <tr>
+          <th>카카오톡 / LINE ID</th>
+          <td>
+            외국인 메신저 문의용 (선택)
+          </td>
+        </tr>
+        <tr>
+          <th>체크인 시간 *</th>
+          <td>
+            <span class="example">예: 오후 3시 (15:00)</span>
+          </td>
+        </tr>
+        <tr>
+          <th>체크아웃 시간 *</th>
+          <td>
+            <span class="example">예: 오전 11시 (11:00)</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2. 객실 정보 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">2</div>
+      <h2>객실 정보</h2>
+      <span class="priority must">필수</span>
+    </div>
+    <div class="section-body">
+      <p class="desc">운영하실 객실 타입별로 아래 정보를 알려주세요. (2~3개 타입 권장)</p>
+
+      <div class="room-type-block">
+        <h4>객실 타입 1</h4>
+        <table>
+          <tr><th>방 이름 *</th><td><span class="example">예: 스탠다드, 디럭스, 스위트</span></td></tr>
+          <tr><th>월 가격 *</th><td>통화 포함 <span class="example">예: $800 / 100만원</span></td></tr>
+          <tr><th>방 개수 *</th><td>해당 타입 총 몇 실?</td></tr>
+          <tr><th>최대 인원 *</th><td><span class="example">예: 2명</span></td></tr>
+          <tr><th>방 크기</th><td><span class="example">예: 25m² (7.5평)</span></td></tr>
+          <tr><th>침대 타입 *</th><td><span class="example">예: 퀸베드, 더블, 싱글×2</span></td></tr>
+          <tr>
+            <th>편의시설 *</th>
+            <td>
+              해당되는 항목에 체크:<br>
+              <span class="example">
+                WiFi / 에어컨 / TV / 냉장고 / 전자레인지 / 세탁기 / 건조기 / 주방(풀) / 간이주방 / 욕실(개인) / 드라이어 / 다리미 / 책상 / 옷장 / 발코니
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>방 설명</th>
+            <td>
+              한국어로 2~3문장이면 충분합니다.
+              <span class="note">영어/일어/중국어는 번역해드립니다.</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="room-type-block">
+        <h4>객실 타입 2</h4>
+        <table>
+          <tr><th>방 이름 *</th><td></td></tr>
+          <tr><th>월 가격 *</th><td></td></tr>
+          <tr><th>방 개수 *</th><td></td></tr>
+          <tr><th>최대 인원 *</th><td></td></tr>
+          <tr><th>방 크기</th><td></td></tr>
+          <tr><th>침대 타입 *</th><td></td></tr>
+          <tr><th>편의시설 *</th><td></td></tr>
+          <tr><th>방 설명</th><td></td></tr>
+        </table>
+      </div>
+
+      <div class="room-type-block">
+        <h4>객실 타입 3 (해당 시)</h4>
+        <table>
+          <tr><th>방 이름</th><td></td></tr>
+          <tr><th>월 가격</th><td></td></tr>
+          <tr><th>방 개수</th><td></td></tr>
+          <tr><th>최대 인원</th><td></td></tr>
+          <tr><th>방 크기</th><td></td></tr>
+          <tr><th>침대 타입</th><td></td></tr>
+          <tr><th>편의시설</th><td></td></tr>
+          <tr><th>방 설명</th><td></td></tr>
+        </table>
+      </div>
+
+      <div class="tip">
+        가격을 USD로 표시하면 외국인이 비교하기 쉽습니다. 원화 가격을 알려주시면 환산해드립니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 사진 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">3</div>
+      <h2>사진</h2>
+      <span class="priority must">필수</span>
+    </div>
+    <div class="section-body">
+      <p class="desc">사진이 예약 전환율에 가장 큰 영향을 줍니다. 밝고 깨끗한 사진을 보내주세요.</p>
+
+      <div class="photo-grid">
+        <div class="photo-item">
+          <div class="icon">🏨</div>
+          <div class="label">건물 외관</div>
+          <div class="count">1~2장</div>
+        </div>
+        <div class="photo-item">
+          <div class="icon">🛏️</div>
+          <div class="label">객실 전체</div>
+          <div class="count">타입별 2~3장</div>
+        </div>
+        <div class="photo-item">
+          <div class="icon">🚿</div>
+          <div class="label">욕실</div>
+          <div class="count">타입별 1장</div>
+        </div>
+        <div class="photo-item">
+          <div class="icon">🍳</div>
+          <div class="label">주방/간이주방</div>
+          <div class="count">타입별 1장</div>
+        </div>
+        <div class="photo-item">
+          <div class="icon">🪟</div>
+          <div class="label">창문 밖 전경</div>
+          <div class="count">1~2장</div>
+        </div>
+        <div class="photo-item">
+          <div class="icon">🧺</div>
+          <div class="label">공용 시설</div>
+          <div class="count">있는 경우만</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        스마트폰으로 촬영하셔도 됩니다. 자연광이 들어오는 낮 시간에, 방을 정리한 후 촬영하면 훨씬 좋습니다. 가로(횡) 방향으로 찍어주세요.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 위치/주변 정보 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">4</div>
+      <h2>위치 / 주변 정보</h2>
+      <span class="priority high">중요</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr>
+          <th>가까운 지하철역 *</th>
+          <td>
+            역명 + 호선 + 도보 소요시간
+            <span class="example">예: 강남역 2호선 도보 5분</span>
+          </td>
+        </tr>
+        <tr>
+          <th>공항 버스 *</th>
+          <td>
+            가장 가까운 공항버스 정류장
+            <span class="example">예: 6009번 정류장 도보 3분</span>
+          </td>
+        </tr>
+        <tr>
+          <th>주변 편의시설</th>
+          <td>
+            편의점, 마트, 병원, 약국, 세탁소 등
+            <span class="note">도보 거리 포함하면 좋습니다</span>
+          </td>
+        </tr>
+        <tr>
+          <th>주변 맛집/카페</th>
+          <td>외국인에게 추천할 곳 2~3곳</td>
+        </tr>
+        <tr>
+          <th>주변 관광지</th>
+          <td>도보 또는 지하철 1~2정거장 이내</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 결제/정책 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">5</div>
+      <h2>결제 / 예약 정책</h2>
+      <span class="priority high">중요</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr>
+          <th>결제 통화 *</th>
+          <td>
+            USD(달러) / KRW(원화) / 둘 다?
+            <span class="note">현재 USD로 설정되어 있습니다</span>
+          </td>
+        </tr>
+        <tr>
+          <th>보증금 비율 *</th>
+          <td>
+            온라인 선결제 비율
+            <span class="example">현재 30%로 설정됨. 변경 필요 시 알려주세요</span>
+          </td>
+        </tr>
+        <tr>
+          <th>최소 숙박 기간 *</th>
+          <td>
+            <span class="example">예: 최소 1개월 (28일)</span>
+          </td>
+        </tr>
+        <tr>
+          <th>최대 숙박 기간</th>
+          <td>
+            <span class="example">예: 최대 6개월</span>
+          </td>
+        </tr>
+        <tr>
+          <th>취소/환불 정책 *</th>
+          <td>
+            체크인 며칠 전까지 무료 취소 가능?
+            <span class="example">예: 7일 전 100% 환불 / 3일 전 50% / 이후 환불 불가</span>
+          </td>
+        </tr>
+        <tr>
+          <th>추가 요금</th>
+          <td>
+            인원 추가, 청소비, 공과금 등
+            <span class="example">예: 1인 추가 월 $100, 공과금 포함</span>
+          </td>
+        </tr>
+        <tr>
+          <th>잔금 결제 방법 *</th>
+          <td>
+            체크인 시 현장에서 받을 방법
+            <span class="example">예: 현금, 계좌이체, 카드</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6. 도메인/기술 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">6</div>
+      <h2>도메인 / 기술 사항</h2>
+      <span class="priority mid">배포 시 필요</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr>
+          <th>도메인</th>
+          <td>
+            원하시는 도메인이 있나요?
+            <span class="example">예: seoulstay.com, gangnamresidence.kr</span>
+            <span class="note">없으시면 추천해드립니다</span>
+          </td>
+        </tr>
+        <tr>
+          <th>Stripe 계정</th>
+          <td>
+            카드 결제용. 사업자 등록번호 필요.
+            <span class="note">계정 생성을 도와드릴 수 있습니다</span>
+          </td>
+        </tr>
+        <tr>
+          <th>어드민 이메일 *</th>
+          <td>
+            관리자 로그인용 이메일
+          </td>
+        </tr>
+        <tr>
+          <th>예약 알림</th>
+          <td>
+            새 예약 시 알림을 받을 방법
+            <span class="example">예: 이메일, 카카오톡, SMS</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 7. 입주 안내 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">7</div>
+      <h2>입주 안내 / 하우스 룰</h2>
+      <span class="priority low">선택</span>
+    </div>
+    <div class="section-body">
+      <p class="desc">체크인 후 게스트에게 안내할 내용이 있으면 알려주세요. 홈페이지에 게시할 수 있습니다.</p>
+      <ul class="checklist">
+        <li><div class="check"></div>WiFi 이름 / 비밀번호</li>
+        <li><div class="check"></div>쓰레기 분리수거 안내</li>
+        <li><div class="check"></div>소음 규정 (예: 밤 10시 이후 조용히)</li>
+        <li><div class="check"></div>흡연 정책</li>
+        <li><div class="check"></div>반려동물 가능 여부</li>
+        <li><div class="check"></div>주차 가능 여부 / 비용</li>
+        <li><div class="check"></div>택배 수령 안내</li>
+        <li><div class="check"></div>비상 연락처</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Summary checklist -->
+  <div class="section">
+    <div class="section-header">
+      <div class="num">&#10003;</div>
+      <h2>보내주실 것 요약</h2>
+    </div>
+    <div class="section-body">
+      <ul class="checklist">
+        <li><div class="check"></div><strong>숙소 이름, 주소, 연락처</strong></li>
+        <li><div class="check"></div><strong>객실 타입별 이름, 가격, 개수, 편의시설</strong></li>
+        <li><div class="check"></div><strong>사진</strong> (객실 타입별 4~6장 + 외관 1~2장)</li>
+        <li><div class="check"></div><strong>가까운 지하철역, 공항버스 정보</strong></li>
+        <li><div class="check"></div><strong>결제 통화, 보증금 비율, 취소 정책</strong></li>
+        <li><div class="check"></div><strong>원하시는 도메인</strong> (없으면 추천)</li>
+      </ul>
+      <div class="tip" style="margin-top: 20px;">
+        한꺼번에 다 안 보내셔도 됩니다. 사진과 기본 정보부터 보내주시면 먼저 반영하고, 나머지는 순차적으로 업데이트합니다.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  이 문서에 대한 문의 사항이 있으시면 편하게 연락주세요.
+</div>
+
+</body>
+</html>
