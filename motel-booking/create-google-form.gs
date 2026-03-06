@@ -202,37 +202,24 @@ function createMotelBookingForm() {
     .setTitle('5. 사진')
     .setHelpText(
       '사진이 예약 전환율에 가장 큰 영향을 줍니다.\n' +
-      '밝은 자연광 아래에서, 방을 정리한 후, 가로 방향으로 촬영해주세요.\n\n' +
-      '아래 업로드가 불편하시면 카카오톡이나 구글 드라이브 링크로 보내주셔도 됩니다.'
+      '밝은 자연광 아래에서, 방을 정리한 후, 가로(횡) 방향으로 촬영해주세요.\n\n' +
+      '사진은 아래 방법 중 편하신 걸로 보내주세요:\n' +
+      '1) Google Drive 폴더에 업로드 후 공유 링크\n' +
+      '2) 네이버 MYBOX / 카카오톡 전송\n' +
+      '3) 이메일 첨부'
     );
 
-  form.addFileUploadItem()
-    .setTitle('건물 외관 사진')
-    .setHelpText('1~2장')
-    .setMaxFiles(3);
-
-  form.addFileUploadItem()
-    .setTitle('[타입1] 객실 사진')
-    .setHelpText('침실, 욕실, 주방, 전경 포함 4~6장')
-    .setMaxFiles(8);
-
-  form.addFileUploadItem()
-    .setTitle('[타입2] 객실 사진')
-    .setHelpText('없으면 건너뛰세요')
-    .setMaxFiles(8);
-
-  form.addFileUploadItem()
-    .setTitle('[타입3] 객실 사진')
-    .setHelpText('없으면 건너뛰세요')
-    .setMaxFiles(8);
-
-  form.addFileUploadItem()
-    .setTitle('기타 사진 (공용시설, 주변환경 등)')
-    .setMaxFiles(5);
-
-  form.addTextItem()
-    .setTitle('또는 사진 공유 링크')
-    .setHelpText('Google Drive, 네이버 MYBOX 등 공유 링크');
+  form.addParagraphTextItem()
+    .setTitle('사진 전달 방법')
+    .setHelpText(
+      '아래 내용을 참고하여 사진을 준비해주세요:\n\n' +
+      '- 건물 외관: 1~2장\n' +
+      '- [타입1] 객실 사진: 4~6장 (침실, 욕실, 주방, 전경)\n' +
+      '- [타입2] 객실 사진: 4~6장 (해당 시)\n' +
+      '- [타입3] 객실 사진: 4~6장 (해당 시)\n' +
+      '- 기타: 공용시설, 주변환경 등\n\n' +
+      'Google Drive 공유 링크 또는 전달 방법을 적어주세요.'
+    );
 
   // ──────────────────────────────
   // 섹션 6: 위치 / 주변 정보
