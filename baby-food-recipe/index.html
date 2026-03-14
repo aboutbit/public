@@ -2,23 +2,33 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#c0392b">
 <title>소고기 채소 미니떡갈비 - 유아식 레시피</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Noto Sans KR', sans-serif;
     background: #fef9f0;
     color: #3d3225;
     line-height: 1.8;
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
+  /* ── Hero ── */
   .hero {
     background: linear-gradient(135deg, #c0392b 0%, #e67e22 100%);
     padding: 48px 24px 36px;
+    padding-top: calc(48px + env(safe-area-inset-top, 0));
     text-align: center;
     position: relative;
   }
@@ -34,114 +44,319 @@
   }
 
   .hero .emoji-big { font-size: 52px; margin-bottom: 12px; }
-  .hero h1 { font-size: 27px; font-weight: 700; color: #fff; margin-bottom: 4px; text-shadow: 0 1px 3px rgba(0,0,0,.15); }
-  .hero .subtitle { font-size: 14px; color: rgba(255,255,255,.88); font-weight: 300; }
+  .hero h1 { font-size: clamp(22px, 6vw, 27px); font-weight: 700; color: #fff; margin-bottom: 4px; text-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .hero .subtitle { font-size: clamp(13px, 3.5vw, 14px); color: rgba(255,255,255,.88); font-weight: 300; }
 
-  .container { max-width: 620px; margin: 0 auto; padding: 24px 20px 48px; }
+  /* ── Container ── */
+  .container {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
 
-  /* ── badge row ── */
-  .badge-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-  .badge { display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #f0e0c8; border-radius: 20px; padding: 5px 13px; font-size: 12.5px; font-weight: 500; color: #8b6914; }
+  /* ── Badges ── */
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
 
-  /* ── section ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid #f0e0c8;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #8b6914;
+    white-space: nowrap;
+  }
+
+  /* ── Section ── */
   .section { margin-bottom: 32px; }
-  .section-title {
-    font-size: 17px; font-weight: 700; color: #c0392b; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, #f0d9b5, transparent); }
 
-  /* ── ingredient table ── */
-  .ing-table { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+  .section-title {
+    font-size: clamp(16px, 4.5vw, 17px);
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #f0d9b5, transparent);
+  }
+
+  /* ── Ingredient Table (desktop) ── */
+  .ing-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 6px; }
+
+  .ing-table { width: 100%; border-collapse: collapse; }
+
   .ing-table th {
-    text-align: left; font-size: 12px; color: #9a8a76; font-weight: 500;
-    padding: 6px 10px; border-bottom: 2px solid #ede0cf;
+    text-align: left;
+    font-size: 12px;
+    color: #9a8a76;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-bottom: 2px solid #ede0cf;
+    white-space: nowrap;
   }
+
   .ing-table td {
-    padding: 10px; font-size: 14px; border-bottom: 1px solid #f5efe5;
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #f5efe5;
+    vertical-align: top;
   }
+
   .ing-table tr:last-child td { border-bottom: none; }
+
   .ing-cat {
-    background: #fdf8f0; font-weight: 600; font-size: 13px; color: #b8860b;
-    padding: 8px 10px !important; border-bottom: 1px solid #ede0cf !important;
+    background: #fdf8f0;
+    font-weight: 600;
+    font-size: 13px;
+    color: #b8860b;
+    padding: 8px 10px !important;
+    border-bottom: 1px solid #ede0cf !important;
   }
+
   .ing-note { font-size: 12px; color: #a0896e; margin-top: 2px; }
   .qty { color: #c0392b; font-weight: 600; white-space: nowrap; }
 
-  /* ── prep box ── */
-  .prep-box {
-    background: #fff8ee; border-radius: 14px; padding: 18px; border-left: 4px solid #e67e22;
+  /* ── Ingredient Cards (mobile) ── */
+  .ing-cards { display: none; }
+
+  .ing-card-group-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #b8860b;
+    background: #fdf8f0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    margin-top: 12px;
   }
+
+  .ing-card-group-title:first-child { margin-top: 0; }
+
+  .ing-card {
+    background: #fff;
+    border: 1px solid #f0e8da;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+
+  .ing-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  .ing-card-name { font-size: 14px; font-weight: 500; }
+  .ing-card-qty { color: #c0392b; font-weight: 600; font-size: 14px; }
+  .ing-card-note { font-size: 12px; color: #a0896e; }
+
+  /* ── Prep box ── */
+  .prep-box {
+    background: #fff8ee;
+    border-radius: 14px;
+    padding: 16px;
+    border-left: 4px solid #e67e22;
+  }
+
   .prep-box h4 { font-size: 14px; color: #e67e22; margin-bottom: 8px; }
   .prep-box ul { list-style: none; padding-left: 0; }
-  .prep-box li { padding: 4px 0; font-size: 14px; }
+  .prep-box li { padding: 6px 0; font-size: 14px; line-height: 1.7; }
   .prep-box li::before { content: '▸ '; color: #e67e22; font-weight: 700; }
 
-  /* ── steps ── */
+  /* ── Steps ── */
   .step-card {
-    background: #fff; border-radius: 14px; padding: 20px 20px 18px 64px;
-    margin-bottom: 14px; position: relative; border: 1px solid #f0e4d4;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 16px 16px 56px;
+    margin-bottom: 14px;
+    position: relative;
+    border: 1px solid #f0e4d4;
     box-shadow: 0 1px 6px rgba(180,150,100,.06);
   }
+
   .step-num {
-    position: absolute; left: 18px; top: 18px;
-    width: 34px; height: 34px;
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    width: 32px;
+    height: 32px;
     background: linear-gradient(135deg, #c0392b, #e67e22);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 700; font-size: 15px;
-  }
-  .step-title { font-weight: 700; color: #c0392b; margin-bottom: 6px; font-size: 15px; }
-  .step-detail { font-size: 14px; color: #3d3225; }
-  .step-detail ul { margin-top: 6px; padding-left: 18px; }
-  .step-detail li { padding: 2px 0; }
-  .step-point {
-    display: inline-block; background: #ffeaea; color: #c0392b; font-size: 12px;
-    font-weight: 600; padding: 2px 8px; border-radius: 6px; margin-top: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
   }
 
-  /* ── tip / warn ── */
+  .step-title { font-weight: 700; color: #c0392b; margin-bottom: 6px; font-size: 15px; }
+
+  .step-detail { font-size: 14px; color: #3d3225; }
+  .step-detail ul { margin-top: 6px; padding-left: 16px; }
+  .step-detail li { padding: 3px 0; }
+
+  .step-point {
+    display: inline-block;
+    background: #ffeaea;
+    color: #c0392b;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+
+  /* ── Tip / Warn ── */
   .tip-box {
-    background: #e8f5e9; border-radius: 12px; padding: 14px 16px;
-    font-size: 13.5px; color: #2e7d32; border-left: 4px solid #66bb6a; margin-top: 8px;
+    background: #e8f5e9;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #2e7d32;
+    border-left: 4px solid #66bb6a;
+    margin-top: 10px;
+    line-height: 1.7;
   }
   .tip-box strong { color: #1b5e20; }
 
   .warn-box {
-    background: #fff3e0; border-radius: 12px; padding: 14px 16px;
-    font-size: 13.5px; color: #e65100; border-left: 4px solid #ff9800; margin-top: 8px;
+    background: #fff3e0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #e65100;
+    border-left: 4px solid #ff9800;
+    margin-top: 10px;
+    line-height: 1.7;
   }
   .warn-box strong { color: #bf360c; }
 
-  /* ── freeze section ── */
+  /* ── Freeze section ── */
   .freeze-section {
     background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
-    border-radius: 16px; padding: 22px; border-left: 4px solid #5c8fd6;
+    border-radius: 16px;
+    padding: 20px;
+    border-left: 4px solid #5c8fd6;
   }
+
   .freeze-section h3 { color: #3565a0; margin-bottom: 12px; font-size: 16px; }
 
-  .freeze-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .freeze-card {
-    background: rgba(255,255,255,.7); border-radius: 10px; padding: 14px;
+  .freeze-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
-  .freeze-card h4 { font-size: 13px; color: #3565a0; margin-bottom: 6px; }
-  .freeze-card p { font-size: 13px; color: #37474f; }
 
-  /* ── result ── */
-  .result-box {
-    background: #fff; border-radius: 16px; padding: 20px;
-    border: 2px solid #f0e4d4; text-align: center;
+  .freeze-card {
+    background: rgba(255,255,255,.7);
+    border-radius: 10px;
+    padding: 14px;
   }
+
+  .freeze-card h4 { font-size: 13px; color: #3565a0; margin-bottom: 6px; }
+  .freeze-card p { font-size: 13px; color: #37474f; line-height: 1.6; }
+
+  /* ── Result ── */
+  .result-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 2px solid #f0e4d4;
+    text-align: center;
+  }
+
   .result-box .big { font-size: 40px; margin-bottom: 8px; }
-  .result-box p { font-size: 14px; color: #6d5d4b; }
+  .result-box p { font-size: 14px; color: #6d5d4b; line-height: 1.8; }
 
   .footer-note {
-    text-align: center; font-size: 12px; color: #b8a28e;
-    margin-top: 36px; padding-top: 20px; border-top: 1px solid #ede0cf;
+    text-align: center;
+    font-size: 12px;
+    color: #b8a28e;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid #ede0cf;
   }
 
-  @media (max-width: 480px) {
-    .hero h1 { font-size: 23px; }
-    .freeze-grid { grid-template-columns: 1fr; }
+  /* ══════════════════════════════════════ */
+  /*  Responsive                           */
+  /* ══════════════════════════════════════ */
+
+  @media (max-width: 520px) {
+    .container { padding: 20px 14px 40px; }
+
+    /* 테이블 → 카드로 교체 */
+    .ing-table-wrap { display: none; }
+    .ing-cards { display: block; margin-bottom: 6px; }
+
+    /* step card 여백 조정 */
+    .step-card {
+      padding: 16px 14px 14px 50px;
+    }
+
+    .step-num {
+      left: 12px;
+      top: 14px;
+      width: 28px;
+      height: 28px;
+      font-size: 13px;
+    }
+
+    .step-title { font-size: 14px; }
+    .step-detail { font-size: 13.5px; }
+    .step-detail ul { padding-left: 14px; }
+
+    /* freeze grid 1열 */
+    .freeze-grid { grid-template-columns: 1fr; gap: 8px; }
+
+    .freeze-section { padding: 16px; }
+    .freeze-card { padding: 12px; }
+
+    /* prep box */
+    .prep-box { padding: 14px; }
+    .prep-box li { font-size: 13.5px; }
+
+    /* badges */
+    .badge { padding: 4px 10px; font-size: 11.5px; }
+    .badge-row { gap: 5px; }
+
+    /* result */
+    .result-box { padding: 16px; }
+    .result-box p { font-size: 13px; }
+  }
+
+  @media (max-width: 360px) {
+    .container { padding: 16px 12px 36px; }
+
+    .hero { padding: 36px 16px 28px; }
+    .hero .emoji-big { font-size: 44px; }
+
+    .step-card { padding: 14px 12px 12px 46px; }
+    .step-num { width: 26px; height: 26px; font-size: 12px; left: 10px; top: 13px; }
+
+    .badge { padding: 3px 8px; font-size: 11px; }
+
+    .freeze-section { padding: 14px; border-left-width: 3px; }
+    .prep-box { padding: 12px; border-left-width: 3px; }
+    .tip-box, .warn-box { padding: 10px 12px; border-left-width: 3px; }
   }
 </style>
 </head>
@@ -165,62 +380,140 @@
   <!-- ═══ 재료 ═══ -->
   <div class="section">
     <div class="section-title">재료 (20개 기준)</div>
-    <table class="ing-table">
-      <thead>
-        <tr><th>재료</th><th>분량</th><th>비고</th></tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="3" class="ing-cat">고기</td></tr>
-        <tr>
-          <td>소고기 다짐육</td>
-          <td class="qty">200g</td>
-          <td><div class="ing-note">지방 15~20% (너무 살코기면 퍽퍽함)</div></td>
-        </tr>
-        <tr><td colspan="3" class="ing-cat">바인더 (반죽 잡아주는 역할)</td></tr>
-        <tr>
-          <td>두부</td>
-          <td class="qty">75g (½모)</td>
-          <td><div class="ing-note">면포로 꼭 짜서 물기 완전 제거</div></td>
-        </tr>
-        <tr>
-          <td>달걀</td>
-          <td class="qty">1개</td>
-          <td><div class="ing-note">반죽 결합 + 촉촉함</div></td>
-        </tr>
-        <tr>
-          <td>밀가루 (또는 감자전분)</td>
-          <td class="qty">1큰술 (8g)</td>
-          <td><div class="ing-note">반죽이 물렁할 때만 추가</div></td>
-        </tr>
-        <tr><td colspan="3" class="ing-cat">채소</td></tr>
-        <tr>
-          <td>양파</td>
-          <td class="qty">¼개 (50g)</td>
-          <td><div class="ing-note">잘게 다짐 (3mm 이하)</div></td>
-        </tr>
-        <tr>
-          <td>당근</td>
-          <td class="qty">¼개 (30g)</td>
-          <td><div class="ing-note">잘게 다짐 (3mm 이하)</div></td>
-        </tr>
-        <tr>
-          <td>브로콜리</td>
-          <td class="qty">3송이 (40g)</td>
-          <td><div class="ing-note">끓는 물에 1분 데쳐서 잘게 다짐</div></td>
-        </tr>
-        <tr><td colspan="3" class="ing-cat">양념</td></tr>
-        <tr>
-          <td>참기름</td>
-          <td class="qty">½큰술 (3ml)</td>
-          <td><div class="ing-note">풍미용</div></td>
-        </tr>
-        <tr>
-          <td>올리브오일</td>
-          <td class="qty">1큰술 (15ml)</td>
-          <td><div class="ing-note">팬 굽기용</div></td>
-        </tr>
-      </tbody>
-    </table>
+
+    <!-- Desktop: 테이블 -->
+    <div class="ing-table-wrap">
+      <table class="ing-table">
+        <thead>
+          <tr><th>재료</th><th>분량</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" class="ing-cat">고기</td></tr>
+          <tr>
+            <td>소고기 다짐육</td>
+            <td class="qty">200g</td>
+            <td><div class="ing-note">지방 15~20% (너무 살코기면 퍽퍽함)</div></td>
+          </tr>
+          <tr><td colspan="3" class="ing-cat">바인더 (반죽 잡아주는 역할)</td></tr>
+          <tr>
+            <td>두부</td>
+            <td class="qty">75g (½모)</td>
+            <td><div class="ing-note">면포로 꼭 짜서 물기 완전 제거</div></td>
+          </tr>
+          <tr>
+            <td>달걀</td>
+            <td class="qty">1개</td>
+            <td><div class="ing-note">반죽 결합 + 촉촉함</div></td>
+          </tr>
+          <tr>
+            <td>밀가루 (또는 감자전분)</td>
+            <td class="qty">1큰술 (8g)</td>
+            <td><div class="ing-note">반죽이 물렁할 때만 추가</div></td>
+          </tr>
+          <tr><td colspan="3" class="ing-cat">채소</td></tr>
+          <tr>
+            <td>양파</td>
+            <td class="qty">¼개 (50g)</td>
+            <td><div class="ing-note">잘게 다짐 (3mm 이하)</div></td>
+          </tr>
+          <tr>
+            <td>당근</td>
+            <td class="qty">¼개 (30g)</td>
+            <td><div class="ing-note">잘게 다짐 (3mm 이하)</div></td>
+          </tr>
+          <tr>
+            <td>브로콜리</td>
+            <td class="qty">3송이 (40g)</td>
+            <td><div class="ing-note">끓는 물에 1분 데쳐서 잘게 다짐</div></td>
+          </tr>
+          <tr><td colspan="3" class="ing-cat">양념</td></tr>
+          <tr>
+            <td>참기름</td>
+            <td class="qty">½큰술 (3ml)</td>
+            <td><div class="ing-note">풍미용</div></td>
+          </tr>
+          <tr>
+            <td>올리브오일</td>
+            <td class="qty">1큰술 (15ml)</td>
+            <td><div class="ing-note">팬 굽기용</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile: 카드 -->
+    <div class="ing-cards">
+      <div class="ing-card-group-title">고기</div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">소고기 다짐육</span>
+          <span class="ing-card-qty">200g</span>
+        </div>
+        <div class="ing-card-note">지방 15~20% (너무 살코기면 퍽퍽함)</div>
+      </div>
+
+      <div class="ing-card-group-title">바인더 (반죽 잡아주는 역할)</div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">두부</span>
+          <span class="ing-card-qty">75g (½모)</span>
+        </div>
+        <div class="ing-card-note">면포로 꼭 짜서 물기 완전 제거</div>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">달걀</span>
+          <span class="ing-card-qty">1개</span>
+        </div>
+        <div class="ing-card-note">반죽 결합 + 촉촉함</div>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">밀가루 (또는 감자전분)</span>
+          <span class="ing-card-qty">1큰술 (8g)</span>
+        </div>
+        <div class="ing-card-note">반죽이 물렁할 때만 추가</div>
+      </div>
+
+      <div class="ing-card-group-title">채소</div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">양파</span>
+          <span class="ing-card-qty">¼개 (50g)</span>
+        </div>
+        <div class="ing-card-note">잘게 다짐 (3mm 이하)</div>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">당근</span>
+          <span class="ing-card-qty">¼개 (30g)</span>
+        </div>
+        <div class="ing-card-note">잘게 다짐 (3mm 이하)</div>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">브로콜리</span>
+          <span class="ing-card-qty">3송이 (40g)</span>
+        </div>
+        <div class="ing-card-note">끓는 물에 1분 데쳐서 잘게 다짐</div>
+      </div>
+
+      <div class="ing-card-group-title">양념</div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">참기름</span>
+          <span class="ing-card-qty">½큰술 (3ml)</span>
+        </div>
+        <div class="ing-card-note">풍미용</div>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-top">
+          <span class="ing-card-name">올리브오일</span>
+          <span class="ing-card-qty">1큰술 (15ml)</span>
+        </div>
+        <div class="ing-card-note">팬 굽기용</div>
+      </div>
+    </div>
 
     <div class="warn-box">
       <strong>유아식이므로 소금·간장·설탕 넣지 않습니다.</strong> 참기름과 채소 자체의 단맛으로 충분해요. 어른이 먹기엔 싱거울 수 있지만 아이 입맛엔 딱 맞습니다.
