@@ -105,6 +105,12 @@
     margin-right: 4px;
   }
 
+  .ktx-tag {
+    display: inline-block; background: #e3f2fd; color: #1565c0;
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
+    margin-right: 4px;
+  }
+
   /* ── Tip Cards ── */
   .tip-section {
     background: linear-gradient(135deg, #fef9f0, #fff8ee);
@@ -153,14 +159,6 @@
     margin-top: 5px; width: 16px; height: 16px; accent-color: #4a6741; flex-shrink: 0;
   }
 
-  /* ── Map link ── */
-  .map-link {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: #4a6741; color: #fff; font-size: 12px; font-weight: 500;
-    padding: 4px 10px; border-radius: 6px; text-decoration: none;
-    margin-top: 6px;
-  }
-
   /* ── Footer ── */
   .footer-note {
     text-align: center; font-size: 12px; color: #b8a28e;
@@ -193,7 +191,7 @@
 <div class="hero">
   <div class="emoji-row">🏯 👩‍👶 🌸</div>
   <h1>전주 엄마+아기 여행</h1>
-  <p class="sub">1박 2일 · 2026. 3. 27(금) ~ 28(토)</p>
+  <p class="sub">KTX 1박 2일 · 2026. 3. 27(금) ~ 28(토)</p>
 </div>
 
 <div class="container">
@@ -209,12 +207,60 @@
       <div class="info-value">엄마 4명 + 아기 4명</div>
     </div>
     <div class="info-item">
-      <div class="info-label">숙소</div>
-      <div class="info-value"><a href="https://map.naver.com/v5/search/전주시 완산구 최명희길 11-3" target="_blank">건축의선율</a></div>
+      <div class="info-label">이동</div>
+      <div class="info-value">KTX (용산 → 전주)</div>
     </div>
     <div class="info-item">
-      <div class="info-label">위치</div>
-      <div class="info-value">한옥마을 내 (최명희길)</div>
+      <div class="info-label">숙소</div>
+      <div class="info-value"><a href="https://map.naver.com/v5/search/전주시 완산구 최명희길 11-3" target="_blank">건축의선율</a> (한옥마을)</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  KTX 이동 정보                              -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🚄</span> KTX 이동 가이드</div>
+
+    <div class="tip-section">
+      <h3>가는 편 (3/27 금)</h3>
+      <ul>
+        <li><strong>용산역 → 전주역</strong> — 약 1시간 30분~1시간 40분</li>
+        <li>추천 열차: <strong>오전 10시~11시대</strong> 출발 (도착 후 점심 타이밍)</li>
+        <li>금요일 오전은 비교적 여유 → 그래도 <strong>미리 예매</strong> 권장</li>
+        <li>코레일톡 앱 or 레츠코레일 홈페이지에서 예매</li>
+      </ul>
+    </div>
+
+    <div class="tip-section">
+      <h3>오는 편 (3/28 토)</h3>
+      <ul>
+        <li><strong>전주역 → 용산역</strong> — 동일 1시간 30분~40분</li>
+        <li>추천 열차: <strong>오후 3시~4시대</strong> 출발 (아기 낮잠 시간)</li>
+        <li>토요일 오후 상행은 인기 → <strong>반드시 사전 예매</strong></li>
+      </ul>
+    </div>
+
+    <div class="tip-warn">
+      <strong>⚠️ 좌석 TIP</strong><br>
+      • <strong>만 6세 미만</strong> 아기는 무료 (좌석 미배정, 무릎 위 탑승)<br>
+      • 좌석 필요 시 <strong>어린이석(50% 할인)</strong>으로 별도 구매<br>
+      • <strong>2+2석 창가 나란히</strong> 예매하면 엄마들끼리 모여 앉기 좋음<br>
+      • 유모차는 <strong>객차 앞·뒤 짐 보관대</strong>에 접어서 보관
+    </div>
+
+    <div class="tip-section">
+      <h3>🚕 전주역 → 한옥마을</h3>
+      <ul>
+        <li><strong>택시</strong> — 약 10분, 5,000~6,000원 (가장 편함)</li>
+        <li>유모차 + 짐 있으면 택시 2대 나눠 타기</li>
+        <li><strong>카카오T 대형택시</strong> 호출하면 짐 넉넉</li>
+        <li>버스 (119번 등)도 있지만 아기+짐에는 택시 추천</li>
+      </ul>
+    </div>
+
+    <div class="tip-blue">
+      <strong>현지 이동</strong> — 한옥마을 내는 전부 도보. DAY2 외곽(박물관·키즈카페)은 <strong>택시 이동</strong> (전주 시내 택시비 대부분 5,000~8,000원).
     </div>
   </div>
 
@@ -224,49 +270,61 @@
   <div class="section">
     <div class="day-header">
       <h2>DAY 1 — 3/27(금)</h2>
-      <div class="day-sub">도착 → 한옥마을 탐방 → 야경 산책</div>
+      <div class="day-sub">KTX 도착 → 한옥마을 탐방 → 야경 산책</div>
     </div>
 
     <div class="time-block">
-      <div class="time-badge">11:00</div>
-      <div class="time-title">출발 & 이동</div>
+      <div class="time-badge">10:00</div>
+      <div class="time-title">용산역 출발</div>
       <div class="time-desc">
-        서울 → 전주 (약 2시간 30분~3시간)
+        <span class="ktx-tag">KTX</span> 용산역 → 전주역 (약 1시간 35분)
         <ul>
-          <li>서해안고속도로 or 경부→호남고속도로</li>
-          <li>평일이라 도로 한산, 중간에 휴게소 1회 정차 추천</li>
+          <li>출발 30분 전 도착 → 기저귀 교체 + 유모차 접기</li>
+          <li>분유/간식 미리 준비해서 탑승</li>
         </ul>
       </div>
-      <div class="baby-tip">이동 중 아기 낮잠 시간 맞추면 편해요. 출발 전 기저귀 교체 필수!</div>
+      <div class="baby-tip">KTX에서 아기 낮잠 시간 맞추면 편해요. 이동 중 잠들면 도착까지 쭉!</div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-badge">11:40</div>
+      <div class="time-title">전주역 도착 → 한옥마을</div>
+      <div class="time-desc">
+        <ul>
+          <li>택시 2대 → 한옥마을 (약 10분, 5,000~6,000원)</li>
+          <li>카카오T 대형택시면 짐+유모차 한 대로 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-badge">12:00</div>
+      <div class="time-title">점심 — 비빔밥</div>
+      <div class="time-place">📍 가족회관 — 완산구 어진길 2 (한옥마을 도보 5분)</div>
+      <div class="time-desc">
+        <span class="food-tag">전주 3대 비빔밥</span>
+        <ul>
+          <li><strong>가족회관</strong> — 한옥마을에서 걸어갈 수 있어 짐 내리고 바로 이동 가능</li>
+          <li><strong>한국집</strong> — 덕진구 건산2길 22 (택시 8분, 더 유명하지만 거리 있음)</li>
+          <li>좌식(바닥)이라 아기 앉히기 편함</li>
+          <li>평일 낮이라 대기 없이 입장 가능</li>
+        </ul>
+      </div>
+      <div class="baby-tip">유아식은 가져간 미니떡갈비 + 공기밥 별도 주문하면 OK.</div>
     </div>
 
     <div class="time-block">
       <div class="time-badge">13:30</div>
-      <div class="time-title">점심 — 비빔밥</div>
-      <div class="time-place">📍 한국집 or 가족회관 (한옥마을 인근)</div>
-      <div class="time-desc">
-        <span class="food-tag">전주 3대 비빔밥</span>
-        <ul>
-          <li><strong>한국집</strong> — 전주시 덕진구 건산2길 22 (한옥마을에서 차 8분)</li>
-          <li><strong>가족회관</strong> — 전주시 완산구 어진길 2 (한옥마을 도보 5분)</li>
-          <li>좌식(바닥)이라 아기 앉히기 편함</li>
-          <li>평일 1시 반이면 점심 피크 지나서 여유로움</li>
-        </ul>
-      </div>
-      <div class="baby-tip">유아식은 가져간 미니떡갈비 + 밥 따로 주문하면 OK. 대부분 식당에서 공기밥 별도 가능.</div>
-    </div>
-
-    <div class="time-block">
-      <div class="time-badge">14:30</div>
-      <div class="time-title">숙소 체크인 & 짐 정리</div>
+      <div class="time-title">숙소 체크인 & 휴식</div>
       <div class="time-place">📍 건축의선율 — 최명희길 11-3</div>
       <div class="time-desc">
-        짐 정리 + 아기 기저귀 교체 + 잠깐 쉬기. 한옥마을 한가운데라 이후 도보 이동.
+        짐 정리 + 아기 기저귀 교체 + 낮잠. 한옥마을 한가운데라 이후 도보 이동.
       </div>
+      <div class="baby-tip">KTX 이동 후 아기가 피곤할 수 있어요. 30분~1시간 쉬어가기.</div>
     </div>
 
     <div class="time-block">
-      <div class="time-badge">15:30</div>
+      <div class="time-badge">15:00</div>
       <div class="time-title">경기전 산책</div>
       <div class="time-place">📍 전주 경기전 — 태조로 44 (도보 5분)</div>
       <div class="time-desc">
@@ -281,7 +339,7 @@
     </div>
 
     <div class="time-block">
-      <div class="time-badge">16:30</div>
+      <div class="time-badge">16:00</div>
       <div class="time-title">전동성당 + 한옥마을 거리</div>
       <div class="time-place">📍 전동성당 — 태조로 51 (경기전 바로 맞은편)</div>
       <div class="time-desc">
@@ -296,7 +354,7 @@
     </div>
 
     <div class="time-block">
-      <div class="time-badge">17:30</div>
+      <div class="time-badge">17:00</div>
       <div class="time-title">카페 휴식</div>
       <div class="time-place">📍 한옥마을 내 한옥 카페</div>
       <div class="time-desc">
@@ -343,7 +401,7 @@
   <div class="section">
     <div class="day-header">
       <h2>DAY 2 — 3/28(토)</h2>
-      <div class="day-sub">아침 국밥 → 수목원/박물관 → 복귀</div>
+      <div class="day-sub">아침 국밥 → 한옥마을 + 외곽 → KTX 복귀</div>
     </div>
 
     <div class="time-block">
@@ -361,37 +419,41 @@
 
     <div class="time-block">
       <div class="time-badge">09:30</div>
-      <div class="time-title">체크아웃 & 짐 차에 싣기</div>
+      <div class="time-title">체크아웃 & 짐 맡기기</div>
       <div class="time-desc">
-        숙소 체크아웃. 짐은 차에 싣고 이동 준비.
+        <ul>
+          <li>체크아웃 후 <strong>숙소에 짐 보관 요청</strong> (대부분 가능, 미리 문의)</li>
+          <li>유모차 + 가벼운 가방만 들고 이동</li>
+          <li>안 되면 한옥마을 관광안내소 물품보관함 이용</li>
+        </ul>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-badge">10:00</div>
-      <div class="time-title">국립전주박물관 or 전주수목원</div>
+      <div class="time-title">국립전주박물관 or 한옥마을 재산책</div>
       <div class="time-desc">
         날씨에 따라 택 1:
         <ul>
           <li>
             <strong>🌧 비/추울 때 → 국립전주박물관</strong><br>
-            쑥고개로 249 (차 10분), <strong>무료 입장</strong><br>
+            쑥고개로 249 (택시 10분, 약 5,000원), <strong>무료 입장</strong><br>
             실내 넓고 깨끗, 유모차 이동 편리, 약 1시간
           </li>
           <li style="margin-top: 8px;">
-            <strong>☀️ 날 좋을 때 → 전주수목원</strong><br>
-            번영로 256 (차 15분), <strong>무료 입장</strong><br>
-            3월 말 봄꽃 시작, 산책로 평탄, 유모차 OK
+            <strong>☀️ 날 좋을 때 → 한옥마을 오전 산책</strong><br>
+            전날 못 본 골목 탐방, 한복 체험, 기념품 쇼핑<br>
+            토요일 오전은 아직 한산해서 여유로움
           </li>
         </ul>
       </div>
-      <div class="baby-tip">두 곳 모두 무료! 박물관은 유아 체험실이 있어 실내 놀이 가능.</div>
+      <div class="baby-tip">박물관은 유아 체험실이 있어 실내 놀이 가능. 두 곳 다 무료!</div>
     </div>
 
     <div class="time-block">
-      <div class="time-badge">11:30</div>
+      <div class="time-badge">11:00</div>
       <div class="time-title">피코엘로 키즈카페 (선택)</div>
-      <div class="time-place">📍 풍남로 66 (한옥마을에서 차 5분)</div>
+      <div class="time-place">📍 풍남로 66 (택시 5분, 약 4,000원)</div>
       <div class="time-desc">
         <ul>
           <li><strong>40개월 미만 영유아 전용</strong> 키즈카페</li>
@@ -403,30 +465,43 @@
     </div>
 
     <div class="time-block">
-      <div class="time-badge">12:30</div>
+      <div class="time-badge">12:00</div>
       <div class="time-title">점심 — 하숙영 가마솥비빔밥</div>
-      <div class="time-place">📍 전주시 완산구 전주객사5길 22-5</div>
+      <div class="time-place">📍 완산구 전주객사5길 22-5 (택시 or 도보 15분)</div>
       <div class="time-desc">
         <span class="food-tag">가마솥비빔밥</span>
         <ul>
           <li>뜨거운 가마솥에 밥이 나와 누룽지까지 즐김</li>
           <li>전날과 다른 스타일의 비빔밥 경험</li>
-          <li>토요일 점심 혼잡 → <strong>12시 30분 전 도착</strong> 권장</li>
+          <li>토요일 점심 혼잡 → <strong>12시 전 도착</strong> 권장</li>
         </ul>
       </div>
     </div>
 
     <div class="time-block">
-      <div class="time-badge">14:00</div>
-      <div class="time-title">복귀 출발</div>
+      <div class="time-badge">13:30</div>
+      <div class="time-title">숙소에서 짐 회수 → 전주역</div>
       <div class="time-desc">
         <ul>
-          <li>아기 낮잠 시간에 맞춰 출발하면 차에서 잠듦</li>
-          <li>토요일 오후 상행선 → 비교적 원활 (약 2시간 30분)</li>
-          <li>익산 IC or 서전주 IC → 서해안고속도로 추천</li>
+          <li>숙소(또는 보관함)에서 짐 찾기</li>
+          <li><strong>택시로 전주역</strong> 이동 (약 10분, 5,000~6,000원)</li>
+          <li>출발 20분 전 역 도착 목표</li>
         </ul>
       </div>
-      <div class="baby-tip">출발 전 기저귀 교체 + 간식 준비. 차에서 잠들면 그대로 서울까지!</div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-badge">14:30</div>
+      <div class="time-title">KTX 복귀</div>
+      <div class="time-desc">
+        <span class="ktx-tag">KTX</span> 전주역 → 용산역 (약 1시간 35분)
+        <ul>
+          <li>3~4시대 열차 추천 — 아기 낮잠 시간 맞추기</li>
+          <li>역 편의점에서 간식/음료 구매</li>
+          <li>아기가 KTX에서 잠들면 용산까지 편하게!</li>
+        </ul>
+      </div>
+      <div class="baby-tip">출발 전 기저귀 교체 + 간식 준비. KTX에서 잠들면 그대로 용산까지!</div>
     </div>
   </div>
 
@@ -459,39 +534,9 @@
       <ul>
         <li>한옥마을 내 대부분 식당·카페·기념품점</li>
         <li>현대옥, 가족회관 등 맛집 사용 가능</li>
-        <li>편의점, 마트, 주유소에서도 사용 가능</li>
+        <li>편의점, 마트에서도 사용 가능</li>
         <li>사용 전 앱에서 "가맹점 검색"으로 확인</li>
       </ul>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!--  주차 정보                                  -->
-  <!-- ══════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-title"><span class="icon">🅿️</span> 주차 정보</div>
-
-    <div class="tip-section">
-      <h3>추천: 제4공영주차장 (무료)</h3>
-      <ul>
-        <li><strong>636면</strong> 규모, <strong>무료</strong></li>
-        <li>한옥마을까지 <strong>무료 셔틀버스</strong> 운행 (10:00~18:40)</li>
-        <li>주소: 전주시 완산구 동서학동 (한옥마을에서 차 5분)</li>
-        <li>금요일 도착이라 여유 있음</li>
-      </ul>
-    </div>
-
-    <div class="tip-section">
-      <h3>가까운 곳: 제1공영주차장 (유료)</h3>
-      <ul>
-        <li>한옥마을 <strong>가장 가까운</strong> 주차장 (293면)</li>
-        <li>30분 1,200원 / <strong>1일 최대 14,400원</strong></li>
-        <li>짐 많으면 여기 주차 → 짐 내리고 → 제4로 이동도 방법</li>
-      </ul>
-    </div>
-
-    <div class="tip-blue">
-      <strong>숙소 주차</strong> — 건축의선율에 주차 가능한지 사전에 문의하세요. 한옥마을 내 숙소는 전용 주차장이 있는 경우도 있어요.
     </div>
   </div>
 
@@ -516,15 +561,23 @@
 
       <div class="check-group">
         <div class="check-group-title">아기 필수</div>
-        <label class="check-item"><input type="checkbox"> 기저귀 (1일 6~8개 × 2일)</label>
+        <label class="check-item"><input type="checkbox"> 기저귀 (1일 6~8개 x 2일)</label>
         <label class="check-item"><input type="checkbox"> 물티슈 (넉넉히)</label>
         <label class="check-item"><input type="checkbox"> 이유식 / 미니떡갈비 (보냉백+아이스팩)</label>
         <label class="check-item"><input type="checkbox"> 분유 / 우유 / 보온병</label>
         <label class="check-item"><input type="checkbox"> 아기 수저·포크·빨대컵</label>
         <label class="check-item"><input type="checkbox"> 여벌옷 2~3벌 (일교차 대비)</label>
         <label class="check-item"><input type="checkbox"> 겉옷 (바람막이·패딩조끼)</label>
-        <label class="check-item"><input type="checkbox"> 아기띠 (좁은 골목용)</label>
-        <label class="check-item"><input type="checkbox"> 유모차 + 유모차 담요</label>
+        <label class="check-item"><input type="checkbox"> 아기띠 (한옥마을 골목용, 필수!)</label>
+        <label class="check-item"><input type="checkbox"> 접이식 유모차 (KTX 보관 편한 것)</label>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">KTX 관련</div>
+        <label class="check-item"><input type="checkbox"> KTX 왕복 예매 완료</label>
+        <label class="check-item"><input type="checkbox"> 코레일톡 앱 설치 (모바일 승차권)</label>
+        <label class="check-item"><input type="checkbox"> KTX 내 간식 + 음료</label>
+        <label class="check-item"><input type="checkbox"> 캐리어 대신 큰 백팩/보스턴백 (이동 편의)</label>
       </div>
 
       <div class="check-group">
@@ -537,11 +590,10 @@
 
       <div class="check-group">
         <div class="check-group-title">편의</div>
-        <label class="check-item"><input type="checkbox"> 전주사랑상품권 앱 설치 + 카드 신청</label>
+        <label class="check-item"><input type="checkbox"> 전주사랑상품권 앱 + 카드 신청</label>
         <label class="check-item"><input type="checkbox"> 보냉백 + 아이스팩 (이유식 이동용)</label>
         <label class="check-item"><input type="checkbox"> 비닐봉투 (쓰레기·젖은 옷)</label>
-        <label class="check-item"><input type="checkbox"> 우산/우비</label>
-        <label class="check-item"><input type="checkbox"> 카시트 (렌터카 시)</label>
+        <label class="check-item"><input type="checkbox"> 우산/우비 (접이식)</label>
       </div>
 
       <div class="check-group">
@@ -559,7 +611,18 @@
     <div class="section-title"><span class="icon">💡</span> 추가 꿀팁</div>
 
     <div class="tip-section">
-      <h3>✨ 알아두면 좋은 것들</h3>
+      <h3>🚄 KTX + 아기 꿀팁</h3>
+      <ul>
+        <li><strong>짐은 최소화</strong> — 캐리어보다 큰 백팩/보스턴백이 이동 편함 (역 계단·택시 탑승)</li>
+        <li><strong>접이식 유모차</strong> 강력 추천 — KTX 짐칸에 접어서 보관</li>
+        <li><strong>수유·이유식</strong> — KTX 내에서 가능, 옆자리 양해 구하기</li>
+        <li><strong>기저귀 교체</strong> — KTX 화장실에 기저귀 교환대 있음 (4~5호차 사이)</li>
+        <li><strong>아기 낮잠</strong> — 이동 시간을 낮잠에 맞추면 가장 편안</li>
+      </ul>
+    </div>
+
+    <div class="tip-section">
+      <h3>✨ 한옥마을 꿀팁</h3>
       <ul>
         <li><strong>유모차 무료 대여</strong> — 경기전 여행자라운지 & 한옥마을 관광안내소 (24개월 이하, 신분증 필요)</li>
         <li><strong>수유실</strong> — 경기전 여행자라운지 (전동성당길 110) 내 수유실 운영</li>
