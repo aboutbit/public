@@ -10,7 +10,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
   body {
     font-family: 'Noto Sans KR', sans-serif;
@@ -18,6 +18,8 @@
     color: #2c2016;
     line-height: 1.75;
     padding-bottom: env(safe-area-inset-bottom, 0);
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   /* ── Hero ── */
@@ -36,13 +38,27 @@
   .hero h1 { font-size: clamp(22px, 6vw, 28px); font-weight: 900; color: #fff; margin-bottom: 4px; text-shadow: 0 2px 6px rgba(0,0,0,.2); }
   .hero .sub { font-size: clamp(13px, 3.5vw, 15px); color: rgba(255,255,255,.8); font-weight: 300; }
 
+  /* ── Nav TOC ── */
+  .toc {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 24px;
+  }
+  .toc a {
+    display: inline-block; background: #fff; color: #8B7355;
+    font-size: 12px; font-weight: 600; padding: 6px 14px;
+    border-radius: 20px; border: 1px solid #e8ddd0;
+    text-decoration: none; white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .toc a:active { background: #4a6741; color: #fff; border-color: #4a6741; }
+
   /* ── Container ── */
   .container { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
 
   /* ── Info Strip ── */
   .info-strip {
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
   .info-item {
     background: #fff; border-radius: 12px; padding: 12px 14px;
@@ -66,50 +82,49 @@
     background: linear-gradient(135deg, #2c3e50, #4a6741);
     color: #fff; border-radius: 14px; padding: 16px 18px;
     margin-bottom: 14px;
+    position: sticky; top: 0; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
   }
   .day-header h2 { font-size: 18px; font-weight: 700; }
   .day-header .day-sub { font-size: 13px; color: rgba(255,255,255,.75); margin-top: 2px; }
 
   /* ── Time Block ── */
   .time-block {
-    background: #fff; border-radius: 14px; padding: 16px;
+    background: #fff; border-radius: 14px;
+    padding: 16px 16px 16px 74px;
     margin-bottom: 12px; border: 1px solid #e8ddd0;
     position: relative;
-    padding-left: 70px;
   }
   .time-badge {
     position: absolute; left: 14px; top: 16px;
     background: #f0ebe3; color: #8B7355; font-size: 12px; font-weight: 700;
-    padding: 4px 8px; border-radius: 8px; white-space: nowrap;
+    padding: 4px 10px; border-radius: 8px; white-space: nowrap;
+    min-width: 48px; text-align: center;
   }
   .time-title { font-size: 15px; font-weight: 700; color: #2c3e50; margin-bottom: 4px; }
   .time-place {
-    font-size: 12px; color: #9a8a76; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 4px;
+    font-size: 12.5px; color: #9a8a76; margin-bottom: 6px;
   }
   .time-place a { color: #6b8f6b; text-decoration: none; }
   .time-desc { font-size: 14px; color: #3d3225; }
-  .time-desc ul { padding-left: 16px; margin-top: 4px; }
-  .time-desc li { padding: 2px 0; font-size: 13.5px; }
+  .time-desc ul { padding-left: 16px; margin-top: 6px; }
+  .time-desc li { padding: 3px 0; font-size: 13.5px; line-height: 1.65; }
 
   .baby-tip {
-    background: #f0f7f0; border-radius: 8px; padding: 8px 10px;
-    font-size: 12.5px; color: #2e6b2e; margin-top: 8px;
-    display: flex; align-items: flex-start; gap: 6px;
+    background: #f0f7f0; border-radius: 10px; padding: 10px 12px;
+    font-size: 13px; color: #2e6b2e; margin-top: 10px;
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.6;
   }
-  .baby-tip::before { content: '👶'; font-size: 14px; flex-shrink: 0; }
+  .baby-tip::before { content: '👶'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 
-  .food-tag {
-    display: inline-block; background: #ffeaea; color: #c0392b;
-    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
-    margin-right: 4px;
+  .food-tag, .ktx-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 6px;
+    margin-right: 4px; margin-bottom: 4px;
   }
-
-  .ktx-tag {
-    display: inline-block; background: #e3f2fd; color: #1565c0;
-    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
-    margin-right: 4px;
-  }
+  .food-tag { background: #ffeaea; color: #c0392b; }
+  .ktx-tag { background: #e3f2fd; color: #1565c0; }
 
   /* ── Tip Cards ── */
   .tip-section {
@@ -117,28 +132,37 @@
     border-radius: 16px; padding: 18px; border: 1px solid #f0e0c8;
     margin-bottom: 14px;
   }
-  .tip-section h3 { font-size: 15px; font-weight: 700; color: #d4802a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .tip-section h3 {
+    font-size: 15px; font-weight: 700; color: #d4802a;
+    margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+  }
   .tip-section ul { list-style: none; }
-  .tip-section li { padding: 5px 0; font-size: 14px; line-height: 1.7; }
-  .tip-section li::before { content: '▸ '; color: #d4802a; font-weight: 700; }
+  .tip-section li {
+    padding: 5px 0 5px 18px; font-size: 14px; line-height: 1.7;
+    position: relative;
+  }
+  .tip-section li::before {
+    content: '▸'; color: #d4802a; font-weight: 700;
+    position: absolute; left: 0; top: 5px;
+  }
 
   .tip-warn {
-    background: #fff3e0; border-radius: 12px; padding: 14px;
-    border-left: 4px solid #ff9800; font-size: 13px; color: #e65100;
+    background: #fff3e0; border-radius: 12px; padding: 14px 16px;
+    border-left: 4px solid #ff9800; font-size: 13.5px; color: #e65100;
     margin-bottom: 14px; line-height: 1.7;
   }
   .tip-warn strong { color: #bf360c; }
 
   .tip-blue {
-    background: #e3f2fd; border-radius: 12px; padding: 14px;
-    border-left: 4px solid #5c8fd6; font-size: 13px; color: #1565c0;
+    background: #e3f2fd; border-radius: 12px; padding: 14px 16px;
+    border-left: 4px solid #5c8fd6; font-size: 13.5px; color: #1565c0;
     margin-bottom: 14px; line-height: 1.7;
   }
   .tip-blue strong { color: #0d47a1; }
 
   .tip-green {
-    background: #e8f5e9; border-radius: 12px; padding: 14px;
-    border-left: 4px solid #66bb6a; font-size: 13px; color: #2e7d32;
+    background: #e8f5e9; border-radius: 12px; padding: 14px 16px;
+    border-left: 4px solid #66bb6a; font-size: 13.5px; color: #2e7d32;
     margin-bottom: 14px; line-height: 1.7;
   }
   .tip-green strong { color: #1b5e20; }
@@ -148,15 +172,20 @@
     background: #fff; border-radius: 14px; padding: 16px;
     border: 1px solid #e8ddd0;
   }
-  .checklist h3 { font-size: 15px; font-weight: 700; color: #2c3e50; margin-bottom: 10px; }
-  .check-group { margin-bottom: 12px; }
-  .check-group-title { font-size: 13px; font-weight: 600; color: #8B7355; margin-bottom: 4px; }
+  .checklist h3 { font-size: 15px; font-weight: 700; color: #2c3e50; margin-bottom: 12px; }
+  .check-group { margin-bottom: 14px; }
+  .check-group:last-child { margin-bottom: 0; }
+  .check-group-title { font-size: 13px; font-weight: 600; color: #8B7355; margin-bottom: 6px; }
   .check-item {
-    display: flex; align-items: flex-start; gap: 8px; padding: 3px 0;
-    font-size: 13.5px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; font-size: 14px;
+    min-height: 44px;
+    border-bottom: 1px solid #f8f4ee;
   }
+  .check-item:last-child { border-bottom: none; }
   .check-item input[type="checkbox"] {
-    margin-top: 5px; width: 16px; height: 16px; accent-color: #4a6741; flex-shrink: 0;
+    width: 20px; height: 20px; accent-color: #4a6741; flex-shrink: 0;
+    cursor: pointer;
   }
 
   /* ── Footer ── */
@@ -165,24 +194,56 @@
     margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0d5c5;
   }
 
-  /* ── Responsive ── */
+  /* ── Responsive: 모바일 ── */
   @media (max-width: 520px) {
     .container { padding: 20px 14px 40px; }
-    .info-strip { grid-template-columns: 1fr; gap: 6px; }
-    .time-block { padding-left: 14px; padding-top: 42px; }
+
+    /* 시간 블록: 배지를 위로, 콘텐츠를 전폭 사용 */
+    .time-block {
+      padding: 14px;
+      padding-top: 44px;
+    }
     .time-badge { top: 12px; left: 14px; }
-    .day-header { padding: 14px 16px; }
+
+    .time-title { font-size: 14.5px; }
+    .time-desc { font-size: 13.5px; }
+    .time-desc li { font-size: 13px; }
+
+    /* Day header sticky */
+    .day-header { padding: 12px 16px; border-radius: 12px; }
     .day-header h2 { font-size: 16px; }
+
+    /* 팁 섹션 */
     .tip-section { padding: 14px; }
-    .tip-section li { font-size: 13.5px; }
+    .tip-section li { font-size: 13.5px; padding-left: 16px; }
+
+    .tip-warn, .tip-blue, .tip-green { padding: 12px 14px; font-size: 13px; }
+
+    /* Baby tip */
+    .baby-tip { font-size: 12.5px; padding: 8px 10px; }
+
+    /* 체크리스트 */
+    .check-item { font-size: 13.5px; padding: 7px 0; }
+
+    /* 섹션 간격 */
+    .section { margin-bottom: 30px; }
   }
 
   @media (max-width: 360px) {
     .container { padding: 16px 12px 36px; }
     .hero { padding: 36px 16px 32px; }
     .hero .emoji-row { font-size: 32px; }
+
     .time-block { padding: 12px; padding-top: 40px; }
+    .time-badge { font-size: 11px; padding: 3px 8px; }
+
+    .tip-section { padding: 12px; }
     .tip-section li { font-size: 13px; }
+    .tip-warn, .tip-blue, .tip-green { padding: 10px 12px; border-left-width: 3px; font-size: 12.5px; }
+
+    .check-item { font-size: 13px; gap: 8px; }
+
+    .toc a { font-size: 11px; padding: 5px 10px; }
   }
 </style>
 </head>
@@ -195,6 +256,16 @@
 </div>
 
 <div class="container">
+
+  <!-- ═══ 빠른 이동 ═══ -->
+  <div class="toc">
+    <a href="#ktx">🚄 KTX</a>
+    <a href="#day1">DAY 1</a>
+    <a href="#day2">DAY 2</a>
+    <a href="#coupon">💰 상품권</a>
+    <a href="#weather">🌤 날씨</a>
+    <a href="#tips">💡 꿀팁</a>
+  </div>
 
   <!-- ═══ 기본 정보 ═══ -->
   <div class="info-strip">
@@ -220,7 +291,7 @@
   <!--  KTX 이동 정보                              -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title"><span class="icon">🚄</span> KTX 이동 가이드</div>
+    <div class="section-title" id="ktx"><span class="icon">🚄</span> KTX 이동 가이드</div>
 
     <div class="tip-section">
       <h3>가는 편 (3/27 금)</h3>
@@ -269,7 +340,7 @@
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
     <div class="day-header">
-      <h2>DAY 1 — 3/27(금)</h2>
+      <h2 id="day1">DAY 1 — 3/27(금)</h2>
       <div class="day-sub">KTX 도착 → 한옥마을 탐방 → 야경 산책</div>
     </div>
 
@@ -400,7 +471,7 @@
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
     <div class="day-header">
-      <h2>DAY 2 — 3/28(토)</h2>
+      <h2 id="day2">DAY 2 — 3/28(토)</h2>
       <div class="day-sub">아침 국밥 → 한옥마을 + 외곽 → KTX 복귀</div>
     </div>
 
@@ -509,7 +580,7 @@
   <!--  전주사랑상품권                              -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title"><span class="icon">💰</span> 전주사랑상품권 (필독!)</div>
+    <div class="section-title" id="coupon"><span class="icon">💰</span> 전주사랑상품권 (필독!)</div>
 
     <div class="tip-green">
       <strong>캐시백 10%!</strong> 10만원 충전하면 1만원 돌려받는 구조. 4명이 각자 충전하면 할인 효과 극대화.
@@ -544,7 +615,7 @@
   <!--  날씨 & 준비물                               -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title"><span class="icon">🌤️</span> 날씨 & 준비물</div>
+    <div class="section-title" id="weather"><span class="icon">🌤️</span> 날씨 & 준비물</div>
 
     <div class="tip-section">
       <h3>🌡 3월 말 전주 날씨</h3>
@@ -608,7 +679,7 @@
   <!--  꿀팁                                      -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title"><span class="icon">💡</span> 추가 꿀팁</div>
+    <div class="section-title" id="tips"><span class="icon">💡</span> 추가 꿀팁</div>
 
     <div class="tip-section">
       <h3>🚄 KTX + 아기 꿀팁</h3>
