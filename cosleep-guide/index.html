@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18개월 딸과 안방 동침 가이드</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f8f6;
+      color: #1a1a1a;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #1a1a1a;
+    }
+
+    header .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    /* 배치 방식 카드 */
+    .layout-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 560px) {
+      .layout-cards { grid-template-columns: 1fr; }
+    }
+
+    .layout-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+      position: relative;
+    }
+
+    .layout-card.recommended {
+      border-color: #1a1a1a;
+    }
+
+    .layout-card.recommended::before {
+      content: '추천';
+      position: absolute;
+      top: -1px;
+      right: 12px;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .layout-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .layout-card .pros-cons {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .layout-card .pros-cons .item {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+      align-items: flex-start;
+    }
+
+    .layout-card .pros-cons .icon {
+      font-style: normal;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 측정 박스 */
+    .measure-box {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .measure-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .measure-row:last-child { margin-bottom: 0; }
+
+    .measure-label {
+      width: 80px;
+      color: #888;
+      font-size: 13px;
+    }
+
+    .measure-bar-wrap {
+      flex: 1;
+      background: #f0f0f0;
+      border-radius: 4px;
+      height: 20px;
+      overflow: hidden;
+    }
+
+    .measure-bar {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .bar-queen { background: #555; width: 58%; }
+    .bar-ss    { background: #888; width: 42%; }
+    .bar-total { background: #1a1a1a; width: 100%; color: #fff; }
+
+    .measure-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #888;
+      padding: 10px 12px;
+      background: #f8f8f6;
+      border-radius: 4px;
+    }
+
+    /* 안전 체크리스트 */
+    .checklist {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: flex-start;
+    }
+
+    .check-item:last-child { border-bottom: none; }
+
+    .check-icon {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #1a1a1a;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .check-content h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .check-content p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .check-content .warn {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-top: 4px;
+    }
+
+    /* 구매 전략 */
+    .buy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .buy-grid { grid-template-columns: 1fr; }
+    }
+
+    .buy-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .buy-card .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .tag-ok   { background: #e8f5e9; color: #2e7d32; }
+    .tag-new  { background: #fce4ec; color: #c62828; }
+
+    .buy-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .buy-card p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* 대화 가이드 */
+    .talk-steps {
+      counter-reset: step;
+    }
+
+    .talk-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      counter-increment: step;
+      width: 28px;
+      height: 28px;
+      background: #1a1a1a;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-content strong {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* 대화 예시 */
+    .quote-box {
+      background: #fff;
+      border-left: 3px solid #1a1a1a;
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #333;
+      font-style: italic;
+    }
+
+    /* 분리수면 결정 */
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .timeline { grid-template-columns: 1fr; }
+    }
+
+    .timeline-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .timeline-card .period {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .timeline-card .sub {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .timeline-card p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="label">Family Planning Guide</div>
+    <h1>18개월 딸과 안방 동침 가이드</h1>
+    <p>아내와 논의 전 미리 정리한 의사결정 체크리스트</p>
+  </header>
+
+  <!-- 1. 배치 방식 -->
+  <div class="section">
+    <div class="section-title">01 — 배치 방식 선택</div>
+    <div class="layout-cards">
+      <div class="layout-card recommended">
+        <h3>패밀리 베드</h3>
+        <div class="pros-cons">
+          <div class="item"><span class="icon">＋</span><span>가장 넓음, 아이 뒤척여도 여유</span></div>
+          <div class="item"><span class="icon">＋</span><span>접근성 좋아 밤중 수유/달래기 쉬움</span></div>
+          <div class="item"><span class="icon">＋</span><span>아이 별도 침대 불필요 — SS 매트리스만 추가</span></div>
+          <div class="item"><span class="icon">－</span><span>방 공간 많이 차지</span></div>
+          <div class="item"><span class="icon">－</span><span>틈새 관리 필요</span></div>
+        </div>
+      </div>
+      <div class="layout-card">
+        <h3>아이 침대 독립</h3>
+        <div class="pros-cons">
+          <div class="item"><span class="icon">＋</span><span>분리 수면 준비에 유리</span></div>
+          <div class="item"><span class="icon">＋</span><span>공간 효율 좋음</span></div>
+          <div class="item"><span class="icon">－</span><span>밤중 이동 필요</span></div>
+          <div class="item"><span class="icon">－</span><span>아이가 거부할 수 있음</span></div>
+        </div>
+      </div>
+      <div class="layout-card">
+        <h3>바닥 생활</h3>
+        <div class="pros-cons">
+          <div class="item"><span class="icon">＋</span><span>낙상 걱정 없음</span></div>
+          <div class="item"><span class="icon">＋</span><span>비용 가장 저렴</span></div>
+          <div class="item"><span class="icon">－</span><span>어른 허리에 부담</span></div>
+          <div class="item"><span class="icon">－</span><span>기존 침대 처리 필요</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 방식별 상세 비교 -->
+    <div style="margin-top:16px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+      <div style="padding:14px 18px;border-bottom:1px solid #f0f0f0;">
+        <div style="font-size:12px;font-weight:700;color:#888;letter-spacing:0.06em;margin-bottom:10px;">방식별 상세 비교</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+          <div></div>
+          <div style="font-weight:700;text-align:center;color:#555;">패밀리 베드</div>
+        </div>
+      </div>
+
+      <!-- 아이 침대 독립 상세 -->
+      <div style="padding:16px 18px;border-bottom:1px solid #f0f0f0;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">아이 침대 독립이란?</div>
+        <p style="font-size:13px;color:#555;margin-bottom:10px;">
+          패밀리 베드처럼 붙이지 않고, 안방 안에 아이 전용 침대를 <strong>별도 공간에 독립 배치</strong>하는 방식.<br>
+          부모는 기존 퀸 침대 그대로 유지, 아이는 같은 방의 다른 위치에서 잠.
+        </p>
+        <div style="background:#f8f8f6;border-radius:6px;padding:12px 14px;font-size:12px;color:#555;font-family:monospace;line-height:2;">
+          [ 부모 퀸 침대 ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ 아이 침대 ]<br>
+          &nbsp;&nbsp;(기존 그대로) &nbsp;← 안방 → &nbsp;(유아용 독립)
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:#555;">
+          <div style="font-weight:700;margin-bottom:4px;">아이 침대 종류</div>
+          <div>• 유아 침대(코트) — 난간 있는 아기 침대, 18개월 사용 가능</div>
+          <div>• 토들러 베드 — 유아 침대보다 크고 낮은 전용 침대</div>
+          <div>• 저상형 싱글 매트리스 — 바닥에 매트리스만</div>
+        </div>
+      </div>
+
+      <!-- 비교표 -->
+      <div style="padding:16px 18px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;">패밀리 베드 vs 아이 침대 독립</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="background:#f8f8f6;">
+              <td style="padding:8px 10px;color:#888;font-weight:700;"></td>
+              <td style="padding:8px 10px;font-weight:700;text-align:center;">패밀리 베드</td>
+              <td style="padding:8px 10px;font-weight:700;text-align:center;">아이 침대 독립</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #f0f0f0;">
+              <td style="padding:8px 10px;color:#555;">밤중 달래기</td>
+              <td style="padding:8px 10px;text-align:center;">바로 옆, 쉬움</td>
+              <td style="padding:8px 10px;text-align:center;color:#888;">일어나서 이동 필요</td>
+            </tr>
+            <tr style="border-top:1px solid #f0f0f0;">
+              <td style="padding:8px 10px;color:#555;">부모 수면 질</td>
+              <td style="padding:8px 10px;text-align:center;color:#888;">아이 뒤척임 영향</td>
+              <td style="padding:8px 10px;text-align:center;">상대적으로 독립적</td>
+            </tr>
+            <tr style="border-top:1px solid #f0f0f0;">
+              <td style="padding:8px 10px;color:#555;">독방 전환</td>
+              <td style="padding:8px 10px;text-align:center;color:#888;">별도 적응 필요</td>
+              <td style="padding:8px 10px;text-align:center;">이미 독립 공간, 전환 쉬움</td>
+            </tr>
+            <tr style="border-top:1px solid #f0f0f0;">
+              <td style="padding:8px 10px;color:#555;">추가 비용</td>
+              <td style="padding:8px 10px;text-align:center;">SS 매트리스만</td>
+              <td style="padding:8px 10px;text-align:center;color:#888;">아이 침대 별도 구매</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;font-size:12px;color:#888;padding:8px 10px;background:#f8f8f6;border-radius:4px;">
+          💡 18개월은 밤중에 자주 깨는 시기 — 대부분 패밀리 베드 → 36개월 이후 독립 침대 전환 흐름이 일반적.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 현재 침대 구성 & 해결책 -->
+  <div class="section">
+    <div class="section-title">02 — 현재 침대 구성 & 해결책</div>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-icon" style="background:#1a1a1a;color:#fff;border:none;">현</div>
+        <div class="check-content">
+          <h4>현재 구성</h4>
+          <p>헤드보드 없음 &nbsp;+&nbsp; 받침대(박스스프링 또는 다이반) &nbsp;+&nbsp; 퀸 매트리스</p>
+          <p style="margin-top:4px;color:#c62828;font-size:12px;">→ 받침대 높이 때문에 수면면이 높아 낙상 위험</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon" style="background:#2e7d32;color:#fff;border:none;">→</div>
+        <div class="check-content">
+          <h4>해결책 — 받침대 빼기 (비용 0원)</h4>
+          <p>받침대를 꺼내고 <strong>퀸 매트리스를 바닥에 내려놓기.</strong> 헤드보드가 없어 구조적으로 걸리는 것 없음.</p>
+          <p style="margin-top:4px;font-size:12px;color:#555;">받침대는 벽에 세워두거나 베란다/창고 보관.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon" style="background:#2e7d32;color:#fff;border:none;">✓</div>
+        <div class="check-content">
+          <h4>최종 구성 — 패밀리 베드 완성</h4>
+          <p>바닥에 퀸 매트리스 &nbsp;+&nbsp; 옆에 슈퍼싱글 매트리스를 나란히.</p>
+          <span class="warn" style="background:#e8f5e9;color:#2e7d32;">가장 안전 + 비용 최소</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-1. 매트리스 두께 맞추기 -->
+  <div class="section">
+    <div class="section-title">02-1 — 두 매트리스 높이 맞추기</div>
+    <div class="measure-box">
+      <p style="font-size:13px;color:#555;margin-bottom:14px;">두 매트리스를 나란히 붙이려면 <strong>두께(높이)가 같아야</strong> 단차 없이 연결됩니다. 단차가 생기면 아이가 끼이거나 굴러 위험합니다.</p>
+      <div class="measure-row">
+        <span class="measure-label" style="width:100px;">① 퀸 두께 측정</span>
+        <div style="flex:1;font-size:13px;color:#333;">받침대 뺀 후 퀸 매트리스 옆면을 줄자로 측정 <span style="color:#888;">(보통 20~30cm)</span></div>
+      </div>
+      <div class="measure-row" style="margin-top:10px;">
+        <span class="measure-label" style="width:100px;">② SS 구매 기준</span>
+        <div style="flex:1;font-size:13px;color:#333;">① 에서 잰 두께와 <strong>동일한 두께</strong>의 슈퍼싱글 선택</div>
+      </div>
+      <div class="measure-row" style="margin-top:10px;">
+        <span class="measure-label" style="width:100px;">③ 차이 보정</span>
+        <div style="flex:1;font-size:13px;color:#333;">2~5cm 차이는 낮은 쪽에 <strong>토퍼</strong> 얹어서 보정 가능</div>
+      </div>
+      <div class="measure-note" style="margin-top:14px;">
+        💡 베드 브릿지(틈새 패드)도 약간의 높이 차이를 보정하는 역할을 합니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 공간 측정 -->
+  <div class="section">
+    <div class="section-title">03 — 안방 사이즈 실측</div>
+    <div class="measure-box">
+      <div class="measure-row">
+        <span class="measure-label">퀸 매트리스</span>
+        <div class="measure-bar-wrap">
+          <div class="measure-bar bar-queen">153cm</div>
+        </div>
+      </div>
+      <div class="measure-row">
+        <span class="measure-label">슈퍼싱글</span>
+        <div class="measure-bar-wrap">
+          <div class="measure-bar bar-ss">110cm</div>
+        </div>
+      </div>
+      <div class="measure-row">
+        <span class="measure-label">합계</span>
+        <div class="measure-bar-wrap">
+          <div class="measure-bar bar-total">263cm + 양쪽 통로</div>
+        </div>
+      </div>
+      <div class="measure-note">
+        💡 방 가로가 300cm 미만이면 싱글(100cm) 조합 검토. 최소 통로 50cm 이상 확보 권장.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 안전 체크리스트 -->
+  <div class="section">
+    <div class="section-title">04 — 안전 체크리스트</div>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-icon">1</div>
+        <div class="check-content">
+          <h4>침대 높이 — 저상형 필수</h4>
+          <p>18개월은 자면서 많이 움직입니다. 프레임 높이 20cm 이하 권장.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">2</div>
+        <div class="check-content">
+          <h4>안전가드 (Safety Rail)</h4>
+          <p>아이 쪽 열린 면에 레일 설치. 시중 제품 2~5만원대.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">3</div>
+        <div class="check-content">
+          <h4>틈새 방지 — 베드 브릿지</h4>
+          <p>퀸+SS 붙일 때 생기는 사이 간격 반드시 메우기.</p>
+          <span class="warn">⚠ 아이가 끼이면 매우 위험</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">4</div>
+        <div class="check-content">
+          <h4>매트리스 경도 — 탄탄한(Hard) 타입</h4>
+          <p>패밀리 베드 구성 시 아이가 쓸 슈퍼싱글 매트리스를 Hard 경도로 선택. 너무 푹신하면 질식 위험.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 구매 전략 -->
+  <div class="section">
+    <div class="section-title">05 — 구매 전략</div>
+    <div class="buy-grid">
+      <div class="buy-card">
+        <span class="tag tag-ok">당근 OK</span>
+        <h4>침대 프레임</h4>
+        <p>나중에 아이 방으로 옮길 거라 굳이 새거 살 필요 없음. 저상형 SS 프레임 당근 2~5만원대.</p>
+      </div>
+      <div class="buy-card">
+        <span class="tag tag-new">새것 추천</span>
+        <h4>슈퍼싱글 매트리스</h4>
+        <p>아이가 사용할 슈퍼싱글 매트리스. 위생·진드기 문제로 중고 비추. Hard 경도로 새것 구매. 10~20만원대.</p>
+      </div>
+      <div class="buy-card">
+        <span class="tag tag-new">새것 추천</span>
+        <h4>베드 브릿지 / 틈새 패드</h4>
+        <p>안전 관련 용품은 새것. 1~3만원대로 저렴.</p>
+      </div>
+      <div class="buy-card">
+        <span class="tag tag-ok">당근 OK</span>
+        <h4>안전가드 (세척 가능 제품)</h4>
+        <p>세척 가능한 천 소재라면 중고도 무방. 알루미늄 프레임 제품 확인.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 대화 전 준비 -->
+  <div class="section">
+    <div class="section-title">06 — 아내와 대화 전 내가 먼저 확인할 것</div>
+    <div class="talk-steps">
+      <div class="talk-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>안방 가로/세로 실측</strong>
+          <p>줄자로 5분이면 됨. 숫자가 있어야 대화가 빨라진다.</p>
+        </div>
+      </div>
+      <div class="talk-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>기존 퀸 침대 처리 방향 생각해두기</strong>
+          <p>그대로 쓰면서 옆에 SS 붙이기 vs 바닥형으로 전환 vs 퀸만 유지 중 선호 정하기.</p>
+        </div>
+      </div>
+      <div class="talk-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>아이 독방 전환 시점 기대치 정하기</strong>
+          <p>24개월? 36개월? 취학 전? → 이에 따라 예산과 제품 선택이 달라짐.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 대화 예시 -->
+  <div class="section">
+    <div class="section-title">07 — 대화 시작 예시</div>
+    <div class="quote-box">
+      "여보, 안방 재봤는데 퀸 옆에 슈퍼싱글 붙이면 통로가 ○○cm 남아.<br>
+      프레임은 당근으로 하고 매트리스만 새거 사면 될 것 같은데,<br>
+      어차피 나중에 아이 방 독립할 때 그대로 옮기면 되니까 비용도 크게 안 들 것 같아.<br>
+      당신은 아이 독방 언제쯤 분리하고 싶어?"
+    </div>
+  </div>
+
+  <!-- 8. 분리수면 시점 -->
+  <div class="section">
+    <div class="section-title">08 — 분리수면 전환 계획에 따른 투자 규모</div>
+    <div class="timeline">
+      <div class="timeline-card">
+        <div class="period">~24개월</div>
+        <div class="sub">단기 동침 계획</div>
+        <p>당근 프레임 + 저가 매트리스로 최소 투자. 총 10~15만원 예상.</p>
+      </div>
+      <div class="timeline-card">
+        <div class="period">36개월+</div>
+        <div class="sub">장기 동침 계획</div>
+        <p>아이 방 침대로 그대로 쓸 거니 품질 좋은 것으로. 총 30~50만원 예상.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Prepared 2026-03-30 &nbsp;·&nbsp; 아내와 대화용 의사결정 시트
+  </footer>
+
+</div>
+</body>
+</html>
