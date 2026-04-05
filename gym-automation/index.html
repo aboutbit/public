@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>헬스장 음악 자동화 설치 가이드</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      line-height: 1.7;
+      padding: 48px 20px 80px;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: #1a2a1a;
+      color: #5a9e5a;
+      border: 1px solid #2a4a2a;
+    }
+
+    section {
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .step-body h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ddd;
+      margin-bottom: 6px;
+    }
+
+    .step-body p, .step-body li {
+      font-size: 0.88rem;
+      color: #999;
+    }
+
+    .step-body ul {
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    .step-body li {
+      margin-bottom: 3px;
+    }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: #c8c8c8;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+
+    .schedule-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #161616;
+      color: #555;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #222;
+    }
+
+    .schedule-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #1e1e1e;
+      color: #bbb;
+      vertical-align: top;
+    }
+
+    .schedule-table td:first-child {
+      font-weight: 600;
+      color: #e0e0e0;
+      white-space: nowrap;
+    }
+
+    .notice {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid #444;
+      padding: 14px 16px;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .notice strong {
+      color: #bbb;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .download-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dl-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #161616;
+      border: 1px solid #252525;
+      border-radius: 6px;
+      padding: 12px 16px;
+    }
+
+    .dl-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dl-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ddd;
+      font-family: 'Consolas', monospace;
+    }
+
+    .dl-desc {
+      font-size: 0.78rem;
+      color: #666;
+    }
+
+    .dl-btn {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #aaa;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .dl-btn:hover {
+      background: #252525;
+      color: #e0e0e0;
+    }
+
+    .dl-btn.primary {
+      background: #1a2a1a;
+      border-color: #2a4a2a;
+      color: #5a9e5a;
+    }
+
+    .dl-btn.primary:hover {
+      background: #1e321e;
+      color: #6db86d;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+      font-size: 0.78rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>헬스장 음악 자동화</h1>
+    <p>새벽 1시 음악 끄기 + PC 절전 / 새벽 5시 음악 자동 재생</p>
+    <span class="badge">Windows · 절전 모드</span>
+  </header>
+
+  <!-- 동작 방식 -->
+  <section>
+    <h2>동작 방식</h2>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>시간</th>
+          <th>동작</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>새벽 1:00</td>
+          <td>브라우저(크롬/엣지) 종료 → PC 절전 모드</td>
+        </tr>
+        <tr>
+          <td>새벽 5:00</td>
+          <td>PC 자동 해제 → 유튜브 전체화면 재생 (반복)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice" style="margin-top: 12px;">
+      <strong>재생 영상</strong>
+      10시간짜리 헬스장 음악 — 영상이 끝나면 자동으로 처음부터 반복 재생됩니다.
+    </div>
+  </section>
+
+  <!-- 파일 다운로드 -->
+  <section>
+    <h2>파일 다운로드</h2>
+    <div class="download-grid">
+      <div class="dl-item">
+        <div class="dl-info">
+          <span class="dl-name">setup_schedule.ps1</span>
+          <span class="dl-desc">작업 스케줄러 자동 등록 스크립트 — 이것만 실행하면 됩니다</span>
+        </div>
+        <a href="setup_schedule.ps1" download class="dl-btn primary">다운로드</a>
+      </div>
+      <div class="dl-item">
+        <div class="dl-info">
+          <span class="dl-name">gym_open.bat</span>
+          <span class="dl-desc">새벽 5시 — 유튜브 자동 재생</span>
+        </div>
+        <a href="gym_open.bat" download class="dl-btn">다운로드</a>
+      </div>
+      <div class="dl-item">
+        <div class="dl-info">
+          <span class="dl-name">gym_close.bat</span>
+          <span class="dl-desc">새벽 1시 — 브라우저 종료 + PC 절전</span>
+        </div>
+        <a href="gym_close.bat" download class="dl-btn">다운로드</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 설치 방법 -->
+  <section>
+    <h2>설치 방법</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>파일 3개를 같은 폴더에 저장</h3>
+        <p>위 파일 3개를 모두 다운로드하고 <code>C:\gym-auto\</code> 폴더를 만들어 안에 넣어주세요.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>스케줄 등록</h3>
+        <p><code>setup_schedule.ps1</code> 파일을 <strong>우클릭 → "PowerShell로 실행"</strong></p>
+        <p style="margin-top: 6px;">"완료!" 메시지가 뜨면 설치 완료입니다.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>설치 확인 (선택)</h3>
+        <ul>
+          <li><code>Win + R</code> 키 누른 후 <code>taskschd.msc</code> 입력 → 엔터</li>
+          <li>왼쪽 "작업 스케줄러 라이브러리" 클릭</li>
+          <li><strong>GymOpen</strong>, <strong>GymClose</strong> 작업이 보이면 정상</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>절전 해제 설정 확인</h3>
+        <ul>
+          <li>작업 스케줄러에서 <strong>GymOpen</strong> 우클릭 → 속성</li>
+          <li><strong>조건</strong> 탭 → "이 작업을 실행하기 위해 컴퓨터의 절전 모드를 해제합니다" <strong>체크 확인</strong></li>
+        </ul>
+        <div class="notice" style="margin-top: 10px;">
+          <strong>참고</strong>
+          setup_schedule.ps1 실행 시 자동으로 설정됩니다. 혹시 체크가 안 되어 있다면 수동으로 체크해 주세요.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 주의사항 -->
+  <section>
+    <h2>주의사항</h2>
+    <div class="notice">
+      <strong>PC를 완전히 끄면 안 됩니다</strong>
+      전원 버튼으로 완전 종료하면 새벽 5시에 자동으로 켜지지 않습니다. 반드시 <strong>절전(Sleep) 모드</strong>로 두세요.
+      <br><br>
+      마감 스크립트(gym_close.bat)가 자동으로 절전 모드로 전환하므로 별도로 조작할 필요는 없습니다.
+    </div>
+  </section>
+
+  <footer>
+    문의사항이 있으시면 연락 주세요.
+  </footer>
+
+</div>
+</body>
+</html>
