@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김다은 - 아동기질검사(CTI) 결과</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', -apple-system, 'Noto Sans KR', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+  .header .subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 20px; }
+  .header .info-grid {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .header .info-item { text-align: center; }
+  .header .info-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+  .header .info-value { font-size: 18px; font-weight: 700; }
+
+  /* Section Card */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* Overview Radar-like Summary */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .overview-item {
+    text-align: center;
+    padding: 20px 8px;
+    border-radius: 14px;
+    position: relative;
+  }
+  .overview-item .score {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .overview-item .name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .overview-item .level {
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  .ov-approach { background: #e8f5e9; color: #2e7d32; }
+  .ov-withdrawal { background: #fce4ec; color: #c62828; }
+  .ov-regulation { background: #e3f2fd; color: #1565c0; }
+  .ov-sensitivity { background: #f3e5f5; color: #7b1fa2; }
+  .ov-openness { background: #fff8e1; color: #f57f17; }
+
+  /* Bar Chart */
+  .bar-group { margin-bottom: 16px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .bar-name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .bar-meta {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-score {
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .bar-track {
+    width: 100%;
+    height: 28px;
+    background: #f0f0f0;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 1s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    min-width: 40px;
+  }
+  .bar-fill-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .bar-track .marker-50 {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.12);
+    z-index: 1;
+  }
+
+  /* Level Badge */
+  .level-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .level-strong { background: #c62828; color: white; }
+  .level-slight-strong { background: #ff8f00; color: white; }
+  .level-slight-weak { background: #1565c0; color: white; }
+  .level-weak { background: #558b2f; color: white; }
+
+  /* Color themes for bars */
+  .fill-approach { background: linear-gradient(90deg, #66bb6a, #43a047); }
+  .fill-withdrawal { background: linear-gradient(90deg, #ef5350, #c62828); }
+  .fill-regulation { background: linear-gradient(90deg, #42a5f5, #1565c0); }
+  .fill-sensitivity { background: linear-gradient(90deg, #ab47bc, #7b1fa2); }
+  .fill-openness { background: linear-gradient(90deg, #ffca28, #f57f17); }
+
+  /* Deep Analysis */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .analysis-box {
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+  }
+  .analysis-box h3 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .analysis-type {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .analysis-box p {
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+  .analysis-core {
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    color: #5d2a0c;
+  }
+  .analysis-behavior {
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    color: #2a3d5d;
+  }
+
+  /* Parenting Tips */
+  .tips-section { margin-top: 16px; }
+  .tip-category {
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #fafafa;
+    border-left: 4px solid;
+  }
+  .tip-category h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tip-category p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .tip-approach { border-color: #43a047; }
+  .tip-withdrawal { border-color: #c62828; }
+  .tip-regulation { border-color: #1565c0; }
+  .tip-sensitivity { border-color: #7b1fa2; }
+  .tip-openness { border-color: #f57f17; }
+
+  /* Domain detail section */
+  .domain-section { margin-bottom: 24px; }
+  .domain-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .domain-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .domain-header h3 { font-size: 16px; font-weight: 800; }
+  .domain-score-badge {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* Description box */
+  .desc-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .header { padding: 24px 16px; }
+    .header h1 { font-size: 22px; }
+    .overview-grid { grid-template-columns: repeat(3, 1fr); }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .overview-item .score { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="subtitle">CTI 아동기질검사 (Child Temperament Inventory)</div>
+    <h1>김다은</h1>
+    <div style="margin-bottom: 20px;"></div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">성별</div>
+        <div class="info-value">여자</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">생년월일</div>
+        <div class="info-value">2024.10.01</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">검사일</div>
+        <div class="info-value">2026.03.24</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">검사 월령</div>
+        <div class="info-value">약 18개월</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #667eea;">&#9733;</div>
+      5대 영역 종합 요약
+    </div>
+    <div class="overview-grid">
+      <div class="overview-item ov-approach">
+        <div class="score">69</div>
+        <div class="name">접근</div>
+        <div class="level">약간 강함</div>
+      </div>
+      <div class="overview-item ov-withdrawal">
+        <div class="score">99</div>
+        <div class="name">철회</div>
+        <div class="level">강함</div>
+      </div>
+      <div class="overview-item ov-regulation">
+        <div class="score">81</div>
+        <div class="name">조절</div>
+        <div class="level">약간 강함</div>
+      </div>
+      <div class="overview-item ov-sensitivity">
+        <div class="score">85</div>
+        <div class="name">감수성</div>
+        <div class="level">강함</div>
+      </div>
+      <div class="overview-item ov-openness">
+        <div class="score">37</div>
+        <div class="name">개방성</div>
+        <div class="level">약간 약함</div>
+      </div>
+    </div>
+    <div style="font-size: 12px; color: #999; text-align: center;">
+      * 백분위점수 기준 (0~100). 50이 또래 평균입니다.
+    </div>
+  </div>
+
+  <!-- Detailed: 접근 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #43a047;">1</div>
+      접근 (Approach) — 백분위 69
+    </div>
+    <div class="desc-box" style="margin-bottom: 20px;">
+      외부의 보상을 추구하는 기질입니다. 자신이 원하는 것을 얻기 위해 적극적으로 행동하며, 도전적이고 자발적입니다. <strong>약간 강한 접근 성향</strong>으로, 보상에 이끌리는 반응성이 있지만 행동 조절 능력이 부족한 경우 충동적 요구행동이 나타날 수 있습니다.
+    </div>
+
+    <div class="domain-section">
+      <!-- 긍정적 자극 -->
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">긍정적 자극</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#43a047;">81</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-approach" style="width: 81%;">
+            <span class="bar-fill-label">81</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 강한자극 선호 -->
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">강한자극 선호</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#43a047;">82</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-approach" style="width: 82%;">
+            <span class="bar-fill-label">82</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 활동수준 -->
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">활동수준</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#1565c0;">19</span>
+            <span class="level-badge level-slight-weak">약간 약함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-approach" style="width: 19%; background: linear-gradient(90deg, #a5d6a7, #81c784);">
+            <span class="bar-fill-label">19</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 긍정적 정서 -->
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">긍정적 정서</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#43a047;">77</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-approach" style="width: 77%;">
+            <span class="bar-fill-label">77</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 좌절감 -->
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">좌절감</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#43a047;">84</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-approach" style="width: 84%;">
+            <span class="bar-fill-label">84</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed: 철회 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #c62828;">2</div>
+      철회 (Withdrawal) — 백분위 99
+    </div>
+    <div class="desc-box" style="margin-bottom: 20px;">
+      낯설고 위험한 상황을 피하려는 성향입니다. <strong>강함 수준</strong>으로, 칭찬 받는 행동을 하기 위해 노력하고, 신체적/심리적으로 안전지향적 행동이 매우 강합니다. 낯선 상황에서 크게 놀라거나 도망가는 행동, 쉽게 주눅들거나 위축되는 모습을 보입니다.
+    </div>
+
+    <div class="domain-section">
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">부정적 자극</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">99</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 99%;">
+            <span class="bar-fill-label">99</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">약한자극 선호</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">95</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 95%;">
+            <span class="bar-fill-label">95</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">수줍음</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">100</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 100%;">
+            <span class="bar-fill-label">100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">두려움</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">88</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 88%;">
+            <span class="bar-fill-label">88</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">슬픔</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">91</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 91%;">
+            <span class="bar-fill-label">91</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">과민함</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#ff8f00;">54</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-withdrawal" style="width: 54%; background: linear-gradient(90deg, #ef9a9a, #e57373);">
+            <span class="bar-fill-label">54</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed: 조절 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #1565c0;">3</div>
+      조절 (Regulation) — 백분위 81
+    </div>
+    <div class="desc-box" style="margin-bottom: 20px;">
+      주의, 정서 및 행동을 통제하는 정도입니다. <strong>약간 강함 수준</strong>으로, 또래에 비해 의젓하고 순응적이어서 대부분의 상황에서 감정이나 행동의 기복이 적고 안정된 모습을 보입니다. 특히 억제력이 매우 강합니다.
+    </div>
+
+    <div class="domain-section">
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">감정회복능력</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#1565c0;">59</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-regulation" style="width: 59%;">
+            <span class="bar-fill-label">59</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">주의력</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#1565c0;">58</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-regulation" style="width: 58%;">
+            <span class="bar-fill-label">58</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">수행력</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#1565c0;">58</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-regulation" style="width: 58%;">
+            <span class="bar-fill-label">58</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">억제력</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">99</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-regulation" style="width: 99%; background: linear-gradient(90deg, #42a5f5, #0d47a1);">
+            <span class="bar-fill-label">99</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed: 감수성 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #7b1fa2;">4</div>
+      감수성 (Sensitivity) — 백분위 85
+    </div>
+    <div class="desc-box" style="margin-bottom: 20px;">
+      물리적 자극이나 사람에 대한 민감성과 친밀하게 교류할 수 있는 능력입니다. <strong>강함 수준</strong>으로, 주변 사람들에게 관심이 많고 친해지고 싶은 욕구가 매우 강합니다. 사람들에게 먼저 다가가고 적극적으로 어울리며, 다양한 행동을 통해 감정을 전달합니다.
+    </div>
+
+    <div class="domain-section">
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">신체접촉 선호</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">100</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-sensitivity" style="width: 100%;">
+            <span class="bar-fill-label">100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">공감능력</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#c62828;">100</span>
+            <span class="level-badge level-strong">강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-sensitivity" style="width: 100%;">
+            <span class="bar-fill-label">100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">친화성</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#1565c0;">22</span>
+            <span class="level-badge level-slight-weak">약간 약함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-sensitivity" style="width: 22%; background: linear-gradient(90deg, #ce93d8, #ba68c8);">
+            <span class="bar-fill-label">22</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-header">
+          <span class="bar-name">지각적 민감성</span>
+          <span class="bar-meta">
+            <span class="bar-score" style="color:#7b1fa2;">82</span>
+            <span class="level-badge level-slight-strong">약간 강함</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="marker-50"></div>
+          <div class="bar-fill fill-sensitivity" style="width: 82%;">
+            <span class="bar-fill-label">82</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed: 개방성 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #f57f17;">5</div>
+      개방성 (Openness) — 백분위 37
+    </div>
+    <div class="desc-box">
+      새롭고 다양한 경험에 대해서 열린 태도를 보여주는 정도입니다. <strong>약간 약함 수준</strong>으로, 지적인 자극에 대해 관심도나 몰입도가 높지 않습니다. 친숙하고 익숙한 놀이감이나 장난감을 더 편안해 할 수 있습니다. 일상적인 경험을 통해 느끼는 정서적 경험 수준은 또래와 비슷하거나 약간 낮습니다.
+    </div>
+  </div>
+
+  <!-- 심화분석 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #ff6f00;">&#9670;</div>
+      심화분석
+    </div>
+    <div class="analysis-grid">
+      <div class="analysis-box analysis-core">
+        <h3>핵심기질 경향성</h3>
+        <div class="analysis-type">다면성 유형</div>
+        <p>전반적인 에너지의 방향이 내부와 외부로 동시에 향해 있습니다. 아이의 흥미와 관심에 따라 적극성과 신중함 중 어느 한쪽으로 향할 가능성이 있습니다. 제한된 영역이긴 하지만, 아이가 적극성과 자발성을 발휘할 때가 있으므로 이러한 영역을 점차 늘려 갈 수 있도록 지도해 주는 것이 필요합니다.</p>
+      </div>
+      <div class="analysis-box analysis-behavior">
+        <h3>행동 적응력</h3>
+        <div class="analysis-type">억제 유형</div>
+        <p>전반적인 활동 수준과 비교해 볼 때 행동을 자제하고 통제하려는 성향이 더 강합니다. 차분하고 수동적이며, 부모나 교사의 지시에 잘 따르고 금지된 행동을 하지 않으면서 행동 규범을 잘 지키는 모범적인 행동을 보입니다. 기본적으로 상황에 맞춰 행동을 조절하는 능력이 있습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 양육 가이드 요약 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #00897b;">&#9829;</div>
+      영역별 양육 포인트
+    </div>
+    <div class="tips-section">
+      <div class="tip-category tip-approach">
+        <h4>접근 - 약간 강한 접근 성향</h4>
+        <p>보상에 대한 기대가 크므로, 항상 대가를 기대하기보다 <strong>스스로 즐거워하고 만족할 수 있도록</strong> 도와 주는 것이 좋습니다. 좌절감이 높은 편이므로, 현실적으로 욕구를 들어 줄 수 없는 경우에는 말로 설명을 해 주되, 다른 쪽으로 주의를 돌려 과도하게 매달리지 않게 해 주세요.</p>
+      </div>
+      <div class="tip-category tip-withdrawal">
+        <h4>철회 - 강한 철회 성향 (수줍음 100, 두려움 88)</h4>
+        <p>아이의 민감한 감정상태나 위축된 행동을 성가시게 여기기 보다 <strong>일단 받아 주고 챙겨 주는 것</strong>이 중요합니다. 두려워 하는 것을 미리 없애거나 피해갈 수 있도록 도와 주고, 조금씩 점차적으로 편안하게 적응할 수 있도록 해 주세요. 무리하게 적응시키기 보다 편안하게 해 주고 힘들어 하는 요인을 줄여 나가는 것이 필요합니다.</p>
+      </div>
+      <div class="tip-category tip-regulation">
+        <h4>조절 - 약간 강한 조절 + 억제력 99</h4>
+        <p>지시에 매우 잘 따르고 금지된 행동 규칙을 잘 지키지만, 자신의 <strong>욕구를 억압하는 경우도 생길 수 있습니다</strong>. 제한된 상황에서 하고 싶은 행동을 마음껏 누리지 못한 경우에는 놀이터와 같은 공간에서 신나게 뛰어 놀 수 있게 해 주세요. 규율을 아끼더라도 아이다운 모습과 욕구를 표현할 때는 긍정적으로 받아 주는 것이 필요합니다.</p>
+      </div>
+      <div class="tip-category tip-sensitivity">
+        <h4>감수성 - 강한 감수성 (신체접촉/공감 100)</h4>
+        <p>많은 관심과 상호작용을 원하므로, <strong>정서적인 측면에 초점을 둔 양육 방식</strong>이 필요합니다. 스킨십을 자주 하고 놀이를 함께 하면서 아이의 감정과 마음을 세심하게 챙겨 주세요. 다만, 친화성이 약간 낮아 먼저 다가가는 것보다 기다리며 또래와 가까워지는 데 시간이 걸리므로, 소수의 또래와 친해지는 것부터 시작해 보세요.</p>
+      </div>
+      <div class="tip-category tip-openness">
+        <h4>개방성 - 약간 약한 개방성</h4>
+        <p>똑같은 장난감이나 사물을 여러 가지 다양한 방식으로 가지고 노는 방법을 알려 주면서 <strong>사고의 전환을 촉진</strong>시킬 수 있으며, 일정 주기마다 놀이감을 바꿔주어 주의와 관심을 새로운 것으로 전환시켜 주는 시도가 도움이 됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 점수 한눈에 보기 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="icon" style="background: #455a64;">&#9776;</div>
+      전체 22개 세부요인 점수표
+    </div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+      <thead>
+        <tr style="background: #f5f5f5;">
+          <th style="padding: 10px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid #ddd;">영역</th>
+          <th style="padding: 10px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid #ddd;">세부요인</th>
+          <th style="padding: 10px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">백분위</th>
+          <th style="padding: 10px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">수준</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: #e8f5e9;">
+          <td rowspan="5" style="padding: 8px 12px; font-weight: 700; border-bottom: 1px solid #ddd; vertical-align: middle; color: #2e7d32;">접근<br><span style="font-size:11px;font-weight:400;">(69)</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">긍정적 자극</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">81</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e8f5e9;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">강한자극 선호</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">82</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e8f5e9;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">활동수준</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">19</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-weak">약간 약함</span></td>
+        </tr>
+        <tr style="background: #e8f5e9;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">긍정적 정서</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">77</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e8f5e9;">
+          <td style="padding: 8px 12px; border-bottom: 2px solid #ddd;">좌절감</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">84</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #ddd;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+
+        <tr style="background: #fce4ec;">
+          <td rowspan="6" style="padding: 8px 12px; font-weight: 700; border-bottom: 1px solid #ddd; vertical-align: middle; color: #c62828;">철회<br><span style="font-size:11px;font-weight:400;">(99)</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">부정적 자극</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">99</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #fce4ec;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">약한자극 선호</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">95</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #fce4ec;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">수줍음</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">100</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #fce4ec;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">두려움</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">88</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #fce4ec;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">슬픔</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">91</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #fce4ec;">
+          <td style="padding: 8px 12px; border-bottom: 2px solid #ddd;">과민함</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">54</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #ddd;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+
+        <tr style="background: #e3f2fd;">
+          <td rowspan="4" style="padding: 8px 12px; font-weight: 700; border-bottom: 1px solid #ddd; vertical-align: middle; color: #1565c0;">조절<br><span style="font-size:11px;font-weight:400;">(81)</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">감정회복능력</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">59</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e3f2fd;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">주의력</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">58</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e3f2fd;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">수행력</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">58</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+        <tr style="background: #e3f2fd;">
+          <td style="padding: 8px 12px; border-bottom: 2px solid #ddd;">억제력</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">99</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #ddd;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+
+        <tr style="background: #f3e5f5;">
+          <td rowspan="4" style="padding: 8px 12px; font-weight: 700; border-bottom: 1px solid #ddd; vertical-align: middle; color: #7b1fa2;">감수성<br><span style="font-size:11px;font-weight:400;">(85)</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">신체접촉 선호</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">100</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #f3e5f5;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">공감능력</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">100</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-strong">강함</span></td>
+        </tr>
+        <tr style="background: #f3e5f5;">
+          <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">친화성</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 1px solid #eee;">22</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee;"><span class="level-badge level-slight-weak">약간 약함</span></td>
+        </tr>
+        <tr style="background: #f3e5f5;">
+          <td style="padding: 8px 12px; border-bottom: 2px solid #ddd;">지각적 민감성</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700; border-bottom: 2px solid #ddd;">82</td>
+          <td style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #ddd;"><span class="level-badge level-slight-strong">약간 강함</span></td>
+        </tr>
+
+        <tr style="background: #fff8e1;">
+          <td style="padding: 8px 12px; font-weight: 700; color: #f57f17;">개방성<br><span style="font-size:11px;font-weight:400;">(37)</span></td>
+          <td style="padding: 8px 12px;">(영아용: 하위척도 미구분)</td>
+          <td style="padding: 8px 12px; text-align: center; font-weight: 700;">37</td>
+          <td style="padding: 8px 12px; text-align: center;"><span class="level-badge level-slight-weak">약간 약함</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    CTI 아동기질검사 | 검사일 2026.03.24 | (주)휴노 푸르니보육지원재단<br>
+    본 결과는 참고 자료이며, 좋고 나쁜 기질은 없습니다.
+  </div>
+
+</div>
+
+</body>
+</html>
