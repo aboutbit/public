@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>🎪 남대문 아기옷 원정대</title>
+<meta name="theme-color" content="#ffb3c6" />
+<style>
+  :root {
+    --pink: #ffb3c6;
+    --pink-deep: #ff6f91;
+    --mint: #b5ead7;
+    --sky: #a0d8ef;
+    --cream: #fff7e3;
+    --butter: #ffe066;
+    --lilac: #d4bbff;
+    --coral: #ffa69e;
+    --ink: #3d2c3a;
+    --ink-soft: #6b5a67;
+    --bg: #fff5f7;
+    --card: #ffffff;
+    --shadow: 0 6px 20px rgba(255, 111, 145, 0.12);
+    --shadow-hard: 0 8px 24px rgba(61, 44, 58, 0.18);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(255,179,198,0.35) 0, transparent 25%),
+      radial-gradient(circle at 90% 30%, rgba(181,234,215,0.35) 0, transparent 25%),
+      radial-gradient(circle at 30% 85%, rgba(212,187,255,0.3) 0, transparent 25%),
+      linear-gradient(180deg, #fff5f7 0%, #fff0f5 100%);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 0 16px 120px; }
+
+  /* HEADER */
+  .hero {
+    position: relative;
+    margin: 16px -4px 20px;
+    padding: 26px 22px 24px;
+    background: linear-gradient(135deg, #ffd1dc 0%, #ffb3c6 55%, #ffa69e 100%);
+    border-radius: 28px;
+    box-shadow: var(--shadow-hard);
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+  }
+  .hero::before {
+    content: "🎀"; position: absolute; top: 10px; left: 14px; font-size: 28px; opacity: .8;
+  }
+  .hero::after {
+    content: "🎈"; position: absolute; top: 12px; right: 14px; font-size: 28px; opacity: .85;
+  }
+  .hero h1 {
+    margin: 4px 0 6px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px;
+    text-shadow: 0 2px 0 rgba(255,111,145,0.4);
+  }
+  .hero .tag {
+    display: inline-block; margin-bottom: 8px;
+    padding: 4px 12px; font-size: 12px; font-weight: 700;
+    background: rgba(255,255,255,0.4); border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+  .hero .sub { font-size: 13px; opacity: 0.95; }
+
+  /* 빠른이동 칩 */
+  .chips {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 4px 2px 12px;
+    scrollbar-width: none;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: 0 0 auto;
+    padding: 9px 14px;
+    font-size: 13px; font-weight: 700;
+    background: #fff; color: var(--ink);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: all .2s;
+  }
+  .chip:active { transform: scale(0.96); border-color: var(--pink-deep); }
+
+  /* 섹션 */
+  section { margin-bottom: 28px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 8px;
+    margin: 0 4px 12px;
+    font-size: 18px; font-weight: 900; letter-spacing: -0.3px;
+  }
+  .sec-title .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 10px;
+    background: var(--butter);
+    box-shadow: var(--shadow);
+    font-size: 18px;
+  }
+  .sec-title .line {
+    flex: 1; height: 3px; border-radius: 2px;
+    background: repeating-linear-gradient(90deg, var(--pink) 0 6px, transparent 6px 12px);
+  }
+
+  /* 카드 공통 */
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,179,198,0.25);
+  }
+  .card h3 {
+    margin: 0 0 6px; font-size: 16px; font-weight: 800;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card .meta {
+    font-size: 12px; color: var(--ink-soft);
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;
+  }
+  .card .meta span {
+    background: var(--cream); padding: 3px 9px; border-radius: 999px; font-weight: 600;
+  }
+  .card p { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); }
+  .card .hi { color: var(--pink-deep); font-weight: 700; }
+
+  /* 주차 카드 랭킹 */
+  .park-card {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 12px; align-items: center;
+  }
+  .park-rank {
+    width: 44px; height: 44px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; color: #fff;
+    background: linear-gradient(135deg, #ffd166, #ff9f1c);
+    box-shadow: 0 4px 10px rgba(255,159,28,0.3);
+  }
+  .park-card.rank2 .park-rank { background: linear-gradient(135deg, #a0d8ef, #6c95d8); box-shadow: 0 4px 10px rgba(108,149,216,0.3); }
+  .park-card.rank3 .park-rank { background: linear-gradient(135deg, #d4bbff, #9d7cd8); box-shadow: 0 4px 10px rgba(157,124,216,0.3); }
+  .park-card.rank4 .park-rank { background: linear-gradient(135deg, #b5ead7, #55c895); box-shadow: 0 4px 10px rgba(85,200,149,0.3); }
+  .park-main { min-width: 0; }
+  .park-main .name { font-weight: 800; font-size: 15px; }
+  .park-main .desc { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .park-price { text-align: right; font-size: 12px; font-weight: 700; color: var(--pink-deep); }
+  .park-price small { display: block; font-size: 10px; color: var(--ink-soft); font-weight: 500; }
+
+  .tip {
+    background: linear-gradient(135deg, #fff5cc, #ffe9a8);
+    border-radius: 16px; padding: 12px 14px;
+    font-size: 13px; color: #8a6d00; font-weight: 600;
+    border: 2px dashed #e8c957;
+    margin-bottom: 12px;
+  }
+  .tip b { color: #7a5c00; }
+
+  /* 지도 */
+  .map-wrap {
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,255,255,0.6) 0 8%, transparent 9%),
+      radial-gradient(circle at 82% 8%, rgba(255,255,255,0.5) 0 6%, transparent 7%),
+      radial-gradient(circle at 70% 92%, rgba(255,255,255,0.45) 0 7%, transparent 8%),
+      linear-gradient(180deg, #d9efff 0%, #c4e9db 40%, #dff5c9 75%, #ffe8b8 100%);
+    border-radius: 28px;
+    padding: 14px 10px;
+    box-shadow: var(--shadow-hard), inset 0 0 0 4px #fff;
+    overflow: hidden;
+    position: relative;
+  }
+  .map-wrap::before {
+    content: ""; position: absolute; inset: 14px;
+    border: 3px dashed rgba(255,255,255,0.9); border-radius: 20px;
+    pointer-events: none;
+    box-shadow: inset 0 0 40px rgba(255,255,255,0.3);
+  }
+  .map-wrap::after {
+    content: "🎡 남대문 키즈랜드 🎠"; position: absolute;
+    top: 2px; left: 50%; transform: translateX(-50%);
+    font-size: 11px; font-weight: 900; color: #ff6f91;
+    background: #fff; padding: 3px 14px; border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(255,111,145,0.3);
+    letter-spacing: 0.5px;
+  }
+  .map-corner {
+    position: absolute; width: 28px; height: 28px;
+    border: 3px solid #ff6f91; border-radius: 6px;
+    pointer-events: none;
+  }
+  .map-corner.tl { top: 14px; left: 14px; border-right: none; border-bottom: none; border-top-left-radius: 16px; }
+  .map-corner.tr { top: 14px; right: 14px; border-left: none; border-bottom: none; border-top-right-radius: 16px; }
+  .map-corner.bl { bottom: 14px; left: 14px; border-right: none; border-top: none; border-bottom-left-radius: 16px; }
+  .map-corner.br { bottom: 14px; right: 14px; border-left: none; border-top: none; border-bottom-right-radius: 16px; }
+  .map svg { display: block; width: 100%; height: auto; }
+  .map-legend {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+    margin-top: 10px; padding: 8px;
+    background: rgba(255,255,255,0.7); border-radius: 14px;
+    backdrop-filter: blur(8px);
+  }
+  .leg {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 700; color: var(--ink);
+  }
+  .leg .dot { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+
+  /* 건물 상세 */
+  .bld {
+    background: #fff;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color .2s;
+  }
+  .bld.open { border-color: var(--pink); }
+  .bld-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .bld-num {
+    width: 34px; height: 34px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; color: #fff; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .bld-info { flex: 1; min-width: 0; }
+  .bld-name { font-weight: 900; font-size: 15.5px; }
+  .bld-desc { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .bld-arrow {
+    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    transition: transform .3s;
+    font-size: 16px; color: var(--pink-deep);
+  }
+  .bld.open .bld-arrow { transform: rotate(180deg); }
+  .bld-body {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px dashed #f0d4dd;
+  }
+  .bld.open .bld-body { display: block; }
+  .shop {
+    padding: 10px 0;
+    border-bottom: 1px dashed #f5e1e8;
+  }
+  .shop:last-child { border-bottom: none; }
+  .shop-name {
+    font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 6px;
+  }
+  .shop-name .floor {
+    font-size: 10px; background: var(--pink); color: #fff;
+    padding: 2px 8px; border-radius: 999px; font-weight: 700;
+  }
+  .shop-desc { font-size: 12.5px; color: var(--ink-soft); margin-top: 3px; }
+  .shop-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .shop-tags span {
+    font-size: 10.5px; font-weight: 700;
+    padding: 2px 8px; border-radius: 6px;
+    background: var(--cream); color: #9b6f2a;
+  }
+
+  /* 맛집 카드 */
+  .food-grid {
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+  }
+  .food-card {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 12px; align-items: center;
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+  }
+  .food-card .ico {
+    width: 54px; height: 54px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    background: linear-gradient(135deg, #fff2cc, #ffd4a3);
+  }
+  .food-card.snack .ico { background: linear-gradient(135deg, #ffd6e7, #ffb3c6); }
+  .food-card.meal .ico { background: linear-gradient(135deg, #d4f0e4, #b5ead7); }
+  .food-card .name { font-weight: 800; font-size: 14.5px; }
+  .food-card .loc { font-size: 11.5px; color: var(--ink-soft); margin-top: 2px; }
+  .food-card .price { font-size: 11.5px; color: var(--pink-deep); font-weight: 700; margin-top: 2px; }
+
+  /* 체크리스트 */
+  .checklist {
+    background: linear-gradient(135deg, #fff, #fff5fa);
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .checklist label {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 4px;
+    font-size: 13.5px;
+    cursor: pointer;
+    border-bottom: 1px dashed #fce0e9;
+  }
+  .checklist label:last-child { border-bottom: none; }
+  .checklist input { margin-top: 3px; accent-color: var(--pink-deep); transform: scale(1.2); }
+  .checklist input:checked + span { text-decoration: line-through; opacity: 0.5; }
+
+  footer {
+    text-align: center; padding: 20px 12px;
+    font-size: 11px; color: var(--ink-soft);
+  }
+  footer .heart { color: var(--pink-deep); }
+
+  /* 지도 building hover 효과 */
+  .map-bld { transition: filter .2s; cursor: pointer; }
+  .map-bld:active { filter: brightness(1.1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="tag">2026 봄 쇼핑 원정대 🚗</div>
+    <h1>남대문 아기옷 대탐험</h1>
+    <div class="sub">주차부터 군것질까지, 하루 완벽 공략!</div>
+  </header>
+
+  <!-- QUICK NAV -->
+  <div class="chips">
+    <a href="#parking" class="chip">🅿️ 주차계획</a>
+    <a href="#map" class="chip">🗺️ 테마파크 지도</a>
+    <a href="#buildings" class="chip">🏬 건물별 가게</a>
+    <a href="#food" class="chip">🍢 군것질</a>
+    <a href="#checklist" class="chip">✅ 체크리스트</a>
+  </div>
+
+  <!-- 주차 -->
+  <section id="parking">
+    <h2 class="sec-title">
+      <span class="badge">🅿️</span> 주차계획 <span class="line"></span>
+    </h2>
+    <div class="tip">
+      <b>💡 핵심 팁:</b> 시장 내부 차량 진입 불가! 아기 동반이라면
+      <b>신세계 본점(앱 3시간 무료쿠폰)</b>이 가장 편하고,
+      짧게 훑을 거면 <b>남대문시장 공영주차장(남창동 189-2)</b>이 최단거리.
+      요금은 2024~2025년 블로그·공단 자료 기준이며 방문 전 재확인 권장.
+    </div>
+
+    <div class="card park-card rank1">
+      <div class="park-rank">1</div>
+      <div class="park-main">
+        <div class="name">신세계백화점 본점 주차장</div>
+        <div class="desc">👶 앱 3시간 무료쿠폰 · 유모차·수유실 완비 · 도보 5~7분</div>
+      </div>
+      <div class="park-price">앱쿠폰 무료<small>이후 30분 5,000원</small></div>
+    </div>
+
+    <div class="card park-card rank2">
+      <div class="park-rank">2</div>
+      <div class="park-main">
+        <div class="name">남대문시장 공영주차장</div>
+        <div class="desc">📍 남창동 189-2 · 시장 내 · 도보 1~2분 · 40면</div>
+      </div>
+      <div class="park-price">30분 2,000원<small>07~19시 · 추가 10분 700원</small></div>
+    </div>
+
+    <div class="card park-card rank3">
+      <div class="park-rank">3</div>
+      <div class="park-main">
+        <div class="name">일신교회 주차장</div>
+        <div class="desc">⛪ 퇴계로6길 36 · 24시간 · 도보 3~5분</div>
+      </div>
+      <div class="park-price">일일 12,000원<small>시간당 4,000원 · 무인정산</small></div>
+    </div>
+
+    <div class="card park-card rank4">
+      <div class="park-rank">4</div>
+      <div class="park-main">
+        <div class="name">한진면세점 앞 노상 공영</div>
+        <div class="desc">🎁 일요일·공휴일 무료! · 도보 5분 · 자리 협소</div>
+      </div>
+      <div class="park-price">시간당 3,000원<small>평일 09~20시 · 일/공휴일 무료</small></div>
+    </div>
+
+    <div class="tip" style="background: linear-gradient(135deg,#e0f4ff,#c3e8ff); border-color:#6ab6e8; color:#0d4c7a;">
+      <b>🚸 아기 동반 결론:</b> 유모차·짐·화장실·수유 고려하면 <b>신세계 본점</b>이 압도적.
+      신세계 앱에서 <b>3시간 무료 쿠폰 월 2매</b> 발급 후 방문하세요.
+      GATE3에서 아동복거리까지 평지 도보 5~7분.
+    </div>
+
+    <div class="tip" style="background:linear-gradient(135deg,#ffe9e0,#ffd4c0); border-color:#ff9b7a; color:#8a3a1a;">
+      <b>⚠️ 주의:</b> "회현 CM빌딩 주차장", "메사(Mesa) 주차장"은 2026-04 기준 공식 요금·운영시간 확인 불가.
+      <b>코코종합상가</b>는 기계식이라 유모차·카시트 많으면 불편.
+      <b>남산 공영</b>은 도보 15분+이라 아기 동반 비추천.
+    </div>
+  </section>
+
+  <!-- 지도 -->
+  <section id="map">
+    <h2 class="sec-title">
+      <span class="badge">🗺️</span> 테마파크 지도 <span class="line"></span>
+    </h2>
+
+    <div class="map-wrap">
+      <div class="map-corner tl"></div>
+      <div class="map-corner tr"></div>
+      <div class="map-corner bl"></div>
+      <div class="map-corner br"></div>
+      <div class="map">
+        <svg viewBox="0 0 440 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="남대문 아기옷 테마파크 지도">
+          <defs>
+            <!-- 지붕/건물 색상 -->
+            <linearGradient id="roofPink" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ff8fa9"/><stop offset="1" stop-color="#e84868"/>
+            </linearGradient>
+            <linearGradient id="roofMint" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#7ed4af"/><stop offset="1" stop-color="#3fa87b"/>
+            </linearGradient>
+            <linearGradient id="roofLilac" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#c8aaf0"/><stop offset="1" stop-color="#8a68c4"/>
+            </linearGradient>
+            <linearGradient id="roofButter" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ffd76b"/><stop offset="1" stop-color="#e8a81a"/>
+            </linearGradient>
+            <linearGradient id="roofSky" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#87cdef"/><stop offset="1" stop-color="#3f8abf"/>
+            </linearGradient>
+            <linearGradient id="roofCoral" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ff9b8e"/><stop offset="1" stop-color="#e06552"/>
+            </linearGradient>
+            <linearGradient id="wallCream" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#fffbe8"/><stop offset="1" stop-color="#ffe9b5"/>
+            </linearGradient>
+            <linearGradient id="wallWhite" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#fce8ec"/>
+            </linearGradient>
+            <linearGradient id="grass" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#b8e89a"/><stop offset="1" stop-color="#7bc55a"/>
+            </linearGradient>
+            <linearGradient id="pathGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ffe9c4"/><stop offset="1" stop-color="#f5cf8c"/>
+            </linearGradient>
+            <radialGradient id="fountain">
+              <stop offset="0" stop-color="#c8edff"/>
+              <stop offset="1" stop-color="#5eaed9"/>
+            </radialGradient>
+            <pattern id="pathStripe" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill="url(#pathGrad)"/>
+              <circle cx="7" cy="7" r="1.6" fill="#e8b865" opacity=".6"/>
+            </pattern>
+            <pattern id="grassDots" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect width="16" height="16" fill="#c5e8a4"/>
+              <circle cx="4" cy="4" r="1" fill="#8fc470"/>
+              <circle cx="12" cy="10" r="1" fill="#8fc470"/>
+            </pattern>
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+              <feOffset dx="0" dy="2"/>
+              <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <!-- 재사용 심볼: 나무 -->
+            <symbol id="tree" viewBox="0 0 40 48">
+              <ellipse cx="20" cy="44" rx="12" ry="3" fill="#000" opacity=".12"/>
+              <rect x="17" y="28" width="6" height="14" fill="#7a4f28" rx="2"/>
+              <circle cx="20" cy="22" r="16" fill="#5fb846"/>
+              <circle cx="13" cy="18" r="9" fill="#7bc95e"/>
+              <circle cx="27" cy="18" r="9" fill="#7bc95e"/>
+              <circle cx="20" cy="12" r="8" fill="#8dd370"/>
+            </symbol>
+            <symbol id="pine" viewBox="0 0 36 52">
+              <ellipse cx="18" cy="48" rx="10" ry="2.5" fill="#000" opacity=".12"/>
+              <rect x="15" y="38" width="6" height="10" fill="#7a4f28" rx="2"/>
+              <polygon points="18,4 4,22 32,22" fill="#3d9c5c"/>
+              <polygon points="18,14 3,32 33,32" fill="#4caf70"/>
+              <polygon points="18,24 2,42 34,42" fill="#5fc285"/>
+            </symbol>
+            <symbol id="flower" viewBox="0 0 20 20">
+              <circle cx="10" cy="4" r="4" fill="#ff9bb3"/>
+              <circle cx="16" cy="10" r="4" fill="#ff9bb3"/>
+              <circle cx="10" cy="16" r="4" fill="#ff9bb3"/>
+              <circle cx="4" cy="10" r="4" fill="#ff9bb3"/>
+              <circle cx="10" cy="10" r="3.5" fill="#ffd86b"/>
+            </symbol>
+            <symbol id="cloud" viewBox="0 0 60 30">
+              <ellipse cx="15" cy="18" rx="13" ry="10" fill="#fff"/>
+              <ellipse cx="30" cy="14" rx="16" ry="12" fill="#fff"/>
+              <ellipse cx="45" cy="18" rx="13" ry="10" fill="#fff"/>
+            </symbol>
+            <symbol id="balloon" viewBox="0 0 20 34">
+              <ellipse cx="10" cy="10" rx="8" ry="10" fill="#ff6f91"/>
+              <polygon points="7,19 13,19 10,22" fill="#ff6f91"/>
+              <path d="M10,22 Q12,26 10,30 T10,34" stroke="#999" stroke-width="0.7" fill="none"/>
+            </symbol>
+          </defs>
+
+          <!-- ========= 배경 잔디 ========= -->
+          <rect x="0" y="0" width="440" height="760" fill="url(#grassDots)"/>
+
+          <!-- ========= 구불구불 경로 ========= -->
+          <!-- 메인 황톳길 (세로 S자) -->
+          <path d="M 220,40 C 140,120 300,200 220,280 S 140,400 220,480 S 300,600 220,720"
+                stroke="url(#pathStripe)" stroke-width="36" fill="none" stroke-linecap="round"/>
+          <!-- 경로 테두리 -->
+          <path d="M 220,40 C 140,120 300,200 220,280 S 140,400 220,480 S 300,600 220,720"
+                stroke="#fff" stroke-width="40" fill="none" stroke-linecap="round" opacity="0.35"/>
+          <path d="M 220,40 C 140,120 300,200 220,280 S 140,400 220,480 S 300,600 220,720"
+                stroke="#fff" stroke-width="2" stroke-dasharray="4 6" fill="none" stroke-linecap="round"/>
+
+          <!-- ========= 중앙 광장 분수 ========= -->
+          <g transform="translate(220,400)">
+            <circle r="38" fill="#fff" opacity=".7"/>
+            <circle r="32" fill="url(#fountain)"/>
+            <circle r="24" fill="#fff" opacity=".4"/>
+            <g>
+              <rect x="-3" y="-18" width="6" height="20" rx="2" fill="#9ac9dd"/>
+              <circle cy="-20" r="6" fill="#c8edff"/>
+              <circle cx="-8" cy="-12" r="3" fill="#c8edff" opacity=".8"/>
+              <circle cx="8" cy="-12" r="3" fill="#c8edff" opacity=".8"/>
+              <circle cx="-12" cy="-4" r="2" fill="#c8edff" opacity=".6"/>
+              <circle cx="12" cy="-4" r="2" fill="#c8edff" opacity=".6"/>
+            </g>
+            <text y="50" font-size="10" text-anchor="middle" font-weight="900" fill="#2a6a8a">✨ 만남의 광장 ✨</text>
+          </g>
+
+          <!-- ========= 숭례문 (입구 게이트) ========= -->
+          <g transform="translate(40,50)" filter="url(#softShadow)">
+            <!-- 기단 -->
+            <rect x="-4" y="56" width="98" height="10" fill="#c9b59a"/>
+            <!-- 본체 -->
+            <rect x="2" y="36" width="86" height="24" fill="#e8cda5" stroke="#9c7a4a" stroke-width="1.5"/>
+            <rect x="10" y="42" width="12" height="18" fill="#3d2c1a"/>
+            <rect x="40" y="42" width="12" height="18" fill="#3d2c1a"/>
+            <rect x="70" y="42" width="12" height="18" fill="#3d2c1a"/>
+            <!-- 지붕 1층 -->
+            <polygon points="-4,36 45,10 94,36" fill="#6b4423" stroke="#3d2416" stroke-width="1.5"/>
+            <polygon points="0,36 45,14 90,36" fill="#8b5e3c"/>
+            <!-- 지붕 처마 장식 -->
+            <polygon points="-4,36 -8,34 90,34 94,36" fill="#5a3a2a"/>
+            <text x="45" y="82" font-size="11" text-anchor="middle" font-weight="900" fill="#6b4423">🏯 숭례문 Gate</text>
+          </g>
+
+          <!-- ========= 신세계 본점 주차장 (쇼핑몰 아이콘) ========= -->
+          <g transform="translate(320,40)" filter="url(#softShadow)">
+            <rect x="0" y="20" width="90" height="56" rx="6" fill="url(#wallCream)" stroke="#d4b079" stroke-width="1.5"/>
+            <rect x="0" y="14" width="90" height="12" rx="4" fill="url(#roofButter)"/>
+            <!-- 창문 -->
+            <rect x="8" y="32" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="24" y="32" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="56" y="32" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="72" y="32" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="8" y="48" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="24" y="48" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="56" y="48" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <rect x="72" y="48" width="10" height="10" fill="#8cc8ea" stroke="#fff"/>
+            <!-- 문 -->
+            <rect x="38" y="58" width="14" height="18" rx="2" fill="#6b4423"/>
+            <!-- P 사인 -->
+            <circle cx="45" cy="8" r="8" fill="#ff6f91" stroke="#fff" stroke-width="2"/>
+            <text x="45" y="12" font-size="11" text-anchor="middle" font-weight="900" fill="#fff">P</text>
+            <text x="45" y="90" font-size="9" text-anchor="middle" font-weight="900" fill="#8a3a5a">🛍️ 신세계 본점</text>
+            <text x="45" y="102" font-size="8" text-anchor="middle" fill="#6b5a67" font-weight="700">(주차 1순위)</text>
+          </g>
+
+          <!-- ========= 1. 부림상가 (큰 성 스타일) ========= -->
+          <g class="map-bld" transform="translate(50,160)" filter="url(#softShadow)">
+            <!-- 그림자 -->
+            <ellipse cx="75" cy="112" rx="80" ry="6" fill="#000" opacity=".12"/>
+            <!-- 본체 -->
+            <rect x="5" y="42" width="140" height="72" rx="4" fill="url(#wallWhite)" stroke="#e8aabe" stroke-width="1.5"/>
+            <!-- 중앙 큰 탑 지붕 -->
+            <polygon points="50,42 75,4 100,42" fill="url(#roofPink)" stroke="#c93a5a" stroke-width="1.5"/>
+            <circle cx="75" cy="2" r="2" fill="#ffd86b"/>
+            <rect x="72" y="-6" width="1.5" height="10" fill="#888"/>
+            <polygon points="73.5,-6 82,-3 73.5,0" fill="#ff6f91"/>
+            <!-- 좌우 작은 탑 -->
+            <polygon points="5,42 22,18 39,42" fill="url(#roofPink)" stroke="#c93a5a" stroke-width="1"/>
+            <polygon points="111,42 128,18 145,42" fill="url(#roofPink)" stroke="#c93a5a" stroke-width="1"/>
+            <!-- 창문 아치 -->
+            <path d="M 15,60 Q 20,50 25,60 L 25,72 L 15,72 Z" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <path d="M 45,60 Q 50,50 55,60 L 55,72 L 45,72 Z" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <path d="M 95,60 Q 100,50 105,60 L 105,72 L 95,72 Z" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <path d="M 125,60 Q 130,50 135,60 L 135,72 L 125,72 Z" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <!-- 메인 문 -->
+            <path d="M 65,114 L 65,90 Q 75,76 85,90 L 85,114 Z" fill="#7a3d2a"/>
+            <circle cx="80" cy="102" r="1.2" fill="#ffd86b"/>
+            <!-- 번호 배지 -->
+            <circle cx="-4" cy="48" r="14" fill="#ff6f91" stroke="#fff" stroke-width="2.5"/>
+            <text x="-4" y="53" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">1</text>
+            <!-- 간판 -->
+            <rect x="35" y="82" width="80" height="16" rx="8" fill="#fff" stroke="#ff6f91" stroke-width="1.5"/>
+            <text x="75" y="94" font-size="11" text-anchor="middle" font-weight="900" fill="#e84868">🏰 부르뎅</text>
+            <text x="75" y="128" font-size="9" text-anchor="middle" font-weight="800" fill="#8a3a5a">원조·130+ 브랜드·3F</text>
+          </g>
+
+          <!-- ========= 2. 남정빌딩 (민트 오두막) ========= -->
+          <g class="map-bld" transform="translate(280,180)" filter="url(#softShadow)">
+            <ellipse cx="55" cy="92" rx="58" ry="5" fill="#000" opacity=".12"/>
+            <rect x="5" y="38" width="100" height="54" rx="3" fill="url(#wallWhite)" stroke="#6bb290" stroke-width="1.5"/>
+            <!-- 지붕 (이중 기와 느낌) -->
+            <polygon points="0,38 55,4 110,38" fill="url(#roofMint)" stroke="#2e8558" stroke-width="1.5"/>
+            <polygon points="10,38 55,12 100,38" fill="#8fd8b2" opacity=".6"/>
+            <!-- 굴뚝 -->
+            <rect x="78" y="12" width="8" height="16" fill="#9c7a4a"/>
+            <rect x="77" y="10" width="10" height="4" fill="#7a5e38"/>
+            <!-- 창문 -->
+            <rect x="15" y="52" width="18" height="22" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <line x1="24" y1="52" x2="24" y2="74" stroke="#fff" stroke-width="1"/>
+            <line x1="15" y1="63" x2="33" y2="63" stroke="#fff" stroke-width="1"/>
+            <rect x="77" y="52" width="18" height="22" fill="#8cc8ea" stroke="#fff" stroke-width="1"/>
+            <line x1="86" y1="52" x2="86" y2="74" stroke="#fff" stroke-width="1"/>
+            <line x1="77" y1="63" x2="95" y2="63" stroke="#fff" stroke-width="1"/>
+            <!-- 문 -->
+            <path d="M 46,92 L 46,70 Q 55,62 64,70 L 64,92 Z" fill="#7a4f28"/>
+            <!-- 작은 꽃상자 -->
+            <rect x="14" y="74" width="20" height="5" fill="#b0804a"/>
+            <circle cx="18" cy="73" r="2" fill="#ff9bb3"/>
+            <circle cx="24" cy="73" r="2" fill="#ffd86b"/>
+            <circle cx="30" cy="73" r="2" fill="#ff9bb3"/>
+            <!-- 번호 -->
+            <circle cx="-4" cy="44" r="14" fill="#55c895" stroke="#fff" stroke-width="2.5"/>
+            <text x="-4" y="49" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">2</text>
+            <!-- 간판 -->
+            <rect x="28" y="78" width="54" height="14" rx="7" fill="#fff" stroke="#3fa87b" stroke-width="1.5"/>
+            <text x="55" y="88" font-size="9" text-anchor="middle" font-weight="900" fill="#2a7a55">👦 페인트타운</text>
+            <text x="55" y="108" font-size="8.5" text-anchor="middle" font-weight="800" fill="#2a7a55">남아 특화·신축</text>
+          </g>
+
+          <!-- ========= 3. 포크아동복 (마법사 탑) ========= -->
+          <g class="map-bld" transform="translate(60,310)" filter="url(#softShadow)">
+            <ellipse cx="55" cy="110" rx="58" ry="5" fill="#000" opacity=".12"/>
+            <!-- 원통 본체 -->
+            <rect x="15" y="50" width="80" height="60" rx="40" fill="url(#wallWhite)" stroke="#9d7cd8" stroke-width="1.5"/>
+            <!-- 층 구분 띠 -->
+            <rect x="15" y="70" width="80" height="3" fill="#d4bbff"/>
+            <rect x="15" y="88" width="80" height="3" fill="#d4bbff"/>
+            <!-- 고깔 지붕 -->
+            <polygon points="10,50 55,0 100,50" fill="url(#roofLilac)" stroke="#6c4fa8" stroke-width="1.5"/>
+            <polygon points="20,50 55,14 90,50" fill="#d4bbff" opacity=".6"/>
+            <!-- 별 장식 -->
+            <text x="40" y="30" font-size="10">⭐</text>
+            <text x="65" y="36" font-size="10">✨</text>
+            <!-- 깃발 -->
+            <rect x="54" y="-8" width="1.5" height="10" fill="#888"/>
+            <polygon points="55.5,-8 64,-5 55.5,-2" fill="#d4bbff"/>
+            <!-- 둥근 창문 -->
+            <circle cx="35" cy="62" r="6" fill="#8cc8ea" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="75" cy="62" r="6" fill="#8cc8ea" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="55" cy="80" r="6" fill="#8cc8ea" stroke="#fff" stroke-width="1.5"/>
+            <!-- 아치 문 -->
+            <path d="M 45,110 L 45,98 Q 55,90 65,98 L 65,110 Z" fill="#5c3d8a"/>
+            <!-- 번호 -->
+            <circle cx="5" cy="56" r="14" fill="#9d7cd8" stroke="#fff" stroke-width="2.5"/>
+            <text x="5" y="61" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">3</text>
+            <!-- 간판 -->
+            <rect x="25" y="96" width="60" height="14" rx="7" fill="#fff" stroke="#9d7cd8" stroke-width="1.5"/>
+            <text x="55" y="106" font-size="9" text-anchor="middle" font-weight="900" fill="#6c4fa8">🍼 포키(Porky)</text>
+            <text x="55" y="126" font-size="8.5" text-anchor="middle" font-weight="800" fill="#6c4fa8">G동·감성 힙 브랜드</text>
+          </g>
+
+          <!-- ========= 4. 원아동복 (버터 베이커리) ========= -->
+          <g class="map-bld" transform="translate(275,335)" filter="url(#softShadow)">
+            <ellipse cx="60" cy="96" rx="62" ry="5" fill="#000" opacity=".12"/>
+            <!-- 본체 -->
+            <rect x="5" y="38" width="110" height="58" rx="3" fill="url(#wallCream)" stroke="#d4a83a" stroke-width="1.5"/>
+            <!-- 줄무늬 차양 -->
+            <path d="M 0,38 L 120,38 L 115,50 L 5,50 Z" fill="url(#roofButter)" stroke="#b8871a" stroke-width="1"/>
+            <line x1="20" y1="38" x2="17" y2="50" stroke="#fff" stroke-width="2"/>
+            <line x1="40" y1="38" x2="37" y2="50" stroke="#fff" stroke-width="2"/>
+            <line x1="60" y1="38" x2="57" y2="50" stroke="#fff" stroke-width="2"/>
+            <line x1="80" y1="38" x2="77" y2="50" stroke="#fff" stroke-width="2"/>
+            <line x1="100" y1="38" x2="97" y2="50" stroke="#fff" stroke-width="2"/>
+            <!-- 지붕 -->
+            <polygon points="-4,38 60,10 124,38" fill="url(#roofButter)" stroke="#b8871a" stroke-width="1.5"/>
+            <!-- 쇼윈도 -->
+            <rect x="15" y="56" width="32" height="30" fill="#fff5d6" stroke="#d4a83a"/>
+            <text x="31" y="76" font-size="14" text-anchor="middle">🐻</text>
+            <rect x="73" y="56" width="32" height="30" fill="#fff5d6" stroke="#d4a83a"/>
+            <text x="89" y="76" font-size="14" text-anchor="middle">👗</text>
+            <!-- 문 -->
+            <rect x="51" y="64" width="18" height="32" fill="#7a5c28" rx="1"/>
+            <circle cx="64" cy="80" r="1.2" fill="#ffd86b"/>
+            <!-- 번호 -->
+            <circle cx="-4" cy="44" r="14" fill="#e8a81a" stroke="#fff" stroke-width="2.5"/>
+            <text x="-4" y="49" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">4</text>
+            <!-- 간판 -->
+            <rect x="30" y="82" width="60" height="14" rx="7" fill="#fff" stroke="#e8a81a" stroke-width="1.5"/>
+            <text x="60" y="92" font-size="9" text-anchor="middle" font-weight="900" fill="#8a6410">🎨 크레용</text>
+            <text x="60" y="112" font-size="8.5" text-anchor="middle" font-weight="800" fill="#8a6410">G동·이월 저렴</text>
+          </g>
+
+          <!-- ========= 군것질 골목 (푸드 부스 4개) ========= -->
+          <g transform="translate(22,485)" filter="url(#softShadow)">
+            <ellipse cx="84" cy="148" rx="82" ry="5" fill="#000" opacity=".12"/>
+            <!-- 존 배경 -->
+            <rect x="0" y="4" width="168" height="144" rx="14" fill="#fff" stroke="#ff8677" stroke-width="2"/>
+            <!-- 축제 가랜드 (위쪽 깃발 줄) -->
+            <path d="M 6,14 Q 84,6 162,14" stroke="#ff6f91" stroke-width="0.8" fill="none"/>
+            <polygon points="20,14 26,14 23,20" fill="#ff6f91"/>
+            <polygon points="40,16 46,16 43,22" fill="#ffd86b"/>
+            <polygon points="60,16 66,16 63,22" fill="#55c895"/>
+            <polygon points="84,16 90,16 87,22" fill="#9d7cd8"/>
+            <polygon points="108,16 114,16 111,22" fill="#ff6f91"/>
+            <polygon points="128,16 134,16 131,22" fill="#ffd86b"/>
+            <polygon points="148,14 154,14 151,20" fill="#55c895"/>
+            <!-- 타이틀 리본 -->
+            <rect x="20" y="-8" width="128" height="20" rx="10" fill="url(#roofCoral)" stroke="#fff" stroke-width="1.5"/>
+            <text x="84" y="5" font-size="10.5" text-anchor="middle" font-weight="900" fill="#fff">🍢 군것질 골목 🍡</text>
+
+            <!-- 아이템 1: 야채호떡 -->
+            <g transform="translate(6, 28)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#fff5f3" stroke="#ff8677" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofCoral)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🫓</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#8a2a1a">야채호떡 (원조 노점)</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">IBK은행 앞 · 일요휴무</text>
+              <rect x="122" y="6" width="30" height="12" rx="6" fill="#ff6f91"/>
+              <text x="137" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">2,500원</text>
+            </g>
+
+            <!-- 아이템 2: 가메골 왕만두 -->
+            <g transform="translate(6, 56)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#fff9e8" stroke="#e8a81a" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofButter)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🥟</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#8a6410">가메골 왕만두 ★</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">도보 2분 · 최접근</text>
+              <rect x="119" y="6" width="33" height="12" rx="6" fill="#e8a81a"/>
+              <text x="135.5" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">5천/5개</text>
+            </g>
+
+            <!-- 아이템 3: 당소분식 -->
+            <g transform="translate(6, 84)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#f5eaff" stroke="#9d7cd8" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofLilac)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🍢</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#5c3d8a">당소분식 (포장마차)</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">어묵·떡볶이·튀김</text>
+              <rect x="122" y="6" width="30" height="12" rx="6" fill="#9d7cd8"/>
+              <text x="137" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">1.5천~</text>
+            </g>
+
+            <!-- 아이템 4: 통통김밥 -->
+            <g transform="translate(6, 112)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#e8f6ff" stroke="#6ab6e8" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofSky)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🍙</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#2a5a7a">통통김밥 (포장 전용)</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">불고기김밥 유명</text>
+              <rect x="122" y="6" width="30" height="12" rx="6" fill="#3f8abf"/>
+              <text x="137" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">포장</text>
+            </g>
+          </g>
+
+          <!-- ========= 맛집 골목 (식당 4개) ========= -->
+          <g transform="translate(252,500)" filter="url(#softShadow)">
+            <ellipse cx="84" cy="148" rx="82" ry="5" fill="#000" opacity=".12"/>
+            <!-- 존 배경 -->
+            <rect x="0" y="4" width="168" height="144" rx="14" fill="#fff" stroke="#e8a81a" stroke-width="2"/>
+            <!-- 기와 느낌 띠 -->
+            <path d="M 6,14 L 162,14" stroke="#e8a81a" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- 타이틀 리본 -->
+            <rect x="20" y="-8" width="128" height="20" rx="10" fill="url(#roofButter)" stroke="#fff" stroke-width="1.5"/>
+            <text x="84" y="5" font-size="10.5" text-anchor="middle" font-weight="900" fill="#6b4423">🍽 맛집 골목 🍽</text>
+
+            <!-- 아이템 1: 은호식당 ★아기동반 최적 -->
+            <g transform="translate(6, 28)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#fffbe8" stroke="#e8a81a" stroke-width="1.5"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofButter)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🍲</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#8a6410">은호식당 (꼬리곰탕) ★</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">서울미래유산·아기동반OK</text>
+              <rect x="122" y="6" width="30" height="12" rx="6" fill="#e8a81a"/>
+              <text x="137" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">3만원</text>
+            </g>
+
+            <!-- 아이템 2: 한순자 손칼국수 -->
+            <g transform="translate(6, 56)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#e8f6ff" stroke="#6ab6e8" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofSky)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🍜</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#2a5a7a">한순자 손칼국수</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">칼국수+보리밥+냉면 세트</text>
+              <rect x="122" y="6" width="30" height="12" rx="6" fill="#3f8abf"/>
+              <text x="137" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">9,000원</text>
+            </g>
+
+            <!-- 아이템 3: 희락식당 갈치조림 -->
+            <g transform="translate(6, 84)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#fff5f3" stroke="#ff8677" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofCoral)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🐟</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#8a2a1a">희락식당 (갈치조림 원조)</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">일요휴무 · 좁은 골목</text>
+              <rect x="119" y="6" width="33" height="12" rx="6" fill="#ff6f91"/>
+              <text x="135.5" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">14,000원</text>
+            </g>
+
+            <!-- 아이템 4: 중앙갈치 -->
+            <g transform="translate(6, 112)">
+              <rect x="0" y="0" width="156" height="24" rx="12" fill="#f5eaff" stroke="#9d7cd8" stroke-width="1"/>
+              <circle cx="13" cy="12" r="9" fill="url(#roofLilac)"/>
+              <text x="13" y="16" font-size="11" text-anchor="middle">🍚</text>
+              <text x="26" y="10.5" font-size="7.5" font-weight="900" fill="#5c3d8a">중앙갈치식당 (방송)</text>
+              <text x="26" y="19.5" font-size="6.5" fill="#666">〈줄서는식당2〉·56년</text>
+              <rect x="119" y="6" width="33" height="12" rx="6" fill="#9d7cd8"/>
+              <text x="135.5" y="14.5" font-size="7" text-anchor="middle" font-weight="900" fill="#fff">12,000원</text>
+            </g>
+          </g>
+
+          <!-- ========= 5. 마리나 (한옥) ========= -->
+          <g class="map-bld" transform="translate(50,640)" filter="url(#softShadow)">
+            <ellipse cx="60" cy="80" rx="62" ry="5" fill="#000" opacity=".12"/>
+            <!-- 한옥 지붕 (처마) -->
+            <path d="M -8,34 Q 60,4 128,34 L 120,42 Q 60,16 0,42 Z" fill="#8b5e3c" stroke="#5a3a2a" stroke-width="1"/>
+            <path d="M -4,34 Q 60,8 124,34" fill="none" stroke="#3d2416" stroke-width="1" opacity=".4"/>
+            <!-- 본체 (한지 느낌) -->
+            <rect x="5" y="42" width="110" height="38" fill="url(#wallCream)" stroke="#9c7a4a" stroke-width="1.5"/>
+            <!-- 격자 창 -->
+            <rect x="15" y="50" width="28" height="22" fill="#f5e8c8" stroke="#9c7a4a" stroke-width="1"/>
+            <line x1="29" y1="50" x2="29" y2="72" stroke="#9c7a4a"/>
+            <line x1="15" y1="61" x2="43" y2="61" stroke="#9c7a4a"/>
+            <rect x="77" y="50" width="28" height="22" fill="#f5e8c8" stroke="#9c7a4a" stroke-width="1"/>
+            <line x1="91" y1="50" x2="91" y2="72" stroke="#9c7a4a"/>
+            <line x1="77" y1="61" x2="105" y2="61" stroke="#9c7a4a"/>
+            <!-- 문 (미닫이) -->
+            <rect x="50" y="50" width="20" height="30" fill="#8b5e3c" stroke="#5a3a2a"/>
+            <line x1="60" y1="50" x2="60" y2="80" stroke="#5a3a2a"/>
+            <!-- 번호 -->
+            <circle cx="-4" cy="48" r="14" fill="#3f8abf" stroke="#fff" stroke-width="2.5"/>
+            <text x="-4" y="53" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">5</text>
+            <text x="60" y="96" font-size="10" text-anchor="middle" font-weight="900" fill="#2a5a7a">🏯 서울원(삼익)</text>
+            <text x="60" y="108" font-size="8" text-anchor="middle" font-weight="800" fill="#2a5a7a">도매 핵심 · 꽁꼬떼</text>
+          </g>
+
+          <!-- ========= 6. 갤러리아상가 (아기자기 부티크) ========= -->
+          <g class="map-bld" transform="translate(275,660)" filter="url(#softShadow)">
+            <ellipse cx="60" cy="76" rx="62" ry="5" fill="#000" opacity=".12"/>
+            <rect x="5" y="34" width="110" height="42" rx="4" fill="url(#wallWhite)" stroke="#e8aabe" stroke-width="1.5"/>
+            <!-- 둥근 차양 -->
+            <path d="M 0,34 Q 30,20 60,34 Q 90,20 120,34" fill="url(#roofPink)" stroke="#c93a5a" stroke-width="1.5"/>
+            <!-- 지붕 돔 -->
+            <path d="M 40,16 Q 60,-4 80,16 L 80,22 L 40,22 Z" fill="url(#roofPink)" stroke="#c93a5a" stroke-width="1"/>
+            <circle cx="60" cy="-4" r="2" fill="#ffd86b"/>
+            <!-- 진열창 -->
+            <rect x="12" y="44" width="26" height="24" fill="#fff0f4" stroke="#e8aabe"/>
+            <text x="25" y="60" font-size="12" text-anchor="middle">🎀</text>
+            <rect x="82" y="44" width="26" height="24" fill="#fff0f4" stroke="#e8aabe"/>
+            <text x="95" y="60" font-size="12" text-anchor="middle">🧦</text>
+            <!-- 문 -->
+            <rect x="48" y="48" width="24" height="28" fill="#c93a5a" rx="2"/>
+            <circle cx="66" cy="62" r="1.2" fill="#ffd86b"/>
+            <!-- 번호 -->
+            <circle cx="-4" cy="42" r="14" fill="#e84868" stroke="#fff" stroke-width="2.5"/>
+            <text x="-4" y="47" font-size="15" text-anchor="middle" font-weight="900" fill="#fff">6</text>
+            <text x="60" y="92" font-size="10" text-anchor="middle" font-weight="900" fill="#8a3a5a">👧 마마 아동복</text>
+            <text x="60" y="104" font-size="8" text-anchor="middle" font-weight="800" fill="#8a3a5a">F동 · 여아 특화</text>
+          </g>
+
+          <!-- ========= 입구 아치 ========= -->
+          <g transform="translate(220,740)">
+            <path d="M -50,0 Q -50,-30 0,-30 Q 50,-30 50,0" fill="none" stroke="#ff6f91" stroke-width="6" stroke-linecap="round"/>
+            <path d="M -50,0 Q -50,-30 0,-30 Q 50,-30 50,0" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="2 3"/>
+            <circle cx="-50" cy="0" r="5" fill="#ff6f91"/>
+            <circle cx="50" cy="0" r="5" fill="#ff6f91"/>
+            <text y="-12" font-size="11" text-anchor="middle" font-weight="900" fill="#fff">🎟️ WELCOME 🎟️</text>
+            <text y="14" font-size="9" text-anchor="middle" font-weight="900" fill="#c93a5a">메인 입구</text>
+          </g>
+
+          <!-- ========= 장식: 나무, 꽃, 구름, 풍선 ========= -->
+          <!-- 구름 -->
+          <use href="#cloud" x="340" y="130" width="60" height="30"/>
+          <use href="#cloud" x="8" y="220" width="50" height="25" opacity=".8"/>
+          <use href="#cloud" x="360" y="290" width="54" height="28" opacity=".85"/>
+          <use href="#cloud" x="6" y="450" width="48" height="24" opacity=".8"/>
+          <use href="#cloud" x="370" y="480" width="50" height="26" opacity=".85"/>
+
+          <!-- 나무 -->
+          <use href="#tree" x="10" y="140" width="28" height="34"/>
+          <use href="#pine" x="400" y="150" width="26" height="38"/>
+          <use href="#tree" x="200" y="130" width="24" height="30"/>
+          <use href="#pine" x="400" y="280" width="24" height="36"/>
+          <use href="#tree" x="14" y="280" width="28" height="34"/>
+          <use href="#tree" x="200" y="300" width="22" height="28"/>
+          <use href="#pine" x="14" y="440" width="26" height="38"/>
+          <use href="#tree" x="400" y="440" width="26" height="32"/>
+          <use href="#tree" x="200" y="470" width="22" height="28"/>
+          <use href="#pine" x="200" y="590" width="22" height="34"/>
+          <use href="#tree" x="15" y="600" width="26" height="32"/>
+          <use href="#tree" x="400" y="600" width="24" height="30"/>
+          <use href="#pine" x="14" y="720" width="22" height="32"/>
+          <use href="#pine" x="404" y="720" width="22" height="32"/>
+
+          <!-- 꽃밭 -->
+          <use href="#flower" x="150" y="252" width="14" height="14"/>
+          <use href="#flower" x="265" y="272" width="14" height="14"/>
+          <use href="#flower" x="155" y="460" width="14" height="14"/>
+          <use href="#flower" x="270" y="470" width="14" height="14"/>
+          <use href="#flower" x="160" y="620" width="14" height="14"/>
+          <use href="#flower" x="265" y="628" width="14" height="14"/>
+
+          <!-- 풍선 -->
+          <use href="#balloon" x="380" y="210" width="18" height="30"/>
+          <use href="#balloon" x="30" y="360" width="18" height="30"/>
+          <use href="#balloon" x="395" y="540" width="18" height="30"/>
+
+          <!-- 미니 벤치 -->
+          <g transform="translate(168,410)">
+            <rect x="0" y="3" width="18" height="3" fill="#8b5e3c"/>
+            <rect x="1" y="6" width="2" height="4" fill="#8b5e3c"/>
+            <rect x="15" y="6" width="2" height="4" fill="#8b5e3c"/>
+          </g>
+          <g transform="translate(254,410)">
+            <rect x="0" y="3" width="18" height="3" fill="#8b5e3c"/>
+            <rect x="1" y="6" width="2" height="4" fill="#8b5e3c"/>
+            <rect x="15" y="6" width="2" height="4" fill="#8b5e3c"/>
+          </g>
+
+          <!-- 방향 표지판 -->
+          <g transform="translate(140,350)">
+            <rect x="-1" y="0" width="2" height="22" fill="#7a4f28"/>
+            <rect x="-18" y="2" width="36" height="7" fill="#ffd86b" stroke="#b8871a"/>
+            <text x="0" y="7.5" font-size="5" text-anchor="middle" font-weight="900" fill="#7a4f28">👶 아동복</text>
+            <rect x="-18" y="10" width="36" height="7" fill="#ff9bb3" stroke="#c93a5a"/>
+            <text x="0" y="15.5" font-size="5" text-anchor="middle" font-weight="900" fill="#fff">🍢 먹거리</text>
+          </g>
+
+          <!-- 나침반 -->
+          <g transform="translate(395,700)">
+            <circle r="18" fill="#fff" stroke="#ff6f91" stroke-width="2"/>
+            <polygon points="0,-12 3,0 0,-3 -3,0" fill="#ff6f91"/>
+            <polygon points="0,12 3,0 0,3 -3,0" fill="#c8c8c8"/>
+            <text y="-6" font-size="6" text-anchor="middle" font-weight="900" fill="#ff6f91">N</text>
+            <text y="14" font-size="6" text-anchor="middle" font-weight="900" fill="#888">S</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="map-legend">
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#ff8fa9,#e84868)"></span> ❶ 부르뎅 (원조)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#7ed4af,#3fa87b)"></span> ❷ 페인트타운 (남아)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#c8aaf0,#8a68c4)"></span> ❸ 포키 (G동)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#ffd76b,#e8a81a)"></span> ❹ 크레용 (이월)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#87cdef,#3f8abf)"></span> ❺ 서울원 (도매)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#ff8fa9,#e84868)"></span> ❻ 마마 (여아)</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#ff9b8e,#e06552)"></span> 🍢 군것질 4곳</span>
+        <span class="leg"><span class="dot" style="background:linear-gradient(135deg,#ffd76b,#e8a81a)"></span> 🍽 맛집 4곳</span>
+      </div>
+    </div>
+    <p style="font-size:11.5px; color:var(--ink-soft); text-align:center; margin-top:10px; line-height:1.5;">
+      ※ 실제 건물 배치는 대략적입니다. 모두 <b>남대문시장8길</b>에 밀집.<br/>
+      건물명·입점 매장은 <b>2024~2025년 공식·블로그·인스타</b> 교차검증 자료 기준.
+    </p>
+  </section>
+
+  <!-- 건물별 가게 -->
+  <section id="buildings">
+    <h2 class="sec-title">
+      <span class="badge">🏬</span> 건물별 가게 상세 <span class="line"></span>
+    </h2>
+
+    <div class="tip">
+      <b>📍 거리 위치:</b> 서울시 중구 <b>남대문시장8길 7~17</b> 일대 (회현역 6번 출구 도보 1분, 신세계백화점 본관 맞은편).
+      <br/><b>⏰ 영업시간:</b> 소매 <b>평일·토 09:30~17:00</b> / 도매 <b>심야 22:30~05:00</b>.
+      <b>일요일·공휴일 전면 휴무</b> (토요일 오후도 닫는 매장多).
+    </div>
+    <div class="tip" style="background:linear-gradient(135deg,#e0f4ff,#c3e8ff); border-color:#6ab6e8; color:#0d4c7a;">
+      <b>💰 가격·결제 팁:</b> 카드 가능하나 <b>현금 결제 시 5~10% 할인</b> 관행.
+      2~3벌 이상 구매 시 흥정 가능. <b>교환·환불 거의 불가</b> — 사이즈·하자 현장 확인 필수.
+    </div>
+
+    <!-- 부르뎅 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#ffd1dc,#ff9bb3)">1</div>
+        <div class="bld-info">
+          <div class="bld-name">부르뎅 아동복 🏰</div>
+          <div class="bld-desc">1980년대 개점 · 거리의 원조 · 3층 · 130여 브랜드 입점</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">거리에서 가장 오래된 대형 아동복 상가. 영유아~주니어 전 연령 커버. 가격대는 거리 내 중상위.</div>
+          <div class="shop-tags"><span>#원조</span><span>#브랜드집합</span><span>#도매병행</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 2층 핵심존 <span class="floor">2F</span></div>
+          <div class="shop-desc">약 130개 브랜드 입점 — <b>아오스타, 미미코, 하나코코</b> 등 국내 영유아 브랜드 집합.</div>
+          <div class="shop-tags"><span>#영유아</span><span>#국내브랜드</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 1F / 3F</div>
+          <div class="shop-desc">1층은 여아 외출복·잡화, 3층은 확장존.</div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">☎</span> 02-755-5737 · <span class="hi">🌐</span> burdeng.co.kr</p>
+      </div>
+    </div>
+
+    <!-- 마마 아동복 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#ffd1dc,#ff9bb3)">2</div>
+        <div class="bld-info">
+          <div class="bld-name">마마 아동복 👧</div>
+          <div class="bld-desc">F동 · 여아 특화 · 남대문시장8길 8</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">여아 아동복에 강세. 온라인몰(mamachild.co.kr) 연동 활발해 신상 회전 빠름.</div>
+          <div class="shop-tags"><span>#여아</span><span>#온라인병행</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 1F 대표 매장</div>
+          <div class="shop-desc"><b>비비안리</b>(177호) · <b>엠앤제이스토리</b>(226호) · 플로 · 미니로브 · 디그린</div>
+          <div class="shop-tags"><span>#비비안리</span><span>#미니로브</span><span>#디그린</span></div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">☎</span> 02-752-2773 · <span class="hi">🌐</span> mamachild.co.kr</p>
+      </div>
+    </div>
+
+    <!-- 포키 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#e8d6ff,#a98bd9)">3</div>
+        <div class="bld-info">
+          <div class="bld-name">포키 아동복 🍼</div>
+          <div class="bld-desc">G동 · 남대문시장8길 16 · 감성 힙한 중가 브랜드</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">대형 멀티 매장형, 내부에 1평 남짓 소형 매장 수십 개. 젊은 엄마들이 선호하는 힙한 스타일.</div>
+          <div class="shop-tags"><span>#감성</span><span>#중가브랜드</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 대표 입점 매장</div>
+          <div class="shop-desc"><b>발소리/베이비잼</b>(27호) · <b>오뜨베베</b> · <b>쿠도스</b> · AMBEROUTLET</div>
+          <div class="shop-tags"><span>#발소리</span><span>#오뜨베베</span><span>#쿠도스</span></div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">☎</span> 02-755-2154 · <span class="hi">🌐</span> m.porkykid.co.kr</p>
+      </div>
+    </div>
+
+    <!-- 크레용 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#fff2b2,#f9c846); color:#6b4423">4</div>
+        <div class="bld-info">
+          <div class="bld-name">크레용 아동복 🎨</div>
+          <div class="bld-desc">G동 같은 번지 · 2층 중심 · 이월·시즌오프 저렴</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">유아복보다 <b>아동~주니어</b> 연령대 강세. 이월·시즌오프 상품이 많아 가성비 쇼핑에 적합.</div>
+          <div class="shop-tags"><span>#이월특가</span><span>#가성비</span><span>#아동주니어</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 대표 입점 매장</div>
+          <div class="shop-desc"><b>스웨번</b> · <b>벨라밤비나</b> · <b>엠버아울렛</b> (이월 아울렛 성격)</div>
+          <div class="shop-tags"><span>#스웨번</span><span>#벨라밤비나</span></div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">☎</span> 02-3789-9092</p>
+      </div>
+    </div>
+
+    <!-- 서울원 (삼익패션타운) -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#c3e8ff,#6ab6e8)">5</div>
+        <div class="bld-info">
+          <div class="bld-name">서울원 아동복 🏯</div>
+          <div class="bld-desc">삼익패션타운 내 · 남대문시장8길 7 · 도매의 심장</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">전국 소매업자가 발주하러 오는 <b>도매 중심</b> 상가. 옷이 더미로 쌓여있고 스타일 다양. 소매 구매도 가능.</div>
+          <div class="shop-tags"><span>#도매</span><span>#삼익패션타운</span><span>#대량스타일</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 대표 입점 매장</div>
+          <div class="shop-desc"><b>꽁꼬떼</b>(24호) · <b>구노</b>(70·71호) · <b>블랙빈</b> · <b>아젤리아</b> · <b>비비드아이</b></div>
+          <div class="shop-tags"><span>#꽁꼬떼</span><span>#구노</span><span>#블랙빈</span></div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">🌐</span> seoulone.forkids.kr · <span class="hi">📷</span> @won_kids_mall_official</p>
+      </div>
+    </div>
+
+    <!-- 페인트타운 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#d4f0e4,#87d4b0)">6</div>
+        <div class="bld-info">
+          <div class="bld-name">페인트타운 👦</div>
+          <div class="bld-desc">신축 건물 · 엘리베이터 有 · <b>남아 아동복 특화</b></div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">거리 내에서 드문 <b>남아 전문</b> 상가. 신축이라 인테리어·동선 깔끔.</div>
+          <div class="shop-tags"><span>#남아전문</span><span>#신축</span><span>#엘리베이터</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 대표 브랜드</div>
+          <div class="shop-desc"><b>고유</b> · <b>아워</b> · <b>피넛앤버터</b></div>
+          <div class="shop-tags"><span>#고유</span><span>#아워</span><span>#피넛앤버터</span></div>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span class="hi">☎</span> 02-777-2100 · <span class="hi">📷</span> @painttown_kids</p>
+      </div>
+    </div>
+
+    <!-- 클로버캐슬 (신상) -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#ffd86b,#ff9b7a)">★</div>
+        <div class="bld-info">
+          <div class="bld-name">클로버캐슬 🍀</div>
+          <div class="bld-desc">2023년 말 개점 · 지하 포함 <b>6개 층 · 180평</b> · 원스톱</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 개요</div>
+          <div class="shop-desc">아동복 거리 내 가장 최신 시설. <b>아동복 + 장난감 + 이유식</b> 원스톱 유아 전문몰.
+            기존 4대장과 다른 컨셉이라 취재·블로그 노출 빈도 상승 중.</div>
+          <div class="shop-tags"><span>#NEW</span><span>#6층</span><span>#장난감</span><span>#이유식</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">📍 층 구성</div>
+          <div class="shop-desc">지하 1층 ~ 지상 5층 구성. 층별 품목 분리 (의류/장난감/이유식/잡화).
+          <em style="color:#c93a5a;">※ 세부 층별 매장 구성은 현장 안내도 확인 권장 (신규 개점이라 변동 가능)</em></div>
+          <div class="shop-tags"><span>#원스톱</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 조연: 씨티아이 + 웅이 -->
+    <div class="bld">
+      <div class="bld-head" onclick="toggle(this)">
+        <div class="bld-num" style="background:linear-gradient(135deg,#fce0e9,#c8c8c8); color:#555">＋</div>
+        <div class="bld-info">
+          <div class="bld-name">조연 상가들 ➕</div>
+          <div class="bld-desc">씨티아이(CTI) · 웅이 아동복 · 아이라인 · 버디키즈</div>
+        </div>
+        <div class="bld-arrow">▼</div>
+      </div>
+      <div class="bld-body">
+        <div class="shop">
+          <div class="shop-name">🏢 씨티아이 (CTI)</div>
+          <div class="shop-desc">회현역 6번 출구 바로 앞 거리 초입. 쇼핑몰형 정돈된 구조.
+            <b>BONITO</b>(1층 1-2호) · 피카부 · 보니토 · 르베브.</div>
+          <div class="shop-tags"><span>#초입</span><span>#깔끔</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">🏢 웅이 아동복</div>
+          <div class="shop-desc">부르뎅 바로 옆 신축 건물. 인테리어 최신.
+            <b>보네오네</b> · <b>호제트</b> · <b>보나로이</b> 등 신상·트렌드 중심.</div>
+          <div class="shop-tags"><span>#신축</span><span>#트렌드</span></div>
+        </div>
+        <div class="shop">
+          <div class="shop-name">🏢 아이라인 / 버디키즈</div>
+          <div class="shop-desc">거리 외곽 소형 건물군. 아이라인 — 퇴계로 61 금오빌딩 1층 13·14호(마르비). 버디키즈 — 남대문시장8길 17.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip" style="background:linear-gradient(135deg,#ffe9e0,#ffd4c0); border-color:#ff9b7a; color:#8a3a1a; margin-top:12px;">
+      <b>⚠️ 오해 바로잡기:</b> 흔히 언급되는 "부림상가/남정빌딩/마리나/갤러리아" 등은
+      남대문 아동복 거리의 실제 랜드마크가 <b>아닙니다</b>.
+      "대도종합상가"는 <b>남대문시장4길 9</b>에 있는 <b>수입 잡화·인테리어 도매</b> 상가로
+      아동복 거리(8길)와는 <b>다른 블록</b>입니다.
+    </div>
+
+    <div class="tip" style="background:linear-gradient(135deg,#e8f7e0,#c8ecb0); border-color:#7bc55a; color:#2a5a1a;">
+      <b>🛍️ 추천 동선 (회현역 → 거리 안쪽):</b><br/>
+      ① 씨티아이(초입) → ② 삼익패션타운(서울원) → ③ 마마 → ④ 부르뎅 / 웅이<br/>
+      → ⑤ 포키 / 크레용 (G동) → ⑥ 페인트타운 → ⑦ 클로버캐슬 (신상)
+      <br/>한 블록 내 도보 총 5~7분.
+    </div>
+  </section>
+
+  <!-- 맛집 -->
+  <section id="food">
+    <h2 class="sec-title">
+      <span class="badge">🍢</span> 맛집 & 군것질 <span class="line"></span>
+    </h2>
+
+    <div class="tip" style="background:linear-gradient(135deg,#ffe9e0,#ffd4c0); border-color:#ff9b7a; color:#8a3a1a;">
+      <b>⚠️ 일요일 주의:</b> 야채호떡·가메골·희락·서울식당 등 <b>대부분 일요일 휴무</b>.
+      시장 전체가 한산하니 쇼핑은 평일·토요일 방문 권장.
+    </div>
+    <div class="tip">
+      <b>🎯 아기 동반 추천 동선:</b> 아동복 쇼핑 → <b>가메골 왕만두 포장(도보 2분)</b> → 벤치·카페에서 간식 → 오후 쇼핑.
+      제대로 된 식사는 <b>한순자손칼국수</b>(회전 빠름) 또는 <b>은호식당 꼬리곰탕</b>(좌석 식당, 아기에 덜어주기 좋음).
+    </div>
+    <div class="tip" style="background:linear-gradient(135deg,#e0f4ff,#c3e8ff); border-color:#6ab6e8; color:#0d4c7a;">
+      <b>🚸 유모차 TIP:</b> 갈치조림골목·칼국수골목 내부는 좁아 진입 어려움.
+      메인 통로(남대문시장길)로 이동하고, 골목 식당은 아기띠로 전환하거나 <b>포장</b> 추천.
+    </div>
+
+    <div class="food-grid">
+      <!-- ===== 군것질 (길거리 간식) ===== -->
+      <div class="food-card snack">
+        <div class="ico">🫓</div>
+        <div>
+          <div class="name">남대문 야채호떡 (원조 노점)</div>
+          <div class="loc">📍 <b>IBK기업은행 남대문시장역점 앞</b> · 회현역 5번 출구</div>
+          <div class="price">💰 개당 2,500원 · 현금/계좌이체</div>
+          <div class="loc">⏰ 08:00~18:30 · <b>일요일 휴무</b> · 웨이팅 20~30분</div>
+        </div>
+      </div>
+      <div class="food-card snack">
+        <div class="ico">🥟</div>
+        <div>
+          <div class="name">가메골손왕만두 (1978년 창업)</div>
+          <div class="loc">📍 남대문시장4길 42 · <b>아동복거리에서 도보 2~3분 (최접근)</b></div>
+          <div class="price">💰 왕만두 5개 5,000원 / 10개 10,000원</div>
+          <div class="loc">⏰ 08:20~19:30 · <b>일요일 휴무</b> · 포장 줄이 빠름</div>
+        </div>
+      </div>
+      <div class="food-card snack">
+        <div class="ico">🍢</div>
+        <div>
+          <div class="name">당소분식 (포장마차)</div>
+          <div class="loc">📍 남대문시장4길 21 · 가메골 인근</div>
+          <div class="price">💰 어묵꼬치 1,500원 · 떡볶이 4,000원 · 새우튀김 1,500원</div>
+          <div class="loc">🍜 부산식 물떡·어묵국물 · 스탠딩</div>
+        </div>
+      </div>
+      <div class="food-card snack">
+        <div class="ico">🍙</div>
+        <div>
+          <div class="name">통통김밥 남대문시장점</div>
+          <div class="loc">📍 남대문시장2가길 6-13 · <b>본점 포장·배달 전용</b></div>
+          <div class="price">💰 불고기김밥 인기</div>
+          <div class="loc">⏰ 평일 07:00~17:00 · 토 07:00~15:30</div>
+        </div>
+      </div>
+
+      <!-- ===== 식사 ===== -->
+      <div class="food-card meal">
+        <div class="ico">🍲</div>
+        <div>
+          <div class="name">은호식당 (꼬리곰탕) ★아기동반 최적</div>
+          <div class="loc">📍 꼬리곰탕골목 · 서울미래유산 지정 노포</div>
+          <div class="price">💰 꼬리곰탕 30,000원 · 도가니탕 19,000원</div>
+          <div class="loc">👶 좌석 식당 · 국물 요리 · 아이에 덜어주기 용이</div>
+        </div>
+      </div>
+      <div class="food-card meal">
+        <div class="ico">🍜</div>
+        <div>
+          <div class="name">한순자 손칼국수</div>
+          <div class="loc">📍 남대문시장4길 39-1 · 회현역 5번 출구 도보 1분</div>
+          <div class="price">💰 단품 각 7,000원 · <b>3종 세트 +2,000원</b> (칼국수+보리비빔밥+냉면)</div>
+          <div class="loc">⏰ 24시간 표기 (칼국수골목 내 가게별 상이, 방문 전 확인)</div>
+        </div>
+      </div>
+      <div class="food-card meal">
+        <div class="ico">🐟</div>
+        <div>
+          <div class="name">희락식당 (갈치조림 원조)</div>
+          <div class="loc">📍 남대문시장길 22-6 · 갈치조림골목 첫 집</div>
+          <div class="price">💰 갈치조림 1인 14,000원 (국내산 · 계란찜 서비스)</div>
+          <div class="loc">⏰ 월~토 07:00~21:00 · <b>일요일 휴무</b> · ☎ 02-755-3449</div>
+        </div>
+      </div>
+      <div class="food-card meal">
+        <div class="ico">🍚</div>
+        <div>
+          <div class="name">중앙갈치식당 (56년 전통)</div>
+          <div class="loc">📍 갈치조림골목 · 〈줄서는식당2〉 방영</div>
+          <div class="price">💰 1인 12,000원 (갈치조림+계란찜+백반)</div>
+          <div class="loc">🎬 방송 후 웨이팅 증가 · 희락 대비 2,000원 저렴</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip" style="background:linear-gradient(135deg,#fff5cc,#ffe9a8); border-color:#e8c957; color:#8a6d00; margin-top:12px;">
+      <b>❌ 확인 불가 항목:</b> 남대문 "원조 꽈배기·찹쌀도너츠"는 최신 자료상 고정 노점 특정 불가
+      (꽈배기 맛집은 <b>광장시장</b>이 유명). 계란빵·붕어빵도 계절성 유동 노점이라 고정 매장 없음.
+    </div>
+  </section>
+
+  <!-- 체크리스트 -->
+  <section id="checklist">
+    <h2 class="sec-title">
+      <span class="badge">✅</span> 출발 전 체크리스트 <span class="line"></span>
+    </h2>
+    <div class="checklist">
+      <label><input type="checkbox"/><span>💵 <b>현금 5~10만원</b> — 도매매장·노점은 카드 불가 많음</span></label>
+      <label><input type="checkbox"/><span>🛍️ <b>큰 에코백/보조가방</b> — 사면 생각보다 부피 큼</span></label>
+      <label><input type="checkbox"/><span>📏 아기 <b>사이즈 메모</b>(키·발·머리둘레)</span></label>
+      <label><input type="checkbox"/><span>📱 배터리·보조배터리 — 사진 많이 찍게 됨</span></label>
+      <label><input type="checkbox"/><span>🧴 물티슈·유아 간식 (대기시간 대비)</span></label>
+      <label><input type="checkbox"/><span>🚼 유모차 or 아기띠 (건물 계단 많음 → <b>아기띠 추천</b>)</span></label>
+      <label><input type="checkbox"/><span>⏰ <b>오전 9~11시 도착</b> 목표 (주차·쇼핑 모두 쾌적)</span></label>
+      <label><input type="checkbox"/><span>🅿️ 신세계 앱에서 <b>무료주차 쿠폰 3시간</b> 발급 (본점 방문용)</span></label>
+      <label><input type="checkbox"/><span>📍 주차장 네비 목적지: <b>"남대문시장 공영주차장"</b> 또는 <b>"신세계백화점 본점"</b></span></label>
+    </div>
+  </section>
+
+  <footer>
+    Made with <span class="heart">♥</span> for 남대문 원정대<br/>
+    즐거운 쇼핑 되세요! 🎀🍼
+  </footer>
+</div>
+
+<script>
+  function toggle(el) {
+    el.parentElement.classList.toggle('open');
+  }
+  // 첫 번째 건물(부림상가) 기본 펼침
+  document.addEventListener('DOMContentLoaded', () => {
+    const first = document.querySelector('.bld');
+    if (first) first.classList.add('open');
+  });
+</script>
+</body>
+</html>
