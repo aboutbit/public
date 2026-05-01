@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다은이 하루 계획표 — 2026.05.02 (토)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    background: linear-gradient(135deg, #fef3f2 0%, #fff7ed 100%);
+    color: #111827;
+    line-height: 1.75;
+    padding: 24px 16px;
+    font-size: 22px;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    padding: 32px 22px;
+    background: linear-gradient(135deg, #fb7185 0%, #f59e0b 100%);
+    color: white;
+    border-radius: 22px;
+    margin-bottom: 26px;
+    box-shadow: 0 8px 24px rgba(251, 113, 133, 0.25);
+  }
+  header h1 { font-size: 34px; font-weight: 900; margin-bottom: 10px; letter-spacing: -0.5px; }
+  header .date { font-size: 22px; opacity: 0.98; font-weight: 600; }
+  header .heart { font-size: 24px; margin-top: 12px; font-weight: 600; }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 26px 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+  }
+  .card h2 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #be123c;
+    letter-spacing: -0.3px;
+    border-bottom: 3px solid #fecdd3;
+    padding-bottom: 12px;
+  }
+  .card h2 .ico { font-size: 30px; }
+
+  .rule { margin-bottom: 14px; font-size: 22px; }
+  .rule:last-child { margin-bottom: 0; }
+  .rule strong { color: #b45309; font-weight: 800; }
+
+  .case {
+    background: #fef3c7;
+    border-left: 6px solid #f59e0b;
+    padding: 16px 18px;
+    border-radius: 10px;
+    margin-top: 12px;
+    font-size: 22px;
+  }
+  .case .label {
+    font-weight: 800;
+    color: #92400e;
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
+  .case strong { font-weight: 800; color: #7c2d12; }
+
+  .warn {
+    background: #fee2e2;
+    border-left: 6px solid #ef4444;
+    padding: 18px 20px;
+    border-radius: 10px;
+    margin-top: 14px;
+    color: #991b1b;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .warn strong { color: #7f1d1d; font-weight: 900; }
+
+  .tip {
+    background: #dbeafe;
+    border-left: 6px solid #3b82f6;
+    padding: 18px 20px;
+    border-radius: 10px;
+    margin-top: 14px;
+    color: #1e3a8a;
+    font-size: 22px;
+  }
+  .tip strong { color: #1e3a8a; font-weight: 800; }
+
+  ul { padding-left: 26px; margin-top: 10px; }
+  ul li { margin-bottom: 10px; font-size: 22px; }
+  ul li strong { color: #b45309; font-weight: 800; }
+
+  .hand {
+    display: inline-block;
+    background: #fef3c7;
+    padding: 3px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    color: #92400e;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-top: 10px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background: #fbbf24;
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f59e0b;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #fbbf24;
+  }
+  .tl-time {
+    font-weight: 900;
+    color: #be123c;
+    font-size: 21px;
+  }
+  .tl-desc { color: #1f2937; margin-top: 4px; font-size: 21px; font-weight: 600; }
+  .tl-note {
+    color: #6b7280;
+    font-size: 18px;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .tl-note strong { color: #b45309; font-weight: 700; }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 22px;
+    color: #6b7280;
+    font-size: 19px;
+  }
+  footer .thanks {
+    font-size: 24px;
+    color: #be123c;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>다은이 하루 계획표</h1>
+  <div class="date">2026년 5월 2일 (토요일)</div>
+  <div class="heart">엄마, 아빠 감사합니다</div>
+</header>
+
+<div class="card">
+  <h2><span class="ico">하루 흐름</span></h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">07:00 ~ 08:00</div>
+      <div class="tl-desc">기상</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">08:30 즈음</div>
+      <div class="tl-desc">기저귀 갈기 + 우유 한 잔</div>
+      <div class="tl-note">우유는 <strong>따뜻하게 데워서</strong> 주세요</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">09:00 ~ 09:30</div>
+      <div class="tl-desc">아침 식사</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:00 또는 13:30</div>
+      <div class="tl-desc">점심 식사</div>
+      <div class="tl-note">일찍 일어나면 <strong>12시</strong> / 늦게 일어나면 <strong>1시 30분</strong></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:00 ~ 13:00 사이</div>
+      <div class="tl-desc">낮잠 (약 2시간)</div>
+      <div class="tl-note">컨디션 보고 <strong>점심 전/후 유연하게</strong></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">15:00 즈음</div>
+      <div class="tl-desc">간식</div>
+      <div class="tl-note">빵·과일·뻥튀기 등, <strong>손바닥 크기만</strong><br>밥 먹기 <strong>2시간 전까지만!</strong></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">18:30 즈음</div>
+      <div class="tl-desc">저녁 식사</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">아침 루틴</span></h2>
+  <div class="rule">
+    보통 <strong>7시 ~ 8시</strong> 사이에 일어나요.
+  </div>
+  <div class="case">
+    <div class="label">기상 후 (8:30 즈음)</div>
+    1. <strong>기저귀</strong> 갈아주기<br>
+    2. <strong>우유 한 잔</strong>을 <strong>따뜻하게 데워서</strong> 주기
+  </div>
+  <div class="case">
+    <div class="label">아침 식사</div>
+    <strong>9:00 ~ 9:30</strong> 사이에 아침을 꼭 챙겨주세요
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">점심 시간</span></h2>
+  <div class="case">
+    <div class="label">일찍 일어났을 때</div>
+    낮 <strong>12시</strong>에 점심
+  </div>
+  <div class="case">
+    <div class="label">늦게 일어났을 때</div>
+    오후 <strong>1시 30분</strong>에 점심
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">낮잠</span></h2>
+  <div class="rule">
+    보통 <strong>12시 ~ 1시</strong> 사이에 졸려하기 시작해요.
+  </div>
+  <div class="rule">
+    한 번 재우면 <strong>약 2시간</strong> 정도 자요.
+  </div>
+  <div class="tip">
+    <strong>다은이 상태를 보고 판단해 주세요</strong><br>
+    • 너무 졸려해요 → <strong>먼저 재우고</strong>, 깨면 점심<br>
+    • 점심 먹을 기미가 보여요 → <strong>점심 먼저</strong>, 그 다음 낮잠
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">간식</span></h2>
+  <div class="rule">
+    <strong>오후 3시 즈음</strong>에 주시면 좋아요.
+  </div>
+  <div class="rule">
+    종류: <strong>빵, 과일, 뻥튀기</strong> 등
+  </div>
+  <div class="rule">
+    양: <span class="hand">손바닥 만큼</span> (다은이 손바닥 기준, 너무 많이 X)
+  </div>
+  <div class="warn">
+    <strong>중요!</strong> 간식은 반드시 <strong>밥 먹기 2시간 전</strong>까지만 주세요.<br>
+    그렇지 않으면 배가 불러서 <strong>밥을 안 먹어요.</strong>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">저녁 식사</span></h2>
+  <div class="rule">
+    저녁은 <strong>오후 6시 30분</strong> 즈음에 먹어요.
+  </div>
+  <div class="tip">
+    오후 3시 간식과 <strong>3시간 30분</strong> 정도 간격이 있어서<br>
+    저녁 식사 시간엔 잘 먹을 거예요.
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="ico">정리</span></h2>
+  <ul>
+    <li>기상 후 <strong>기저귀 갈고 따뜻한 우유</strong> 한 잔 (8:30)</li>
+    <li>아침은 <strong>9:00 ~ 9:30</strong> 사이</li>
+    <li>점심은 <strong>기상 시간</strong>에 맞춰서 (12시 또는 1시 30분)</li>
+    <li>낮잠은 <strong>다은이 컨디션</strong>에 맞춰서 (점심 전/후 유연하게)</li>
+    <li>간식은 <strong>오후 3시쯤, 손바닥 크기</strong>만</li>
+    <li>저녁은 <strong>오후 6시 30분</strong> 즈음</li>
+    <li>밥 먹기 <strong>2시간 전</strong>에는 간식 금지</li>
+  </ul>
+</div>
+
+<footer>
+  <div class="thanks">엄마, 아빠 사랑해요</div>
+  하루 동안 다은이 잘 부탁드립니다
+</footer>
+
+</div>
+</body>
+</html>
