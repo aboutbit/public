@@ -15,9 +15,27 @@
     --yt: #FF0000;
   }
   * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; max-width: 100%; }
   body { margin:0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
          background: var(--bg); color: var(--ink); line-height: 1.6; }
   .container { max-width: 1320px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  /* 추천 카드 리스트 (모바일 전용) */
+  .rec-cards { display: none; }
+  .rec-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+  .rec-card .rc-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+  .rec-card .rc-name { font-size: 14px; font-weight: 700; line-height: 1.3; flex: 1; min-width: 0; }
+  .rec-card .rc-rank { font-size: 11px; color: var(--ink-soft); font-weight: 700; }
+  .rec-card .rc-price { font-size: 16px; font-weight: 700; color: var(--gold); }
+  .rec-card .rc-meta { font-size: 11px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .rec-card .rc-meta span::before { content: '·'; margin-right: 4px; color: var(--line); }
+  .rec-card .rc-meta span:first-child::before { content: ''; margin-right: 0; }
+  .rec-card .rc-distances { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 6px 0; border-top: 1px dashed var(--line); font-size: 11px; }
+  .rec-card .rc-distances .d { text-align: center; }
+  .rec-card .rc-distances .d .lab { color: var(--ink-soft); font-size: 10px; }
+  .rec-card .rc-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11px; }
+  .rec-card .rc-score b { color: var(--gold); font-weight: 700; }
+  .rec-card .rc-yt { color: var(--yt); text-decoration: none; font-weight: 700; padding: 3px 10px; background: #FEE2E2; border-radius: 12px; font-size: 11px; }
   
   header.hero { padding: 32px 28px; background: linear-gradient(135deg, #1E3A8A 0%, #312E81 100%); color: #fff; border-radius: 16px; position: relative; overflow: hidden; margin-bottom: 32px; }
   header.hero::before { content: ''; position: absolute; top: 0; right: 32px; width: 12px; height: 60px; background: var(--gold-light); }
@@ -169,8 +187,13 @@
 
     .insight { padding: 14px 16px; font-size: 13px; }
 
-    /* 표는 가로 스크롤 컨테이너 안으로 */
-    h2 + .table-scroll, .section-summary + .table-scroll, h3 + .table-scroll { margin-bottom: 16px; }
+    /* 모바일에서 권역별 추천 = 카드 리스트로 전환 (12컬럼 표는 가독성 최악) */
+    .rec-table { display: none !important; }
+    .rec-cards { display: block; }
+
+    /* 메타권역·권역별 표는 가로 스크롤 (간단한 표는 유지) */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-scroll table { min-width: 560px; }
     table th, table td { padding: 8px 10px; font-size: 12px; white-space: nowrap; }
   }
 
@@ -4425,25 +4448,777 @@
 <h2>7. 권역별 추천 (점수 상위)</h2>
 
     <h3>🟢 가성비형 (8~13억) — Top 10</h3>
-    <div class="table-scroll"><table>
+    <div class="table-scroll rec-table"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>동천자이</b></td><td>수지 동천</td><td style="text-align:right">12.00억</td><td style="text-align:right">1,437</td><td style="text-align:right">2018</td><td style="text-align:right">2.02</td><td style="text-align:right">2.56</td><td style="text-align:right">17.79</td><td style="text-align:right">57</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=yiQqKhl8IbI" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>19.97</b></td></tr><tr><td>2</td><td><b>동천디이스트</b></td><td>수지 동천</td><td style="text-align:right">12.50억</td><td style="text-align:right">1,334</td><td style="text-align:right">2007</td><td style="text-align:right">2.13</td><td style="text-align:right">2.01</td><td style="text-align:right">18.42</td><td style="text-align:right">71</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=6KLIq7RMRic" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>18.25</b></td></tr><tr><td>3</td><td><b>새터마을죽전힐스테이트</b></td><td>수지 죽전</td><td style="text-align:right">8.40억</td><td style="text-align:right">1,998</td><td style="text-align:right">2004</td><td style="text-align:right">3.18</td><td style="text-align:right">2.46</td><td style="text-align:right">20</td><td style="text-align:right">60</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=qelD5pqMSvo" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.36</b></td></tr><tr><td>4</td><td><b>진산마을삼성5차</b></td><td>수지 풍덕천</td><td style="text-align:right">12.70억</td><td style="text-align:right">1,828</td><td style="text-align:right">2003</td><td style="text-align:right">4.78</td><td style="text-align:right">0.71</td><td style="text-align:right">20.93</td><td style="text-align:right">24</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=IN_BLeo4UIs" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.28</b></td></tr><tr><td>5</td><td><b>꽃메마을현대홈타운4차3단지</b></td><td>수지 죽전</td><td style="text-align:right">10.50억</td><td style="text-align:right">770</td><td style="text-align:right">2004</td><td style="text-align:right">4.25</td><td style="text-align:right">1.78</td><td style="text-align:right">21.03</td><td style="text-align:right">47</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=mMF09kL3F8Q" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.71</b></td></tr><tr><td>6</td><td><b>수지진산마을푸르지오</b></td><td>수지 풍덕천</td><td style="text-align:right">11.80억</td><td style="text-align:right">438</td><td style="text-align:right">2012</td><td style="text-align:right">5.08</td><td style="text-align:right">1.02</td><td style="text-align:right">21.16</td><td style="text-align:right">12</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=1OgelVE8lhM" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.61</b></td></tr><tr><td>7</td><td><b>판교밸리제일풍경채</b></td><td>수정 고등</td><td style="text-align:right">12.50억</td><td style="text-align:right">543</td><td style="text-align:right">2020</td><td style="text-align:right">7.52</td><td style="text-align:right">11.51</td><td style="text-align:right">10.1</td><td style="text-align:right">77</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=8ztQzhZDjyc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.96</b></td></tr><tr><td>8</td><td><b>미사강변하우스디더레이크</b></td><td>하남 미사</td><td style="text-align:right">12.50억</td><td style="text-align:right">821</td><td style="text-align:right">2016</td><td style="text-align:right">23.59</td><td style="text-align:right">27.63</td><td style="text-align:right">15.62</td><td style="text-align:right">62</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=B_bzAY-o95g" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>8.1</b></td></tr><tr><td>9</td><td><b>미사레스티아</b></td><td>하남 미사</td><td style="text-align:right">12.00억</td><td style="text-align:right">1,104</td><td style="text-align:right">2017</td><td style="text-align:right">23.48</td><td style="text-align:right">27.49</td><td style="text-align:right">16.43</td><td style="text-align:right">79</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=_cSAOAHo_80" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>7.89</b></td></tr><tr><td>10</td><td><b>미사강변효성해링턴플레이스엔에이치에프</b></td><td>하남 미사</td><td style="text-align:right">12.50억</td><td style="text-align:right">1,401</td><td style="text-align:right">2017</td><td style="text-align:right">23.96</td><td style="text-align:right">27.97</td><td style="text-align:right">16.68</td><td style="text-align:right">14</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=_BOz5Mz6Tc0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>6.83</b></td></tr></tbody>
     </table></div>
+    <div class="rec-cards">
+      <div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#1</span> 동천자이</div>
+            <div class="rc-price">12.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 동천</span>
+            <span>1,437세대</span>
+            <span>2018년</span>
+            <span>매물 57건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>2.56km</div>
+            <div class="d"><div class="lab">NAVER</div>2.02km</div>
+            <div class="d"><div class="lab">강남</div>17.79km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>19.97</b></div>
+            <a href="https://www.youtube.com/watch?v=yiQqKhl8IbI" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#2</span> 동천디이스트</div>
+            <div class="rc-price">12.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 동천</span>
+            <span>1,334세대</span>
+            <span>2007년</span>
+            <span>매물 71건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>2.01km</div>
+            <div class="d"><div class="lab">NAVER</div>2.13km</div>
+            <div class="d"><div class="lab">강남</div>18.42km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>18.25</b></div>
+            <a href="https://www.youtube.com/watch?v=6KLIq7RMRic" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#3</span> 새터마을죽전힐스테이트</div>
+            <div class="rc-price">8.40억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 죽전</span>
+            <span>1,998세대</span>
+            <span>2004년</span>
+            <span>매물 60건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>2.46km</div>
+            <div class="d"><div class="lab">NAVER</div>3.18km</div>
+            <div class="d"><div class="lab">강남</div>20km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>16.36</b></div>
+            <a href="https://www.youtube.com/watch?v=qelD5pqMSvo" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#4</span> 진산마을삼성5차</div>
+            <div class="rc-price">12.70억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 풍덕천</span>
+            <span>1,828세대</span>
+            <span>2003년</span>
+            <span>매물 24건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>0.71km</div>
+            <div class="d"><div class="lab">NAVER</div>4.78km</div>
+            <div class="d"><div class="lab">강남</div>20.93km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>16.28</b></div>
+            <a href="https://www.youtube.com/watch?v=IN_BLeo4UIs" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#5</span> 꽃메마을현대홈타운4차3단지</div>
+            <div class="rc-price">10.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 죽전</span>
+            <span>770세대</span>
+            <span>2004년</span>
+            <span>매물 47건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>1.78km</div>
+            <div class="d"><div class="lab">NAVER</div>4.25km</div>
+            <div class="d"><div class="lab">강남</div>21.03km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.71</b></div>
+            <a href="https://www.youtube.com/watch?v=mMF09kL3F8Q" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#6</span> 수지진산마을푸르지오</div>
+            <div class="rc-price">11.80억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 풍덕천</span>
+            <span>438세대</span>
+            <span>2012년</span>
+            <span>매물 12건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>1.02km</div>
+            <div class="d"><div class="lab">NAVER</div>5.08km</div>
+            <div class="d"><div class="lab">강남</div>21.16km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.61</b></div>
+            <a href="https://www.youtube.com/watch?v=1OgelVE8lhM" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#7</span> 판교밸리제일풍경채</div>
+            <div class="rc-price">12.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수정 고등</span>
+            <span>543세대</span>
+            <span>2020년</span>
+            <span>매물 77건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>11.51km</div>
+            <div class="d"><div class="lab">NAVER</div>7.52km</div>
+            <div class="d"><div class="lab">강남</div>10.1km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>11.96</b></div>
+            <a href="https://www.youtube.com/watch?v=8ztQzhZDjyc" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#8</span> 미사강변하우스디더레이크</div>
+            <div class="rc-price">12.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>하남 미사</span>
+            <span>821세대</span>
+            <span>2016년</span>
+            <span>매물 62건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>27.63km</div>
+            <div class="d"><div class="lab">NAVER</div>23.59km</div>
+            <div class="d"><div class="lab">강남</div>15.62km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>8.1</b></div>
+            <a href="https://www.youtube.com/watch?v=B_bzAY-o95g" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#9</span> 미사레스티아</div>
+            <div class="rc-price">12.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>하남 미사</span>
+            <span>1,104세대</span>
+            <span>2017년</span>
+            <span>매물 79건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>27.49km</div>
+            <div class="d"><div class="lab">NAVER</div>23.48km</div>
+            <div class="d"><div class="lab">강남</div>16.43km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>7.89</b></div>
+            <a href="https://www.youtube.com/watch?v=_cSAOAHo_80" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#10</span> 미사강변효성해링턴플레이스엔에이치에프</div>
+            <div class="rc-price">12.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>하남 미사</span>
+            <span>1,401세대</span>
+            <span>2017년</span>
+            <span>매물 14건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>27.97km</div>
+            <div class="d"><div class="lab">NAVER</div>23.96km</div>
+            <div class="d"><div class="lab">강남</div>16.68km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>6.83</b></div>
+            <a href="https://www.youtube.com/watch?v=_BOz5Mz6Tc0" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div>
+    </div>
     <h3>🟡 미드프리미엄 (13~17억) — Top 10</h3>
-    <div class="table-scroll"><table>
+    <div class="table-scroll rec-table"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>동천센트럴자이</b></td><td>수지 동천</td><td style="text-align:right">13.00억</td><td style="text-align:right">1,057</td><td style="text-align:right">2019</td><td style="text-align:right">2.25</td><td style="text-align:right">2.03</td><td style="text-align:right">18.33</td><td style="text-align:right">33</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=zzNot3DYq-4" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>20.14</b></td></tr><tr><td>2</td><td><b>더샵동천이스트포레</b></td><td>수지 동천</td><td style="text-align:right">13.00억</td><td style="text-align:right">980</td><td style="text-align:right">2020</td><td style="text-align:right">3.17</td><td style="text-align:right">1.2</td><td style="text-align:right">19.16</td><td style="text-align:right">25</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=DRn3qjlSX0s" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>19.84</b></td></tr><tr><td>3</td><td><b>래미안수지이스트파크</b></td><td>수지 풍덕천</td><td style="text-align:right">13.50억</td><td style="text-align:right">845</td><td style="text-align:right">2015</td><td style="text-align:right">3.37</td><td style="text-align:right">0.71</td><td style="text-align:right">19.76</td><td style="text-align:right">23</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=KWVr9AjfvGg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>18.98</b></td></tr><tr><td>4</td><td><b>더샵판교퍼스트파크</b></td><td>판교</td><td style="text-align:right">16.00억</td><td style="text-align:right">1,223</td><td style="text-align:right">2021</td><td style="text-align:right">2.78</td><td style="text-align:right">6.64</td><td style="text-align:right">14.06</td><td style="text-align:right">26</td><td style="text-align:right">—</td><td style="text-align:right"><b>16.7</b></td></tr><tr><td>5</td><td><b>e편한세상수지(주상복합)</b></td><td>수지 풍덕천</td><td style="text-align:right">16.50억</td><td style="text-align:right">1,237</td><td style="text-align:right">2017</td><td style="text-align:right">5.21</td><td style="text-align:right">1.4</td><td style="text-align:right">20.89</td><td style="text-align:right">34</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=Dk6_z8_jnK4" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.17</b></td></tr><tr><td>6</td><td><b>판교풍경채어바니티5단지</b></td><td>판교</td><td style="text-align:right">15.00억</td><td style="text-align:right">589</td><td style="text-align:right">2021</td><td style="text-align:right">3.12</td><td style="text-align:right">5.09</td><td style="text-align:right">15.36</td><td style="text-align:right">59</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=VKB__M4QinA" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.95</b></td></tr><tr><td>7</td><td><b>판교퍼스트힐푸르지오</b></td><td>판교</td><td style="text-align:right">13.50억</td><td style="text-align:right">974</td><td style="text-align:right">2021</td><td style="text-align:right">3.51</td><td style="text-align:right">6.16</td><td style="text-align:right">14.22</td><td style="text-align:right">83</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=vXMzsqW-Y7M" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.94</b></td></tr><tr><td>8</td><td><b>성복역롯데캐슬클라시엘</b></td><td>수지 성복</td><td style="text-align:right">13.80억</td><td style="text-align:right">1,094</td><td style="text-align:right">2021</td><td style="text-align:right">5.98</td><td style="text-align:right">2.55</td><td style="text-align:right">20.95</td><td style="text-align:right">22</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=28S3JbNj2wc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.23</b></td></tr><tr><td>9</td><td><b>더샵판교포레스트12단지</b></td><td>판교</td><td style="text-align:right">15.00억</td><td style="text-align:right">542</td><td style="text-align:right">2021</td><td style="text-align:right">2.94</td><td style="text-align:right">5.08</td><td style="text-align:right">15.33</td><td style="text-align:right">17</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=uIUODQtySLs" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.15</b></td></tr><tr><td>10</td><td><b>정든우성6단지</b></td><td>분당 정자</td><td style="text-align:right">16.70억</td><td style="text-align:right">706</td><td style="text-align:right">1994</td><td style="text-align:right">1.56</td><td style="text-align:right">4.8</td><td style="text-align:right">17.3</td><td style="text-align:right">22</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=TqV5RdxsAy0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.32</b></td></tr></tbody>
     </table></div>
+    <div class="rec-cards">
+      <div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#1</span> 동천센트럴자이</div>
+            <div class="rc-price">13.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 동천</span>
+            <span>1,057세대</span>
+            <span>2019년</span>
+            <span>매물 33건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>2.03km</div>
+            <div class="d"><div class="lab">NAVER</div>2.25km</div>
+            <div class="d"><div class="lab">강남</div>18.33km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>20.14</b></div>
+            <a href="https://www.youtube.com/watch?v=zzNot3DYq-4" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#2</span> 더샵동천이스트포레</div>
+            <div class="rc-price">13.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 동천</span>
+            <span>980세대</span>
+            <span>2020년</span>
+            <span>매물 25건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>1.2km</div>
+            <div class="d"><div class="lab">NAVER</div>3.17km</div>
+            <div class="d"><div class="lab">강남</div>19.16km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>19.84</b></div>
+            <a href="https://www.youtube.com/watch?v=DRn3qjlSX0s" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#3</span> 래미안수지이스트파크</div>
+            <div class="rc-price">13.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 풍덕천</span>
+            <span>845세대</span>
+            <span>2015년</span>
+            <span>매물 23건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>0.71km</div>
+            <div class="d"><div class="lab">NAVER</div>3.37km</div>
+            <div class="d"><div class="lab">강남</div>19.76km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>18.98</b></div>
+            <a href="https://www.youtube.com/watch?v=KWVr9AjfvGg" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#4</span> 더샵판교퍼스트파크</div>
+            <div class="rc-price">16.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>1,223세대</span>
+            <span>2021년</span>
+            <span>매물 26건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>6.64km</div>
+            <div class="d"><div class="lab">NAVER</div>2.78km</div>
+            <div class="d"><div class="lab">강남</div>14.06km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>16.7</b></div>
+            
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#5</span> e편한세상수지(주상복합)</div>
+            <div class="rc-price">16.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 풍덕천</span>
+            <span>1,237세대</span>
+            <span>2017년</span>
+            <span>매물 34건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>1.4km</div>
+            <div class="d"><div class="lab">NAVER</div>5.21km</div>
+            <div class="d"><div class="lab">강남</div>20.89km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>16.17</b></div>
+            <a href="https://www.youtube.com/watch?v=Dk6_z8_jnK4" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#6</span> 판교풍경채어바니티5단지</div>
+            <div class="rc-price">15.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>589세대</span>
+            <span>2021년</span>
+            <span>매물 59건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>5.09km</div>
+            <div class="d"><div class="lab">NAVER</div>3.12km</div>
+            <div class="d"><div class="lab">강남</div>15.36km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>15.95</b></div>
+            <a href="https://www.youtube.com/watch?v=VKB__M4QinA" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#7</span> 판교퍼스트힐푸르지오</div>
+            <div class="rc-price">13.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>974세대</span>
+            <span>2021년</span>
+            <span>매물 83건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>6.16km</div>
+            <div class="d"><div class="lab">NAVER</div>3.51km</div>
+            <div class="d"><div class="lab">강남</div>14.22km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>15.94</b></div>
+            <a href="https://www.youtube.com/watch?v=vXMzsqW-Y7M" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#8</span> 성복역롯데캐슬클라시엘</div>
+            <div class="rc-price">13.80억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 성복</span>
+            <span>1,094세대</span>
+            <span>2021년</span>
+            <span>매물 22건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>2.55km</div>
+            <div class="d"><div class="lab">NAVER</div>5.98km</div>
+            <div class="d"><div class="lab">강남</div>20.95km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>15.23</b></div>
+            <a href="https://www.youtube.com/watch?v=28S3JbNj2wc" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#9</span> 더샵판교포레스트12단지</div>
+            <div class="rc-price">15.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>542세대</span>
+            <span>2021년</span>
+            <span>매물 17건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>5.08km</div>
+            <div class="d"><div class="lab">NAVER</div>2.94km</div>
+            <div class="d"><div class="lab">강남</div>15.33km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>15.15</b></div>
+            <a href="https://www.youtube.com/watch?v=uIUODQtySLs" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#10</span> 정든우성6단지</div>
+            <div class="rc-price">16.70억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 정자</span>
+            <span>706세대</span>
+            <span>1994년</span>
+            <span>매물 22건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>4.8km</div>
+            <div class="d"><div class="lab">NAVER</div>1.56km</div>
+            <div class="d"><div class="lab">강남</div>17.3km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>14.32</b></div>
+            <a href="https://www.youtube.com/watch?v=TqV5RdxsAy0" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div>
+    </div>
     <h3>🔴 프리미엄 (17~25억) — Top 10</h3>
-    <div class="table-scroll"><table>
+    <div class="table-scroll rec-table"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>성복역롯데캐슬골드타운(주상복합)</b></td><td>수지 성복</td><td style="text-align:right">17.00억</td><td style="text-align:right">2,356</td><td style="text-align:right">2019</td><td style="text-align:right">5.59</td><td style="text-align:right">1.76</td><td style="text-align:right">21.19</td><td style="text-align:right">82</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=BCcdV9bgMXg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>17.35</b></td></tr><tr><td>2</td><td><b>더샵분당파크리버</b></td><td>분당 정자</td><td style="text-align:right">18.50억</td><td style="text-align:right">506</td><td style="text-align:right">2021</td><td style="text-align:right">1.16</td><td style="text-align:right">3.91</td><td style="text-align:right">17.73</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=qCJy5X6wZ4A" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.5</b></td></tr><tr><td>3</td><td><b>푸른벽산,신성,쌍용</b></td><td>분당 수내</td><td style="text-align:right">19.55억</td><td style="text-align:right">2,598</td><td style="text-align:right">1992</td><td style="text-align:right">2.17</td><td style="text-align:right">5.72</td><td style="text-align:right">16.71</td><td style="text-align:right">34</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=PijP_aErGeg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.93</b></td></tr><tr><td>4</td><td><b>상록임광보성</b></td><td>분당 정자</td><td style="text-align:right">20.15억</td><td style="text-align:right">568</td><td style="text-align:right">1995</td><td style="text-align:right">0.31</td><td style="text-align:right">3.85</td><td style="text-align:right">17.14</td><td style="text-align:right">6</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=2N3NhS5j6rI" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.55</b></td></tr><tr><td>5</td><td><b>현대</b></td><td>분당 서현</td><td style="text-align:right">20.50억</td><td style="text-align:right">1,695</td><td style="text-align:right">1991</td><td style="text-align:right">2.96</td><td style="text-align:right">6.65</td><td style="text-align:right">16.17</td><td style="text-align:right">22</td><td style="text-align:right">—</td><td style="text-align:right"><b>14</b></td></tr><tr><td>6</td><td><b>삼성,한신</b></td><td>분당 서현</td><td style="text-align:right">21.80억</td><td style="text-align:right">1,781</td><td style="text-align:right">1991</td><td style="text-align:right">3.33</td><td style="text-align:right">7.22</td><td style="text-align:right">15.39</td><td style="text-align:right">38</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=85RyMmMmShw" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.82</b></td></tr><tr><td>7</td><td><b>양지1단지금호</b></td><td>분당 수내</td><td style="text-align:right">24.00억</td><td style="text-align:right">918</td><td style="text-align:right">1992</td><td style="text-align:right">2.43</td><td style="text-align:right">6.42</td><td style="text-align:right">15.48</td><td style="text-align:right">27</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=XY5OwuVtywU" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.7</b></td></tr><tr><td>8</td><td><b>우성(시범단지)</b></td><td>분당 서현</td><td style="text-align:right">19.80억</td><td style="text-align:right">1,874</td><td style="text-align:right">1991</td><td style="text-align:right">3.32</td><td style="text-align:right">6.99</td><td style="text-align:right">16.08</td><td style="text-align:right">23</td><td style="text-align:right">—</td><td style="text-align:right"><b>13.66</b></td></tr><tr><td>9</td><td><b>판교원9단지한림풀에버</b></td><td>판교</td><td style="text-align:right">17.50억</td><td style="text-align:right">1,045</td><td style="text-align:right">2009</td><td style="text-align:right">3.49</td><td style="text-align:right">7.42</td><td style="text-align:right">13.43</td><td style="text-align:right">15</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=1OSSo2KLcUc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.15</b></td></tr><tr><td>10</td><td><b>정든한진8차</b></td><td>분당 정자</td><td style="text-align:right">20.00억</td><td style="text-align:right">512</td><td style="text-align:right">1995</td><td style="text-align:right">1.15</td><td style="text-align:right">4.44</td><td style="text-align:right">17.29</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=BoiTu7a0O_0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.09</b></td></tr></tbody>
     </table></div>
+    <div class="rec-cards">
+      <div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#1</span> 성복역롯데캐슬골드타운(주상복합)</div>
+            <div class="rc-price">17.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>수지 성복</span>
+            <span>2,356세대</span>
+            <span>2019년</span>
+            <span>매물 82건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>1.76km</div>
+            <div class="d"><div class="lab">NAVER</div>5.59km</div>
+            <div class="d"><div class="lab">강남</div>21.19km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>17.35</b></div>
+            <a href="https://www.youtube.com/watch?v=BCcdV9bgMXg" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#2</span> 더샵분당파크리버</div>
+            <div class="rc-price">18.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 정자</span>
+            <span>506세대</span>
+            <span>2021년</span>
+            <span>매물 9건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>3.91km</div>
+            <div class="d"><div class="lab">NAVER</div>1.16km</div>
+            <div class="d"><div class="lab">강남</div>17.73km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>16.5</b></div>
+            <a href="https://www.youtube.com/watch?v=qCJy5X6wZ4A" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#3</span> 푸른벽산,신성,쌍용</div>
+            <div class="rc-price">19.55억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 수내</span>
+            <span>2,598세대</span>
+            <span>1992년</span>
+            <span>매물 34건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>5.72km</div>
+            <div class="d"><div class="lab">NAVER</div>2.17km</div>
+            <div class="d"><div class="lab">강남</div>16.71km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>14.93</b></div>
+            <a href="https://www.youtube.com/watch?v=PijP_aErGeg" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#4</span> 상록임광보성</div>
+            <div class="rc-price">20.15억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 정자</span>
+            <span>568세대</span>
+            <span>1995년</span>
+            <span>매물 6건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>3.85km</div>
+            <div class="d"><div class="lab">NAVER</div>0.31km</div>
+            <div class="d"><div class="lab">강남</div>17.14km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>14.55</b></div>
+            <a href="https://www.youtube.com/watch?v=2N3NhS5j6rI" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#5</span> 현대</div>
+            <div class="rc-price">20.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 서현</span>
+            <span>1,695세대</span>
+            <span>1991년</span>
+            <span>매물 22건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>6.65km</div>
+            <div class="d"><div class="lab">NAVER</div>2.96km</div>
+            <div class="d"><div class="lab">강남</div>16.17km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>14</b></div>
+            
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#6</span> 삼성,한신</div>
+            <div class="rc-price">21.80억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 서현</span>
+            <span>1,781세대</span>
+            <span>1991년</span>
+            <span>매물 38건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>7.22km</div>
+            <div class="d"><div class="lab">NAVER</div>3.33km</div>
+            <div class="d"><div class="lab">강남</div>15.39km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.82</b></div>
+            <a href="https://www.youtube.com/watch?v=85RyMmMmShw" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#7</span> 양지1단지금호</div>
+            <div class="rc-price">24.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 수내</span>
+            <span>918세대</span>
+            <span>1992년</span>
+            <span>매물 27건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>6.42km</div>
+            <div class="d"><div class="lab">NAVER</div>2.43km</div>
+            <div class="d"><div class="lab">강남</div>15.48km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.7</b></div>
+            <a href="https://www.youtube.com/watch?v=XY5OwuVtywU" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#8</span> 우성(시범단지)</div>
+            <div class="rc-price">19.80억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 서현</span>
+            <span>1,874세대</span>
+            <span>1991년</span>
+            <span>매물 23건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>6.99km</div>
+            <div class="d"><div class="lab">NAVER</div>3.32km</div>
+            <div class="d"><div class="lab">강남</div>16.08km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.66</b></div>
+            
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#9</span> 판교원9단지한림풀에버</div>
+            <div class="rc-price">17.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>1,045세대</span>
+            <span>2009년</span>
+            <span>매물 15건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>7.42km</div>
+            <div class="d"><div class="lab">NAVER</div>3.49km</div>
+            <div class="d"><div class="lab">강남</div>13.43km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.15</b></div>
+            <a href="https://www.youtube.com/watch?v=1OSSo2KLcUc" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#10</span> 정든한진8차</div>
+            <div class="rc-price">20.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 정자</span>
+            <span>512세대</span>
+            <span>1995년</span>
+            <span>매물 9건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>4.44km</div>
+            <div class="d"><div class="lab">NAVER</div>1.15km</div>
+            <div class="d"><div class="lab">강남</div>17.29km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.09</b></div>
+            <a href="https://www.youtube.com/watch?v=BoiTu7a0O_0" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div>
+    </div>
     <h3>🟣 럭셔리 (25억+) — Top 7</h3>
-    <div class="table-scroll"><table>
+    <div class="table-scroll rec-table"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>파크뷰(주상복합)</b></td><td>분당 정자</td><td style="text-align:right">27.50억</td><td style="text-align:right">1,829</td><td style="text-align:right">2004</td><td style="text-align:right">1.72</td><td style="text-align:right">5.79</td><td style="text-align:right">15.35</td><td style="text-align:right">14</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=anbwUbbLPkQ" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.65</b></td></tr><tr><td>2</td><td><b>백현마을5단지</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">584</td><td style="text-align:right">2009</td><td style="text-align:right">3.46</td><td style="text-align:right">7.54</td><td style="text-align:right">14.09</td><td style="text-align:right">31</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=bUS9SzWqVhE" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.02</b></td></tr><tr><td>3</td><td><b>봇들7단지엔파트</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">585</td><td style="text-align:right">2009</td><td style="text-align:right">4.25</td><td style="text-align:right">8.32</td><td style="text-align:right">13.62</td><td style="text-align:right">11</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=psQfBZT0S2w" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.35</b></td></tr><tr><td>4</td><td><b>백현마을7단지</b></td><td>판교</td><td style="text-align:right">25.50억</td><td style="text-align:right">464</td><td style="text-align:right">2009</td><td style="text-align:right">3.29</td><td style="text-align:right">7.36</td><td style="text-align:right">14.12</td><td style="text-align:right">12</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=UUS18mBRnEo" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.18</b></td></tr><tr><td>5</td><td><b>백현마을2단지</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">772</td><td style="text-align:right">2009</td><td style="text-align:right">3.92</td><td style="text-align:right">7.97</td><td style="text-align:right">14.13</td><td style="text-align:right">5</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=5IrZ8cDx2EU" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>10.55</b></td></tr><tr><td>6</td><td><b>봇들8단지한신휴플러스</b></td><td>판교</td><td style="text-align:right">32.00억</td><td style="text-align:right">447</td><td style="text-align:right">2009</td><td style="text-align:right">4.08</td><td style="text-align:right">8.15</td><td style="text-align:right">13.73</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=khP071AYy-Y" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>9.49</b></td></tr><tr><td>7</td><td><b>래미안송파파인탑</b></td><td>송파 송파동</td><td style="text-align:right">26.00억</td><td style="text-align:right">794</td><td style="text-align:right">2012</td><td style="text-align:right">15.96</td><td style="text-align:right">20.02</td><td style="text-align:right">8.17</td><td style="text-align:right">19</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=Sa84fcL33Mg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>7.96</b></td></tr></tbody>
     </table></div>
+    <div class="rec-cards">
+      <div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#1</span> 파크뷰(주상복합)</div>
+            <div class="rc-price">27.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>분당 정자</span>
+            <span>1,829세대</span>
+            <span>2004년</span>
+            <span>매물 14건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>5.79km</div>
+            <div class="d"><div class="lab">NAVER</div>1.72km</div>
+            <div class="d"><div class="lab">강남</div>15.35km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>14.65</b></div>
+            <a href="https://www.youtube.com/watch?v=anbwUbbLPkQ" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#2</span> 백현마을5단지</div>
+            <div class="rc-price">27.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>584세대</span>
+            <span>2009년</span>
+            <span>매물 31건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>7.54km</div>
+            <div class="d"><div class="lab">NAVER</div>3.46km</div>
+            <div class="d"><div class="lab">강남</div>14.09km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>13.02</b></div>
+            <a href="https://www.youtube.com/watch?v=bUS9SzWqVhE" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#3</span> 봇들7단지엔파트</div>
+            <div class="rc-price">27.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>585세대</span>
+            <span>2009년</span>
+            <span>매물 11건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>8.32km</div>
+            <div class="d"><div class="lab">NAVER</div>4.25km</div>
+            <div class="d"><div class="lab">강남</div>13.62km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>11.35</b></div>
+            <a href="https://www.youtube.com/watch?v=psQfBZT0S2w" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#4</span> 백현마을7단지</div>
+            <div class="rc-price">25.50억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>464세대</span>
+            <span>2009년</span>
+            <span>매물 12건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>7.36km</div>
+            <div class="d"><div class="lab">NAVER</div>3.29km</div>
+            <div class="d"><div class="lab">강남</div>14.12km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>11.18</b></div>
+            <a href="https://www.youtube.com/watch?v=UUS18mBRnEo" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#5</span> 백현마을2단지</div>
+            <div class="rc-price">27.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>772세대</span>
+            <span>2009년</span>
+            <span>매물 5건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>7.97km</div>
+            <div class="d"><div class="lab">NAVER</div>3.92km</div>
+            <div class="d"><div class="lab">강남</div>14.13km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>10.55</b></div>
+            <a href="https://www.youtube.com/watch?v=5IrZ8cDx2EU" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#6</span> 봇들8단지한신휴플러스</div>
+            <div class="rc-price">32.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>판교</span>
+            <span>447세대</span>
+            <span>2009년</span>
+            <span>매물 9건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>8.15km</div>
+            <div class="d"><div class="lab">NAVER</div>4.08km</div>
+            <div class="d"><div class="lab">강남</div>13.73km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>9.49</b></div>
+            <a href="https://www.youtube.com/watch?v=khP071AYy-Y" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div><div class="rec-card">
+          <div class="rc-top">
+            <div class="rc-name"><span class="rc-rank">#7</span> 래미안송파파인탑</div>
+            <div class="rc-price">26.00억</div>
+          </div>
+          <div class="rc-meta">
+            <span>송파 송파동</span>
+            <span>794세대</span>
+            <span>2012년</span>
+            <span>매물 19건</span>
+          </div>
+          <div class="rc-distances">
+            <div class="d"><div class="lab">어린이집</div>20.02km</div>
+            <div class="d"><div class="lab">NAVER</div>15.96km</div>
+            <div class="d"><div class="lab">강남</div>8.17km</div>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-score">종합점수 <b>7.96</b></div>
+            <a href="https://www.youtube.com/watch?v=Sa84fcL33Mg" target="_blank" class="rc-yt">▶ 영상</a>
+          </div>
+        </div>
+    </div>
 
 <h2>8. 종합 인사이트</h2>
 
