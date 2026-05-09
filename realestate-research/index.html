@@ -126,10 +126,58 @@
   footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); line-height: 1.7; }
   footer b { color: var(--ink); }
   
-  @media (max-width: 640px) {
-    h2 { font-size: 19px; }
-    .complex-grid { grid-template-columns: 1fr; }
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  /* 표 가로 스크롤 (모바일에서 컬럼 많은 표 보호) */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+  .table-scroll table { min-width: 720px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 14px 12px 60px; }
+    header.hero { padding: 22px 18px; border-radius: 12px; }
+    header.hero h1 { font-size: 22px; }
+    header.hero .req { font-size: 13px; padding: 12px 14px; }
+    header.hero .meta { font-size: 11px; }
+    header.hero .badge { font-size: 10px; }
+    h2 { font-size: 18px; margin: 36px 0 14px; }
+    h3 { font-size: 15px; }
+
+    .axis-callout { padding: 14px 16px; font-size: 13px; }
+    .axis-callout .anchors { grid-template-columns: 1fr; gap: 8px; }
+
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .kpi { padding: 14px; }
+    .kpi .value { font-size: 18px; }
+    .kpi .label { font-size: 11px; }
+
+    .filter-bar { padding: 10px 12px; gap: 5px; }
+    .filter-bar .label { min-width: auto; font-size: 11px; }
+    .pill { padding: 4px 9px; font-size: 11px; }
+
+    .chart-wrap { padding: 16px; }
+
+    .complex-grid { grid-template-columns: 1fr; gap: 12px; }
+    .complex .map { height: 200px; }
+    .complex .body { padding: 14px; }
+    .complex .name { font-size: 15px; }
+    .complex .price { gap: 6px; padding: 8px; flex-wrap: wrap; }
+    .complex .price .item { flex: 1 1 calc(50% - 4px); min-width: 0; }
+    .complex .price .item .val { font-size: 14px; }
+    .complex .distances .d .val { font-size: 11px; }
+    .complex .yt-card { padding: 8px 10px; gap: 8px; }
+    .complex .yt-card .yt-thumb { width: 64px; height: 48px; }
+    .complex .yt-card .yt-title { font-size: 11px; }
+    .complex .yt-card .yt-info { font-size: 9px; }
+
+    .insight { padding: 14px 16px; font-size: 13px; }
+
+    /* 표는 가로 스크롤 컨테이너 안으로 */
+    h2 + .table-scroll, .section-summary + .table-scroll, h3 + .table-scroll { margin-bottom: 16px; }
+    table th, table td { padding: 8px 10px; font-size: 12px; white-space: nowrap; }
+  }
+
+  @media (max-width: 420px) {
+    .filter-bar { flex-wrap: wrap; }
+    .complex .map { height: 180px; }
+    .complex .price .item .val { font-size: 13px; }
   }
 </style>
 </head>
@@ -163,16 +211,16 @@
 </div>
 
 <h2>2. 메타권역 비교</h2>
-<table>
+<div class="table-scroll"><table>
   <thead><tr><th>메타권역</th><th style="text-align:right">단지</th><th style="text-align:right">매물</th><th style="text-align:right">가격 중앙</th><th style="text-align:right">평균 회사거리</th><th style="text-align:right">평균 어린이집</th><th style="text-align:right">평균 강남거리</th><th>핵심 정체성</th></tr></thead>
   <tbody><tr><td><b>경기남부 (수지·분당)</b></td><td style="text-align:right">54</td><td style="text-align:right">1646</td><td style="text-align:right"><b>17.65억</b></td><td style="text-align:right">3.9 km</td><td style="text-align:right">5.3 km</td><td style="text-align:right">16.8 km</td><td>직주근접 + 신분당선 강남 직결 + 1기 신도시 재건축 모멘텀</td></tr><tr><td><b>위례·하남 (8호선·5호선)</b></td><td style="text-align:right">20</td><td style="text-align:right">1088</td><td style="text-align:right"><b>14.60억</b></td><td style="text-align:right">18 km</td><td style="text-align:right">22 km</td><td style="text-align:right">13.3 km</td><td>2010년대 신도시 신축 + 8호선 잠실/5호선 강동 직결</td></tr><tr><td><b>서울 강남3구·강동</b></td><td style="text-align:right">13</td><td style="text-align:right">553</td><td style="text-align:right"><b>20.00억</b></td><td style="text-align:right">18.6 km</td><td style="text-align:right">22.7 km</td><td style="text-align:right">10.6 km</td><td>서울 자체 = 강남 노출 최대 + 학군·생활 인프라 완성형</td></tr></tbody>
-</table>
+</table></div>
 
 <h2>3. 권역별 시장 한눈에</h2>
-<table>
+<div class="table-scroll"><table>
   <thead><tr><th>권역</th><th style="text-align:right">단지</th><th style="text-align:right">가격 중앙값</th><th style="text-align:right">매물</th><th style="text-align:right">평균 세대</th></tr></thead>
   <tbody><tr><td><b>수지 풍덕천</b></td><td style="text-align:right">5</td><td style="text-align:right">13.50억</td><td style="text-align:right">106</td><td style="text-align:right">999</td></tr><tr><td><b>수지 동천</b></td><td style="text-align:right">4</td><td style="text-align:right">13.00억</td><td style="text-align:right">186</td><td style="text-align:right">1,202</td></tr><tr><td><b>수지 성복</b></td><td style="text-align:right">3</td><td style="text-align:right">14.50억</td><td style="text-align:right">127</td><td style="text-align:right">1,328</td></tr><tr><td><b>수지 죽전</b></td><td style="text-align:right">2</td><td style="text-align:right">10.50억</td><td style="text-align:right">107</td><td style="text-align:right">1,384</td></tr><tr><td><b>분당 정자</b></td><td style="text-align:right">5</td><td style="text-align:right">20.00억</td><td style="text-align:right">60</td><td style="text-align:right">824</td></tr><tr><td><b>분당 수내</b></td><td style="text-align:right">3</td><td style="text-align:right">24.00억</td><td style="text-align:right">67</td><td style="text-align:right">1,428</td></tr><tr><td><b>분당 서현</b></td><td style="text-align:right">5</td><td style="text-align:right">19.80억</td><td style="text-align:right">146</td><td style="text-align:right">1,567</td></tr><tr><td><b>분당 이매</b></td><td style="text-align:right">3</td><td style="text-align:right">19.50억</td><td style="text-align:right">60</td><td style="text-align:right">890</td></tr><tr><td><b>판교</b></td><td style="text-align:right">20</td><td style="text-align:right">19.00억</td><td style="text-align:right">544</td><td style="text-align:right">726</td></tr><tr><td><b>수정 위례</b></td><td style="text-align:right">3</td><td style="text-align:right">18.90억</td><td style="text-align:right">152</td><td style="text-align:right">1,180</td></tr><tr><td><b>수정 신흥</b></td><td style="text-align:right">1</td><td style="text-align:right">22.00억</td><td style="text-align:right">41</td><td style="text-align:right">4,089</td></tr><tr><td><b>수정 고등</b></td><td style="text-align:right">2</td><td style="text-align:right">13.00억</td><td style="text-align:right">151</td><td style="text-align:right">656</td></tr><tr><td><b>하남 위례</b></td><td style="text-align:right">1</td><td style="text-align:right">17.00억</td><td style="text-align:right">67</td><td style="text-align:right">1,673</td></tr><tr><td><b>하남 미사</b></td><td style="text-align:right">9</td><td style="text-align:right">13.00억</td><td style="text-align:right">493</td><td style="text-align:right">1,208</td></tr><tr><td><b>하남 감일</b></td><td style="text-align:right">4</td><td style="text-align:right">16.00억</td><td style="text-align:right">184</td><td style="text-align:right">743</td></tr><tr><td><b>송파 가락</b></td><td style="text-align:right">2</td><td style="text-align:right">21.80억</td><td style="text-align:right">114</td><td style="text-align:right">1,490</td></tr><tr><td><b>송파 문정</b></td><td style="text-align:right">1</td><td style="text-align:right">20.50억</td><td style="text-align:right">63</td><td style="text-align:right">999</td></tr><tr><td><b>송파 오금</b></td><td style="text-align:right">1</td><td style="text-align:right">18.00억</td><td style="text-align:right">29</td><td style="text-align:right">818</td></tr><tr><td><b>송파 방이</b></td><td style="text-align:right">1</td><td style="text-align:right">21.50억</td><td style="text-align:right">63</td><td style="text-align:right">758</td></tr><tr><td><b>송파 풍납</b></td><td style="text-align:right">2</td><td style="text-align:right">18.20억</td><td style="text-align:right">39</td><td style="text-align:right">745</td></tr><tr><td><b>송파 송파동</b></td><td style="text-align:right">1</td><td style="text-align:right">26.00억</td><td style="text-align:right">19</td><td style="text-align:right">794</td></tr><tr><td><b>강동 고덕</b></td><td style="text-align:right">4</td><td style="text-align:right">20.00억</td><td style="text-align:right">195</td><td style="text-align:right">2,508</td></tr><tr><td><b>강동 명일</b></td><td style="text-align:right">1</td><td style="text-align:right">14.50억</td><td style="text-align:right">31</td><td style="text-align:right">772</td></tr><tr><td><b>광교</b></td><td style="text-align:right">4</td><td style="text-align:right">16.00억</td><td style="text-align:right">243</td><td style="text-align:right">1,172</td></tr></tbody>
-</table>
+</table></div>
 
 <h2>4. 가격지수 추세 (매매가격지수)</h2>
 <div class="chart-wrap"><canvas id="trendChart" style="max-height:340px"></canvas></div>
@@ -181,7 +229,7 @@
 <div class="chart-wrap"><canvas id="dongChart" style="max-height: 902px"></canvas></div>
 
 <h2>6. 후보 단지 — 지도 + 매물 + 검증 영상</h2>
-<p class="section-summary">메타권역·권역·가격대 필터. 지도는 네이버페이 부동산 zoom 16 캡처. 영상은 <b>yt-dlp 검색</b> → <b>단지명·지역·키워드 검증</b> 통과한 영상만 (점수 10+ 통과). 영상 없는 단지는 적합한 검증 영상 미발견.</p>
+<p class="section-summary">메타권역·권역·가격대 필터 + 정렬(점수/가격/세대/연식). 지도는 네이버페이 부동산 zoom 14 — 인근 지하철역·학교·도로 함께 표시. 영상은 <b>yt-dlp 검색</b> → 단지명·지역·키워드 검증 점수 10+ 통과만 매칭.</p>
 
 <div class="filter-bar">
   <span class="label">메타권역</span>
@@ -202,10 +250,19 @@
   <span class="label">기타</span>
   <span class="pill" data-extra="ytonly">검증 영상 있는 단지만</span>
 </div>
+<div class="filter-bar">
+  <span class="label">정렬</span>
+  <span class="pill active" data-sort="score">종합점수 ↓</span>
+  <span class="pill" data-sort="price-asc">가격 낮은순 ↑</span>
+  <span class="pill" data-sort="price-desc">가격 높은순 ↓</span>
+  <span class="pill" data-sort="hh">세대수 ↓</span>
+  <span class="pill" data-sort="year">신축순 ↓</span>
+</div>
+<div style="font-size:13px;color:var(--ink-soft);margin:8px 4px 12px;">표시 중: <b id="visible-counter" style="color:var(--gold);font-weight:700">87</b> / 87 단지</div>
 
 <div class="complex-grid" id="complexGrid">
 
-  <div class="complex" data-group="수지-동천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-동천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="130000" data-hh="1057" data-year="2019" data-score="20.14">
     <div class="map" onclick="openLightbox('maps/112793.png')">
       <img src="maps/112793.png" alt="동천센트럴자이 지도" loading="lazy">
       <div class="badge">수지 동천</div>
@@ -253,7 +310,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-동천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-동천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="120000" data-hh="1437" data-year="2018" data-score="19.97">
     <div class="map" onclick="openLightbox('maps/112792.png')">
       <img src="maps/112792.png" alt="동천자이 지도" loading="lazy">
       <div class="badge">수지 동천</div>
@@ -301,7 +358,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-동천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-동천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="130000" data-hh="980" data-year="2020" data-score="19.84">
     <div class="map" onclick="openLightbox('maps/115644.png')">
       <img src="maps/115644.png" alt="더샵동천이스트포레 지도" loading="lazy">
       <div class="badge">수지 동천</div>
@@ -349,7 +406,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-풍덕천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-풍덕천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="135000" data-hh="845" data-year="2015" data-score="18.98">
     <div class="map" onclick="openLightbox('maps/107215.png')">
       <img src="maps/107215.png" alt="래미안수지이스트파크 지도" loading="lazy">
       <div class="badge">수지 풍덕천</div>
@@ -397,7 +454,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-동천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-동천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="125000" data-hh="1334" data-year="2007" data-score="18.25">
     <div class="map" onclick="openLightbox('maps/9390.png')">
       <img src="maps/9390.png" alt="동천디이스트 지도" loading="lazy">
       <div class="badge">수지 동천</div>
@@ -445,7 +502,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-성복" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-성복" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="170000" data-hh="2356" data-year="2019" data-score="17.35">
     <div class="map" onclick="openLightbox('maps/111555.png')">
       <img src="maps/111555.png" alt="성복역롯데캐슬골드타운(주상복합) 지도" loading="lazy">
       <div class="badge">수지 성복</div>
@@ -493,7 +550,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="0">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="0" data-price="160000" data-hh="1223" data-year="2021" data-score="16.7">
     <div class="map" onclick="openLightbox('maps/118128.png')">
       <img src="maps/118128.png" alt="더샵판교퍼스트파크 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -535,7 +592,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-정자" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-정자" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="185000" data-hh="506" data-year="2021" data-score="16.5">
     <div class="map" onclick="openLightbox('maps/121966.png')">
       <img src="maps/121966.png" alt="더샵분당파크리버 지도" loading="lazy">
       <div class="badge">분당 정자</div>
@@ -583,7 +640,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-죽전" data-tier="10억 미만" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-죽전" data-tier="10억 미만" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="84000" data-hh="1998" data-year="2004" data-score="16.36">
     <div class="map" onclick="openLightbox('maps/8627.png')">
       <img src="maps/8627.png" alt="새터마을죽전힐스테이트 지도" loading="lazy">
       <div class="badge">수지 죽전</div>
@@ -631,7 +688,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-풍덕천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-풍덕천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="127000" data-hh="1828" data-year="2003" data-score="16.28">
     <div class="map" onclick="openLightbox('maps/8213.png')">
       <img src="maps/8213.png" alt="진산마을삼성5차 지도" loading="lazy">
       <div class="badge">수지 풍덕천</div>
@@ -679,7 +736,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-풍덕천" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-풍덕천" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="165000" data-hh="1237" data-year="2017" data-score="16.17">
     <div class="map" onclick="openLightbox('maps/109948.png')">
       <img src="maps/109948.png" alt="e편한세상수지(주상복합) 지도" loading="lazy">
       <div class="badge">수지 풍덕천</div>
@@ -727,7 +784,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="150000" data-hh="589" data-year="2021" data-score="15.95">
     <div class="map" onclick="openLightbox('maps/126520.png')">
       <img src="maps/126520.png" alt="판교풍경채어바니티5단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -775,7 +832,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="135000" data-hh="974" data-year="2021" data-score="15.94">
     <div class="map" onclick="openLightbox('maps/124842.png')">
       <img src="maps/124842.png" alt="판교퍼스트힐푸르지오 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -823,7 +880,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-성복" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-성복" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="138000" data-hh="1094" data-year="2021" data-score="15.23">
     <div class="map" onclick="openLightbox('maps/121999.png')">
       <img src="maps/121999.png" alt="성복역롯데캐슬클라시엘 지도" loading="lazy">
       <div class="badge">수지 성복</div>
@@ -871,7 +928,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="150000" data-hh="542" data-year="2021" data-score="15.15">
     <div class="map" onclick="openLightbox('maps/124826.png')">
       <img src="maps/124826.png" alt="더샵판교포레스트12단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -919,7 +976,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-수내" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-수내" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="195500" data-hh="2598" data-year="1992" data-score="14.93">
     <div class="map" onclick="openLightbox('maps/2063.png')">
       <img src="maps/2063.png" alt="푸른벽산,신성,쌍용 지도" loading="lazy">
       <div class="badge">분당 수내</div>
@@ -967,7 +1024,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-정자" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-정자" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="275000" data-hh="1829" data-year="2004" data-score="14.65">
     <div class="map" onclick="openLightbox('maps/3621.png')">
       <img src="maps/3621.png" alt="파크뷰(주상복합) 지도" loading="lazy">
       <div class="badge">분당 정자</div>
@@ -1015,7 +1072,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-정자" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-정자" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="201500" data-hh="568" data-year="1995" data-score="14.55">
     <div class="map" onclick="openLightbox('maps/2637.png')">
       <img src="maps/2637.png" alt="상록임광보성 지도" loading="lazy">
       <div class="badge">분당 정자</div>
@@ -1063,7 +1120,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-정자" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-정자" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="167000" data-hh="706" data-year="1994" data-score="14.32">
     <div class="map" onclick="openLightbox('maps/2719.png')">
       <img src="maps/2719.png" alt="정든우성6단지 지도" loading="lazy">
       <div class="badge">분당 정자</div>
@@ -1111,7 +1168,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="134500" data-hh="444" data-year="2021" data-score="14.31">
     <div class="map" onclick="openLightbox('maps/126522.png')">
       <img src="maps/126522.png" alt="판교풍경채어바니티7단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1159,7 +1216,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-성복" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-성복" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="145000" data-hh="534" data-year="2020" data-score="14.25">
     <div class="map" onclick="openLightbox('maps/120540.png')">
       <img src="maps/120540.png" alt="성복역롯데캐슬파크나인 지도" loading="lazy">
       <div class="badge">수지 성복</div>
@@ -1207,7 +1264,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-서현" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="0">
+  <div class="complex" data-group="분당-서현" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="0" data-price="205000" data-hh="1695" data-year="1991" data-score="14">
     <div class="map" onclick="openLightbox('maps/1923.png')">
       <img src="maps/1923.png" alt="현대 지도" loading="lazy">
       <div class="badge">분당 서현</div>
@@ -1249,7 +1306,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="140000" data-hh="448" data-year="2021" data-score="13.99">
     <div class="map" onclick="openLightbox('maps/124832.png')">
       <img src="maps/124832.png" alt="더샵판교포레스트11단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1297,7 +1354,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-서현" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-서현" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="218000" data-hh="1781" data-year="1991" data-score="13.82">
     <div class="map" onclick="openLightbox('maps/1821.png')">
       <img src="maps/1821.png" alt="삼성,한신 지도" loading="lazy">
       <div class="badge">분당 서현</div>
@@ -1345,7 +1402,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-죽전" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-죽전" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="105000" data-hh="770" data-year="2004" data-score="13.71">
     <div class="map" onclick="openLightbox('maps/8727.png')">
       <img src="maps/8727.png" alt="꽃메마을현대홈타운4차3단지 지도" loading="lazy">
       <div class="badge">수지 죽전</div>
@@ -1393,7 +1450,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-수내" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-수내" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="240000" data-hh="918" data-year="1992" data-score="13.7">
     <div class="map" onclick="openLightbox('maps/1954.png')">
       <img src="maps/1954.png" alt="양지1단지금호 지도" loading="lazy">
       <div class="badge">분당 수내</div>
@@ -1441,7 +1498,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="0">
+  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="0" data-price="198000" data-hh="1874" data-year="1991" data-score="13.66">
     <div class="map" onclick="openLightbox('maps/1840.png')">
       <img src="maps/1840.png" alt="우성(시범단지) 지도" loading="lazy">
       <div class="badge">분당 서현</div>
@@ -1483,7 +1540,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="167500" data-hh="1774" data-year="1994" data-score="13.64">
     <div class="map" onclick="openLightbox('maps/1817.png')">
       <img src="maps/1817.png" alt="효자촌그린타운 지도" loading="lazy">
       <div class="badge">분당 서현</div>
@@ -1531,7 +1588,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="166000" data-hh="1396" data-year="2010" data-score="13.63">
     <div class="map" onclick="openLightbox('maps/27507.png')">
       <img src="maps/27507.png" alt="산운13단지데시앙 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1579,7 +1636,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-풍덕천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-풍덕천" data-tier="10~13억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="118000" data-hh="438" data-year="2012" data-score="13.61">
     <div class="map" onclick="openLightbox('maps/10959.png')">
       <img src="maps/10959.png" alt="수지진산마을푸르지오 지도" loading="lazy">
       <div class="badge">수지 풍덕천</div>
@@ -1627,7 +1684,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="175000" data-hh="1045" data-year="2009" data-score="13.15">
     <div class="map" onclick="openLightbox('maps/27204.png')">
       <img src="maps/27204.png" alt="판교원9단지한림풀에버 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1675,7 +1732,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-정자" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-정자" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="200000" data-hh="512" data-year="1995" data-score="13.09">
     <div class="map" onclick="openLightbox('maps/2829.png')">
       <img src="maps/2829.png" alt="정든한진8차 지도" loading="lazy">
       <div class="badge">분당 정자</div>
@@ -1723,7 +1780,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="270000" data-hh="584" data-year="2009" data-score="13.02">
     <div class="map" onclick="openLightbox('maps/27578.png')">
       <img src="maps/27578.png" alt="백현마을5단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1771,7 +1828,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="233000" data-hh="870" data-year="2009" data-score="12.84">
     <div class="map" onclick="openLightbox('maps/100267.png')">
       <img src="maps/100267.png" alt="판교봇들마을3단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1819,7 +1876,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="205000" data-hh="1147" data-year="2009" data-score="12.57">
     <div class="map" onclick="openLightbox('maps/27205.png')">
       <img src="maps/27205.png" alt="봇들1단지판교신미주 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -1867,7 +1924,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-고등" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-고등" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="125000" data-hh="543" data-year="2020" data-score="11.96">
     <div class="map" onclick="openLightbox('maps/165357.png')">
       <img src="maps/165357.png" alt="판교밸리제일풍경채 지도" loading="lazy">
       <div class="badge">수정 고등</div>
@@ -1915,7 +1972,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-이매" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-이매" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="195000" data-hh="828" data-year="1993" data-score="11.92">
     <div class="map" onclick="openLightbox('maps/2537.png')">
       <img src="maps/2537.png" alt="이매진흥 지도" loading="lazy">
       <div class="badge">분당 이매</div>
@@ -1963,7 +2020,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수지-풍덕천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="수지-풍덕천" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="141000" data-hh="648" data-year="2004" data-score="11.88">
     <div class="map" onclick="openLightbox('maps/8484.png')">
       <img src="maps/8484.png" alt="정자뜰마을태영데시앙1차 지도" loading="lazy">
       <div class="badge">수지 풍덕천</div>
@@ -2011,7 +2068,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-고등" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-고등" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="130000" data-hh="768" data-year="2019" data-score="11.79">
     <div class="map" onclick="openLightbox('maps/118718.png')">
       <img src="maps/118718.png" alt="판교밸리호반써밋 지도" loading="lazy">
       <div class="badge">수정 고등</div>
@@ -2059,7 +2116,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="230000" data-hh="748" data-year="2009" data-score="11.71">
     <div class="map" onclick="openLightbox('maps/27371.png')">
       <img src="maps/27371.png" alt="봇들마을4단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2107,7 +2164,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="195000" data-hh="721" data-year="2009" data-score="11.39">
     <div class="map" onclick="openLightbox('maps/27239.png')">
       <img src="maps/27239.png" alt="봇들2단지이지더원 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2155,7 +2212,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="270000" data-hh="585" data-year="2009" data-score="11.35">
     <div class="map" onclick="openLightbox('maps/27570.png')">
       <img src="maps/27570.png" alt="봇들7단지엔파트 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2203,7 +2260,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="176500" data-hh="470" data-year="2009" data-score="11.24">
     <div class="map" onclick="openLightbox('maps/27632.png')">
       <img src="maps/27632.png" alt="판교원6단지판교대광로제비앙 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2251,7 +2308,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="190000" data-hh="567" data-year="2009" data-score="11.21">
     <div class="map" onclick="openLightbox('maps/27569.png')">
       <img src="maps/27569.png" alt="판교원5단지푸르지오 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2299,7 +2356,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="255000" data-hh="464" data-year="2009" data-score="11.18">
     <div class="map" onclick="openLightbox('maps/27577.png')">
       <img src="maps/27577.png" alt="백현마을7단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2347,7 +2404,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="179000" data-hh="486" data-year="2009" data-score="11.11">
     <div class="map" onclick="openLightbox('maps/27392.png')">
       <img src="maps/27392.png" alt="판교원3단지푸르지오 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2395,7 +2452,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-신흥" data-tier="20~25억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-신흥" data-tier="20~25억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="220000" data-hh="4089" data-year="2020" data-score="11.08">
     <div class="map" onclick="openLightbox('maps/118771.png')">
       <img src="maps/118771.png" alt="산성역포레스티아 지도" loading="lazy">
       <div class="badge">수정 신흥</div>
@@ -2443,7 +2500,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="광교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="광교" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="160000" data-hh="1035" data-year="2012" data-score="11.07">
     <div class="map" onclick="openLightbox('maps/102536.png')">
       <img src="maps/102536.png" alt="광교자이더클래스 지도" loading="lazy">
       <div class="badge">광교</div>
@@ -2491,7 +2548,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-서현" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="185000" data-hh="710" data-year="1992" data-score="10.89">
     <div class="map" onclick="openLightbox('maps/1789.png')">
       <img src="maps/1789.png" alt="효자촌현대 지도" loading="lazy">
       <div class="badge">분당 서현</div>
@@ -2539,7 +2596,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-수내" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-수내" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="240000" data-hh="768" data-year="1992" data-score="10.83">
     <div class="map" onclick="openLightbox('maps/1980.png')">
       <img src="maps/1980.png" alt="양지2단지청구 지도" loading="lazy">
       <div class="badge">분당 수내</div>
@@ -2587,7 +2644,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-이매" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-이매" data-tier="16~20억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="180000" data-hh="1132" data-year="1992" data-score="10.79">
     <div class="map" onclick="openLightbox('maps/2392.png')">
       <img src="maps/2392.png" alt="아름4단지두산삼호 지도" loading="lazy">
       <div class="badge">분당 이매</div>
@@ -2635,7 +2692,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="강동-고덕" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="강동-고덕" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1" data-price="185000" data-hh="1859" data-year="2019" data-score="10.6">
     <div class="map" onclick="openLightbox('maps/117309.png')">
       <img src="maps/117309.png" alt="고덕롯데캐슬베네루체 지도" loading="lazy">
       <div class="badge">강동 고덕</div>
@@ -2683,7 +2740,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="270000" data-hh="772" data-year="2009" data-score="10.55">
     <div class="map" onclick="openLightbox('maps/27643.png')">
       <img src="maps/27643.png" alt="백현마을2단지 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -2731,7 +2788,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-오금" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-오금" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1" data-price="180000" data-hh="818" data-year="2018" data-score="10.55">
     <div class="map" onclick="openLightbox('maps/118141.png')">
       <img src="maps/118141.png" alt="송파레미니스2단지 지도" loading="lazy">
       <div class="badge">송파 오금</div>
@@ -2779,7 +2836,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="강동-고덕" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="강동-고덕" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="230000" data-hh="4066" data-year="2020" data-score="10.51">
     <div class="map" onclick="openLightbox('maps/119341.png')">
       <img src="maps/119341.png" alt="고덕아르테온 지도" loading="lazy">
       <div class="badge">강동 고덕</div>
@@ -2827,7 +2884,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="강동-고덕" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="강동-고덕" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="200000" data-hh="1824" data-year="2021" data-score="10.5">
     <div class="map" onclick="openLightbox('maps/121977.png')">
       <img src="maps/121977.png" alt="고덕자이 지도" loading="lazy">
       <div class="badge">강동 고덕</div>
@@ -2875,7 +2932,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="189000" data-hh="1540" data-year="2016" data-score="10.25">
     <div class="map" onclick="openLightbox('maps/107715.png')">
       <img src="maps/107715.png" alt="위례래미안이편한세상 지도" loading="lazy">
       <div class="badge">수정 위례</div>
@@ -2923,7 +2980,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="분당-이매" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="분당-이매" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="217500" data-hh="710" data-year="1992" data-score="10.23">
     <div class="map" onclick="openLightbox('maps/2555.png')">
       <img src="maps/2555.png" alt="이매청구 지도" loading="lazy">
       <div class="badge">분당 이매</div>
@@ -2971,7 +3028,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="170000" data-hh="1673" data-year="2016" data-score="10.17">
     <div class="map" onclick="openLightbox('maps/107023.png')">
       <img src="maps/107023.png" alt="위례롯데캐슬 지도" loading="lazy">
       <div class="badge">하남 위례</div>
@@ -3019,7 +3076,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-감일" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-감일" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="170000" data-hh="932" data-year="2020" data-score="10.05">
     <div class="map" onclick="openLightbox('maps/125022.png')">
       <img src="maps/125022.png" alt="힐스테이트포웰시티 지도" loading="lazy">
       <div class="badge">하남 감일</div>
@@ -3067,7 +3124,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-감일" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-감일" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="145000" data-hh="934" data-year="2019" data-score="10.03">
     <div class="map" onclick="openLightbox('maps/115551.png')">
       <img src="maps/115551.png" alt="감일한라비발디 지도" loading="lazy">
       <div class="badge">하남 감일</div>
@@ -3115,7 +3172,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="광교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="광교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="132000" data-hh="1188" data-year="2011" data-score="9.84">
     <div class="map" onclick="openLightbox('maps/101301.png')">
       <img src="maps/101301.png" alt="광교호수마을호반써밋 지도" loading="lazy">
       <div class="badge">광교</div>
@@ -3163,7 +3220,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-문정" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-문정" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="205000" data-hh="999" data-year="2016" data-score="9.84">
     <div class="map" onclick="openLightbox('maps/107544.png')">
       <img src="maps/107544.png" alt="송파파크하비오푸르지오 지도" loading="lazy">
       <div class="badge">송파 문정</div>
@@ -3211,7 +3268,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="광교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="광교" data-tier="13~16억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="145000" data-hh="700" data-year="2011" data-score="9.82">
     <div class="map" onclick="openLightbox('maps/101239.png')">
       <img src="maps/101239.png" alt="광교경남아너스빌 지도" loading="lazy">
       <div class="badge">광교</div>
@@ -3259,7 +3316,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="판교" data-tier="25억+" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="320000" data-hh="447" data-year="2009" data-score="9.49">
     <div class="map" onclick="openLightbox('maps/27497.png')">
       <img src="maps/27497.png" alt="봇들8단지한신휴플러스 지도" loading="lazy">
       <div class="badge">판교</div>
@@ -3307,7 +3364,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="강동-고덕" data-tier="13~16억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="강동-고덕" data-tier="13~16억" data-meta="서울 강남3구·강동" data-yt="1" data-price="145000" data-hh="2283" data-year="2011" data-score="9.39">
     <div class="map" onclick="openLightbox('maps/102235.png')">
       <img src="maps/102235.png" alt="고덕리엔파크3단지 지도" loading="lazy">
       <div class="badge">강동 고덕</div>
@@ -3355,7 +3412,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-감일" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-감일" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="160000" data-hh="595" data-year="2021" data-score="9.13">
     <div class="map" onclick="openLightbox('maps/125346.png')">
       <img src="maps/125346.png" alt="감일파크센트레빌 지도" loading="lazy">
       <div class="badge">하남 감일</div>
@@ -3403,7 +3460,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-감일" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-감일" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="155000" data-hh="512" data-year="2022" data-score="9.13">
     <div class="map" onclick="openLightbox('maps/131899.png')">
       <img src="maps/131899.png" alt="감일수자인 지도" loading="lazy">
       <div class="badge">하남 감일</div>
@@ -3451,7 +3508,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-위례" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="175000" data-hh="1380" data-year="2015" data-score="9.1">
     <div class="map" onclick="openLightbox('maps/107924.png')">
       <img src="maps/107924.png" alt="위례더힐55 지도" loading="lazy">
       <div class="badge">수정 위례</div>
@@ -3499,7 +3556,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="140000" data-hh="1541" data-year="2014" data-score="8.89">
     <div class="map" onclick="openLightbox('maps/105286.png')">
       <img src="maps/105286.png" alt="미사강변골든센트로 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -3547,7 +3604,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-가락" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-가락" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="210000" data-hh="2064" data-year="1997" data-score="8.79">
     <div class="map" onclick="openLightbox('maps/598.png')">
       <img src="maps/598.png" alt="가락쌍용1차 지도" loading="lazy">
       <div class="badge">송파 가락</div>
@@ -3595,7 +3652,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="수정-위례" data-tier="20~25억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="수정-위례" data-tier="20~25억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="200000" data-hh="620" data-year="2017" data-score="8.34">
     <div class="map" onclick="openLightbox('maps/110632.png')">
       <img src="maps/110632.png" alt="위례역푸르지오 지도" loading="lazy">
       <div class="badge">수정 위례</div>
@@ -3643,7 +3700,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="130000" data-hh="1455" data-year="2016" data-score="8.15">
     <div class="map" onclick="openLightbox('maps/107024.png')">
       <img src="maps/107024.png" alt="미사강변센텀팰리스 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -3691,7 +3748,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="135000" data-hh="1164" data-year="2015" data-score="8.1">
     <div class="map" onclick="openLightbox('maps/106200.png')">
       <img src="maps/106200.png" alt="미사강변루나리움 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -3739,7 +3796,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="125000" data-hh="821" data-year="2016" data-score="8.1">
     <div class="map" onclick="openLightbox('maps/107025.png')">
       <img src="maps/107025.png" alt="미사강변하우스디더레이크 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -3787,7 +3844,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="146000" data-hh="1188" data-year="2016" data-score="8.07">
     <div class="map" onclick="openLightbox('maps/107663.png')">
       <img src="maps/107663.png" alt="미사강변푸르지오 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -3835,7 +3892,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="광교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1">
+  <div class="complex" data-group="광교" data-tier="20~25억" data-meta="경기남부 (수지·분당)" data-yt="1" data-price="200000" data-hh="1764" data-year="2012" data-score="8.06">
     <div class="map" onclick="openLightbox('maps/101273.png')">
       <img src="maps/101273.png" alt="자연앤힐스테이트 지도" loading="lazy">
       <div class="badge">광교</div>
@@ -3883,7 +3940,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-가락" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-가락" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="218000" data-hh="915" data-year="1997" data-score="8.04">
     <div class="map" onclick="openLightbox('maps/594.png')">
       <img src="maps/594.png" alt="가락금호 지도" loading="lazy">
       <div class="badge">송파 가락</div>
@@ -3931,7 +3988,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-송파" data-tier="25억+" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-송파" data-tier="25억+" data-meta="서울 강남3구·강동" data-yt="1" data-price="260000" data-hh="794" data-year="2012" data-score="7.96">
     <div class="map" onclick="openLightbox('maps/103139.png')">
       <img src="maps/103139.png" alt="래미안송파파인탑 지도" loading="lazy">
       <div class="badge">송파 송파동</div>
@@ -3979,7 +4036,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="120000" data-hh="1104" data-year="2017" data-score="7.89">
     <div class="map" onclick="openLightbox('maps/132188.png')">
       <img src="maps/132188.png" alt="미사레스티아 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -4027,7 +4084,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="13~16억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="130000" data-hh="976" data-year="2014" data-score="7.88">
     <div class="map" onclick="openLightbox('maps/104310.png')">
       <img src="maps/104310.png" alt="미사강변파밀리에 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -4075,7 +4132,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="16~20억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="160000" data-hh="1222" data-year="2017" data-score="7.12">
     <div class="map" onclick="openLightbox('maps/109215.png')">
       <img src="maps/109215.png" alt="미사강변센트럴자이 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -4123,7 +4180,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-방이" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-방이" data-tier="20~25억" data-meta="서울 강남3구·강동" data-yt="1" data-price="215000" data-hh="758" data-year="1991" data-score="6.87">
     <div class="map" onclick="openLightbox('maps/612.png')">
       <img src="maps/612.png" alt="코오롱 지도" loading="lazy">
       <div class="badge">송파 방이</div>
@@ -4171,7 +4228,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1">
+  <div class="complex" data-group="하남-미사" data-tier="10~13억" data-meta="위례·하남 (8호선·5호선)" data-yt="1" data-price="125000" data-hh="1401" data-year="2017" data-score="6.83">
     <div class="map" onclick="openLightbox('maps/165797.png')">
       <img src="maps/165797.png" alt="미사강변효성해링턴플레이스엔에이치에프 지도" loading="lazy">
       <div class="badge">하남 미사</div>
@@ -4219,7 +4276,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-풍납" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-풍납" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1" data-price="163000" data-hh="782" data-year="1995" data-score="6.78">
     <div class="map" onclick="openLightbox('maps/643.png')">
       <img src="maps/643.png" alt="동아한가람 지도" loading="lazy">
       <div class="badge">송파 풍납</div>
@@ -4267,7 +4324,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="강동-명일" data-tier="13~16억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="강동-명일" data-tier="13~16억" data-meta="서울 강남3구·강동" data-yt="1" data-price="145000" data-hh="772" data-year="1999" data-score="6.03">
     <div class="map" onclick="openLightbox('maps/903.png')">
       <img src="maps/903.png" alt="명일GS 지도" loading="lazy">
       <div class="badge">강동 명일</div>
@@ -4315,7 +4372,7 @@
       </details>
     </div>
   </div>
-  <div class="complex" data-group="송파-풍납" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1">
+  <div class="complex" data-group="송파-풍납" data-tier="16~20억" data-meta="서울 강남3구·강동" data-yt="1" data-price="182000" data-hh="708" data-year="1995" data-score="5.81">
     <div class="map" onclick="openLightbox('maps/649.png')">
       <img src="maps/649.png" alt="풍납현대 지도" loading="lazy">
       <div class="badge">송파 풍납</div>
@@ -4368,25 +4425,25 @@
 <h2>7. 권역별 추천 (점수 상위)</h2>
 
     <h3>🟢 가성비형 (8~13억) — Top 10</h3>
-    <table>
+    <div class="table-scroll"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>동천자이</b></td><td>수지 동천</td><td style="text-align:right">12.00억</td><td style="text-align:right">1,437</td><td style="text-align:right">2018</td><td style="text-align:right">2.02</td><td style="text-align:right">2.56</td><td style="text-align:right">17.79</td><td style="text-align:right">57</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=yiQqKhl8IbI" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>19.97</b></td></tr><tr><td>2</td><td><b>동천디이스트</b></td><td>수지 동천</td><td style="text-align:right">12.50억</td><td style="text-align:right">1,334</td><td style="text-align:right">2007</td><td style="text-align:right">2.13</td><td style="text-align:right">2.01</td><td style="text-align:right">18.42</td><td style="text-align:right">71</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=6KLIq7RMRic" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>18.25</b></td></tr><tr><td>3</td><td><b>새터마을죽전힐스테이트</b></td><td>수지 죽전</td><td style="text-align:right">8.40억</td><td style="text-align:right">1,998</td><td style="text-align:right">2004</td><td style="text-align:right">3.18</td><td style="text-align:right">2.46</td><td style="text-align:right">20</td><td style="text-align:right">60</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=qelD5pqMSvo" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.36</b></td></tr><tr><td>4</td><td><b>진산마을삼성5차</b></td><td>수지 풍덕천</td><td style="text-align:right">12.70억</td><td style="text-align:right">1,828</td><td style="text-align:right">2003</td><td style="text-align:right">4.78</td><td style="text-align:right">0.71</td><td style="text-align:right">20.93</td><td style="text-align:right">24</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=IN_BLeo4UIs" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.28</b></td></tr><tr><td>5</td><td><b>꽃메마을현대홈타운4차3단지</b></td><td>수지 죽전</td><td style="text-align:right">10.50억</td><td style="text-align:right">770</td><td style="text-align:right">2004</td><td style="text-align:right">4.25</td><td style="text-align:right">1.78</td><td style="text-align:right">21.03</td><td style="text-align:right">47</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=mMF09kL3F8Q" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.71</b></td></tr><tr><td>6</td><td><b>수지진산마을푸르지오</b></td><td>수지 풍덕천</td><td style="text-align:right">11.80억</td><td style="text-align:right">438</td><td style="text-align:right">2012</td><td style="text-align:right">5.08</td><td style="text-align:right">1.02</td><td style="text-align:right">21.16</td><td style="text-align:right">12</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=1OgelVE8lhM" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.61</b></td></tr><tr><td>7</td><td><b>판교밸리제일풍경채</b></td><td>수정 고등</td><td style="text-align:right">12.50억</td><td style="text-align:right">543</td><td style="text-align:right">2020</td><td style="text-align:right">7.52</td><td style="text-align:right">11.51</td><td style="text-align:right">10.1</td><td style="text-align:right">77</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=8ztQzhZDjyc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.96</b></td></tr><tr><td>8</td><td><b>미사강변하우스디더레이크</b></td><td>하남 미사</td><td style="text-align:right">12.50억</td><td style="text-align:right">821</td><td style="text-align:right">2016</td><td style="text-align:right">23.59</td><td style="text-align:right">27.63</td><td style="text-align:right">15.62</td><td style="text-align:right">62</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=B_bzAY-o95g" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>8.1</b></td></tr><tr><td>9</td><td><b>미사레스티아</b></td><td>하남 미사</td><td style="text-align:right">12.00억</td><td style="text-align:right">1,104</td><td style="text-align:right">2017</td><td style="text-align:right">23.48</td><td style="text-align:right">27.49</td><td style="text-align:right">16.43</td><td style="text-align:right">79</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=_cSAOAHo_80" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>7.89</b></td></tr><tr><td>10</td><td><b>미사강변효성해링턴플레이스엔에이치에프</b></td><td>하남 미사</td><td style="text-align:right">12.50억</td><td style="text-align:right">1,401</td><td style="text-align:right">2017</td><td style="text-align:right">23.96</td><td style="text-align:right">27.97</td><td style="text-align:right">16.68</td><td style="text-align:right">14</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=_BOz5Mz6Tc0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>6.83</b></td></tr></tbody>
-    </table>
+    </table></div>
     <h3>🟡 미드프리미엄 (13~17억) — Top 10</h3>
-    <table>
+    <div class="table-scroll"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>동천센트럴자이</b></td><td>수지 동천</td><td style="text-align:right">13.00억</td><td style="text-align:right">1,057</td><td style="text-align:right">2019</td><td style="text-align:right">2.25</td><td style="text-align:right">2.03</td><td style="text-align:right">18.33</td><td style="text-align:right">33</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=zzNot3DYq-4" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>20.14</b></td></tr><tr><td>2</td><td><b>더샵동천이스트포레</b></td><td>수지 동천</td><td style="text-align:right">13.00억</td><td style="text-align:right">980</td><td style="text-align:right">2020</td><td style="text-align:right">3.17</td><td style="text-align:right">1.2</td><td style="text-align:right">19.16</td><td style="text-align:right">25</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=DRn3qjlSX0s" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>19.84</b></td></tr><tr><td>3</td><td><b>래미안수지이스트파크</b></td><td>수지 풍덕천</td><td style="text-align:right">13.50억</td><td style="text-align:right">845</td><td style="text-align:right">2015</td><td style="text-align:right">3.37</td><td style="text-align:right">0.71</td><td style="text-align:right">19.76</td><td style="text-align:right">23</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=KWVr9AjfvGg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>18.98</b></td></tr><tr><td>4</td><td><b>더샵판교퍼스트파크</b></td><td>판교</td><td style="text-align:right">16.00억</td><td style="text-align:right">1,223</td><td style="text-align:right">2021</td><td style="text-align:right">2.78</td><td style="text-align:right">6.64</td><td style="text-align:right">14.06</td><td style="text-align:right">26</td><td style="text-align:right">—</td><td style="text-align:right"><b>16.7</b></td></tr><tr><td>5</td><td><b>e편한세상수지(주상복합)</b></td><td>수지 풍덕천</td><td style="text-align:right">16.50억</td><td style="text-align:right">1,237</td><td style="text-align:right">2017</td><td style="text-align:right">5.21</td><td style="text-align:right">1.4</td><td style="text-align:right">20.89</td><td style="text-align:right">34</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=Dk6_z8_jnK4" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.17</b></td></tr><tr><td>6</td><td><b>판교풍경채어바니티5단지</b></td><td>판교</td><td style="text-align:right">15.00억</td><td style="text-align:right">589</td><td style="text-align:right">2021</td><td style="text-align:right">3.12</td><td style="text-align:right">5.09</td><td style="text-align:right">15.36</td><td style="text-align:right">59</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=VKB__M4QinA" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.95</b></td></tr><tr><td>7</td><td><b>판교퍼스트힐푸르지오</b></td><td>판교</td><td style="text-align:right">13.50억</td><td style="text-align:right">974</td><td style="text-align:right">2021</td><td style="text-align:right">3.51</td><td style="text-align:right">6.16</td><td style="text-align:right">14.22</td><td style="text-align:right">83</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=vXMzsqW-Y7M" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.94</b></td></tr><tr><td>8</td><td><b>성복역롯데캐슬클라시엘</b></td><td>수지 성복</td><td style="text-align:right">13.80억</td><td style="text-align:right">1,094</td><td style="text-align:right">2021</td><td style="text-align:right">5.98</td><td style="text-align:right">2.55</td><td style="text-align:right">20.95</td><td style="text-align:right">22</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=28S3JbNj2wc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.23</b></td></tr><tr><td>9</td><td><b>더샵판교포레스트12단지</b></td><td>판교</td><td style="text-align:right">15.00억</td><td style="text-align:right">542</td><td style="text-align:right">2021</td><td style="text-align:right">2.94</td><td style="text-align:right">5.08</td><td style="text-align:right">15.33</td><td style="text-align:right">17</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=uIUODQtySLs" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>15.15</b></td></tr><tr><td>10</td><td><b>정든우성6단지</b></td><td>분당 정자</td><td style="text-align:right">16.70억</td><td style="text-align:right">706</td><td style="text-align:right">1994</td><td style="text-align:right">1.56</td><td style="text-align:right">4.8</td><td style="text-align:right">17.3</td><td style="text-align:right">22</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=TqV5RdxsAy0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.32</b></td></tr></tbody>
-    </table>
+    </table></div>
     <h3>🔴 프리미엄 (17~25억) — Top 10</h3>
-    <table>
+    <div class="table-scroll"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>성복역롯데캐슬골드타운(주상복합)</b></td><td>수지 성복</td><td style="text-align:right">17.00억</td><td style="text-align:right">2,356</td><td style="text-align:right">2019</td><td style="text-align:right">5.59</td><td style="text-align:right">1.76</td><td style="text-align:right">21.19</td><td style="text-align:right">82</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=BCcdV9bgMXg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>17.35</b></td></tr><tr><td>2</td><td><b>더샵분당파크리버</b></td><td>분당 정자</td><td style="text-align:right">18.50억</td><td style="text-align:right">506</td><td style="text-align:right">2021</td><td style="text-align:right">1.16</td><td style="text-align:right">3.91</td><td style="text-align:right">17.73</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=qCJy5X6wZ4A" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>16.5</b></td></tr><tr><td>3</td><td><b>푸른벽산,신성,쌍용</b></td><td>분당 수내</td><td style="text-align:right">19.55억</td><td style="text-align:right">2,598</td><td style="text-align:right">1992</td><td style="text-align:right">2.17</td><td style="text-align:right">5.72</td><td style="text-align:right">16.71</td><td style="text-align:right">34</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=PijP_aErGeg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.93</b></td></tr><tr><td>4</td><td><b>상록임광보성</b></td><td>분당 정자</td><td style="text-align:right">20.15억</td><td style="text-align:right">568</td><td style="text-align:right">1995</td><td style="text-align:right">0.31</td><td style="text-align:right">3.85</td><td style="text-align:right">17.14</td><td style="text-align:right">6</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=2N3NhS5j6rI" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.55</b></td></tr><tr><td>5</td><td><b>현대</b></td><td>분당 서현</td><td style="text-align:right">20.50억</td><td style="text-align:right">1,695</td><td style="text-align:right">1991</td><td style="text-align:right">2.96</td><td style="text-align:right">6.65</td><td style="text-align:right">16.17</td><td style="text-align:right">22</td><td style="text-align:right">—</td><td style="text-align:right"><b>14</b></td></tr><tr><td>6</td><td><b>삼성,한신</b></td><td>분당 서현</td><td style="text-align:right">21.80억</td><td style="text-align:right">1,781</td><td style="text-align:right">1991</td><td style="text-align:right">3.33</td><td style="text-align:right">7.22</td><td style="text-align:right">15.39</td><td style="text-align:right">38</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=85RyMmMmShw" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.82</b></td></tr><tr><td>7</td><td><b>양지1단지금호</b></td><td>분당 수내</td><td style="text-align:right">24.00억</td><td style="text-align:right">918</td><td style="text-align:right">1992</td><td style="text-align:right">2.43</td><td style="text-align:right">6.42</td><td style="text-align:right">15.48</td><td style="text-align:right">27</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=XY5OwuVtywU" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.7</b></td></tr><tr><td>8</td><td><b>우성(시범단지)</b></td><td>분당 서현</td><td style="text-align:right">19.80억</td><td style="text-align:right">1,874</td><td style="text-align:right">1991</td><td style="text-align:right">3.32</td><td style="text-align:right">6.99</td><td style="text-align:right">16.08</td><td style="text-align:right">23</td><td style="text-align:right">—</td><td style="text-align:right"><b>13.66</b></td></tr><tr><td>9</td><td><b>판교원9단지한림풀에버</b></td><td>판교</td><td style="text-align:right">17.50억</td><td style="text-align:right">1,045</td><td style="text-align:right">2009</td><td style="text-align:right">3.49</td><td style="text-align:right">7.42</td><td style="text-align:right">13.43</td><td style="text-align:right">15</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=1OSSo2KLcUc" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.15</b></td></tr><tr><td>10</td><td><b>정든한진8차</b></td><td>분당 정자</td><td style="text-align:right">20.00억</td><td style="text-align:right">512</td><td style="text-align:right">1995</td><td style="text-align:right">1.15</td><td style="text-align:right">4.44</td><td style="text-align:right">17.29</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=BoiTu7a0O_0" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.09</b></td></tr></tbody>
-    </table>
+    </table></div>
     <h3>🟣 럭셔리 (25억+) — Top 7</h3>
-    <table>
+    <div class="table-scroll"><table>
       <thead><tr><th>#</th><th>단지</th><th>권역</th><th style="text-align:right">중앙가</th><th style="text-align:right">세대</th><th style="text-align:right">연식</th><th style="text-align:right">회사</th><th style="text-align:right">어린이집</th><th style="text-align:right">강남</th><th style="text-align:right">매물</th><th style="text-align:right">영상</th><th style="text-align:right">점수</th></tr></thead>
       <tbody><tr><td>1</td><td><b>파크뷰(주상복합)</b></td><td>분당 정자</td><td style="text-align:right">27.50억</td><td style="text-align:right">1,829</td><td style="text-align:right">2004</td><td style="text-align:right">1.72</td><td style="text-align:right">5.79</td><td style="text-align:right">15.35</td><td style="text-align:right">14</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=anbwUbbLPkQ" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>14.65</b></td></tr><tr><td>2</td><td><b>백현마을5단지</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">584</td><td style="text-align:right">2009</td><td style="text-align:right">3.46</td><td style="text-align:right">7.54</td><td style="text-align:right">14.09</td><td style="text-align:right">31</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=bUS9SzWqVhE" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>13.02</b></td></tr><tr><td>3</td><td><b>봇들7단지엔파트</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">585</td><td style="text-align:right">2009</td><td style="text-align:right">4.25</td><td style="text-align:right">8.32</td><td style="text-align:right">13.62</td><td style="text-align:right">11</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=psQfBZT0S2w" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.35</b></td></tr><tr><td>4</td><td><b>백현마을7단지</b></td><td>판교</td><td style="text-align:right">25.50억</td><td style="text-align:right">464</td><td style="text-align:right">2009</td><td style="text-align:right">3.29</td><td style="text-align:right">7.36</td><td style="text-align:right">14.12</td><td style="text-align:right">12</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=UUS18mBRnEo" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>11.18</b></td></tr><tr><td>5</td><td><b>백현마을2단지</b></td><td>판교</td><td style="text-align:right">27.00억</td><td style="text-align:right">772</td><td style="text-align:right">2009</td><td style="text-align:right">3.92</td><td style="text-align:right">7.97</td><td style="text-align:right">14.13</td><td style="text-align:right">5</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=5IrZ8cDx2EU" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>10.55</b></td></tr><tr><td>6</td><td><b>봇들8단지한신휴플러스</b></td><td>판교</td><td style="text-align:right">32.00억</td><td style="text-align:right">447</td><td style="text-align:right">2009</td><td style="text-align:right">4.08</td><td style="text-align:right">8.15</td><td style="text-align:right">13.73</td><td style="text-align:right">9</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=khP071AYy-Y" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>9.49</b></td></tr><tr><td>7</td><td><b>래미안송파파인탑</b></td><td>송파 송파동</td><td style="text-align:right">26.00억</td><td style="text-align:right">794</td><td style="text-align:right">2012</td><td style="text-align:right">15.96</td><td style="text-align:right">20.02</td><td style="text-align:right">8.17</td><td style="text-align:right">19</td><td style="text-align:right"><a href="https://www.youtube.com/watch?v=Sa84fcL33Mg" target="_blank" style="color:var(--yt);text-decoration:none">▶</a></td><td style="text-align:right"><b>7.96</b></td></tr></tbody>
-    </table>
+    </table></div>
 
 <h2>8. 종합 인사이트</h2>
 
@@ -4427,7 +4484,7 @@
 
 <footer>
   <b>방법론</b> — 네이버페이 부동산 2026-05-09 라이브 매매 매물 + 단지 정보 + 지도 (Playwright). 지도는 zoom 16, 단지 마커 명확. 영상은 yt-dlp로 단지별 "임장/내부" 검색 → 단지명 정확 매칭(±10) + 지역 매칭(+3) + 키워드 매칭(+2) + duration/조회수 가산 + 부정키워드 패널티 → <b>점수 10 이상</b>만 매칭으로 처리. 종합점수 = 회사·어린이집·강남 거리 가중치 + 세대수 + 연식 + 매물 다양성.<br><br>
-  <b>v3 변경점</b> — (1) 지도 zoom 16으로 재캡처 (단지 위치 명확). (2) 단지별 유튜브 임장/내부 영상 검증·링크 (84/87). (3) 지도 클릭 시 라이트박스 확대.<br><br>
+  <b>v3 변경점</b> — (1) 지도 zoom 14로 캡처 (단지 위치 + 인근 지하철역·학교·도로 포함). (2) 단지별 유튜브 임장/내부 영상 검증·링크 (84/87). (3) 지도 클릭 시 라이트박스 확대. (4) 가격순/세대순/신축순 정렬 + 모바일 반응형.<br><br>
   <b>한계</b> — 시군구·동 단위 가격지수 시계열 미수집. 송파·강동 실거래 미수집(호가만). 송파 잠실 핵심 단지(엘스·트리지움·리센츠·헬리오시티)는 캐시 한도로 누락. 호가 가격 ≠ 실거래가(통상 95~98%). <b>실제 매수 결정 전 임장·중개사 직접 확인 필수.</b><br><br>
   <b>데이터 시점</b> · 매물·지도: 2026-05-09 네이버 라이브 / 영상: 2026-05-09 yt-dlp 검색 / 실거래: 2025-11~2026-05 / 가격지수: 2021-04~2026-03
 </footer>
@@ -4441,17 +4498,43 @@ function openLightbox(src) { document.getElementById('lightbox-img').src = src; 
 function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
 
 let extraYtOnly = false;
+let currentSort = 'score';
+const grid = document.getElementById('complexGrid');
+
+function getSortKey(el) {
+  const p = parseInt(el.dataset.price) || 0;
+  const h = parseInt(el.dataset.hh) || 0;
+  const y = parseInt(el.dataset.year) || 0;
+  const s = parseFloat(el.dataset.score) || 0;
+  switch (currentSort) {
+    case 'price-asc':  return p === 0 ? Number.MAX_SAFE_INTEGER : p;   // 0(미상)은 뒤로
+    case 'price-desc': return -p;
+    case 'hh':         return -h;
+    case 'year':       return -y;
+    default:           return -s;
+  }
+}
+function applySort() {
+  const cards = Array.from(grid.children);
+  cards.sort((a, b) => getSortKey(a) - getSortKey(b));
+  cards.forEach(c => grid.appendChild(c));
+}
 function applyFilter() {
   const m = document.querySelector('.filter-bar [data-meta].active')?.dataset.meta;
   const g = document.querySelector('.filter-bar [data-group].active')?.dataset.group;
   const t = document.querySelector('.filter-bar [data-tier].active')?.dataset.tier;
+  let visible = 0;
   document.querySelectorAll('#complexGrid .complex').forEach(el => {
     const okM = m === 'all' || el.dataset.meta === m;
     const okG = g === 'all' || el.dataset.group === g;
     const okT = t === 'all' || el.dataset.tier === t;
     const okY = !extraYtOnly || el.dataset.yt === '1';
-    el.style.display = (okM && okG && okT && okY) ? '' : 'none';
+    const show = (okM && okG && okT && okY);
+    el.style.display = show ? '' : 'none';
+    if (show) visible++;
   });
+  const counter = document.getElementById('visible-counter');
+  if (counter) counter.textContent = visible;
 }
 ['data-meta','data-group','data-tier'].forEach(attr => {
   document.querySelectorAll('.filter-bar ['+attr+']').forEach(p => p.addEventListener('click', () => {
@@ -4465,6 +4548,12 @@ document.querySelector('.filter-bar [data-extra="ytonly"]').addEventListener('cl
   e.target.classList.toggle('active', extraYtOnly);
   applyFilter();
 });
+document.querySelectorAll('.filter-bar [data-sort]').forEach(p => p.addEventListener('click', () => {
+  document.querySelectorAll('.filter-bar [data-sort]').forEach(x => x.classList.remove('active'));
+  p.classList.add('active');
+  currentSort = p.dataset.sort;
+  applySort();
+}));
 
 const PALETTE = ['#0B1220','#A77B2D','#2563EB','#94A3B8','#DC2626'];
 new Chart(document.getElementById('trendChart').getContext('2d'), {
