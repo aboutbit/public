@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>광교 자연앤힐스테이트 — 단지 심층 분석 보고서</title>
+<style>
+  :root {
+    --ink: #0B1220;
+    --sub: #475569;
+    --muted: #64748b;
+    --line: #E2E8F0;
+    --bg: #ffffff;
+    --bg-soft: #F8FAFC;
+    --accent: #1E3A8A;
+    --accent-soft: #EFF2FB;
+    --gold: #A77B2D;
+    --gold-soft: #FAF3E2;
+    --bull: #DC2626;
+    --bear: #2563EB;
+    --good: #047857;
+    --warn: #B45309;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #E8EDF5;
+      --sub: #B5C0D0;
+      --muted: #94A3B8;
+      --line: #1F2A3A;
+      --bg: #0B1220;
+      --bg-soft: #111A2C;
+      --accent: #93B4FF;
+      --accent-soft: #16223D;
+      --gold: #D4A857;
+      --gold-soft: #2A2114;
+      --bull: #F87171;
+      --bear: #60A5FA;
+      --good: #34D399;
+      --warn: #FBBF24;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .container { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 64px; }
+    body { font-size: 15.5px; }
+  }
+
+  header.hero { border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 28px; }
+  .eyebrow { color: var(--gold); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 1.7rem; line-height: 1.3; margin: 0 0 12px; letter-spacing: -0.01em; }
+  @media (min-width: 720px) { h1 { font-size: 2rem; } }
+  .meta { color: var(--muted); font-size: 0.9rem; }
+
+  h2 { font-size: 1.25rem; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); letter-spacing: -0.01em; }
+  h3 { font-size: 1.05rem; margin: 24px 0 10px; color: var(--accent); }
+  p { margin: 10px 0; color: var(--ink); }
+  ul, ol { padding-left: 1.2em; }
+  li { margin: 6px 0; }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .tldr {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 16px 0 8px;
+  }
+
+  /* Hero stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-align: center;
+  }
+  .stat .v { font-size: 1.25rem; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; display: block; }
+  .stat .l { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+
+  /* Cards grid */
+  .cards { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 8px; }
+  @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  .card {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 16px 12px;
+  }
+  .card h4 { margin: 0 0 10px; font-size: 1rem; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+  .card dl { margin: 0; font-size: 0.92rem; }
+  .card dt { color: var(--muted); font-weight: 500; margin-top: 6px; }
+  .card dd { margin: 0 0 4px; color: var(--ink); }
+
+  /* Tables */
+  .table-wrap {
+    margin: 14px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    min-width: 520px;
+  }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--bg-soft); color: var(--sub); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+
+  @media (max-width: 540px) {
+    .stack table, .stack thead, .stack tbody, .stack th, .stack td, .stack tr { display: block; }
+    .stack table { min-width: 0; }
+    .stack thead { display: none; }
+    .stack tr { border-bottom: 1px solid var(--line); padding: 10px 12px; }
+    .stack tr:last-child { border-bottom: none; }
+    .stack td { border: none; padding: 4px 0; display: grid; grid-template-columns: 110px 1fr; gap: 10px; }
+    .stack td::before { content: attr(data-label); color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+  }
+
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; background: var(--accent-soft); color: var(--accent); }
+  .pill.bull { background: rgba(220,38,38,.1); color: var(--bull); }
+  .pill.bear { background: rgba(37,99,235,.1); color: var(--bear); }
+  .pill.gold { background: rgba(167,123,45,.12); color: var(--gold); }
+  .pill.good { background: rgba(4,120,87,.1); color: var(--good); }
+
+  .stars { letter-spacing: 1px; color: var(--gold); }
+
+  .callout {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+  .callout h4 { margin: 0 0 6px; color: var(--gold); font-size: 1rem; }
+
+  .insight {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 14px 0;
+    background: var(--bg);
+  }
+  .insight h3 { margin-top: 0; }
+
+  /* SWOT */
+  .swot { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 14px 0; }
+  @media (min-width: 720px) { .swot { grid-template-columns: 1fr 1fr; } }
+  .swot-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .swot-card.s { border-left: 4px solid var(--good); }
+  .swot-card.w { border-left: 4px solid var(--bull); }
+  .swot-card.o { border-left: 4px solid var(--accent); }
+  .swot-card.t { border-left: 4px solid var(--gold); }
+  .swot-card h4 { margin: 0 0 8px; font-size: 1rem; }
+  .swot-card.s h4 { color: var(--good); }
+  .swot-card.w h4 { color: var(--bull); }
+  .swot-card.o h4 { color: var(--accent); }
+  .swot-card.t h4 { color: var(--gold); }
+  .swot-card ul { margin: 0; padding-left: 1.1em; }
+
+  .check {
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+  }
+  .check ol { margin: 6px 0 0; }
+
+  .sources { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.9rem; }
+  .sources a { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); }
+  .sources a:hover { opacity: 0.8; }
+  .sources li { margin: 4px 0; }
+
+  footer.foot { margin-top: 36px; color: var(--muted); font-size: 0.82rem; text-align: center; }
+
+  .toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.92rem;
+  }
+  .toc ol { margin: 6px 0 0; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="hero">
+    <div class="eyebrow">Single-Asset Deep Dive · 2026-05</div>
+    <h1>광교 자연앤힐스테이트<br>단지 심층 분석 보고서</h1>
+    <p class="meta">
+      대상: 수원 영통구 이의동 광교 자연앤힐스테이트 (1,764세대, 2012년 입주) · 30평대(전용 84㎡) 기준 · 작성일 2026-05-11
+    </p>
+  </header>
+
+  <section class="tldr">
+    <strong>한 줄 결론</strong>
+    <p style="margin:6px 0 0">광교 자연앤힐스테이트는 <strong>"광교 신도시의 핵에 가장 가까운, 단일 평형 1,764세대 대단지"</strong>로, 수도권에서 대체 단지를 찾기 어려운 입지 자산입니다. <strong>현 호가 20억은 광교 대장주 리레이팅의 결과</strong>이며, 호매실 연장(2028~2029 개통, 공정률 18%)으로 광교중앙역의 위상이 종점에서 중간역으로 격상되는 호재가 추가로 대기 중입니다.</p>
+    <p style="margin:8px 0 0">투자 시계열: <strong>장기 안정형 ★★★★★</strong> · 단기 모멘텀 ★★★☆☆ · 거주 만족도 ★★★★★</p>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><span class="v">17.8억</span><span class="l">최근 실거래 (2025-12)</span></div>
+    <div class="stat"><span class="v">20억</span><span class="l">현재 호가</span></div>
+    <div class="stat"><span class="v">5,400~6,000만원</span><span class="l">평당가 (실/호가)</span></div>
+    <div class="stat"><span class="v">1,764세대</span><span class="l">단일 33평형</span></div>
+  </div>
+
+  <div class="toc">
+    <strong>목차</strong>
+    <ol>
+      <li><a href="#fact">단지 팩트시트</a></li>
+      <li><a href="#price">가격 흐름 및 시세 동향</a></li>
+      <li><a href="#location">입지 분석 (교통·환경·상권·의료)</a></li>
+      <li><a href="#school">학군 심층 분석</a></li>
+      <li><a href="#future">미래 호재 — 신분당선 호매실 연장 + GTX-C</a></li>
+      <li><a href="#livability">거주 만족도 분석</a></li>
+      <li><a href="#liquidity">환금성 분석</a></li>
+      <li><a href="#swot">SWOT 분석</a></li>
+      <li><a href="#check">매수 전 체크리스트</a></li>
+      <li><a href="#conclusion">최종 결론</a></li>
+    </ol>
+  </div>
+
+  <h2 id="fact">1. 단지 팩트시트</h2>
+  <div class="table-wrap stack">
+    <table>
+      <tbody>
+        <tr><td data-label="단지명">단지명</td><td>광교 자연앤힐스테이트</td></tr>
+        <tr><td data-label="주소">주소</td><td>경기 수원시 영통구 이의동</td></tr>
+        <tr><td data-label="시공/시행">시공/시행</td><td>현대건설</td></tr>
+        <tr><td data-label="입주">입주</td><td>2012년 (2026년 기준 14년차)</td></tr>
+        <tr><td data-label="세대수">세대수</td><td><strong>1,764세대</strong></td></tr>
+        <tr><td data-label="평형">평형</td><td><strong>전용 84㎡ (33평) 단일 평형</strong></td></tr>
+        <tr><td data-label="동수">동수</td><td>21개동</td></tr>
+        <tr><td data-label="용적률/건폐율">용적률/건폐율</td><td>약 199% / 18% (광교 평균 대비 낮은 건폐율 → 쾌적성 ↑)</td></tr>
+        <tr><td data-label="주차">주차</td><td>세대당 약 1.5대 (지하 위주, 차량 단지 진입 최소화)</td></tr>
+        <tr><td data-label="역세권">역세권</td><td><strong>신분당선 광교중앙역 2번 출구가 단지 정문</strong> (도보 1분)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="price">2. 가격 흐름 및 시세 동향</h2>
+
+  <h3>2-1. 최근 시세 스냅샷</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>구분</th><th>금액</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td data-label="구분">최근 실거래 (2025-12-30)</td><td data-label="금액"><strong>17.8억</strong></td><td data-label="비고">전용 84㎡</td></tr>
+        <tr><td data-label="구분">현재 호가</td><td data-label="금액"><strong>20억대 형성</strong></td><td data-label="비고">1개월 새 +2억 상승</td></tr>
+        <tr><td data-label="구분">실거래 평당가</td><td data-label="금액">약 5,400만원</td><td data-label="비고">—</td></tr>
+        <tr><td data-label="구분">호가 평당가</td><td data-label="금액">약 6,000만원</td><td data-label="비고">광교 대장주 수준</td></tr>
+        <tr><td data-label="구분">광교 이의동 평균 매매가</td><td data-label="금액">13.26억</td><td data-label="비고">광교 내 거래량 1위 지역</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2-2. 가격 모멘텀 — 광교 대장주 리레이팅 단계</h3>
+  <ul>
+    <li>2025-12 실거래 17.8억 → 2026 초 호가 20억 형성으로 <strong>1개월 새 +12% 호가 상승</strong>.</li>
+    <li>이는 자연앤힐스테이트 단독 현상이 아닌 <strong>광교 대장주 전체의 리레이팅</strong>: 힐스테이트광교(하동), 광교중앙뷰, 래미안광교가 동시에 17~20억 구간 형성.</li>
+    <li>광교 신도시 핵심 호재(신분당선 정착·갤러리아 개장·경기도청 이전)가 거의 가격에 반영된 단계 → <strong>"신도시 완성에 따른 정상 시세 진입"</strong> 해석이 적절.</li>
+  </ul>
+
+  <div class="callout">
+    <h4>핵심 시점</h4>
+    호가-실거래 갭 약 12%로 매도 호가 변동성이 큰 시점입니다. 진입 시 매주 단위로 동·층·향별 실거래를 추적하고, <strong>호가 그대로 받지 말고 실거래 흐름을 기준</strong>으로 협상하는 것이 합리적입니다.
+  </div>
+
+  <h2 id="location">3. 입지 분석</h2>
+
+  <h3>3-1. 교통 — 신분당선 광교중앙역 초역세권</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>경로</th><th>소요시간</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td data-label="경로">단지 정문 → 광교중앙역</td><td data-label="소요"><strong>도보 1분</strong></td><td data-label="비고">2번 출구가 정문</td></tr>
+        <tr><td data-label="경로">광교중앙역 → 강남역</td><td data-label="소요">약 30분</td><td data-label="비고">신분당선 직결</td></tr>
+        <tr><td data-label="경로">광교중앙역 → 판교역</td><td data-label="소요">약 15분</td><td data-label="비고">신분당선 직결</td></tr>
+        <tr><td data-label="경로">광교중앙역 → 양재시민의숲</td><td data-label="소요">약 25분</td><td data-label="비고">—</td></tr>
+        <tr><td data-label="경로">차량 → 경부고속도로 진입</td><td data-label="소요">약 10분</td><td data-label="비고">동수원IC/북수원IC</td></tr>
+        <tr><td data-label="경로">차량 → 수원역(KTX)</td><td data-label="소요">약 15~20분</td><td data-label="비고">KTX 수원경유 정차</td></tr>
+        <tr><td data-label="경로">차량 → SRT 동탄역</td><td data-label="소요">약 25~35분</td><td data-label="비고">수서 방면</td></tr>
+        <tr><td data-label="경로">차량 → 광명역 KTX</td><td data-label="소요">약 30~40분</td><td data-label="비고">전 노선 정차</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3-2. 환경 — 광교호수공원 + 광교산</h3>
+  <ul>
+    <li><strong>광교호수공원</strong>: 축구장 80개 규모, 단지 도보권. 수도권 신도시 자연자산 톱티어로 평가됨.</li>
+    <li><strong>광교산</strong>: 등산로 도보 접근 가능. 청정 공기와 산책로.</li>
+    <li><strong>단지 내부</strong>: 건폐율 약 18%로 광교 평균보다 낮음 → 동간 거리 넓고 차량 단지 진입 최소화 동선.</li>
+  </ul>
+
+  <h3>3-3. 상권 — "정문 도보 10분 안에 모든 카테고리"</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>시설</th><th>규모/특징</th><th>거리</th></tr></thead>
+      <tbody>
+        <tr><td data-label="시설"><strong>갤러리아 광교</strong></td><td data-label="규모">백화점, 2020 개장. 명품 라인업 보유</td><td data-label="거리">광교중앙역 인접 (도보 5분)</td></tr>
+        <tr><td data-label="시설"><strong>앨리웨이 광교</strong></td><td data-label="규모"><strong>연면적 258,498㎡</strong> (지하3·지상3), 라이프스타일 빌리지</td><td data-label="거리">호수공원 인접</td></tr>
+        <tr><td data-label="시설"><strong>아브뉴프랑 광교</strong></td><td data-label="규모">스트리트형 F&B 몰 (앨리웨이와 별개)</td><td data-label="거리">도보 권역</td></tr>
+        <tr><td data-label="시설">광교 메가박스</td><td data-label="규모">멀티플렉스</td><td data-label="거리">광교중앙역 인근</td></tr>
+        <tr><td data-label="시설">광교 롯데아울렛</td><td data-label="규모">아울렛</td><td data-label="거리">차 5~10분</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3-4. 의료 — 아주대학교병원 (상급종합병원)</h3>
+  <ul>
+    <li>아주대학교병원은 <strong>상급종합병원·권역응급의료센터</strong>로, 수도권 남부의 거점 의료기관.</li>
+    <li>단지에서 차로 약 5분 거리 (영통구 원천동).</li>
+    <li>심혈관·외상·암 등 중증 진료 가능 → <strong>고령자 동거 가정에 강점</strong>.</li>
+  </ul>
+
+  <h3>3-5. 행정·업무</h3>
+  <ul>
+    <li><strong>경기도청 신청사</strong> (광교중앙역 인근, 2022 이전 완료)</li>
+    <li><strong>한국은행 경기본부</strong></li>
+    <li><strong>광교테크노밸리</strong>: R&D 클러스터, 자족 기능 보강</li>
+  </ul>
+
+  <div class="callout">
+    <h4>입지 종합 평가</h4>
+    광교 자연앤힐스테이트는 <strong>"신분당선 광교중앙역을 핵으로 의료·상권·행정·자연·학군이 도보 5~10분권에 집약된 신도시 핵심 단지"</strong>입니다. 일반 신도시가 "있긴 있는데 흩어진" 구조라면, 광교는 <strong>"한 군데에 모여 있음"</strong>이 정확한 표현이며, 자연앤힐스테이트는 그 클러스터의 <strong>0지점에 가장 가까운 단지</strong>입니다.
+  </div>
+
+  <h2 id="school">4. 학군 심층 분석</h2>
+
+  <h3>4-1. 단지 인접 학교</h3>
+  <ul>
+    <li><strong>신풍초등학교</strong>: 단지 서편 인접 (도보 5분)</li>
+    <li><strong>광교고등학교</strong>: 단지 동편 인접 (도보 5분)</li>
+    <li><strong>광교중·이의중</strong>: 단지 도보권</li>
+  </ul>
+
+  <h3>4-2. 광교중학교 — 영통구 권역 특목고 진학률 상위</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>지표</th><th>광교중</th><th>비교 (영통/광교 권역)</th></tr></thead>
+      <tbody>
+        <tr><td data-label="지표">특목고·자사고 진학률</td><td data-label="광교중"><strong>13.13%</strong></td><td data-label="비교">연무중 9.38% / 영덕중 7.29% / 천천중 4.88%</td></tr>
+        <tr><td data-label="지표">특목고·자사고 진학자 수</td><td data-label="광교중">21명</td><td data-label="비교">—</td></tr>
+        <tr><td data-label="지표">전국 순위</td><td data-label="광교중">171위</td><td data-label="비교">—</td></tr>
+        <tr><td data-label="지표">학업성취도 보통학력 이상</td><td data-label="광교중"><strong>공식 비공개</strong></td><td data-label="비교">2017년 이후 전수평가 → 표집평가 전환</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4-3. 광교고등학교 — 일반계 공립, 중상위권</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>지표</th><th>수치</th></tr></thead>
+      <tbody>
+        <tr><td data-label="지표">4년제 대학 진학률</td><td data-label="수치"><strong>51.5%</strong></td></tr>
+        <tr><td data-label="지표">전문대학교 진학률</td><td data-label="수치">10.9%</td></tr>
+        <tr><td data-label="지표">학교 종합 등급</td><td data-label="수치">3.1등급</td></tr>
+        <tr><td data-label="지표">전국 상위 비율</td><td data-label="수치">55%</td></tr>
+        <tr><td data-label="지표">경기도 상위 비율</td><td data-label="수치">25%</td></tr>
+        <tr><td data-label="지표">졸업생 현역 진학률</td><td data-label="수치"><strong>전국 상위 5% (재수 비율 낮음)</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4-4. 권역 명문 — 효원고·수원외고</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>학교</th><th>위치</th><th>등급/실적</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td data-label="학교"><strong>효원고</strong></td><td data-label="위치">영통구 매탄동 (차 10~15분)</td><td data-label="실적"><strong>1.5등급, 전국 상위 14%, 경기 상위 7%</strong>, 4년제 진학률 74.1%</td><td data-label="비고">광교 권역 일반고 1위</td></tr>
+        <tr><td data-label="학교">수원외고</td><td data-label="위치">영통구 창룡대로</td><td data-label="실적">서울대 9명 (수시 7 + 정시 2)</td><td data-label="비고">영통구 진학률 1위</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>학군 종합 평가</h4>
+    광교 자연앤힐스테이트는 <strong>단지 옆 광교고(중상위) + 권역 효원고(1.5등급)·수원외고(서울대 9명)</strong>까지 통학권에 둔 학군입니다. 다만 <strong>분당 정자·평촌 학원가급 사교육 메카는 아니며</strong>, 대치동 학군과는 격차가 있습니다. "광교는 학군이 양호하다"는 평가는 정확하나 "최상급 학군"은 과대 평가입니다.
+    <br><br>
+    또한 효원고 진학은 <strong>수원시 평준화 추첨</strong>으로 배정되므로 확정 학군이 아닙니다. 학군 의존도가 높은 매수 결정 시 이 점을 반드시 고려해야 합니다.
+  </div>
+
+  <h2 id="future">5. 미래 호재</h2>
+
+  <h3>5-1. 신분당선 광교~호매실 연장 (2028년 말 ~ 2029년 개통 목표)</h3>
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>항목</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td data-label="항목">사업 확정</td><td data-label="내용">2021-12 경기도 결정</td></tr>
+        <tr><td data-label="항목">국토부 사업실시계획 승인</td><td data-label="내용">2024-06-21 관보 고시 (제2024-314호)</td></tr>
+        <tr><td data-label="항목">착공</td><td data-label="내용">2024-07 (안전기원제 2024-10-22)</td></tr>
+        <tr><td data-label="항목">2026-03 공정률</td><td data-label="내용"><strong>18.0%</strong> 순항 중</td></tr>
+        <tr><td data-label="항목">노선 길이</td><td data-label="내용">9.88km, 사업비 1조 1,049억원</td></tr>
+        <tr><td data-label="항목">개통 목표</td><td data-label="내용">2028년 말 ~ 2029년</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>노선 (총 6개역, 기존 1 + 신설 5)</h4>
+  <ol>
+    <li><strong>광교중앙역</strong> (기존, 영통구 이의동) — 자연앤힐스테이트 정문</li>
+    <li>월드컵경기장역 (신설, 팔달구 우만동)</li>
+    <li>수성중역 (신설, 팔달구 일대)</li>
+    <li><strong>화서역</strong> (신설, 팔달구 화서동) — 1호선 환승, 핵심 환승역</li>
+    <li>구운역 (신설, 권선구 구운동)</li>
+    <li><strong>호매실역</strong> (신설, 권선구 금곡동/호매실동) — 종점</li>
+  </ol>
+
+  <div class="callout">
+    <h4>자연앤힐스테이트에 미치는 영향 — 현실적 평가</h4>
+    <ul style="margin:6px 0 0">
+      <li>광교중앙역이 <strong>종점 → 중간역</strong>으로 격상 → 환승·이용객 증가, 역세권 활성화</li>
+      <li>수원 도심·호매실 신규 수요 유입 → 광교 인근 권역 매수자 풀 확장</li>
+      <li><strong>주의 — 서울 도심 접근성 효과는 크지 않음</strong>: 화서역에서 1호선 환승 시 서울역까지 완행 약 56분 (1호선 급행은 용산까지만). 광교중앙→화서→서울역 총 70~80분으로, 강남(신분당선 직결 30분) 대비 매력 낮음.</li>
+      <li><strong>확정 강도</strong>: 위례신사선(2026-03 예타 통과, 착공 전)과 달리 <strong>이미 18% 공사 진행 중</strong>으로 사업 무산 가능성 사실상 0.</li>
+    </ul>
+  </div>
+
+  <h3>5-2. GTX-C 본격 공사</h3>
+  <ul>
+    <li>2026-04 중재 종료, 본격 공사 단계 진입</li>
+    <li>정차역은 <strong>수원역</strong>(광교중앙역이 아님) — 광교에서 차로 15~20분 거리</li>
+    <li>광교의 직접 효과보다는 <strong>수원 권역 전체 광역 접근성 개선</strong>으로 이해</li>
+  </ul>
+
+  <h2 id="livability">6. 거주 만족도 분석</h2>
+  <p>아래 ★ 평점은 작성자의 정성 평가이며, 실거주자 설문 데이터가 아닙니다. <strong>객관 검증 가능한 근거 데이터를 함께 표기</strong>합니다.</p>
+
+  <div class="table-wrap stack">
+    <table>
+      <thead><tr><th>항목</th><th>평점</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="항목"><strong>교통 편의성</strong></td>
+          <td data-label="평점"><span class="stars">★★★★★</span></td>
+          <td data-label="근거">신분당선 광교중앙역 도보 1분 (정문) / 강남 30분 / 판교 15분</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>자연환경</strong></td>
+          <td data-label="평점"><span class="stars">★★★★★</span></td>
+          <td data-label="근거">광교호수공원·광교산 도보권 / 단지 건폐율 18%</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>상권·생활편의</strong></td>
+          <td data-label="평점"><span class="stars">★★★★★</span></td>
+          <td data-label="근거">갤러리아·앨리웨이·아브뉴프랑·메가박스 도보 5~10분</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>의료</strong></td>
+          <td data-label="평점"><span class="stars">★★★★★</span></td>
+          <td data-label="근거">아주대병원 (상급종합) 차 5분</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>학군</strong></td>
+          <td data-label="평점"><span class="stars">★★★★☆</span></td>
+          <td data-label="근거">단지 옆 광교고(중상위) + 권역 효원고·수원외고. 분당·평촌 학원가 대비 부족.</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>단지 동질성</strong></td>
+          <td data-label="평점"><span class="stars">★★★★★</span></td>
+          <td data-label="근거">33평 단일 평형 1,764세대 → 입주민 라이프스테이지 유사</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>건축 신축도</strong></td>
+          <td data-label="평점"><span class="stars">★★★☆☆</span></td>
+          <td data-label="근거">2012년 입주 14년차. 인근 힐스테이트 광교중앙역 등 신축 대비 노후</td>
+        </tr>
+        <tr>
+          <td data-label="항목"><strong>사교육 인프라</strong></td>
+          <td data-label="평점"><span class="stars">★★★☆☆</span></td>
+          <td data-label="근거">광교 내 학원가 형성 중이나 분당 정자·평촌 수준은 아님</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="liquidity">7. 환금성 분석</h2>
+
+  <div class="insight">
+    <h3 style="font-size:1rem;margin-top:0">A. 매수자 풀의 두께</h3>
+    <ul>
+      <li>신분당선 단일 노선으로 <strong>강남·판교·수원·용인 다방향 매수자 풀</strong>.</li>
+      <li>광교 대장주로 인지도 통일 → 호갱노노·KB부동산 검색 상위.</li>
+    </ul>
+  </div>
+
+  <div class="insight">
+    <h3 style="font-size:1rem;margin-top:0">B. 단일 평형 = 가격 디스커버리 속도</h3>
+    <ul>
+      <li>1,764세대 전체가 33평 단일 → 동·층·향만 차이 → 매주 거래 사례 누적.</li>
+      <li>매도·매수 모두 <strong>참고 시세가 명확</strong>해 거래 성사 속도 빠름.</li>
+    </ul>
+  </div>
+
+  <div class="insight">
+    <h3 style="font-size:1rem;margin-top:0">C. 광교 대장주 지위</h3>
+    <ul>
+      <li>광교 이의동은 광교 내 거래량 1위 지역, 자연앤힐스테이트는 그 핵심 단지.</li>
+      <li>광교 신축 분양 여지가 적어(A17 지분적립형 정도) <strong>기존 대장주의 희소성 유지</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="insight">
+    <h3 style="font-size:1rem;margin-top:0">D. 잠재 위협</h3>
+    <ul>
+      <li>인근 신축 단지(힐스테이트 광교중앙역 등)의 신축 프리미엄으로 <strong>일부 수요 분산</strong> 가능.</li>
+      <li>14년차 노후도 진행 → 5~10년 후 리모델링·재건축 검토 필요.</li>
+    </ul>
+  </div>
+
+  <h2 id="swot">8. SWOT 분석</h2>
+  <div class="swot">
+    <div class="swot-card s">
+      <h4>S — Strengths (강점)</h4>
+      <ul>
+        <li>신분당선 광교중앙역 <strong>정문 초역세권</strong> (도보 1분)</li>
+        <li>광교호수공원·광교산 도보권</li>
+        <li>갤러리아·앨리웨이·아주대병원 도보~차 5분권</li>
+        <li>33평 단일 평형 1,764세대 → 환금성·동질성</li>
+        <li>경기도청·테크노밸리 자족 기능</li>
+        <li>광교 대장주 인지도</li>
+      </ul>
+    </div>
+    <div class="swot-card w">
+      <h4>W — Weaknesses (약점)</h4>
+      <ul>
+        <li>2012년 입주, <strong>14년차로 신축 프리미엄 부재</strong></li>
+        <li>분당·평촌 대비 사교육 학원가 약함</li>
+        <li>33평 단일 평형 → <strong>대형 평수 선호자 배제</strong></li>
+        <li>현 호가가 광교 평균을 끌어올리는 위치 → 추가 상승 여력 제한</li>
+        <li>대형마트(이마트·홈플러스급) 단지 인접 부족</li>
+      </ul>
+    </div>
+    <div class="swot-card o">
+      <h4>O — Opportunities (기회)</h4>
+      <ul>
+        <li><strong>신분당선 호매실 연장 (2028~2029)</strong> — 광교중앙역 종점 → 중간역 격상, 공정률 18%로 확정</li>
+        <li>GTX-C 본격 공사 → 수원 권역 광역 접근성 개선</li>
+        <li>광교 자족 기능 추가 강화 (테크노밸리·도청 권역)</li>
+        <li>장기 리모델링·재건축 가능성 (대지지분 등 검토 필요)</li>
+      </ul>
+    </div>
+    <div class="swot-card t">
+      <h4>T — Threats (위협)</h4>
+      <ul>
+        <li>인근 신축 단지(힐스테이트 광교중앙역 등)와의 수요 분산</li>
+        <li>금리 인상·부동산 규제 변동 시 호가 조정 가능</li>
+        <li>광교 추가 분양(지분적립형 A17 등) 시 신축 비교 압박</li>
+        <li>1호선 1호선 급행 용산 단절 등 호매실 연장 효과의 일부 한계</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 id="check">9. 매수 전 체크리스트</h2>
+  <div class="check">
+    <ol>
+      <li><strong>호가-실거래 갭 검증</strong>: 호가 20억 vs 실거래 17.8억 격차 약 12%. 매수 전 최근 1~3개월 실거래 흐름을 호갱노노·KB·국토부 실거래가로 주 단위 추적.</li>
+      <li><strong>동·층·향</strong>: 광교호수공원 뷰, 광교산 뷰, 고층 vs 저층의 가격 차이 확인. 단일 평형이라 동·층·향이 사실상 유일한 변동 요인.</li>
+      <li><strong>학군 확정성</strong>: 효원고는 평준화 추첨 배정. 광교중·광교고는 단지 도보권으로 확정 학군에 가까움. 학군 의존도가 높으면 광교중·광교고 기준으로 평가.</li>
+      <li><strong>주차·관리비</strong>: 14년차 단지로 수선충당금 누적 수준 확인. 세대당 1.5대 주차 확보 가능 여부.</li>
+      <li><strong>리모델링·재건축 가능성</strong>: 용적률 199%, 건폐율 18%. 대지지분과 향후 정비사업 가능성 검토 (단기 변수는 아니지만 장기 가치 평가에 반영).</li>
+      <li><strong>규제 변동</strong>: 매입 직전 시점 기준으로 조정대상지역·투기과열 해제 여부, 다주택자 양도세·취득세 중과 적용 여부 재확인.</li>
+      <li><strong>현장 답사</strong>: 광교중앙역 정문 동선, 단지 내부 차량 동선, 광교호수공원까지 실제 도보 시간을 직접 측정.</li>
+      <li><strong>비교 단지</strong>: 매입 결정 전 광교 인근 단지(힐스테이트광교, 광교중앙뷰, 래미안광교, 신축 힐스테이트 광교중앙역)와 평당가·연식·매물 회전 비교.</li>
+    </ol>
+  </div>
+
+  <h2 id="conclusion">10. 최종 결론</h2>
+
+  <div class="callout" style="border-left-color:var(--accent)">
+    <h4 style="color:var(--accent)">투자 포지셔닝</h4>
+    <p style="margin:6px 0">광교 자연앤힐스테이트는 <strong>"검증된 입지를 현재 호가에 사는 안정형 자산"</strong>입니다. 단기 가격 모멘텀(★★★☆☆)보다는 <strong>장기 안정성·거주 만족도·환금성(★★★★★)</strong>에 무게가 실립니다.</p>
+  </div>
+
+  <h3>적합한 매수자 프로파일</h3>
+  <ul>
+    <li>✅ <strong>실거주 + 학군 + 자연환경</strong>을 중시하는 30~50대 가족</li>
+    <li>✅ 강남·판교 출퇴근자 (신분당선 직결로 매일 30분 통근)</li>
+    <li>✅ 자녀 학령기와 함께 14년 이상 장기 보유 의향이 있는 매수자</li>
+    <li>✅ 광교 신도시 인프라(의료·문화·자연)를 종합적으로 누리고 싶은 매수자</li>
+    <li>✅ 가격 변동성 최소화하면서도 인플레이션 헤지를 원하는 자산 보유자</li>
+  </ul>
+
+  <h3>덜 적합한 매수자 프로파일</h3>
+  <ul>
+    <li>❌ 3~5년 단기 시세차익을 노리는 투기적 매수자 (이미 가격 선반영)</li>
+    <li>❌ 신축 프리미엄을 중시하는 매수자 (인근 신축 단지가 대안)</li>
+    <li>❌ 분당·평촌·대치급 학원가가 필수인 매수자</li>
+    <li>❌ 대형 평형(40평 이상) 선호자 (단지에 33평 단일 평형만)</li>
+  </ul>
+
+  <h3>한 줄 정리</h3>
+  <p><strong>"수도권에서 대체 단지를 찾기 어려운 입지 자산이며, 호매실 연장 호재까지 더해진 광교 신도시의 확실한 거점. 단, 현 호가는 가치를 선반영한 수준이라 추가 상승보다는 안정성에 무게."</strong></p>
+
+  <div class="sources">
+    <h2 style="margin-top:8px">출처</h2>
+    <ul>
+      <li><a href="https://hogangnono.com/apt/58Te3" target="_blank" rel="noopener">광교 자연앤힐스테이트 — 호갱노노</a></li>
+      <li><a href="https://m.richgo.ai/realty/danji/a2TNKpD" target="_blank" rel="noopener">광교 자연앤힐스테이트 — 리치고 시세 분석</a></li>
+      <li><a href="https://kbland.kr/se/c/22911" target="_blank" rel="noopener">광교 자연앤힐스테이트 — KB부동산</a></li>
+      <li><a href="https://namu.wiki/w/광교%20자연앤%20힐스테이트" target="_blank" rel="noopener">광교 자연앤 힐스테이트 — 나무위키</a></li>
+      <li><a href="https://www.smartfn.co.kr/news/articleView.html?idxno=133324" target="_blank" rel="noopener">광교 '국평 20억' 눈앞… 이의동 대장주 호가 +2억 — 스마트에프엔</a></li>
+      <li><a href="https://namu.wiki/w/광교신도시" target="_blank" rel="noopener">광교신도시 — 나무위키</a></li>
+      <li><a href="https://m.haeahn.com/ko/project/detail.do?prjctSeq=2654" target="_blank" rel="noopener">앨리웨이 광교 (연면적 258,498㎡) — 해안건축 공식</a></li>
+      <li><a href="https://hogangnono.com/poi/eUA2b" target="_blank" rel="noopener">광교고등학교 — 호갱노노</a></li>
+      <li><a href="https://m.richgo.ai/realty/place/high/S090005984" target="_blank" rel="noopener">광교고등학교 진학률 — 리치고</a></li>
+      <li><a href="https://hogangnono.com/poi/eKy69" target="_blank" rel="noopener">광교중학교 특목고 진학률 — 호갱노노</a></li>
+      <li><a href="https://m.richgo.ai/realty/place/high/S090000873" target="_blank" rel="noopener">효원고등학교 (1.5등급) — 리치고</a></li>
+      <li><a href="https://www.newsis.com/view/NISX20241022_0002930098" target="_blank" rel="noopener">신분당선 광교~호매실 연장 안전기원제 (2024-10-22) — 뉴시스</a></li>
+      <li><a href="https://news.tf.co.kr/read/national/2102518.htm" target="_blank" rel="noopener">신분당선 광교~호매실 7월 착공·2028년 말 준공 — 더팩트</a></li>
+      <li><a href="https://segye.com/newsView/20260424506050" target="_blank" rel="noopener">신분당선 호매실 연장 공정률 18% — 세계일보</a></li>
+      <li><a href="https://www.sisajournal-e.com/news/articleView.html?idxno=420608" target="_blank" rel="noopener">GTX-C 중재 종료, 본격 공사 — 시사저널e</a></li>
+    </ul>
+  </div>
+
+  <footer class="foot">
+    본 보고서는 공개된 부동산·교육·교통 데이터 기반 정보 분석이며, 투자 결정 전 현장 답사 및 공인중개사·세무사 상담을 권장합니다.
+  </footer>
+
+</div>
+</body>
+</html>
