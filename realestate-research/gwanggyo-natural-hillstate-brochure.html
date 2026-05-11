@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>광교 자연앤힐스테이트 — The Heart of 광교</title>
+<style>
+  :root {
+    --ink: #0A1929;
+    --ink-2: #1A2332;
+    --sub: #4A5568;
+    --muted: #7A8599;
+    --cream: #F8F4ED;
+    --cream-2: #F1EADD;
+    --bg: #FAFAFA;
+    --white: #FFFFFF;
+    --gold: #B8935C;
+    --gold-deep: #8B6F3F;
+    --champagne: #D4A857;
+    --line: #E5DDD0;
+    --shadow: 0 4px 24px rgba(10, 25, 41, 0.08);
+    --shadow-lg: 0 12px 48px rgba(10, 25, 41, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .serif {
+    font-family: "Noto Serif KR", "Source Han Serif K", "Nanum Myeongjo", serif;
+    font-weight: 400;
+  }
+
+  /* ───── Hero ───── */
+  .hero {
+    background: linear-gradient(135deg, #0A1929 0%, #1A2332 50%, #2A3447 100%);
+    color: var(--white);
+    padding: 80px 24px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 168, 87, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    color: var(--champagne);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--champagne);
+  }
+  .hero h1 {
+    font-family: "Noto Serif KR", serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent { color: var(--champagne); }
+  .hero-tagline {
+    font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 300;
+    max-width: 640px;
+    line-height: 1.55;
+    margin-bottom: 36px;
+  }
+  .hero-meta {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.05em;
+  }
+  .hero-meta span { margin: 0 8px; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid rgba(212, 168, 87, 0.3);
+    border-bottom: 1px solid rgba(212, 168, 87, 0.3);
+  }
+  @media (min-width: 720px) {
+    .hero-stats { grid-template-columns: repeat(4, 1fr); }
+  }
+  .hero-stat {
+    padding: 24px 16px;
+    text-align: center;
+    border-right: 1px solid rgba(212, 168, 87, 0.15);
+  }
+  .hero-stat:last-child { border-right: none; }
+  @media (max-width: 720px) {
+    .hero-stat:nth-child(2n) { border-right: none; }
+    .hero-stat:nth-child(-n+2) { border-bottom: 1px solid rgba(212, 168, 87, 0.15); }
+  }
+  .hero-stat .v {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--champagne);
+    letter-spacing: -0.02em;
+    display: block;
+    line-height: 1.1;
+  }
+  .hero-stat .l {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* ───── Sections ───── */
+  section { padding: 80px 24px; }
+  @media (max-width: 720px) { section { padding: 56px 20px; } }
+  .container { max-width: 980px; margin: 0 auto; }
+
+  .section-eyebrow {
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: "Noto Serif KR", serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--sub);
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ───── The Promise ───── */
+  .promise {
+    background: var(--cream);
+    text-align: center;
+  }
+  .promise-quote {
+    font-family: "Noto Serif KR", serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 760px;
+    margin: 0 auto;
+    letter-spacing: -0.01em;
+  }
+  .promise-quote::before, .promise-quote::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto;
+  }
+  .promise-author {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* ───── Signature 4 cards ───── */
+  .signature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  @media (min-width: 720px) {
+    .signature-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  }
+  .signature-card {
+    padding: 36px 32px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.4s ease;
+  }
+  .signature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold);
+  }
+  .signature-num {
+    font-family: "Noto Serif KR", serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .signature-card h3 {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .signature-card p {
+    color: var(--sub);
+    line-height: 1.75;
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  /* ───── Location map ───── */
+  .location-section {
+    background: var(--ink-2);
+    color: var(--white);
+  }
+  .location-section .section-title { color: var(--white); }
+  .location-section .section-lead { color: rgba(255, 255, 255, 0.7); }
+  .location-section .section-eyebrow { color: var(--champagne); }
+  .location-section .section-eyebrow::before { background: var(--champagne); }
+
+  .location-visual {
+    background: linear-gradient(135deg, rgba(184, 147, 92, 0.08), transparent);
+    border: 1px solid rgba(212, 168, 87, 0.2);
+    border-radius: 4px;
+    padding: 40px;
+    margin: 32px 0;
+    text-align: center;
+  }
+  @media (max-width: 720px) { .location-visual { padding: 24px 16px; } }
+
+  .map-center {
+    display: inline-block;
+    padding: 18px 28px;
+    border: 2px solid var(--champagne);
+    color: var(--champagne);
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+
+  .map-routes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 600px) { .map-routes { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .map-routes { grid-template-columns: repeat(3, 1fr); } }
+  .route {
+    padding: 16px 18px;
+    border: 1px solid rgba(212, 168, 87, 0.2);
+    border-radius: 4px;
+    text-align: left;
+  }
+  .route .dest {
+    color: var(--white);
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+  }
+  .route .time {
+    color: var(--champagne);
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+  .route .means {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ───── Lifestyle ───── */
+  .lifestyle-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+  @media (min-width: 720px) { .lifestyle-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 960px) { .lifestyle-grid { grid-template-columns: repeat(3, 1fr); } }
+  .lifestyle-item {
+    background: var(--white);
+    padding: 28px 24px;
+    transition: background 0.3s ease;
+  }
+  .lifestyle-item:hover { background: var(--cream); }
+  .lifestyle-cat {
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .lifestyle-item h4 {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .lifestyle-item p {
+    color: var(--sub);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ───── Education ───── */
+  .education-section { background: var(--cream); }
+  .school-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 32px;
+  }
+  @media (min-width: 720px) { .school-row { grid-template-columns: repeat(2, 1fr); } }
+  .school-card {
+    background: var(--white);
+    padding: 28px 28px 24px;
+    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+  }
+  .school-card h4 {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .school-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--cream-2);
+    color: var(--gold-deep);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .school-card p {
+    color: var(--sub);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .school-card .stat-line {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+  .school-card .stat-line strong {
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+
+  /* ───── Future / Vision ───── */
+  .vision-section {
+    background: linear-gradient(180deg, var(--ink-2) 0%, var(--ink) 100%);
+    color: var(--white);
+  }
+  .vision-section .section-eyebrow { color: var(--champagne); }
+  .vision-section .section-eyebrow::before { background: var(--champagne); }
+  .vision-section .section-title { color: var(--white); }
+  .vision-section .section-lead { color: rgba(255, 255, 255, 0.7); }
+
+  .vision-timeline {
+    margin-top: 36px;
+    border-left: 2px solid rgba(212, 168, 87, 0.3);
+    padding-left: 28px;
+  }
+  .vision-item {
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .vision-item::before {
+    content: '';
+    position: absolute;
+    left: -36px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    background: var(--champagne);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--ink-2);
+  }
+  .vision-year {
+    color: var(--champagne);
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .vision-item h4 {
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .vision-item p {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .vision-progress {
+    margin-top: 36px;
+    padding: 24px;
+    background: rgba(212, 168, 87, 0.08);
+    border: 1px solid rgba(212, 168, 87, 0.25);
+    border-radius: 4px;
+  }
+  .vision-progress strong { color: var(--champagne); }
+
+  /* ───── Pricing ───── */
+  .pricing-section { background: var(--white); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  @media (min-width: 720px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+  .price-card {
+    padding: 32px 24px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    text-align: center;
+    background: var(--cream);
+  }
+  .price-card.feature {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+  .price-card .label {
+    color: var(--gold);
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .price-card.feature .label { color: var(--champagne); }
+  .price-card .value {
+    font-family: "Noto Serif KR", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .price-card.feature .value { color: var(--white); }
+  .price-card .note {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 10px;
+  }
+  .price-card.feature .note { color: rgba(255, 255, 255, 0.6); }
+
+  /* ───── Honest Disclosure (단점) ───── */
+  .disclosure-section {
+    background: var(--cream-2);
+    border-top: 1px solid var(--line);
+  }
+  .disclosure-intro {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.1rem;
+    color: var(--sub);
+    font-style: italic;
+    line-height: 1.75;
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+  .disclosure-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 720px) { .disclosure-list { grid-template-columns: repeat(2, 1fr); } }
+  .disclosure-item {
+    background: var(--white);
+    padding: 24px 26px;
+    border-radius: 4px;
+    border-left: 3px solid var(--gold-deep);
+  }
+  .disclosure-item h4 {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .disclosure-item p {
+    color: var(--sub);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .disclosure-item .verdict {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    font-size: 0.85rem;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+
+  /* ───── Closing ───── */
+  .closing-section {
+    background: var(--ink);
+    color: var(--white);
+    text-align: center;
+    padding: 100px 24px;
+  }
+  .closing-quote {
+    font-family: "Noto Serif KR", serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    line-height: 1.45;
+    max-width: 780px;
+    margin: 0 auto 36px;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .closing-quote .accent { color: var(--champagne); }
+  .closing-sub {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+  .closing-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--champagne);
+    margin: 40px auto;
+  }
+
+  /* ───── Footer ───── */
+  .foot {
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 32px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(212, 168, 87, 0.15);
+  }
+  .foot p { font-size: 0.78rem; line-height: 1.7; margin-bottom: 12px; }
+  .foot .sources-link {
+    display: inline-block;
+    color: var(--champagne);
+    font-size: 0.78rem;
+    border-bottom: 1px dashed var(--champagne);
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  .sources-section {
+    background: var(--bg);
+    padding: 56px 24px;
+    border-top: 1px solid var(--line);
+  }
+  .sources-section h2 {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .sources-section ul { list-style: none; }
+  .sources-section li { margin: 6px 0; font-size: 0.85rem; }
+  .sources-section a {
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+  }
+  .sources-section a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">The Heart of 광교</div>
+    <h1>
+      광교 자연앤힐스테이트<br>
+      <span class="accent">— 신도시의 중심에서</span><br>
+      시작되는 일상.
+    </h1>
+    <p class="hero-tagline">
+      신분당선 광교중앙역, 광교호수공원, 갤러리아 광교, 아주대학교병원, 경기도청 신청사. 광교 신도시를 정의하는 모든 거점이 단지 도보 10분 안에 있는 자리. 1,764세대 단일 평형 대단지가 보여주는 균질한 라이프.
+    </p>
+    <div class="hero-meta">
+      <span>경기도 수원시 영통구 이의동</span>·<span>1,764세대</span>·<span>2012년 입주</span>·<span>전용 84㎡ 단일 평형</span>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="v">1분</span>
+        <span class="l">광교중앙역 도보</span>
+      </div>
+      <div class="hero-stat">
+        <span class="v">30분</span>
+        <span class="l">강남역 직결</span>
+      </div>
+      <div class="hero-stat">
+        <span class="v">1,764</span>
+        <span class="l">세대 (단일 평형)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="v">17.8억</span>
+        <span class="l">최근 실거래</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ THE PROMISE ═══════════════════════════════════════ -->
+<section class="promise">
+  <div class="container">
+    <p class="promise-quote serif">
+      "광교는 골고루 갖춘 신도시가 아닙니다.<br>
+      광교는 <em>한 군데에 모두 모여 있는</em> 신도시입니다.<br>
+      자연앤힐스테이트는 그 클러스터의 0지점입니다."
+    </p>
+    <p class="promise-author">— Single-Asset Deep Dive, 2026.05</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SIGNATURE 4 ═══════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Signature</div>
+    <h2 class="section-title">단지를 정의하는 네 가지</h2>
+    <p class="section-lead">
+      광교의 다른 어떤 단지도 동시에 갖추지 못한 네 가지 입지 자산. 자연앤힐스테이트의 가치는 이 조합의 희소성에서 나옵니다.
+    </p>
+
+    <div class="signature-grid">
+      <article class="signature-card">
+        <div class="signature-num">01 · TRANSIT</div>
+        <h3>신분당선 정문 도보 1분</h3>
+        <p>광교중앙역 2번 출구가 단지 정문입니다. 우천에도 한여름에도 우산 없이 환승센터에 도달. 강남 30분, 판교 15분 직결.</p>
+      </article>
+
+      <article class="signature-card">
+        <div class="signature-num">02 · NATURE</div>
+        <h3>광교호수공원 · 광교산 도보권</h3>
+        <p>축구장 80개 규모의 호수공원과 광교산 등산로가 일상 산책 동선 안에. 수도권 신도시 자연자산 중 최상위급으로 평가됩니다.</p>
+      </article>
+
+      <article class="signature-card">
+        <div class="signature-num">03 · COMMUNITY</div>
+        <h3>33평 단일 평형 1,764세대</h3>
+        <p>한 평형으로 통일된 대단지는 수도권에서 드뭅니다. 입주민 라이프스테이지가 비슷해 커뮤니티 응집력과 관리 만족도가 높습니다.</p>
+      </article>
+
+      <article class="signature-card">
+        <div class="signature-num">04 · CLUSTER</div>
+        <h3>광교 핵심 인프라 도보 10분</h3>
+        <p>갤러리아 광교(백화점), 앨리웨이 광교(25.8만㎡), 아브뉴프랑, 광교 메가박스, 경기도청, 아주대병원이 반경 1.5km 안에 집약.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ LOCATION MAP ═══════════════════════════════════════ -->
+<section class="location-section">
+  <div class="container">
+    <div class="section-eyebrow">Location</div>
+    <h2 class="section-title">광교중앙역에서<br>모든 곳으로.</h2>
+    <p class="section-lead">
+      신분당선 단일 노선이 강남·판교를 직결합니다. 차량으로 KTX 수원역·SRT 동탄역까지 30분권. 호매실 연장 개통(2028~2029, 공정률 18%) 후 광교중앙역은 종점에서 중간역으로 격상됩니다.
+    </p>
+
+    <div class="location-visual">
+      <div class="map-center">광교 자연앤힐스테이트</div>
+      <div class="map-routes">
+        <div class="route">
+          <div class="dest">강남역</div>
+          <div class="time">30분</div>
+          <div class="means">신분당선 직결</div>
+        </div>
+        <div class="route">
+          <div class="dest">판교역</div>
+          <div class="time">15분</div>
+          <div class="means">신분당선 직결</div>
+        </div>
+        <div class="route">
+          <div class="dest">양재시민의숲</div>
+          <div class="time">25분</div>
+          <div class="means">신분당선</div>
+        </div>
+        <div class="route">
+          <div class="dest">경부고속도로 IC</div>
+          <div class="time">10분</div>
+          <div class="means">차량</div>
+        </div>
+        <div class="route">
+          <div class="dest">KTX 수원역</div>
+          <div class="time">15~20분</div>
+          <div class="means">차량</div>
+        </div>
+        <div class="route">
+          <div class="dest">SRT 동탄역</div>
+          <div class="time">25~35분</div>
+          <div class="means">차량 · 수서 방면</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ LIFESTYLE ═══════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Lifestyle</div>
+    <h2 class="section-title">도보 10분의 생활.</h2>
+    <p class="section-lead">
+      백화점·라이프스타일 몰·문화·의료·행정. 일상에서 차가 필요한 항목이 거의 없습니다. 단지 정문에서 출발하는 모든 동선이 짧습니다.
+    </p>
+
+    <div class="lifestyle-grid">
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">SHOPPING</div>
+        <h4>갤러리아 광교</h4>
+        <p>명품 라인업을 갖춘 백화점. 2020년 개장 신축급. 광교중앙역에서 도보 5분.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">LIFESTYLE</div>
+        <h4>앨리웨이 광교</h4>
+        <p>연면적 258,498㎡ 규모의 라이프스타일 빌리지. 호수공원 옆 골목형 구조로 산책과 쇼핑이 한 동선에.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">DINING</div>
+        <h4>아브뉴프랑 광교</h4>
+        <p>스트리트형 F&B 클러스터. 앨리웨이와 함께 광교의 외식·카페 거점.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">CULTURE</div>
+        <h4>광교 메가박스</h4>
+        <p>광교중앙역 인근의 멀티플렉스. 영화·문화 일상화.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">HEALTHCARE</div>
+        <h4>아주대학교병원</h4>
+        <p>상급종합병원 · 권역응급의료센터. 중증진료까지 가능한 거점. 단지에서 차 5분.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">NATURE</div>
+        <h4>광교호수공원 · 광교산</h4>
+        <p>축구장 80개 규모 호수공원과 산림. 사계절 산책로와 자전거 코스.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">ADMIN</div>
+        <h4>경기도청 신청사</h4>
+        <p>2022년 광교중앙역 인근으로 이전 완료. 한국은행 경기본부와 함께 행정 거점.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">WORK</div>
+        <h4>광교테크노밸리</h4>
+        <p>R&D 클러스터. 광교의 자족 기능을 떠받치는 직주 인프라.</p>
+      </div>
+      <div class="lifestyle-item">
+        <div class="lifestyle-cat">SHOPPING</div>
+        <h4>광교 롯데아울렛</h4>
+        <p>차량 5~10분 거리. 아울렛 쇼핑까지 광교 권역 안에서 해결.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ EDUCATION ═══════════════════════════════════════ -->
+<section class="education-section">
+  <div class="container">
+    <div class="section-eyebrow">Education</div>
+    <h2 class="section-title">단지 양 옆에 학교가 있습니다.</h2>
+    <p class="section-lead">
+      신풍초·광교고가 도보 5분. 권역으로 넓히면 영통구 최상위 학군인 효원고(전국 상위 14%)와 수원외고(서울대 9명)까지 통학권. 광교는 양호한 일반고 학군과 권역 명문이 공존합니다.
+    </p>
+
+    <div class="school-row">
+      <article class="school-card">
+        <h4>광교중학교</h4>
+        <span class="tag">도보권 · 영통구 권역 상위</span>
+        <p>광교 자연앤힐스테이트 도보권의 공립 중학교. 영통구 권역 특목고·자사고 진학률 상위.</p>
+        <div class="stat-line">특목고·자사고 진학률 <strong>13.13%</strong> · 진학자 21명 · 전국 171위</div>
+      </article>
+
+      <article class="school-card">
+        <h4>광교고등학교</h4>
+        <span class="tag">단지 인접 · 일반계 공립</span>
+        <p>단지 동편에 위치한 일반계 공립고등학교. 졸업생 현역 진학률은 전국 상위 5%.</p>
+        <div class="stat-line">4년제 진학률 <strong>51.5%</strong> · 학교등급 3.1 · 경기 상위 25%</div>
+      </article>
+
+      <article class="school-card">
+        <h4>효원고등학교</h4>
+        <span class="tag">권역 명문 · 차 10~15분</span>
+        <p>영통구 매탄동 소재 과학중점학교. 광교 권역 일반고 중 압도적 1위. 단, 평준화 추첨 배정이므로 확정 학군은 아님.</p>
+        <div class="stat-line">학교등급 <strong>1.5</strong> · 전국 상위 14% · 4년제 진학률 74.1%</div>
+      </article>
+
+      <article class="school-card">
+        <h4>수원외국어고등학교</h4>
+        <span class="tag">권역 외고 · 영통구 1위</span>
+        <p>영통구 진학률 1위 학교. 수원 외고 중 최상위. 자녀 외고 진학 시 통학 가능.</p>
+        <div class="stat-line">서울대 <strong>9명</strong> (수시 7 + 정시 2) · 성취율 99.5%</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FUTURE / VISION ═══════════════════════════════════════ -->
+<section class="vision-section">
+  <div class="container">
+    <div class="section-eyebrow">Future Value</div>
+    <h2 class="section-title">광교중앙역은<br>곧 종점이 아닙니다.</h2>
+    <p class="section-lead">
+      신분당선 광교~호매실 연장이 2024년 7월 착공됐습니다. 2026년 3월 기준 공정률 18%로 순항 중. 광교중앙역은 종점에서 중간역으로 격상되고, 자연앤힐스테이트는 그 한복판에 있습니다.
+    </p>
+
+    <div class="vision-timeline">
+      <div class="vision-item">
+        <div class="vision-year">2021.12</div>
+        <h4>사업 확정</h4>
+        <p>경기도 사업 결정. 18년간 추진된 연장 사업 본격화.</p>
+      </div>
+      <div class="vision-item">
+        <div class="vision-year">2024.06</div>
+        <h4>국토부 사업실시계획 승인</h4>
+        <p>관보 고시 제2024-314호. 법적 착공 가능 상태로 진입.</p>
+      </div>
+      <div class="vision-item">
+        <div class="vision-year">2024.07</div>
+        <h4>착공</h4>
+        <p>노반공사 시작. 2024-10-22 안전기원제 개최.</p>
+      </div>
+      <div class="vision-item">
+        <div class="vision-year">2026.03</div>
+        <h4>공정률 18%</h4>
+        <p>"순항 중" — 사업 무산 가능성 사실상 0. 위례신사선(아직 착공 전)과 단계가 완전히 다름.</p>
+      </div>
+      <div class="vision-item">
+        <div class="vision-year">2028~2029</div>
+        <h4>개통 목표</h4>
+        <p>광교중앙역(기존) → 월드컵경기장 → 수성중 → <strong>화서(1호선 환승)</strong> → 구운 → 호매실. 총 9.88km, 사업비 1조 1,049억원.</p>
+      </div>
+    </div>
+
+    <div class="vision-progress">
+      <strong>호매실 연장이 자연앤힐스테이트에 의미하는 것</strong> — 광교중앙역의 환승·이용객이 증가하고, 수원 도심·호매실의 신규 수요가 광교 인근으로 유입됩니다. 다만 강남 방향은 이미 신분당선 직결이라 추가 효과는 없으며, 서울 도심(서울역) 접근은 환승 70~80분으로 강남 대비 매력은 낮습니다. <strong>"광교 거점의 위상 강화"가 핵심 가치</strong>입니다.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PRICING ═══════════════════════════════════════ -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="section-eyebrow">Market Value</div>
+    <h2 class="section-title">시세는 현재진행형.</h2>
+    <p class="section-lead">
+      2025년 12월 실거래 17.8억에서 2026년 초 호가 20억으로 한 달 새 +12% 형성. 자연앤힐스테이트 단독 현상이 아닌, 광교 대장주(힐스테이트광교·광교중앙뷰·래미안광교) 전체의 리레이팅입니다.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="label">최근 실거래</div>
+        <div class="value">17.8억</div>
+        <div class="note">2025-12-30 · 전용 84㎡</div>
+      </div>
+      <div class="price-card feature">
+        <div class="label">현재 호가</div>
+        <div class="value">20억</div>
+        <div class="note">2026 초 · 1개월 +2억</div>
+      </div>
+      <div class="price-card">
+        <div class="label">평당가</div>
+        <div class="value">5,400~6,000<span style="font-size:.55em">만원</span></div>
+        <div class="note">실거래 / 호가</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ HONEST DISCLOSURE (단점) ═══════════════════════════════════════ -->
+<section class="disclosure-section">
+  <div class="container">
+    <div class="section-eyebrow">Honest Disclosure</div>
+    <h2 class="section-title">솔직한 짚어보기.</h2>
+    <p class="disclosure-intro">
+      모든 자산에는 그늘이 있습니다. 광교 자연앤힐스테이트도 완벽하지 않습니다. 매수 결정 전 반드시 알고 있어야 할 다섯 가지를 정리합니다.
+    </p>
+
+    <div class="disclosure-list">
+      <article class="disclosure-item">
+        <h4>① 2012년 입주 — 14년차 노후도</h4>
+        <p>인근 힐스테이트 광교중앙역 등 신축 단지가 등장하면서 신축 프리미엄에서는 밀립니다. 향후 5~10년 내 리모델링·재건축 검토 시점이 도래할 가능성.</p>
+        <div class="verdict">평가: 입지 가치로 상쇄되나, 신축 선호 매수자에게는 약점.</div>
+      </article>
+
+      <article class="disclosure-item">
+        <h4>② 사교육 학원가 — 분당·평촌 수준 아님</h4>
+        <p>광교 학원가는 성장 중이지만, 분당 정자·평촌·대치동급의 사교육 메카에는 미치지 못합니다. 학원 의존도가 매우 높은 가정에는 단점.</p>
+        <div class="verdict">평가: 학군은 "양호한 수준"이지 "최상급"은 아닙니다.</div>
+      </article>
+
+      <article class="disclosure-item">
+        <h4>③ 33평 단일 평형 — 대형 평수 옵션 없음</h4>
+        <p>40평 이상 대형 평수를 선호하는 매수자는 처음부터 배제됩니다. 자녀가 많은 가족이나 부모님 동거 계획이 있다면 다른 단지를 검토해야 합니다.</p>
+        <div class="verdict">평가: 환금성에는 강점이지만 평형 다양성은 약점.</div>
+      </article>
+
+      <article class="disclosure-item">
+        <h4>④ 호가가 가치를 선반영한 수준</h4>
+        <p>현 호가 20억은 광교 신도시 인프라 완성과 호매실 호재가 이미 반영된 가격입니다. 단기 시세차익(3~5년)을 노리는 매수자에게는 추가 상승 여력이 제한적.</p>
+        <div class="verdict">평가: 단기 모멘텀보다 장기 안정성을 사는 자산.</div>
+      </article>
+
+      <article class="disclosure-item">
+        <h4>⑤ 권역 명문 학군 = 평준화 추첨</h4>
+        <p>효원고(1.5등급)는 광교 자연앤힐스테이트 통학권이지만 수원시 평준화 추첨 배정입니다. 확정 학군이 아니므로 학군 의존도가 절대적이라면 위험 요소.</p>
+        <div class="verdict">평가: 광교중·광교고는 확정 도보권. 효원고는 보너스에 가깝게 평가.</div>
+      </article>
+
+      <article class="disclosure-item">
+        <h4>⑥ 호매실 연장 → 서울 도심 효과는 제한적</h4>
+        <p>화서역에서 1호선 환승 시 서울역까지 약 56분(완행만, 급행은 용산 단절). 광교중앙→서울역 총 70~80분으로, 강남 직결 30분 대비 매력 낮음.</p>
+        <div class="verdict">평가: 호매실 연장은 "광교 위상 강화"이지 "서울 도심 직결"이 아닙니다.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CLOSING ═══════════════════════════════════════ -->
+<section class="closing-section">
+  <div class="container">
+    <p class="closing-quote serif">
+      "수도권에서 <span class="accent">대체 단지를 찾기 어려운</span><br>
+      한 자리."
+    </p>
+    <div class="closing-divider"></div>
+    <p class="closing-sub">
+      광교 자연앤힐스테이트는 단기 시세차익을 위한 자산이 아닙니다.<br>
+      검증된 입지를 사는, 장기 안정형 거점입니다.<br>
+      <br>
+      신분당선 광교중앙역 정문 · 1,764세대 단일 33평 · 광교호수공원 도보권 · 광교 클러스터 0지점.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SOURCES ═══════════════════════════════════════ -->
+<section class="sources-section">
+  <div class="container">
+    <h2>참고 자료</h2>
+    <ul>
+      <li><a href="https://hogangnono.com/apt/58Te3" target="_blank" rel="noopener">광교 자연앤힐스테이트 — 호갱노노</a></li>
+      <li><a href="https://kbland.kr/se/c/22911" target="_blank" rel="noopener">광교 자연앤힐스테이트 — KB부동산</a></li>
+      <li><a href="https://m.richgo.ai/realty/danji/a2TNKpD" target="_blank" rel="noopener">광교 자연앤힐스테이트 — 리치고 시세 분석</a></li>
+      <li><a href="https://www.smartfn.co.kr/news/articleView.html?idxno=133324" target="_blank" rel="noopener">광교 국평 20억 눈앞 · 이의동 대장주 호가 +2억 — 스마트에프엔</a></li>
+      <li><a href="https://m.haeahn.com/ko/project/detail.do?prjctSeq=2654" target="_blank" rel="noopener">앨리웨이 광교 (연면적 258,498㎡) — 해안건축 공식</a></li>
+      <li><a href="https://hogangnono.com/poi/eUA2b" target="_blank" rel="noopener">광교고등학교 — 호갱노노</a></li>
+      <li><a href="https://hogangnono.com/poi/eKy69" target="_blank" rel="noopener">광교중학교 특목고 진학률 — 호갱노노</a></li>
+      <li><a href="https://m.richgo.ai/realty/place/high/S090000873" target="_blank" rel="noopener">효원고등학교 (1.5등급) — 리치고</a></li>
+      <li><a href="https://www.newsis.com/view/NISX20241022_0002930098" target="_blank" rel="noopener">신분당선 광교~호매실 연장 안전기원제 — 뉴시스</a></li>
+      <li><a href="https://news.tf.co.kr/read/national/2102518.htm" target="_blank" rel="noopener">신분당선 광교~호매실 착공·2028년 말 준공 — 더팩트</a></li>
+      <li><a href="https://segye.com/newsView/20260424506050" target="_blank" rel="noopener">신분당선 호매실 연장 공정률 18% — 세계일보</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+<footer class="foot">
+  <p>본 자료는 공개된 부동산·교육·교통 데이터 기반 정보 분석이며, 광고·중개·매각 의뢰와 무관합니다.<br>투자 결정 전 현장 답사 및 공인중개사·세무사 상담을 권장합니다.</p>
+  <p style="margin-top:14px;letter-spacing:0.15em;font-size:0.72rem;">© 2026 · Single-Asset Deep Dive · 광교 자연앤힐스테이트</p>
+</footer>
+
+</body>
+</html>
