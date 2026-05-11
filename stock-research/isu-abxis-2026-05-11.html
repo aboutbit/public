@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>이수앱지스(086890) 심층 분석 리포트 — 2026.05.11</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --ink: #0B1220;
+    --ink2: #1f2937;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --bull: #DC2626;
+    --bear: #2563EB;
+    --gold: #A77B2D;
+    --gold-soft: #FCD34D;
+    --accent: #0f766e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", system-ui, sans-serif;
+    font-size: 15px; line-height: 1.65; letter-spacing: -0.01em;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.cover {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 24px; margin-bottom: 32px;
+  }
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; color: var(--muted); margin-bottom: 16px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  h1 { font-size: 28px; margin: 0 0 8px; font-weight: 800; letter-spacing: -0.02em; }
+  h1 .ticker { font-size: 16px; font-weight: 500; color: var(--muted); margin-left: 8px; }
+  .subtitle { font-size: 15px; color: var(--ink2); margin: 0; }
+
+  h2 {
+    font-size: 18px; margin: 36px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h2 .no {
+    display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center;
+    background: var(--ink); color: white; border-radius: 4px; font-size: 12px; font-weight: 700;
+  }
+  h3 { font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+
+  p { margin: 8px 0; }
+  ul, ol { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 18px 20px; margin: 12px 0;
+  }
+  .card.warning { border-left: 4px solid var(--bull); background: #fff5f5; }
+  .card.note    { border-left: 4px solid var(--bear); background: #f3f8ff; }
+  .card.pos     { border-left: 4px solid var(--accent); background: #f0fdf9; }
+  .card.gold    { border-left: 4px solid var(--gold); background: #fffbeb; }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0;
+  }
+  .kpi {
+    background: white; border: 1px solid var(--line); border-radius: 6px; padding: 12px;
+  }
+  .kpi .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .kpi .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .kpi .delta { font-size: 12px; margin-top: 2px; }
+  .delta.up { color: var(--bull); }
+  .delta.dn { color: var(--bear); }
+  .delta.flat { color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { background: #f4f4f0; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.highlight td { background: #fffbeb; font-weight: 600; }
+
+  .verdict {
+    background: linear-gradient(135deg, #0B1220 0%, #312E81 100%);
+    color: white; padding: 24px; border-radius: 10px; margin: 24px 0;
+    position: relative; overflow: hidden;
+  }
+  .verdict::before {
+    content: ""; position: absolute; top: 0; right: 0; width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--gold-soft));
+  }
+  .verdict h2 {
+    color: white; border: none; padding: 0; margin: 0 0 12px; font-size: 16px;
+  }
+  .verdict h2 .no { background: var(--gold); color: var(--ink); }
+  .verdict p { margin: 6px 0; }
+  .verdict .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    background: var(--gold); color: var(--ink); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+
+  .scenario {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0;
+  }
+  .sc {
+    border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: white;
+  }
+  .sc h4 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .sc .price { font-size: 22px; font-weight: 700; margin: 4px 0; font-variant-numeric: tabular-nums; }
+  .sc.bull { border-top: 3px solid var(--bull); }
+  .sc.base { border-top: 3px solid var(--gold); }
+  .sc.bear { border-top: 3px solid var(--bear); }
+  .sc small { color: var(--muted); }
+
+  .checklist li { list-style: none; position: relative; padding-left: 24px; }
+  .checklist li::before {
+    content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+  }
+  .crosslist li { list-style: none; position: relative; padding-left: 24px; }
+  .crosslist li::before {
+    content: "✗"; position: absolute; left: 0; color: var(--bull); font-weight: 700;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold); padding: 4px 14px; color: var(--ink2);
+    font-style: italic; margin: 10px 0;
+  }
+  footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--muted);
+  }
+  a { color: var(--bear); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .scenario { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="cover">
+  <div class="meta-row">
+    <span>EQUITY DEEP DIVE — KOSDAQ BIOPHARMA</span>
+    <span>2026.05.11 · 분석가 보고서</span>
+  </div>
+  <h1>이수앱지스<span class="ticker">086890.KQ · ISU Abxis</span></h1>
+  <p class="subtitle">희귀질환 효소대체요법 안정 매출 + 항암 ISU104 미국 IND 진입의 이중 구조<br/>
+    "주가는 상장 이래 최저, 그러나 본업은 멀쩡한가?" — 5가지 각도로 검증한다.</p>
+</header>
+
+<!-- =============== 1. EXECUTIVE SUMMARY =============== -->
+
+<div class="verdict">
+  <span class="tag">EXECUTIVE SUMMARY</span>
+  <h2><span class="no">0</span>한 줄 결론</h2>
+  <p><strong>"단기 영업적자 ≠ 기업 부실"</strong> — 매출은 +32% 성장 중, 당기순손실은 −87억→−2억으로 95% 축소.
+  R&D 비율 41%가 영업이익을 잠시 누르고 있을 뿐, 재무안정성·캐시플로우·파이프라인 가치는 훼손되지 않았다.</p>
+  <p>다만 <strong>"왜 지금 4,000원 초반까지 빠지는가"</strong>는 펀더멘털이 아니라
+  <em>① 바이오 섹터 risk-off ② 1분기 영업적자 헤드라인 ③ 이란 수출 변수</em>가 누적된 결과로 본다.
+  평단 4,900원 대비 -18%는 고통스럽지만, <strong>본업 훼손 신호는 아직 보이지 않음</strong>.</p>
+</div>
+
+<!-- =============== 1. 회사 개요 =============== -->
+
+<h2><span class="no">1</span>회사 개요 — 무엇을 하는 회사인가</h2>
+
+<p>이수앱지스는 <strong>이수그룹 계열</strong> 바이오 의약품 회사로, 두 개의 사업 축을 가진다.</p>
+
+<table>
+  <thead><tr><th>축</th><th>제품/파이프라인</th><th>적응증</th><th>현 상태</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="4"><strong>① 상업화 제품<br/>(현금 창출)</strong></td>
+        <td>애브서틴</td><td>고셔병 (희귀)</td><td>국내+해외 수출, 연 400억대</td></tr>
+    <tr><td>파바갈</td><td>파브리병 (희귀)</td><td>해외 수출 확대, 150억대</td></tr>
+    <tr><td>클로티냅</td><td>혈우병 항체 억제</td><td>국내 판매</td></tr>
+    <tr><td>페부레인</td><td>통풍</td><td>국내 판매</td></tr>
+    <tr><td rowspan="3"><strong>② R&D 파이프라인<br/>(미래 가치)</strong></td>
+        <td><strong>ISU104</strong> (바레세타맙)</td><td>HER3 표적 항암</td><td><strong>美 FDA 임상 2상 IND 신청 완료, 美 기술이전 체결</strong></td></tr>
+    <tr><td>ISU104-CAR-NK / ISU104-ADC</td><td>항암 응용</td><td>전임상 (유방암 마우스 효능)</td></tr>
+    <tr><td>ISU203</td><td>알츠하이머</td><td>초기 개발</td></tr>
+  </tbody>
+</table>
+
+<div class="card pos">
+  <strong>핵심 인사이트.</strong> 이수앱지스는 일반적인 "꿈만 파는 바이오"가 아니다.
+  <strong>희귀질환 효소대체요법으로 매년 600억 안팎의 매출</strong>을 찍고 있어 영업 캐시플로우가 존재한다.
+  여기에 ISU104라는 항암 신약 옵션이 얹혀있는 구조 — "현금흐름 + 옵션 가치" 두 다리.
+</div>
+
+<!-- =============== 2. 1분기 실적 해부 =============== -->
+
+<h2><span class="no">2</span>2026년 1분기 실적 해부 — 적자 헤드라인 뒤의 진실</h2>
+
+<p>5월 8일 발표된 1분기 실적은 <strong>"매출은 좋은데 영업이익이 적자"</strong>라는 혼란스러운 그림이었다.
+이게 바로 오늘 -6% 하락의 직접 트리거로 추정된다. 하지만 숫자를 분해해 보자.</p>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="label">매출액</div>
+    <div class="value">94억</div>
+    <div class="delta up">▲ +32% YoY</div>
+  </div>
+  <div class="kpi">
+    <div class="label">영업이익</div>
+    <div class="value">−34억</div>
+    <div class="delta dn">적자전환</div>
+  </div>
+  <div class="kpi">
+    <div class="label">당기순손실</div>
+    <div class="value">−2억</div>
+    <div class="delta up">▲ +85억 (전년 −87억)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">R&D / 매출</div>
+    <div class="value">41.2%</div>
+    <div class="delta flat">바이오 평균 수준</div>
+  </div>
+</div>
+
+<h3>왜 영업적자가 났는가 — 회사 측 설명</h3>
+<div class="quote">
+  "생산량 조정에 따른 일시적 원가 상승과 일부 수출 물량의 매출 인식이 2분기로 이연된 결과.
+  1분기에 지연됐던 수출 물량이 2분기부터 순차 출하되면서 매출 규모가 확대될 것이며,
+  생산 안정화를 통한 원가 구조 개선으로 <strong>2분기 영업이익 흑자 전환이 가능</strong>할 것으로 기대한다."
+</div>
+
+<h3>이 설명을 곧이곧대로 믿어도 되는가</h3>
+<p>세 가지 정황 증거가 회사 측 설명에 신뢰를 더한다.</p>
+<ul class="checklist">
+  <li><strong>당기순손실이 -87억 → -2억으로 95% 축소</strong>. 영업단에서만 일시적 비용이 잡혔고, 영업외(주로 기술이전 로열티)에서 손실을 거의 메웠다는 뜻.</li>
+  <li><strong>매출 +32%는 "주력 품목 성장 + 기술수출 로열티 유입"</strong>. 기술이전 로열티가 회계에 본격 반영되기 시작한 시그널.</li>
+  <li><strong>2분기 이연 = 매출 사라진 게 아니라 미뤄진 것</strong>. 2Q에 1Q 미인식분 + 2Q 정상분이 동시 인식되면 분기 매출이 점프할 수 있다.</li>
+</ul>
+
+<div class="card warning">
+  <strong>다만, 회의적으로 볼 부분.</strong>
+  영업적자 -34억은 사실이고, 회사 설명은 "다음 분기에는…"이라는 가이던스에 불과하다.
+  2분기 실적(8월 발표)에서 실제 흑자전환을 확인하기 전까지는 시장이 "보여줘"라고 요구할 가능성이 크다.
+  즉, <strong>주가가 빠르게 회복되기보다 "2Q 실적 확인 → 재평가" 패턴</strong>이 자연스럽다.
+</div>
+
+<!-- =============== 3. 재무 안정성 =============== -->
+
+<h2><span class="no">3</span>재무 안정성 — stockpilot이 "안정적"이라 판단한 이유</h2>
+
+<p>본 종목이 RSI 스캐너 리스크 체크리스트에서 안정으로 분류된 데에는 근거가 있다.</p>
+
+<table>
+  <thead><tr><th>지표</th><th>2023</th><th>2024 추정</th><th>해석</th></tr></thead>
+  <tbody>
+    <tr><td>매출액</td><td class="num">~500억</td><td class="num">~600억</td><td>꾸준한 외형 성장</td></tr>
+    <tr class="highlight"><td><strong>영업이익</strong></td><td class="num">흑자전환</td><td class="num">~130억</td><td>적자 바이오와 결정적 차이</td></tr>
+    <tr><td>부채비율</td><td class="num">~80%</td><td class="num">60% 중반</td><td>지속 개선 중, 안정권</td></tr>
+    <tr><td>R&D 투자</td><td class="num">매출 40%대</td><td class="num">매출 40%대</td><td>고비용이지만 자체 EBITDA로 감내</td></tr>
+  </tbody>
+</table>
+
+<h3>"순차입금/EBITDA" 관점에서 본 이수앱지스</h3>
+<p>앞서 이야기한 <strong>EBITDA 음수 → 자력상환 불가능</strong> 신호가 있는지 보자.</p>
+<ul class="checklist">
+  <li>2024년 영업이익 +130억 추정 → <strong>EBITDA는 +양수</strong> (감가상각 더하면 더 큼)</li>
+  <li>2026년 1분기는 일시 영업적자지만, R&D 비용 41% 제거 시 본업 마진은 흑자</li>
+  <li>희귀질환 효소대체요법은 <strong>가격 결정력이 높고 진입장벽이 큰 사업</strong> — 환자 수가 적어 경쟁사도 적음</li>
+</ul>
+
+<div class="card pos">
+  <strong>결론.</strong> 본업이 현금을 태우는 회사가 아니라, <strong>본업 현금흐름으로 R&D를 굴리는 회사</strong>다.
+  자력상환 가능 신호. 부도·증자·자산매각 시나리오에서 멀리 떨어져 있다.
+</div>
+
+<!-- =============== 4. 파이프라인 가치 =============== -->
+
+<h2><span class="no">4</span>옵션 가치 — ISU104 미국 임상 2상</h2>
+
+<p>이수앱지스가 일반 바이오 종목과 다른 이유는 <strong>"매출 본업"이 옵션 가치를 받치고 있다는 점</strong>이다.</p>
+
+<h3>ISU104 — 무엇이 매력적인가</h3>
+<ul>
+  <li><strong>표적</strong>: HER3(ErbB3) — 암세포 성장·전이의 핵심 신호. HER2(허셉틴)와 자매 표적이지만 미답 영역.</li>
+  <li><strong>임상 1상 결과</strong>: ESMO에서 <strong>완전관해(CR)</strong> 사례 공개 — 항암제 임상 1상에서 CR은 강한 시그널.</li>
+  <li><strong>미국 기술이전 완료</strong> → 로열티가 2026년부터 매출에 본격 인식 시작 (1Q 매출 +32%의 한 축).</li>
+  <li><strong>파생 가치</strong>: CAR-NK·ADC 등으로 응용 가능 — 추가 기술이전 잠재력.</li>
+</ul>
+
+<div class="card gold">
+  <strong>왜 지금 시장이 ISU104 가치를 잘 안 쳐주는가.</strong>
+  바이오 섹터 전반의 risk-off + 임상 2상 본격 시작 전 "조용한 구간"이기 때문.
+  통상 <strong>2상 IND 승인 / 첫 환자 투약 / 중간 데이터</strong> 같은 마일스톤에서 가치가 재평가된다.
+  현재는 마일스톤 사이 공백 구간 — 이게 저점의 한 원인이기도 하다.
+</div>
+
+<!-- =============== 5. 주가 / 기술적 위치 =============== -->
+
+<h2><span class="no">5</span>주가 위치 — RSI 박스권 하단의 의미</h2>
+
+<p>사용자께서 관측하신 두 가지 사실:</p>
+<ol>
+  <li>현재가 4,000원 초반 → <strong>상장 이래 최저권</strong></li>
+  <li>RSI 월봉이 박스권 하단을 두텁게 다지는 모양</li>
+</ol>
+
+<h3>월봉 RSI 박스권 하단의 통계적 의미</h3>
+<p>RSI 월봉이 30~40 구간에서 <strong>여러 번 반등 실패 없이 횡보</strong>한다는 것은:</p>
+<ul class="checklist">
+  <li>대규모 손절 매물이 거의 소화된 상태</li>
+  <li>신규 매도 압력 < 매수 수요 — 거래량 감소 동반 시 더 강력</li>
+  <li>월봉 시간 척도에서 "기관 누적 매집" 가능성 (확인 필요)</li>
+</ul>
+<p>다만 한 가지 함정: <strong>박스권 하단도 무너질 수 있다</strong>. 바이오 섹터 전체가 추가 디레이팅을 받거나, 2Q 실적이 또 부진하면 새로운 박스가 한 단 아래에서 형성된다.</p>
+
+<!-- =============== 6. 리스크 =============== -->
+
+<h2><span class="no">6</span>리스크 점검 — 무시하면 안 되는 것들</h2>
+
+<ul class="crosslist">
+  <li><strong>이란 수출 변수</strong>. 회사가 이란 수출 재개 계획을 수정한 이력 있음. 파바갈·애브서틴의 중동 매출 비중이 무시할 수 없는 만큼, 지정학 리스크가 분기 매출에 직접 반영될 수 있음.</li>
+  <li><strong>R&D 41% 부담</strong>. 본업 마진이 두꺼우면 모르겠으나, 영업이익률 10%대 수준에서 R&D를 매출 40% 태우면 분기마다 적자/흑자 경계선을 오간다. 즉, <strong>분기 변동성이 크다</strong>.</li>
+  <li><strong>ISU104 임상 실패 시나리오</strong>. 2상에서 효능이 1상만큼 안 나오면 옵션 가치가 한 번에 사라진다. 다만 본업이 살아 있어 회사 자체가 위태로워지진 않음.</li>
+  <li><strong>섹터 risk-off 지속</strong>. KOSDAQ 바이오 전반의 멀티플 압축이 이어지면 펀더와 무관하게 추가 하락 가능.</li>
+</ul>
+
+<!-- =============== 7. 시나리오 =============== -->
+
+<h2><span class="no">7</span>3-시나리오 가격 가이드</h2>
+
+<div class="scenario">
+  <div class="sc bull">
+    <h4>강세 (확률 30%)</h4>
+    <div class="price">7,500~10,000원</div>
+    <p><small>트리거: 2Q 흑자전환 확인 + ISU104 2상 첫 환자 투약 뉴스 + 바이오 섹터 반등 동행</small></p>
+  </div>
+  <div class="sc base">
+    <h4>기본 (확률 50%)</h4>
+    <div class="price">5,000~6,500원</div>
+    <p><small>트리거: 2Q 매출 점프 + 흑자전환 또는 BEP 수준. 평단 4,900원 회복 가능 구간.</small></p>
+  </div>
+  <div class="sc bear">
+    <h4>약세 (확률 20%)</h4>
+    <div class="price">3,000~3,800원</div>
+    <p><small>트리거: 2Q 영업적자 지속 + 이란 수출 차질 + 바이오 섹터 추가 디레이팅</small></p>
+  </div>
+</div>
+
+<!-- =============== 8. 결론 =============== -->
+
+<h2><span class="no">8</span>최종 의견</h2>
+
+<div class="card note">
+  <h3 style="margin-top:0;">사용자 상황 진단</h3>
+  <ul>
+    <li>평단 4,900원, 현재가 4,000원 초반 → 평가손실 <strong>-18% 안팎</strong></li>
+    <li>RSI 월봉 박스권 하단 횡보 → 통계적으로 <strong>리스크-리워드 비대칭이 매수자에 유리</strong>해지는 구간</li>
+    <li>본업·재무 훼손 없음 → <strong>"손절해야 하는 종목"의 신호는 아님</strong></li>
+  </ul>
+</div>
+
+<h3>구체 액션 제언</h3>
+<ol>
+  <li><strong>물타기는 신중하게.</strong> 4,000원 초반에서 한 번에 추매하지 말고, 2Q 실적 가이던스 확인 전후로 분할 매수 고려. 2026년 8월 2Q 실적이 1차 분수령.</li>
+  <li><strong>손절 라인은 펀더 기준으로 설정.</strong> 단순 가격이 아니라, "2Q에 또 영업적자 + 매출 미반영 + 흑자전환 가이던스 철회" 같은 <strong>본업 훼손 시그널</strong>에서 손절 검토. 차트만 보면 박스권 하단 명확한 이탈 시.</li>
+  <li><strong>ISU104 마일스톤 캘린더 작성.</strong> 2상 IND 승인, 첫 환자 투약, 중간 데이터 발표 등을 추적하면 단기 반등 트리거를 선점할 수 있음.</li>
+  <li><strong>섹터 동행성 인지.</strong> 이수앱지스 단독 펀더가 좋아도 KOSDAQ 바이오 전체가 빠지면 같이 빠진다. 지수 ETF (KODEX 바이오) 흐름을 보조 지표로.</li>
+</ol>
+
+<div class="verdict" style="margin-top: 32px;">
+  <span class="tag">FINAL VIEW</span>
+  <h2><span class="no">∎</span>한 줄로 다시</h2>
+  <p>"회사 자체에 문제가 없다 보니 다시 올라올 것"이라는 사용자의 직관은 <strong>본업·재무 측면에서 합리적 근거가 있다</strong>.
+  다만 <strong>다시 올라오는 데 걸리는 시간</strong>은 시장이 결정한다 — 2Q 실적과 ISU104 마일스톤이 이 시계를 빠르게 돌릴 수 있는 두 손이다.</p>
+</div>
+
+<footer>
+  <strong>참고 자료.</strong><br/>
+  · <a href="https://www.newspim.com/news/view/20260508001293">이수앱지스 1분기 매출 32%↑, 2분기 흑자전환 기대 — 뉴스핌 (2026.05.08)</a><br/>
+  · <a href="https://www.kpanews.co.kr/news/articleView.html?idxno=534495">1분기 매출 32% 증가, 기술이전 로열티 반영 개시 — 약사공론</a><br/>
+  · <a href="https://www.medipana.com/news/articleView.html?idxno=401448">이수앱지스 항암·신경질환 R&D 가속 — 메디파나뉴스</a><br/>
+  · <a href="http://www.biotimes.co.kr/news/articleView.html?idxno=4332">ISU104 美 FDA 임상 2상 IND 신청 완료 — 바이오타임즈</a><br/>
+  · <a href="https://www.hankyung.com/article/202501107695P">ISU104-CAR-NK 유방암 마우스 종양 감소 — 한국경제</a><br/>
+  · <a href="https://www.sisajournal-e.com/news/articleView.html?idxno=420001">이수앱지스 이란 수출 재개 계획 수정 — 시사저널e</a><br/>
+  · <a href="https://www.abxis.com/kor/pipeline/getPipe1001Html.do">이수앱지스 파이프라인 공식 페이지</a><br/>
+  · <a href="https://comp.fnguide.com/SVO2/ASP/SVD_Main.asp?gicode=A086890">에프앤가이드 086890 스냅샷</a>
+  <br/><br/>
+  <em>본 리포트는 분석 목적이며 투자 권유가 아닙니다. 모든 투자 결정과 책임은 투자자 본인에게 있습니다.</em>
+</footer>
+
+</div>
+</body>
+</html>
