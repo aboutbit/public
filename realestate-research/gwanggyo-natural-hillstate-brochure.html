@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>광교 자연앤힐스테이트 — The Heart of 광교</title>
-<link rel="preload" as="image" href="./images/gwanggyo-natural-hillstate-hero.webp">
+<link rel="preload" as="image" href="./images/aerial.jpg">
 <style>
   :root {
     --ink: #0A1018;
@@ -47,10 +47,11 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background-image: url('./images/gwanggyo-natural-hillstate-hero.webp');
+    background-image: url('./images/aerial.jpg');
     background-size: cover; background-position: center;
     z-index: 0; transform: scale(1.05);
-    filter: brightness(0.55) contrast(1.1) saturate(1.1);
+    filter: brightness(0.6) contrast(1.15) saturate(1.2);
+    image-rendering: -webkit-optimize-contrast;
   }
   .hero-overlay {
     position: absolute; inset: 0; z-index: 1;
@@ -121,7 +122,7 @@
   .promise { background: var(--paper); padding: 0; overflow: hidden; }
   .promise-grid { display: grid; grid-template-columns: 1fr; min-height: 520px; }
   @media (min-width: 900px) { .promise-grid { grid-template-columns: 1fr 1fr; } }
-  .promise-image { background-image: url('./images/gwanggyo-natural-hillstate-hero.webp'); background-size: cover; background-position: center; position: relative; min-height: 320px; }
+  .promise-image { background-image: url('./images/day-wide.jpg'); background-size: cover; background-position: center; position: relative; min-height: 320px; }
   .promise-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,16,24,0.15) 0%, rgba(212,168,87,0.15) 100%); }
   .promise-text { padding: 80px 56px; display: flex; flex-direction: column; justify-content: center; }
   @media (max-width: 720px) { .promise-text { padding: 56px 28px; } }
@@ -238,9 +239,59 @@
   .disclosure-item p { color: var(--sub); font-size: 0.9rem; line-height: 1.75; font-weight: 300; }
   .disclosure-item .verdict { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.84rem; color: var(--gold-deep); font-weight: 500; }
 
+  /* Gallery */
+  .gallery-section { background: var(--ink); color: var(--white); padding: 100px 0; }
+  @media (max-width: 720px) { .gallery-section { padding: 64px 0; } }
+  .gallery-section .container { padding: 0 32px; }
+  @media (max-width: 720px) { .gallery-section .container { padding: 0 20px; } }
+  .gallery-section .section-title { color: var(--white); }
+  .gallery-section .section-title em { color: var(--champagne); }
+  .gallery-section .section-lead { color: rgba(255,255,255,0.7); }
+  .gallery-section .section-eyebrow { color: var(--champagne); }
+  .gallery-section .section-eyebrow::before { background: var(--champagne); }
+
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    margin-top: 40px;
+  }
+  @media (min-width: 720px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+  @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    border: 1px solid rgba(212,168,87,0.15);
+    transition: all 0.4s ease;
+  }
+  .gallery-item.feature { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; min-height: 240px; }
+  @media (max-width: 720px) { .gallery-item.feature { grid-column: span 2; grid-row: auto; aspect-ratio: 16/10; } }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: saturate(1.1) contrast(1.05);
+  }
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item:hover { border-color: rgba(212,168,87,0.5); }
+  .gallery-item .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,16,24,0.85) 60%, rgba(10,16,24,0.95) 100%);
+    color: var(--champagne);
+    font-family: "Noto Serif KR", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s ease;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+  @media (max-width: 720px) { .gallery-item .gallery-caption { opacity: 1; transform: none; font-size: 0.7rem; padding: 10px 12px; } }
+
   /* Closing */
   .closing-section { position: relative; color: var(--white); text-align: center; padding: 140px 32px; overflow: hidden; }
-  .closing-bg { position: absolute; inset: 0; background-image: url('./images/gwanggyo-natural-hillstate-hero.webp'); background-size: cover; background-position: center; filter: brightness(0.3) blur(2px); transform: scale(1.05); z-index: 0; }
+  .closing-bg { position: absolute; inset: 0; background-image: url('./images/night-2.jpg'); background-size: cover; background-position: center; filter: brightness(0.45) blur(1px); transform: scale(1.05); z-index: 0; }
   .closing-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,16,24,0.85) 0%, rgba(10,16,24,0.95) 100%); z-index: 1; }
   .closing-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
   .closing-mark { color: var(--champagne); font-family: "Noto Serif KR", serif; font-size: 5rem; line-height: 1; margin-bottom: 24px; opacity: 0.5; }
@@ -492,6 +543,44 @@
   </div>
 </section>
 
+<section class="gallery-section">
+  <div class="container">
+    <div class="section-eyebrow">Gallery</div>
+    <h2 class="section-title">단지의 <em>모든 풍경</em>.</h2>
+    <p class="section-lead">건축도시정책정보센터(AURIC) 공식 자료의 단지 항공뷰·주경·야경. 광교 신도시 한복판에 자리한 자연앤힐스테이트의 다양한 표정.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item feature">
+        <img src="./images/aerial.jpg" alt="자연앤힐스테이트 항공뷰" loading="lazy">
+        <div class="gallery-caption">Aerial · 항공뷰</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/day-wide.jpg" alt="자연앤힐스테이트 주경 1" loading="lazy">
+        <div class="gallery-caption">Day · 주경</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/day-portrait-1.jpg" alt="자연앤힐스테이트 주경 2" loading="lazy">
+        <div class="gallery-caption">Day · 동측</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/day-portrait-2.jpg" alt="자연앤힐스테이트 주경 3" loading="lazy">
+        <div class="gallery-caption">Day · 서측</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/night-1.jpg" alt="자연앤힐스테이트 야경 1" loading="lazy">
+        <div class="gallery-caption">Night · 야경 I</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/night-2.jpg" alt="자연앤힐스테이트 야경 2" loading="lazy">
+        <div class="gallery-caption">Night · 야경 II</div>
+      </div>
+      <div class="gallery-item">
+        <img src="./images/night-3.jpg" alt="자연앤힐스테이트 야경 3" loading="lazy">
+        <div class="gallery-caption">Night · 야경 III</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="closing-section">
   <div class="closing-bg"></div>
   <div class="closing-overlay"></div>
@@ -528,6 +617,7 @@
       <li><a href="https://m.richgo.ai/realty/place/high/S090000873" target="_blank" rel="noopener">효원고등학교 (1.5등급) — 리치고</a></li>
       <li><a href="https://www.newsis.com/view/NISX20241022_0002930098" target="_blank" rel="noopener">신분당선 광교~호매실 연장 안전기원제 — 뉴시스</a></li>
       <li><a href="https://segye.com/newsView/20260424506050" target="_blank" rel="noopener">신분당선 호매실 연장 공정률 18% — 세계일보</a></li>
+      <li><a href="http://www.aurum.re.kr/Bits/BuildingDoc.aspx?mm=4&ss=1&num=2723" target="_blank" rel="noopener">광교신도시 에듀타운 자연앤힐스테이트 — AURIC 건축도시정책정보센터 (공식 사진 35장 출처)</a></li>
     </ul>
   </div>
 </section>
