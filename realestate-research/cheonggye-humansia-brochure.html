@@ -268,6 +268,37 @@
     margin-left: 2px;
   }
 
+  /* ═══════════ HERO BAND — 챕터 사이 호흡 ═══════════ */
+  .hero-band {
+    width: 100%;
+    height: 35vh;
+    min-height: 280px;
+    max-height: 560px;
+    overflow: hidden;
+    position: relative;
+    background: var(--ink);
+    margin: 0;
+    padding: 0;
+  }
+  .hero-band img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+    filter: sepia(0.15) saturate(1.05) brightness(0.95);
+  }
+  .hero-band::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(26, 24, 21, 0.18) 0%, transparent 25%, transparent 75%, rgba(26, 24, 21, 0.22) 100%);
+    pointer-events: none;
+  }
+  @media (max-width: 720px) {
+    .hero-band { height: 26vh; min-height: 220px; }
+  }
+
   /* ═══════════ COMMON SECTION ═══════════ */
   section { padding: 140px 40px; position: relative; }
   @media (max-width: 720px) { section { padding: 88px 24px; } }
@@ -1032,6 +1063,11 @@
 
   </div>
 </section>
+
+<!-- ═══════════ HERO BAND ═══════════ -->
+<figure class="hero-band">
+  <img src="./images-cheonggye/park-02.jpg" alt="청계산 맑은숲 공원의 계곡 데크길 — 단지 도보권의 자연" loading="eager" decoding="async">
+</figure>
 
 <!-- ═══════════ PROMISE ═══════════ -->
 <section class="promise">
