@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청계마을 휴먼시아 2단지 — 산 자락의 작은 동네</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* PALETTE — 한지(韓紙) / 먹(墨) / 이끼 / 흙 */
+    --hanji: #EFE6D2;          /* 한지 미색 (메인 배경) */
+    --hanji-deep: #E5DABF;     /* 짙은 한지 */
+    --hanji-light: #F6F0DE;    /* 밝은 한지 */
+    --paper: #FAF5E6;
+    --ink: #1A1815;            /* 먹 (메인 다크) */
+    --ink-soft: #2D2A24;
+    --sumi: #423D34;           /* 먹 옅은 */
+    --moss: #4A5237;           /* 이끼 (메인 액센트) */
+    --moss-deep: #2E3622;      /* 짙은 이끼 */
+    --moss-light: #6D7556;
+    --pine: #2C4233;           /* 솔잎 */
+    --earth: #9C8870;          /* 흙 */
+    --earth-deep: #6B5A47;
+    --terracotta: #A86E47;     /* 황토 */
+    --vermillion: #B05B3F;     /* 단청 주홍 (강한 액센트) */
+    --jade: #5A7A66;           /* 옥 */
+    --stone: #8B8478;
+    --line: #C9BFA4;
+    --line-soft: #DDD2B6;
+    --text: #2B2820;
+    --sub: #5C564A;
+    --muted: #8A8473;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Nanum Myeongjo", "Noto Serif KR", serif;
+    color: var(--text);
+    background: var(--hanji);
+    line-height: 1.8;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+    font-weight: 400;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .sans {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .mono {
+    font-family: "IBM Plex Mono", "Courier New", monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* 한지 텍스처 (subtle noise pattern) */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(140, 120, 90, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(140, 120, 90, 0.03) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.45 0 0 0 0 0.35 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.6;
+  }
+  body > * { position: relative; z-index: 2; }
+
+  /* ═══════════ HERO — 한 줄짜리 명조 시 ═══════════ */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--hanji) 0%, var(--hanji-deep) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 64px 40px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  @media (max-width: 720px) { .hero { padding: 40px 24px; } }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    right: -10%;
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(74, 82, 55, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '山';
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 36rem;
+    color: var(--moss);
+    opacity: 0.05;
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+  }
+  @media (max-width: 720px) { .hero::after { font-size: 22rem; right: -80px; } }
+
+  .hero-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 48px;
+    position: relative;
+  }
+
+  .hero-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-seal-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--vermillion);
+    color: var(--hanji-light);
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+  .hero-seal-text {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--ink);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+  .hero-seal-text .sub {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-top: 2px;
+    font-weight: 300;
+  }
+  .hero-meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 540px) { .hero-meta { font-size: 0.65rem; } }
+
+  .hero-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 0 60px;
+    max-width: 880px;
+  }
+  @media (max-width: 720px) { .hero-center { padding: 48px 0; } }
+
+  .hero-kicker {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--moss);
+    font-size: 0.85rem;
+    letter-spacing: 0.5em;
+    margin-bottom: 48px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--moss);
+    display: inline-block;
+  }
+
+  .hero-poem {
+    font-family: "Nanum Myeongjo", "Noto Serif KR", serif;
+    font-size: clamp(2rem, 5.5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 56px;
+  }
+  .hero-poem .line { display: block; margin-bottom: 0.2em; }
+  .hero-poem .line-2 { color: var(--moss-deep); padding-left: 1.5em; }
+  .hero-poem .line-3 { padding-left: 3em; color: var(--earth-deep); font-size: 0.85em; }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-name {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .hero-name .han {
+    color: var(--vermillion);
+    font-weight: 800;
+    margin-right: 14px;
+  }
+  .hero-sub {
+    font-family: "Pretendard", sans-serif;
+    color: var(--sub);
+    font-size: 0.95rem;
+    max-width: 600px;
+    line-height: 1.75;
+    font-weight: 400;
+  }
+
+  .hero-stats {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  @media (min-width: 720px) { .hero-stats { grid-template-columns: repeat(4, 1fr); } }
+  .hero-stat {
+    padding: 28px 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--hanji-light);
+  }
+  .hero-stat .l {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero-stat .v {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .hero-stat .v .u {
+    font-family: "Pretendard", sans-serif;
+    font-size: 0.5em;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  /* ═══════════ COMMON SECTION ═══════════ */
+  section { padding: 140px 40px; position: relative; }
+  @media (max-width: 720px) { section { padding: 88px 24px; } }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  .wrap-text { max-width: 760px; margin: 0 auto; }
+
+  .label {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--moss);
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    margin-bottom: 28px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--moss);
+  }
+  .label .num {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--vermillion);
+    font-weight: 700;
+    font-size: 1em;
+    letter-spacing: 0;
+  }
+
+  .h-section {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .h-section strong { color: var(--moss-deep); font-weight: 700; }
+  .h-section .vm { color: var(--vermillion); font-weight: 700; }
+
+  .lead {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+    color: var(--sub);
+    max-width: 720px;
+    line-height: 1.95;
+    font-weight: 400;
+    margin-bottom: 56px;
+  }
+
+  /* ═══════════ PROMISE — 한 문장씩 정적인 흐름 ═══════════ */
+  .promise {
+    background: var(--paper);
+    text-align: center;
+    padding: 180px 40px;
+  }
+  @media (max-width: 720px) { .promise { padding: 120px 24px; } }
+  .promise-quote {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.85;
+    color: var(--ink);
+    font-weight: 400;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .promise-quote p { margin-bottom: 1.2em; }
+  .promise-quote em { color: var(--moss); font-style: normal; font-weight: 700; }
+  .promise-quote .vm { color: var(--vermillion); font-weight: 700; }
+  .promise-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--moss);
+    margin: 48px auto;
+  }
+  .promise-sig {
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════ SIGNATURE — 큰 한자 + 세로 흐름 ═══════════ */
+  .signature { background: var(--hanji); }
+  .sig-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+  }
+  .sig-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  @media (min-width: 800px) {
+    .sig-item { grid-template-columns: 200px 1fr; gap: 80px; align-items: baseline; }
+  }
+  .sig-han {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(4rem, 8vw, 6.5rem);
+    font-weight: 800;
+    color: var(--moss-deep);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .sig-han .small {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.18em;
+    color: var(--vermillion);
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    font-family: "Nanum Myeongjo", serif;
+  }
+  .sig-body h3 {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+  .sig-body p {
+    font-family: "Pretendard", sans-serif;
+    color: var(--sub);
+    line-height: 1.95;
+    font-size: 1rem;
+    max-width: 38em;
+    font-weight: 400;
+  }
+
+  /* ═══════════ LOCATION — 다크 (먹) + 자연 톤 ═══════════ */
+  .location {
+    background: var(--moss-deep);
+    color: var(--hanji-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .location::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at top, rgba(160, 200, 140, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .location > * { position: relative; }
+  .location .label { color: var(--hanji-deep); border-bottom-color: var(--hanji-deep); }
+  .location .label .num { color: var(--terracotta); }
+  .location .h-section { color: var(--hanji-light); }
+  .location .h-section strong { color: var(--terracotta); }
+  .location .lead { color: rgba(239, 230, 210, 0.75); }
+
+  .loc-list {
+    margin-top: 64px;
+    border-top: 1px solid rgba(239, 230, 210, 0.15);
+  }
+  .loc-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(239, 230, 210, 0.15);
+    align-items: center;
+  }
+  @media (min-width: 720px) {
+    .loc-row { grid-template-columns: 90px 1fr 200px; gap: 32px; }
+  }
+  .loc-cat {
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--terracotta);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .loc-dest {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--hanji-light);
+    font-size: 1.15rem;
+    font-weight: 400;
+  }
+  .loc-dest .desc {
+    display: block;
+    font-family: "Pretendard", sans-serif;
+    color: rgba(239, 230, 210, 0.55);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .loc-time {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.8rem;
+    color: var(--hanji-light);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  @media (min-width: 720px) { .loc-time { text-align: right; } }
+  .loc-time .u {
+    font-family: "Pretendard", sans-serif;
+    font-size: 0.5em;
+    color: var(--terracotta);
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  /* ═══════════ LIFESTYLE — 한국적 인덱스 (가나다) ═══════════ */
+  .lifestyle { background: var(--paper); }
+  .ls-grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 720px) { .ls-grid { grid-template-columns: 1fr 1fr; gap: 0 80px; } }
+  .ls-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .ls-han {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.5rem;
+    color: var(--vermillion);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: inline-block;
+    padding-right: 14px;
+    border-right: 1px solid var(--vermillion);
+    line-height: 1;
+  }
+  .ls-cat {
+    display: inline-block;
+    margin-left: 14px;
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--moss);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    vertical-align: middle;
+  }
+  .ls-item h4 {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 14px 0 10px;
+    line-height: 1.4;
+  }
+  .ls-item p {
+    font-family: "Pretendard", sans-serif;
+    color: var(--sub);
+    font-size: 0.92rem;
+    line-height: 1.85;
+    font-weight: 400;
+  }
+
+  /* ═══════════ EDUCATION — 큰 여백 + 한 줄짜리 정보 ═══════════ */
+  .education { background: var(--hanji); }
+  .edu-list {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .edu-item {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 720px) { .edu-item { grid-template-columns: 1.2fr 2fr 120px; gap: 56px; align-items: center; } }
+  .edu-name {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .edu-name .tag {
+    display: block;
+    margin-top: 8px;
+    font-family: "Pretendard", sans-serif;
+    font-size: 0.72rem;
+    color: var(--vermillion);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .edu-desc {
+    font-family: "Pretendard", sans-serif;
+    color: var(--sub);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    max-width: 36em;
+  }
+  .edu-stat {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--moss);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  @media (min-width: 720px) { .edu-stat { text-align: right; } }
+  .edu-stat .small {
+    display: block;
+    font-family: "Pretendard", sans-serif;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+
+  /* ═══════════ VISION — 다크 + 미래 ═══════════ */
+  .vision {
+    background: var(--ink);
+    color: var(--hanji-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .vision::before {
+    content: '';
+    position: absolute;
+    bottom: -150px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(176, 91, 63, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .vision > * { position: relative; }
+  .vision .label { color: var(--hanji-deep); border-bottom-color: var(--hanji-deep); }
+  .vision .label .num { color: var(--terracotta); }
+  .vision .h-section { color: var(--hanji-light); }
+  .vision .h-section strong { color: var(--terracotta); }
+  .vision .lead { color: rgba(239, 230, 210, 0.7); }
+
+  .timeline {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+  }
+  .tl {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(239, 230, 210, 0.12);
+  }
+  @media (min-width: 720px) { .tl { grid-template-columns: 200px 1fr; gap: 56px; } }
+  .tl-year {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--terracotta);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .tl-year .label-sm {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.65rem;
+    color: var(--earth);
+    margin-top: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .tl-body h4 {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--hanji-light);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .tl-body p {
+    font-family: "Pretendard", sans-serif;
+    color: rgba(239, 230, 210, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+  .tl-body strong { color: var(--terracotta); }
+
+  /* ═══════════ PRICING — 한지 위 명조체 가격 ═══════════ */
+  .pricing { background: var(--paper); }
+  .price-block {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+    background: var(--hanji-light);
+  }
+  @media (min-width: 720px) { .price-block { grid-template-columns: repeat(3, 1fr); } }
+  .price-cell {
+    padding: 48px 32px;
+    text-align: center;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .price-cell:last-child { border-right: none; }
+  @media (max-width: 719px) {
+    .price-cell:last-child { border-bottom: none; }
+    .price-cell { border-right: none; }
+  }
+  .price-cell.feature {
+    background: var(--moss-deep);
+    color: var(--hanji-light);
+  }
+  .price-cell .pc-label {
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--moss);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+  .price-cell.feature .pc-label { color: var(--terracotta); }
+  .price-cell .pc-value {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 3rem;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .price-cell.feature .pc-value { color: var(--hanji-light); }
+  .price-cell .pc-value .u {
+    font-family: "Pretendard", sans-serif;
+    font-size: 0.4em;
+    color: var(--muted);
+    margin-left: 2px;
+    font-weight: 400;
+  }
+  .price-cell.feature .pc-value .u { color: rgba(239, 230, 210, 0.55); }
+  .price-cell .pc-note {
+    font-family: "Pretendard", sans-serif;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 16px;
+    font-weight: 400;
+  }
+  .price-cell.feature .pc-note { color: rgba(239, 230, 210, 0.55); }
+  .price-cell.feature::before {
+    content: '실거래 기준';
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    color: var(--terracotta);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .price-context {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: var(--hanji);
+    border-left: 3px solid var(--vermillion);
+  }
+  .price-context p {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    font-weight: 400;
+  }
+  .price-context strong { color: var(--vermillion); font-weight: 700; }
+
+  /* ═══════════ DISCLOSURE — 솔직한 6가지 (가나다 카드) ═══════════ */
+  .disclosure { background: var(--hanji-deep); }
+  .dc-intro {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: var(--ink);
+    line-height: 1.85;
+    max-width: 720px;
+    margin: 0 0 64px;
+    padding-left: 28px;
+    border-left: 2px solid var(--vermillion);
+    font-weight: 400;
+  }
+  .dc-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 720px) { .dc-list { grid-template-columns: 1fr 1fr; gap: 0 64px; } }
+  .dc-item {
+    padding: 40px 0 36px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dc-num {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.1rem;
+    color: var(--vermillion);
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  .dc-item h4 {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .dc-item p {
+    font-family: "Pretendard", sans-serif;
+    color: var(--sub);
+    font-size: 0.94rem;
+    line-height: 1.85;
+    font-weight: 400;
+  }
+  .dc-verdict {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 0.92rem;
+    color: var(--moss-deep);
+    font-weight: 400;
+  }
+  .dc-verdict::before { content: '評 — '; color: var(--vermillion); font-weight: 700; }
+
+  /* ═══════════ GALLERY ═══════════ */
+  .gallery { background: var(--moss-deep); color: var(--hanji-light); }
+  .gallery .label { color: var(--hanji-deep); border-bottom-color: var(--hanji-deep); }
+  .gallery .label .num { color: var(--terracotta); }
+  .gallery .h-section { color: var(--hanji-light); }
+  .gallery .lead { color: rgba(239, 230, 210, 0.7); }
+  .g-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 56px;
+  }
+  @media (min-width: 720px) { .g-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+  .g-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--ink);
+    border: 1px solid rgba(239, 230, 210, 0.1);
+  }
+  .g-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: sepia(0.15) saturate(1.05);
+    transition: transform 0.6s ease;
+  }
+  .g-item:hover img { transform: scale(1.06); }
+  .g-cap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, transparent, rgba(26, 24, 21, 0.9));
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--terracotta);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .g-note {
+    margin-top: 32px;
+    font-family: "Pretendard", sans-serif;
+    color: rgba(239, 230, 210, 0.55);
+    font-size: 0.82rem;
+    line-height: 1.75;
+    max-width: 720px;
+    font-weight: 300;
+  }
+
+  /* ═══════════ CLOSING ═══════════ */
+  .closing {
+    background: linear-gradient(180deg, var(--ink) 0%, var(--moss-deep) 100%);
+    color: var(--hanji-light);
+    text-align: center;
+    padding: 180px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) { .closing { padding: 120px 24px; } }
+  .closing::before {
+    content: '靜';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 36rem;
+    color: var(--hanji-light);
+    opacity: 0.04;
+    font-weight: 800;
+    pointer-events: none;
+  }
+  @media (max-width: 720px) { .closing::before { font-size: 22rem; } }
+  .closing-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+  .closing-mark {
+    width: 40px; height: 40px;
+    background: var(--vermillion);
+    color: var(--hanji-light);
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px;
+    font-size: 1.3rem;
+  }
+  .closing-quote {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    line-height: 1.75;
+    color: var(--hanji-light);
+    margin-bottom: 48px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .closing-quote em { color: var(--terracotta); font-style: normal; font-weight: 700; }
+  .closing-divider {
+    width: 60px; height: 1px;
+    background: var(--terracotta);
+    margin: 40px auto;
+  }
+  .closing-sub {
+    font-family: "Pretendard", sans-serif;
+    color: rgba(239, 230, 210, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+  .closing-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding-top: 40px;
+    border-top: 1px solid rgba(176, 91, 63, 0.3);
+  }
+  @media (min-width: 720px) { .closing-features { grid-template-columns: repeat(4, 1fr); } }
+  .cf strong {
+    display: block;
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--terracotta);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .cf {
+    font-family: "Pretendard", sans-serif;
+    color: rgba(239, 230, 210, 0.7);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ═══════════ SOURCES & FOOTER ═══════════ */
+  .sources { background: var(--hanji-light); padding: 80px 40px; border-top: 1px solid var(--line); }
+  @media (max-width: 720px) { .sources { padding: 56px 24px; } }
+  .sources h2 {
+    font-family: "Nanum Myeongjo", serif;
+    font-size: 1.35rem;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .sources ul { list-style: none; max-width: 900px; }
+  .sources li { margin: 10px 0; font-family: "Pretendard", sans-serif; font-size: 0.88rem; }
+  .sources a {
+    color: var(--moss-deep);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--moss);
+    transition: color 0.2s ease;
+  }
+  .sources a:hover { color: var(--vermillion); border-bottom-color: var(--vermillion); }
+  .foot {
+    background: var(--ink);
+    color: rgba(239, 230, 210, 0.5);
+    padding: 48px 24px;
+    text-align: center;
+    font-family: "Pretendard", sans-serif;
+  }
+  .foot p { font-size: 0.78rem; line-height: 1.75; margin-bottom: 12px; }
+  .foot .sig {
+    font-family: "Nanum Myeongjo", serif;
+    color: var(--terracotta);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-top">
+      <div class="hero-seal">
+        <div class="hero-seal-mark">淸</div>
+        <div class="hero-seal-text">
+          청계마을 휴먼시아 2단지
+          <span class="sub">Cheonggye Humansia · 義王 청계동</span>
+        </div>
+      </div>
+      <div class="hero-meta">Single-Asset Deep Dive<br>2026 · 05</div>
+    </div>
+
+    <div class="hero-center">
+      <div class="hero-kicker">山自락의 작은 동네</div>
+
+      <h1 class="hero-poem">
+        <span class="line line-1">산이 단지의 뒷벽이다.</span>
+        <span class="line line-2">계곡이 단지의 마당이다.</span>
+        <span class="line line-3">— 그리고 273세대만 산다.</span>
+      </h1>
+
+      <div class="hero-bottom">
+        <div class="hero-name">
+          <span class="han">淸溪</span>마을 휴먼시아 2단지
+        </div>
+        <p class="hero-sub">
+          청계산 자락의 보안 도시. 의왕 청계동, 273세대의 부티크 단지. 2007년 입주 19년차로 신축은 아니지만, 시간이 단지에 정원을 만들었습니다. 광교·평촌이 도시의 럭셔리라면, 청계는 자연 안의 작은 거주입니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="l">규모</div>
+        <div class="v">273<span class="u">세대</span></div>
+      </div>
+      <div class="hero-stat">
+        <div class="l">입주</div>
+        <div class="v">2007</div>
+      </div>
+      <div class="hero-stat">
+        <div class="l">84㎡ 실거래</div>
+        <div class="v">8.1<span class="u">억</span></div>
+      </div>
+      <div class="hero-stat">
+        <div class="l">덕장초</div>
+        <div class="v">3<span class="u">분</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PROMISE ═══════════ -->
+<section class="promise">
+  <div class="wrap-text">
+    <p class="promise-quote">
+      <p>광교는 <em>도시의 럭셔리</em>입니다.</p>
+      <p>평촌은 <em>학원가의 도시</em>입니다.</p>
+      <p>청계는 <span class="vm">자연 안의 작은 거주</span>입니다.</p>
+    </p>
+    <div class="promise-divider"></div>
+    <div class="promise-sig">— 청계산 숲속마을 1번지</div>
+  </div>
+</section>
+
+<!-- ═══════════ SIGNATURE ═══════════ -->
+<section class="signature">
+  <div class="wrap">
+    <div class="label"><span class="num">一</span>單地의 네 가지 결</div>
+    <h2 class="h-section">청계가 가진 <strong>네 가지</strong>.<br>도시 단지로는 보기 어려운 결들.</h2>
+    <p class="lead">대단지의 위엄도, 신축의 광택도 없습니다. 청계가 가진 것은 다른 데 있습니다. — 자연·소규모·학군·시간.</p>
+
+    <div class="sig-list">
+      <div class="sig-item">
+        <div class="sig-han">山<span class="small">SAN · 자연</span></div>
+        <div class="sig-body">
+          <h3>청계산·모락산·백운산·백운호수가 단지를 두른다.</h3>
+          <p>네 개의 산과 한 개의 호수가 단지 인근에 있습니다. "단지 뒤가 산이라 공기가 좋고 산책하기 좋다"는 입주민 평. 광교호수공원 같은 인공 자연이 아닌, 진짜 산의 자락에 자리한 단지입니다.</p>
+        </div>
+      </div>
+
+      <div class="sig-item">
+        <div class="sig-han">少<span class="small">SO · 소규모</span></div>
+        <div class="sig-body">
+          <h3>273세대 — 단지라기보단 동네.</h3>
+          <p>광교 자연앤힐스 1,764세대, 평촌어바인퍼스트 4,154세대와 비교하면 청계는 8배~15배 작은 부티크 단지. 이웃을 얼굴로 아는 규모, 동선이 짧은 일상, 단지 안의 익명성이 적은 거주 환경입니다.</p>
+        </div>
+      </div>
+
+      <div class="sig-item">
+        <div class="sig-han">學<span class="small">HAK · 학군</span></div>
+        <div class="sig-body">
+          <h3>덕장초 도보 3분, 덕장중 도보 5분.</h3>
+          <p>어린 자녀를 둔 가정에게 가장 중요한 변수는 통학 동선의 안전. 청계는 단지 도보 5분 내 초·중학교가 있어 등하교를 부모가 동행하지 않아도 되는 자연스러운 학군 입지입니다. 백운중도 권역.</p>
+        </div>
+      </div>
+
+      <div class="sig-item">
+        <div class="sig-han">時<span class="small">SI · 시간</span></div>
+        <div class="sig-body">
+          <h3>2007년 입주 — 시간이 만든 정원.</h3>
+          <p>19년차로 신축 프리미엄은 없지만, 단지 내 조경 수목이 자란 단지. 신축 단지의 갓 심은 묘목과는 다른, 시간이 만든 풍경. 그리고 그동안 형성된 입주민 커뮤니티의 안정성.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<section class="location">
+  <div class="wrap">
+    <div class="label"><span class="num">二</span>位置 — Location</div>
+    <h2 class="h-section">자연과 도시,<br><strong>두 방향의 거리</strong>.</h2>
+    <p class="lead">청계산 자락이지만 도시와 단절된 곳은 아닙니다. 인덕원·평촌의 도시 인프라가 차로 10분권, 청계역(인동선) 신설로 도보권에 지하철역이 추가될 예정입니다.</p>
+
+    <div class="loc-list">
+      <div class="loc-row">
+        <div class="loc-cat">학교</div>
+        <div class="loc-dest">덕장초등학교<span class="desc">단지 인접 · 도보 통학 권역</span></div>
+        <div class="loc-time">3<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">학교</div>
+        <div class="loc-dest">덕장중학교<span class="desc">단지 도보 · 안전 통학</span></div>
+        <div class="loc-time">5<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">자연</div>
+        <div class="loc-dest">청계산 등산로<span class="desc">맑은숲 공원 · 산책로</span></div>
+        <div class="loc-time">10<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">지하철</div>
+        <div class="loc-dest">인덕원역 (4호선)<span class="desc">버스 환승 · GTX-C 정차 예정</span></div>
+        <div class="loc-time">15<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">미래</div>
+        <div class="loc-dest">청계역 (인동선, 가칭)<span class="desc">신설 예정 · 도보권 진입</span></div>
+        <div class="loc-time">5<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">도시</div>
+        <div class="loc-dest">평촌 학원가<span class="desc">차량 · 평촌 4호선 권역</span></div>
+        <div class="loc-time">15<span class="u">분</span></div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-cat">도시</div>
+        <div class="loc-dest">강남역<span class="desc">신분당선·1호선 환승 · 도심</span></div>
+        <div class="loc-time">50<span class="u">분</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LIFESTYLE ═══════════ -->
+<section class="lifestyle">
+  <div class="wrap">
+    <div class="label"><span class="num">三</span>生活 — Lifestyle</div>
+    <h2 class="h-section">단지 안의 <strong>조용한 일상</strong>.</h2>
+    <p class="lead">대도시 단지의 화려한 커뮤니티는 없습니다. 그 대신 단지 자체가 산과 이어진 일상의 공간이 됩니다.</p>
+
+    <div class="ls-grid">
+      <div class="ls-item">
+        <span class="ls-han">가</span><span class="ls-cat">SAN · 산</span>
+        <h4>청계산·모락산</h4>
+        <p>단지 뒤로 펼쳐진 산. 등산이 일상화되는 위치. 흙산이라 산림이 울창하고, 계곡물이 맑은 청계산 맑은숲 공원이 인근에 있어 사계절 산책로로 이용됩니다.</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-han">나</span><span class="ls-cat">SU · 물</span>
+        <h4>백운호수</h4>
+        <p>청계산과 백운산 사이의 자연 호수. 의왕시의 명소이자 산책·라이딩 코스. 백운호수 둘레길은 단지에서 차량으로 단시간 거리.</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-han">다</span><span class="ls-cat">HAK · 학</span>
+        <h4>덕장초·덕장중</h4>
+        <p>도보 3~5분 통학권. 어린 자녀가 부모 동행 없이도 안전하게 등하교 가능한 동선. 어린이집·유치원도 단지 권역 안에.</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-han">라</span><span class="ls-cat">SI · 시</span>
+        <h4>인덕원·평촌 권역</h4>
+        <p>차로 15분이면 평촌 학원가·평촌중앙공원 권역. 청계의 자연 환경에 평촌의 도시 인프라를 더해 쓸 수 있는 거리.</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-han">마</span><span class="ls-cat">EUI · 의료</span>
+        <h4>안양샘병원·한림성심</h4>
+        <p>안양·평촌 권역의 종합병원. 일상 진료부터 응급까지 차량 15~20분 권역.</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-han">바</span><span class="ls-cat">TONG · 통</span>
+        <h4>수도권 외곽순환·과천</h4>
+        <p>의왕청계IC가 가까워 차량 동선이 우수. 과천·강남 방향, 분당·판교 방향 모두 자유로운 위치.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EDUCATION ═══════════ -->
+<section class="education">
+  <div class="wrap">
+    <div class="label"><span class="num">四</span>學區 — School District</div>
+    <h2 class="h-section">단지에서 도보 3분.<br><strong>학교가 가깝다는 것</strong>의 의미.</h2>
+    <p class="lead">평촌 학원가의 화려함은 없습니다. 하지만 어린 자녀가 부모 라이딩 없이 안전하게 통학할 수 있는 거리 — 어떤 학원가도 대체하기 어려운 가치입니다.</p>
+
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-name">덕장초등학교<span class="tag">도보 3분 · 공립</span></div>
+        <div class="edu-desc">단지 인접 공립초. 어린 자녀가 부모 동행 없이도 안전하게 등하교 가능한 거리. 통학 동선이 짧아 학습보다 일상의 여유가 먼저 자리잡습니다.</div>
+        <div class="edu-stat">3<span class="small">분</span></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name">덕장중학교<span class="tag">도보 5분 · 공립</span></div>
+        <div class="edu-desc">덕장초와 같은 권역의 중학교. 초·중 통학을 한 동선으로 해결. 사춘기 자녀의 교우 관계가 이웃에서 자연스럽게 형성되는 작은 동네의 학군.</div>
+        <div class="edu-stat">5<span class="small">분</span></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name">백운중학교<span class="tag">권역 · 평준화 풀</span></div>
+        <div class="edu-desc">의왕 평준화 추첨 권역의 또 다른 중학교. 자녀의 학교 배정 옵션의 폭을 넓혀줍니다.</div>
+        <div class="edu-stat">권역</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name">평촌 학원가<span class="tag">차량 15분 · 사교육</span></div>
+        <div class="edu-desc">전국 4대 학원가 평촌까지 차량 15분. 고학년 진학 시 라이딩으로 접근 가능. 청계의 자연 환경 + 평촌 학원 인프라의 결합.</div>
+        <div class="edu-stat">15<span class="small">분</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VISION ═══════════ -->
+<section class="vision">
+  <div class="wrap">
+    <div class="label"><span class="num">五</span>未來 — Future Value</div>
+    <h2 class="h-section">청계역이 <strong>도보 5분</strong>에<br>들어옵니다.</h2>
+    <p class="lead">인덕원~동탄선(인동선)의 청계역(가칭) 신설로 청계마을 휴먼시아는 지하철역 도보 권역에 진입합니다. 현재 인덕원역 버스 환승 동선이 도보 5분의 직접 접근으로 바뀝니다.</p>
+
+    <div class="timeline">
+      <div class="tl">
+        <div class="tl-year">2007<span class="label-sm">Move-in</span></div>
+        <div class="tl-body">
+          <h4>의왕 청계지구 국민임대 입주</h4>
+          <p>그린벨트 해제지역 첫 국민임대 단지. "청계산 숲속마을 1번지" 캐치프레이즈로 입주 시작. 의왕 청계지구는 공공분양 2,030가구 + 단독 95가구 + 국민임대 1,130가구 규모.</p>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tl-year">2009<span class="label-sm">완성</span></div>
+        <div class="tl-body">
+          <h4>청계마을 휴먼시아 1단지 입주</h4>
+          <p>266세대 추가 입주로 청계마을 휴먼시아 1·2단지 분양 완성.</p>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tl-year">2026<span class="label-sm">Now</span></div>
+        <div class="tl-body">
+          <h4>인동선 본격 진행 · GTX-C 인접</h4>
+          <p>인덕원~동탄선(인동선) 본격 공사 단계. <strong>청계역(가칭) 신설</strong>로 단지 도보 5분 내 지하철역 추가 예정. 인덕원역 GTX-C 정차 호재도 권역 동반 상승 요인.</p>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tl-year">2029<span class="label-sm">Open</span></div>
+        <div class="tl-body">
+          <h4>인동선 단계 개통 (목표)</h4>
+          <p>인덕원~동탄 노선 단계적 개통. 청계역 정차로 단지 가치 재평가. 강남 접근성 환승 1회로 단축. 단, 개통 시점은 변동 가능.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section class="pricing">
+  <div class="wrap">
+    <div class="label"><span class="num">六</span>市勢 — Market Value</div>
+    <h2 class="h-section">광교의 <strong>절반의 절반</strong>으로.<br>청계산 자락의 거주.</h2>
+    <p class="lead">84㎡ 실거래 약 8.1억. 광교 자연앤힐스(17.8억) 대비 약 46%, 평촌어바인퍼스트(9.6억) 대비 약 84% 수준. 자연·학군의 가성비를 찾는 매수자의 진입가.</p>
+
+    <div class="price-block">
+      <div class="price-cell">
+        <div class="pc-label">광교 자연앤힐스</div>
+        <div class="pc-value">17.8<span class="u">억</span></div>
+        <div class="pc-note">84㎡ · 실거래</div>
+      </div>
+      <div class="price-cell feature">
+        <div class="pc-label">청계 휴먼시아 2단지</div>
+        <div class="pc-value">8.1<span class="u">억</span></div>
+        <div class="pc-note">84㎡ · 2026 실거래</div>
+      </div>
+      <div class="price-cell">
+        <div class="pc-label">평촌 어바인퍼스트</div>
+        <div class="pc-value">9.6<span class="u">억</span></div>
+        <div class="pc-note">84㎡ · KB시세</div>
+      </div>
+    </div>
+
+    <div class="price-context">
+      <p>같은 수도권 남부에서, <strong>광교의 46% / 평촌의 84%</strong> 가격으로 자연환경과 학군을 함께 갖춥니다. 신축 프리미엄과 도시 인프라를 양보한 대신, 산 자락의 거주와 작은 동네의 안정성을 얻는 선택.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DISCLOSURE ═══════════ -->
+<section class="disclosure">
+  <div class="wrap">
+    <div class="label"><span class="num">七</span>솔직한 짚어보기</div>
+    <h2 class="h-section">자연 안의 단지는<br><strong>도시의 편리</strong>를 일부 양보합니다.</h2>
+    <p class="dc-intro">청계마을 휴먼시아 2단지는 광교·평촌과 다른 카테고리의 자산입니다. 매수 결정 전 반드시 알아둘 다섯 가지를 정리합니다.</p>
+
+    <div class="dc-list">
+      <div class="dc-item">
+        <div class="dc-num">壹.</div>
+        <h4>2007년 입주 — 19년차 단지</h4>
+        <p>신축 프리미엄은 부재. 단지 인프라(주차, 커뮤니티 시설, 평면 효율)는 신축 단지(평촌어바인퍼스트 2021) 대비 약함. 향후 5~10년 내 노후도 진행 가능.</p>
+        <div class="dc-verdict">자연 가치로 상쇄되나 신축 선호자에게는 약점.</div>
+      </div>
+      <div class="dc-item">
+        <div class="dc-num">貳.</div>
+        <h4>273세대 — 소규모 단지의 환금성</h4>
+        <p>매매 사례 누적이 적어 시세 디스커버리가 느림. 광교 자연앤힐스(1,764세대)·평촌어바인퍼스트(4,154세대) 대비 매물 회전이 느릴 수 있음. 호가-실거래 갭이 변동성 큰 시점에 벌어질 수 있음.</p>
+        <div class="dc-verdict">환금성은 대단지 대비 한 단계 낮음.</div>
+      </div>
+      <div class="dc-item">
+        <div class="dc-num">參.</div>
+        <h4>역세권 부재 (현재)</h4>
+        <p>4호선 인덕원역까지 도보 X (버스 환승 필수, 차량 15분). 광교 자연앤힐스(신분당선 도보 1분)와 비교 불가. 청계역(가칭, 인동선) 신설 후 도보권 진입 예정이나 개통 시점 변동 가능.</p>
+        <div class="dc-verdict">2029년 인동선 개통 전까지는 차량 의존도 높음.</div>
+      </div>
+      <div class="dc-item">
+        <div class="dc-num">肆.</div>
+        <h4>LH 휴먼시아 — 공공분양 출신 브랜드</h4>
+        <p>국민임대 단지(3·6단지)와 같은 권역의 분양 단지. 단지명에 LH 브랜드가 포함되어 광교 자연앤힐스(현대건설)·평촌어바인퍼스트(4사 컨소시엄)와 같은 민간 프리미엄 브랜드는 아님. 시세에 브랜드 디스카운트가 일부 반영됨.</p>
+        <div class="dc-verdict">가성비의 원인 중 하나. 시세 상승 시 디스카운트 좁혀질 여지도 있음.</div>
+      </div>
+      <div class="dc-item">
+        <div class="dc-num">伍.</div>
+        <h4>도시 인프라 — 백화점·종합병원 거리</h4>
+        <p>광교 갤러리아·아주대병원 같은 단지 도보권 인프라 부재. 안양샘병원·한림성심은 차량 15~20분. 평촌 학원가도 차량 15분. 일상 인프라 의존도가 차량으로 옮겨감.</p>
+        <div class="dc-verdict">도시 인프라 선호자에게는 단점, 자연환경 선호자에게는 trade-off.</div>
+      </div>
+      <div class="dc-item">
+        <div class="dc-num">陸.</div>
+        <h4>학교는 도보권이지만 학군은 권역 평균</h4>
+        <p>덕장초·덕장중은 도보 5분이지만 학교 자체 진학률은 평범 (평촌 학원가 효과 없음). 학원가 통학은 차량 라이딩 필수. 학원 의존도가 높은 가정에는 적합하지 않음.</p>
+        <div class="dc-verdict">통학 안전 + 자연환경에 가치를 두는 가정에 적합.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="label"><span class="num">八</span>Gallery</div>
+    <h2 class="h-section">시간이 만든 <strong>풍경</strong>.</h2>
+    <p class="lead">2009년 입주 당시의 기록 사진들. 그동안 단지 내 조경 수목이 자라 지금의 청계마을이 되었습니다.</p>
+
+    <div class="g-grid">
+      <div class="g-item">
+        <img src="./images-cheonggye/ed-exterior.jpg" alt="청계마을 단지 전경" loading="lazy">
+        <div class="g-cap">단지 전경 · 2009</div>
+      </div>
+      <div class="g-item">
+        <img src="./images-cheonggye/ed-playground.jpg" alt="단지 놀이터" loading="lazy">
+        <div class="g-cap">놀이터 · 가족 친화</div>
+      </div>
+      <div class="g-item">
+        <img src="./images-cheonggye/ed-sculpture.jpg" alt="단지 조형물" loading="lazy">
+        <div class="g-cap">조형물 · 청계</div>
+      </div>
+      <div class="g-item">
+        <img src="./images-cheonggye/oh-map.jpg" alt="청계지구 위치도" loading="lazy">
+        <div class="g-cap">위치도 · 청계지구</div>
+      </div>
+    </div>
+
+    <p class="g-note">※ 사진은 2007~2009년 입주 당시 보도자료. 현재 단지는 입주 후 시간이 흘러 조경 수목이 자라고, 단지 내 풍경이 더욱 자연 친화적으로 변했습니다.</p>
+  </div>
+</section>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing">
+  <div class="closing-inner">
+    <div class="closing-mark">靜</div>
+    <p class="closing-quote">
+      도시는 광교가, 학원가는 평촌이 가져갑니다.<br>
+      청계는 <em>나머지 모든 것</em>을 가집니다.
+    </p>
+    <div class="closing-divider"></div>
+    <p class="closing-sub">
+      산 자락의 작은 동네에서 시작되는 조용한 일상.<br>
+      광교·평촌의 절반의 절반 가격으로, 청계산이 단지의 뒷벽이 됩니다.
+    </p>
+    <div class="closing-features">
+      <div class="cf"><strong>273</strong>세대<br>부티크 단지</div>
+      <div class="cf"><strong>3분</strong>덕장초<br>도보 통학</div>
+      <div class="cf"><strong>청계산</strong>단지<br>뒷벽이 자연</div>
+      <div class="cf"><strong>8.1억</strong>광교의<br>약 46%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SOURCES ═══════════ -->
+<section class="sources">
+  <div class="wrap">
+    <h2>참고 자료</h2>
+    <ul>
+      <li><a href="https://hogangnono.com/apt/6cd8c" target="_blank" rel="noopener">청계마을 휴먼시아 2단지 — 호갱노노</a></li>
+      <li><a href="https://realty.daum.net/home/apt/danjis/18981" target="_blank" rel="noopener">청계마을 휴먼시아 2단지 — 다음 부동산</a></li>
+      <li><a href="https://m.richgo.ai/realty/danji/a1lGUdM" target="_blank" rel="noopener">청계마을 휴먼시아 2단지 시세 분석 — 리치고</a></li>
+      <li><a href="https://www.aptrank.com/apt_detail.php?aptnameuid=18165" target="_blank" rel="noopener">휴먼시아청계마을(2단지) — 아파트랭킹</a></li>
+      <li><a href="https://www.edaily.co.kr/news/read?newsId=01777766589822416&mediaCodeNo=257" target="_blank" rel="noopener">청계휴먼시아 "청계산 숲속마을 1번지" — 이데일리 (2009)</a></li>
+      <li><a href="http://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0000719795" target="_blank" rel="noopener">국민임대주택단지 의왕 청계마을 입주 — 오마이뉴스 (2007)</a></li>
+      <li><a href="https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=f7d6c2b5-a45f-46c3-a935-e60b749f3fe7" target="_blank" rel="noopener">청계산 맑은숲 공원 — 대한민국 구석구석</a></li>
+      <li><a href="https://namu.wiki/w/백운호수" target="_blank" rel="noopener">백운호수 — 나무위키</a></li>
+      <li><a href="https://namu.wiki/w/청계동(의왕시)" target="_blank" rel="noopener">청계동 (의왕시) — 위키백과</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>본 자료는 공개된 부동산·교육·교통 데이터 기반 정보 분석이며, 광고·중개·매각 의뢰와 무관합니다.<br>투자 결정 전 현장 답사 및 공인중개사·세무사 상담을 권장합니다.</p>
+  <div class="sig">— 淸溪 · Single-Asset Deep Dive · 2026 —</div>
+</footer>
+
+</body>
+</html>
