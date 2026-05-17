@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>팜젠사이언스(004720) 심층 분석 — 2026.05.17</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#c9d1d9;font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;padding:16px}
+  h1{font-size:22px;font-weight:700;color:#f0f6fc;margin-bottom:4px}
+  h2{font-size:16px;font-weight:700;color:#00d4aa;border-left:3px solid #00d4aa;padding-left:10px;margin:24px 0 12px}
+  h3{font-size:14px;font-weight:600;color:#8b949e;margin:14px 0 8px}
+  .header{background:linear-gradient(135deg,#161b22 0%,#1a2332 100%);border:1px solid #30363d;border-radius:12px;padding:20px 24px;margin-bottom:20px}
+  .price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .price-main{font-size:32px;font-weight:700;color:#f0f6fc}
+  .price-chg{font-size:16px;color:#ff4444;font-weight:600}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+  .badge-sell{background:rgba(255,68,68,0.2);color:#ff4444;border:1px solid rgba(255,68,68,0.3)}
+  .badge-buy{background:rgba(0,212,170,0.2);color:#00d4aa;border:1px solid rgba(0,212,170,0.3)}
+  .badge-neutral{background:rgba(255,196,0,0.15);color:#ffc400;border:1px solid rgba(255,196,0,0.3)}
+  .badge-strong-sell{background:rgba(255,68,68,0.3);color:#ff6666;border:1px solid #ff4444;font-weight:700}
+  .badge-strong-buy{background:rgba(0,212,170,0.3);color:#00ffcc;border:1px solid #00d4aa;font-weight:700}
+  .card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:16px}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:16px}
+  .indicator-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px}
+  .indicator-title{font-size:11px;color:#8b949e;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+  .indicator-value{font-size:20px;font-weight:700;color:#f0f6fc;margin-bottom:4px}
+  .indicator-desc{font-size:12px;color:#8b949e}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-wrap table{min-width:480px}
+  .comp-wrap table{min-width:620px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#1c2128;color:#8b949e;font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid #30363d;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+  td{padding:8px 10px;border-bottom:1px solid #21262d;color:#c9d1d9}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .up{color:#00d4aa;font-weight:600}
+  .down{color:#ff4444;font-weight:600}
+  .neutral{color:#ffc400;font-weight:600}
+  .section-label{font-size:11px;color:#8b949e;background:#21262d;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px}
+  .highlight-box{background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
+  .warning-box{background:rgba(255,196,0,0.08);border:1px solid rgba(255,196,0,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
+  .danger-box{background:rgba(255,68,68,0.08);border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
+  .sma-bar{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .sma-item{background:#21262d;border-radius:6px;padding:6px 10px;font-size:12px}
+  .sma-item.above{border-left:3px solid #ff4444}
+  .sma-item.below{border-left:3px solid #00d4aa}
+  .fib-row-highlight{background:rgba(255,196,0,0.08)!important}
+  .scenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .scenario-card{border-radius:8px;padding:16px}
+  .scenario-bull{background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.3)}
+  .scenario-base{background:rgba(255,196,0,0.06);border:1px solid rgba(255,196,0,0.3)}
+  .scenario-bear{background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.3)}
+  .scenario-title{font-size:13px;font-weight:700;margin-bottom:10px}
+  .tf-section{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:14px}
+  .tf-header{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tf-badge{background:#21262d;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;color:#8b949e}
+  .star{color:#ffc400}
+  footer{text-align:center;font-size:11px;color:#484f58;margin-top:30px;padding-top:16px;border-top:1px solid #21262d}
+  /* ── Mobile ── */
+  @media(max-width:640px){
+    body{padding:10px 8px;font-size:13px}
+    h1{font-size:18px}
+    h2{font-size:14px;margin:16px 0 10px}
+    h3{font-size:13px}
+    .header{padding:14px 12px;border-radius:8px}
+    .price-main{font-size:26px}
+    .price-chg{font-size:14px}
+    .card{padding:12px 10px;border-radius:8px}
+    .card-grid{grid-template-columns:1fr;gap:8px}
+    .indicator-card{padding:10px}
+    .indicator-value{font-size:17px}
+    .indicator-title{font-size:10px}
+    .indicator-desc{font-size:11px}
+    .scenario-grid{grid-template-columns:1fr;gap:8px}
+    .scenario-card{padding:12px}
+    .scenario-card table{min-width:0!important;font-size:12px}
+    .sma-item{padding:4px 8px;font-size:11px}
+    .sma-bar{gap:5px}
+    .badge{font-size:10px;padding:1px 5px}
+    .tf-section{padding:12px 10px}
+    .highlight-box,.warning-box,.danger-box{padding:10px 11px;font-size:12px}
+    th{padding:6px 7px;font-size:10px}
+    td{padding:6px 7px;font-size:12px}
+    footer{font-size:10px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:12px;color:#8b949e;margin-bottom:4px">KOSPI · 004720 · 의약품 제조업</div>
+      <h1>팜젠사이언스 심층 분석</h1>
+      <div class="price-row">
+        <span class="price-main">3,725원</span>
+        <span class="price-chg">▼ -2.99%</span>
+        <span class="badge badge-sell">전일 대비 하락</span>
+      </div>
+      <div style="font-size:12px;color:#8b949e;margin-top:6px">52W 고: <strong style="color:#00d4aa">5,490원</strong> &nbsp;|&nbsp; 52W 저: <strong style="color:#ff4444">3,410원</strong> &nbsp;|&nbsp; 현재 위치: 52W 저점 +9.2%</div>
+    </div>
+    <div style="text-align:right;font-size:12px;color:#484f58">
+      <div>분석일: 2026.05.17</div>
+      <div>데이터: Yahoo Finance(직접 계산)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ① 멀티타임프레임 비교 -->
+<h2>② 봉 기준별 기술적 지표 한눈 비교</h2>
+<div class="card">
+  <div style="font-size:12px;color:#8b949e;margin-bottom:12px">동일 지표라도 봉 기준이 달라지면 신호가 달라집니다. 중장기 투자는 주봉·월봉이 더 중요합니다.</div>
+  <div class="table-wrap comp-wrap">
+  <table>
+    <tr>
+      <th>지표</th>
+      <th style="color:#ff4444">일봉 (DAILY)<br><span style="font-weight:400;font-size:10px">단기 1~수주</span></th>
+      <th style="color:#ffc400">주봉 (WEEKLY)<br><span style="font-weight:400;font-size:10px">중기 3~12개월</span></th>
+      <th style="color:#00d4aa">월봉 (MONTHLY)<br><span style="font-weight:400;font-size:10px">장기 1년 이상</span></th>
+    </tr>
+    <tr>
+      <td>RSI(14)</td>
+      <td><span class="neutral">40.74</span> <span class="badge badge-neutral">과매도 근접</span></td>
+      <td><span class="neutral">42.55</span> <span class="badge badge-neutral">중립</span></td>
+      <td><span class="neutral">38.21</span> <span class="badge badge-neutral">약세권</span></td>
+    </tr>
+    <tr>
+      <td>Stochastic %K/%D</td>
+      <td><span class="down">7.0 / 19.4</span> <span class="badge badge-sell">과매도 하락</span></td>
+      <td><span class="down">34.4 / 44.8</span> <span class="badge badge-sell">하락 중</span></td>
+      <td><span class="down">15.1 / 22.7</span> <span class="badge badge-sell">과매도</span></td>
+    </tr>
+    <tr>
+      <td>MACD 히스토그램</td>
+      <td><span class="down">-32.22</span> <span class="badge badge-sell">데드크로스</span></td>
+      <td><span class="up">+0.04</span> <span class="badge badge-buy">★골든크로스 임박</span></td>
+      <td><span class="up">+56.15</span> <span class="badge badge-buy">★히스트 양전환</span></td>
+    </tr>
+    <tr>
+      <td>ADX(14)</td>
+      <td><span class="neutral">22.11</span> <span class="badge badge-neutral">추세 약함</span></td>
+      <td><span class="neutral">17.84</span> <span class="badge badge-neutral">★추세 소멸</span></td>
+      <td><span class="neutral">10.03</span> <span class="badge badge-neutral">★추세 없음</span></td>
+    </tr>
+    <tr>
+      <td>+DI / -DI</td>
+      <td><span class="down">16.1 / 25.2</span> <span class="badge badge-sell">하락우세</span></td>
+      <td><span class="up">19.9 / 16.2</span> <span class="badge badge-buy">상승우세</span></td>
+      <td><span class="neutral">18.1 / 17.4</span> <span class="badge badge-neutral">방향 없음</span></td>
+    </tr>
+    <tr>
+      <td>CCI(20)</td>
+      <td><span class="down">-135.5</span> <span class="badge badge-buy">극과매도</span></td>
+      <td><span class="neutral">-74.1</span> <span class="badge badge-neutral">과매도 근접</span></td>
+      <td><span class="down">-140.2</span> <span class="badge badge-buy">극과매도</span></td>
+    </tr>
+    <tr>
+      <td>볼린저 %B</td>
+      <td><span class="neutral">5.6%</span> <span class="badge badge-neutral">하단 근접</span></td>
+      <td><span class="neutral">21.1%</span> <span class="badge badge-neutral">하단권</span></td>
+      <td><span class="neutral">10.2%</span> <span class="badge badge-neutral">하단 근접</span></td>
+    </tr>
+    <tr>
+      <td>ATR(변동성)</td>
+      <td>174.1원 (4.7%/일)</td>
+      <td>315.4원 (8.5%/주)</td>
+      <td>693.9원 (18.6%/월)</td>
+    </tr>
+    <tr>
+      <td style="font-weight:700">종합 신호</td>
+      <td><span class="badge badge-sell" style="font-size:12px;padding:4px 10px">약매도</span></td>
+      <td><span class="badge badge-buy" style="font-size:12px;padding:4px 10px">★중립~약매수</span></td>
+      <td><span class="badge badge-buy" style="font-size:12px;padding:4px 10px">★반등 모색</span></td>
+    </tr>
+  </table>
+  </div>
+  <div class="highlight-box" style="margin-top:14px">
+    <strong class="star">★ 가장 중요한 발견 2가지:</strong><br>
+    ① <strong>주봉 MACD 히스토그램 +0.04</strong> — 사실상 골든크로스 직전. 데드크로스에서 골든크로스로 전환은 중기 추세 전환의 핵심 선행지표입니다.<br>
+    ② <strong>월봉 MACD 히스토그램 +56.15 양전환 + ADX 10.03</strong> — 장기 하락 추세의 동력이 완전히 소진됐다는 의미. 하락이 구조적으로 굳어진 게 아니라 과도한 조정임을 시사합니다.
+  </div>
+</div>
+
+<!-- ③ 일봉 분석 -->
+<h2>③ 일봉(Daily) 심층 분석</h2>
+<div class="tf-section">
+  <div class="tf-header">
+    <span class="tf-badge">DAILY</span>
+    <span style="font-size:13px;color:#8b949e">단기 1~수주 시각</span>
+    <span class="badge badge-sell">약매도</span>
+  </div>
+
+  <h3>SMA 배열 현황</h3>
+  <div class="sma-bar">
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">현재가</div><div style="font-weight:700;color:#f0f6fc">3,725</div></div>
+    <div style="display:flex;align-items:center;color:#ff4444;font-size:12px">↓</div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA5</div><div style="font-weight:700;color:#ff4444">3,837</div></div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA10</div><div style="font-weight:700;color:#ff4444">3,954</div></div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA20</div><div style="font-weight:700;color:#ff4444">3,940</div></div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA60</div><div style="font-weight:700;color:#ff4444">3,845</div></div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA120</div><div style="font-weight:700;color:#ff4444">3,996</div></div>
+    <div class="sma-item above"><div style="font-size:10px;color:#8b949e">SMA200</div><div style="font-weight:700;color:#ff4444">4,133</div></div>
+  </div>
+  <div style="font-size:12px;color:#ff4444;margin-bottom:14px">▶ 완전 역배열 — 현재가가 모든 SMA 아래. 단기 관점 추세는 하락.</div>
+
+  <div class="card-grid">
+    <div class="indicator-card">
+      <div class="indicator-title">MACD (12,26,9)</div>
+      <div class="indicator-value" style="color:#ff4444">3.81 / 36.03</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">히스토그램: <span class="down">-32.22</span></div>
+      <div class="indicator-desc">데드크로스 상태. 단, MACD 라인(3.81)이 0선 근처로 올라와 있어 모멘텀 약화 중.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">RSI (14)</div>
+      <div class="indicator-value" style="color:#ffc400">40.74</div>
+      <div class="indicator-desc">30~50 약세권. 과매도(30 이하) 직전 아님. 중립~약세 판단.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">Stochastic (14,3)</div>
+      <div class="indicator-value" style="color:#ffc400">K=7.0 / D=19.4</div>
+      <div class="indicator-desc">%K 7.0 = 극단 과매도 구간. 아직 %K > %D 교차 미발생. 바닥 탐색 중.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">ADX (14)</div>
+      <div class="indicator-value" style="color:#ffc400">22.11</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">+DI 16.1 &nbsp;/&nbsp; -DI 25.2</div>
+      <div class="indicator-desc">ADX &lt;25 = 추세 약함. -DI 우세로 하락이지만 추세력은 크지 않음.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">CCI (20)</div>
+      <div class="indicator-value" style="color:#00d4aa">-135.5</div>
+      <div class="indicator-desc">-100 이하 = 극과매도. 평균 회귀 압력 누적. 반등 시 촉매 작용 가능.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">볼린저 밴드 %B</div>
+      <div class="indicator-value" style="color:#ffc400">5.6%</div>
+      <div class="indicator-desc">하단 밴드 근접 (0% = 하단 터치). 통계적 평균 회귀 구간 진입.</div>
+    </div>
+  </div>
+
+  <h3>피보나치 되돌림 (52W 기준: 고점 5,490원 / 저점 3,410원)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>레벨</th><th>가격</th><th>의미</th><th>현재가 대비</th></tr>
+    <tr><td>100% (고점)</td><td>5,490원</td><td>52주 고점</td><td class="down">-32.1%</td></tr>
+    <tr><td>78.6%</td><td>4,785원 — 실제 5,045원</td><td>강한 저항</td><td class="down">-26.2%</td></tr>
+    <tr><td>61.8%</td><td>4,695원</td><td>황금 비율 저항</td><td class="down">-20.7%</td></tr>
+    <tr><td>50.0%</td><td>4,450원</td><td>중간 저항</td><td class="down">-16.4%</td></tr>
+    <tr><td>38.2%</td><td>4,205원</td><td>1차 저항</td><td class="down">-11.4%</td></tr>
+    <tr><td>23.6%</td><td>3,901원</td><td style="color:#ffc400">단기 1차 목표</td><td class="down">-4.7%</td></tr>
+    <tr class="fib-row-highlight"><td style="color:#ffc400;font-weight:700">현재가 위치</td><td style="color:#ffc400;font-weight:700">3,725원</td><td style="color:#ffc400">23.6% ~ 0% 사이 하단권</td><td>—</td></tr>
+    <tr><td>0% (저점)</td><td>3,410원</td><td style="color:#ff4444">52주 저점 지지</td><td class="down">-8.5%</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ④ 주봉 분석 -->
+<h2>④ 주봉(Weekly) 심층 분석</h2>
+<div class="tf-section">
+  <div class="tf-header">
+    <span class="tf-badge">WEEKLY</span>
+    <span style="font-size:13px;color:#8b949e">중기 3~12개월 시각</span>
+    <span class="badge badge-buy">★중립~약매수</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ MACD (12,26,9)</div>
+      <div class="indicator-value" style="color:#00d4aa">-88.97 / -89.01</div>
+      <div style="font-size:11px;color:#00d4aa;margin-bottom:4px">히스토그램: <strong>+0.04 ← 골든크로스 직전!</strong></div>
+      <div class="indicator-desc" style="color:#00d4aa">MACD선이 시그널선을 +0.04 차이로 상향 돌파. 데드크로스→골든크로스 전환은 중기 추세 반전의 핵심 신호.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">RSI (14)</div>
+      <div class="indicator-value" style="color:#ffc400">42.55</div>
+      <div class="indicator-desc">중립권. 아직 뚜렷한 방향성 없음.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">Stochastic (14,3)</div>
+      <div class="indicator-value" style="color:#ffc400">K=34.4 / D=44.8</div>
+      <div class="indicator-desc">%K < %D 하락 중. 아직 교차 없음. 그러나 MACD 골든크로스 후 교차 동반 시 강력 신호.</div>
+    </div>
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ ADX(14) + DI</div>
+      <div class="indicator-value" style="color:#00d4aa">17.84</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">+DI <span class="up">19.9</span> &nbsp;/&nbsp; -DI <span class="down">16.2</span></div>
+      <div class="indicator-desc" style="color:#00d4aa">ADX &lt;20 = 추세 소멸. 그리고 +DI(19.9) > -DI(16.2) — 주봉 방향성은 상승 우세! 일봉과 반대 신호.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">CCI (20)</div>
+      <div class="indicator-value" style="color:#ffc400">-74.1</div>
+      <div class="indicator-desc">-100 근접. 과매도 진입 전 단계. 추가 하락 시 극과매도 반등 기대.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">볼린저 %B</div>
+      <div class="indicator-value" style="color:#ffc400">21.1%</div>
+      <div class="indicator-desc">하단권이지만 이탈 아님. 하단에서 수렴 중.</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>주봉 종합 해석:</strong> 주봉 MACD가 사실상 골든크로스 직전(+0.04 차이)이며, ADX &lt;20으로 추세력 없는 상황에서 +DI &gt; -DI 상승 우세가 나타납니다. 이는 일봉의 하락 압력이 중기적으로 소진되고 있음을 의미합니다. 주봉 관점에서는 "중립~약매수 (바닥 모색)" 판단이 적절합니다.
+  </div>
+</div>
+
+<!-- ⑤ 월봉 분석 -->
+<h2>⑤ 월봉(Monthly) 심층 분석</h2>
+<div class="tf-section">
+  <div class="tf-header">
+    <span class="tf-badge">MONTHLY</span>
+    <span style="font-size:13px;color:#8b949e">장기 1년 이상 시각</span>
+    <span class="badge badge-buy">★장기 반등 모색</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ MACD 히스토그램</div>
+      <div class="indicator-value" style="color:#00d4aa">+56.15</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">MACD -478.01 / Signal -534.15</div>
+      <div class="indicator-desc" style="color:#00d4aa">월봉 MACD 히스토그램이 음(-) → 양(+) 전환. 장기 하락 모멘텀 반전의 핵심 신호.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">RSI (14)</div>
+      <div class="indicator-value" style="color:#ffc400">38.21</div>
+      <div class="indicator-desc">40 이하 약세권이지만, 장기 RSI가 30대를 터치하는 구간은 역사적으로 장기 저점 근처.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">ADX (14)</div>
+      <div class="indicator-value" style="color:#00d4aa">10.03</div>
+      <div class="indicator-desc" style="color:#00d4aa">ADX 10 = 추세 완전 소멸. 하락 추세가 구조적으로 확립된 게 아닌 방향성 없는 조정 국면.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">+DI / -DI</div>
+      <div class="indicator-value" style="color:#ffc400">18.1 / 17.4</div>
+      <div class="indicator-desc">+DI ≈ -DI (거의 동일). 방향성 없음. 이것이 ADX 10과 결합되면 "의미 없는 하락" 해석.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">CCI (20)</div>
+      <div class="indicator-value" style="color:#00d4aa">-140.2</div>
+      <div class="indicator-desc">-100 이하 극과매도. 월봉 CCI -140은 장기 저점 구간에서 나타나는 수치.</div>
+    </div>
+    <div class="indicator-card">
+      <div class="indicator-title">볼린저 %B</div>
+      <div class="indicator-value" style="color:#ffc400">10.2%</div>
+      <div class="indicator-desc">월봉 기준 하단 근접. 월봉 하단 이탈은 매우 드문 이벤트로 평균 회귀 가능성 높음.</div>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:12px">
+  <table>
+    <tr><th>월봉 SMA</th><th>가격</th><th>현재가 대비</th><th>의미</th></tr>
+    <tr><td>SMA5 (5개월)</td><td>3,847원</td><td class="down">-3.3%</td><td>단기 저항</td></tr>
+    <tr><td>SMA10 (10개월)</td><td>4,000원</td><td class="down">-6.9%</td><td>중기 저항</td></tr>
+    <tr><td>SMA20 (20개월)</td><td>4,150원</td><td class="down">-10.3%</td><td>장기 저항</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ⑥ 기업 재무 -->
+<h2>⑥ 기업 재무 분석</h2>
+<div class="card">
+  <div class="table-wrap">
+  <table>
+    <tr><th>구분</th><th>2022년</th><th>2023년</th><th>2024년 (추정)</th><th>증감</th></tr>
+    <tr><td>매출액</td><td>1,509억원</td><td>1,668억원</td><td>~1,713억원</td><td class="up">+2.7%</td></tr>
+    <tr><td>영업이익</td><td>75억원</td><td>107억원</td><td>추정 중</td><td class="up">+42.7%</td></tr>
+    <tr><td>영업이익률</td><td>5.0%</td><td>6.4%</td><td>—</td><td class="up">개선</td></tr>
+    <tr><td>R&D 투자</td><td>29억원</td><td>51억원</td><td>—</td><td class="up">+75.9%</td></tr>
+  </table>
+  </div>
+  <div class="warning-box" style="margin-top:12px">
+    <strong>주의:</strong> 2024년 별도 재무 기준으로 영업손실 50억원 보고. 연결 기준과 차이 존재. 자회사(엑세스바이오 등) 지분법 손익 영향이 클 수 있어 별도 재무만으로 판단 금지.
+  </div>
+  <div style="margin-top:12px">
+    <strong style="color:#8b949e;font-size:12px">재무 강점</strong>
+    <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
+      <li>매출액 3년 연속 성장 (연평균 +6.5%)</li>
+      <li>연구개발비 지속 확대 — 생물학적동등성시험 56억원 투자, 19개 성분 확보</li>
+      <li>2024 상반기 매출 757억원(+YoY), 영업이익 43억원</li>
+    </ul>
+    <strong style="color:#8b949e;font-size:12px;margin-top:10px;display:block">재무 리스크</strong>
+    <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
+      <li>별도 기준 수익성 변동성 큼 (영업이익 ↔ 영업손실 교차)</li>
+      <li>제약 개량신약 시장 경쟁 심화</li>
+      <li>R&D 투자 확대로 단기 수익성 압박 가능</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ⑦ 파이프라인 -->
+<h2>⑦ 사업 파이프라인 & 성장 모멘텀</h2>
+<div class="card">
+  <table>
+    <tr><th>사업 영역</th><th>현황</th><th>12~18개월 기대</th></tr>
+    <tr>
+      <td><strong>골관절염 개량신약</strong></td>
+      <td>발매 첫해 매출 30억원 달성. 학회 홍보 강화 중</td>
+      <td>시장 점유율 확대 시 연 50~80억 기여 가능</td>
+    </tr>
+    <tr>
+      <td><strong>당뇨병 치료제</strong></td>
+      <td>다수 품목 런칭. 당뇨병용제 시장 진입</td>
+      <td>만성질환 시장 진입 → 장기 처방 기반 구축</td>
+    </tr>
+    <tr>
+      <td><strong>생물학적동등성</strong></td>
+      <td>19개 성분 동등성 확보 (56억 투자 완료)</td>
+      <td>신규 품목 출시 파이프라인 → 2026~2027 매출 기여</td>
+    </tr>
+    <tr>
+      <td><strong>엑세스바이오 (자회사)</strong></td>
+      <td>체외진단 의료기기. 해외 수출 기반</td>
+      <td>글로벌 진단 시장 성장 시 지분법 이익 증가</td>
+    </tr>
+    <tr>
+      <td><strong>뷰티·스킨케어</strong></td>
+      <td>신규 사업 영역 탐색 중</td>
+      <td>투트랙 전략 성과 여부 2026년 판단 가능</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ⑧ 시나리오 -->
+<h2>⑧ 시나리오 분석</h2>
+<div class="scenario-grid">
+  <div class="scenario-card scenario-bull">
+    <div class="scenario-title" style="color:#00d4aa">🟢 낙관 시나리오 (25%)</div>
+    <table style="font-size:12px">
+      <tr><td>6개월 목표가</td><td class="up">4,450원 (+19.5%)</td></tr>
+      <tr><td>12개월 목표가</td><td class="up">5,000원 (+34.2%)</td></tr>
+      <tr><td>조건</td><td>주봉 MACD 골든크로스 확정 + 신약 매출 50억 돌파 + 시장 전반 반등</td></tr>
+    </table>
+  </div>
+  <div class="scenario-card scenario-base">
+    <div class="scenario-title" style="color:#ffc400">🟡 기본 시나리오 (50%)</div>
+    <table style="font-size:12px">
+      <tr><td>6개월 목표가</td><td class="neutral">3,900~4,200원 (+4~12%)</td></tr>
+      <tr><td>12개월 목표가</td><td class="neutral">4,200~4,600원 (+12~23%)</td></tr>
+      <tr><td>조건</td><td>MACD 골든크로스 후 횡보 → 점진 회복. 매출 성장세 유지</td></tr>
+    </table>
+  </div>
+  <div class="scenario-card scenario-bear">
+    <div class="scenario-title" style="color:#ff4444">🔴 비관 시나리오 (25%)</div>
+    <table style="font-size:12px">
+      <tr><td>위험 구간</td><td class="down">3,410원 이하 (52W 저점 붕괴)</td></tr>
+      <tr><td>하방 목표</td><td class="down">3,000~3,200원 (-14~-19%)</td></tr>
+      <tr><td>조건</td><td>별도 영업손실 심화 + 제약 업종 규제 강화 + 시장 침체</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ⑨ 종합 결론 -->
+<h2>⑨ 종합 결론</h2>
+<div class="card">
+  <div class="scenario-grid" style="margin-bottom:16px">
+    <div style="background:#21262d;border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">단기 (1~3개월)</div>
+      <div style="font-size:15px;font-weight:700;color:#ffc400">관망</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:4px">일봉 역배열 지속, 주봉 MACD 골든크로스 확정 대기</div>
+    </div>
+    <div style="background:#21262d;border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">중기 (6개월)</div>
+      <div style="font-size:15px;font-weight:700;color:#00d4aa">약매수</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:4px">주봉 MACD 골든크로스 + 월봉 히스트 양전환 의미 있음</div>
+    </div>
+    <div style="background:#21262d;border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">장기 (12~18개월)</div>
+      <div style="font-size:15px;font-weight:700;color:#00d4aa">홀딩 / 분할 매수</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:4px">월봉 ADX 10, CCI -140 = 장기 바닥권 신호</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>추천 액션:</strong> 현재가(3,725원)에서 즉시 매수보다 <strong>주봉 MACD 골든크로스 확정 후 분할 매수</strong> 전략이 유리합니다. 52W 저점(3,410원) 이탈 시 손절 고려.
+  </div>
+
+  <h3>핵심 모니터링 지표 3가지</h3>
+  <table>
+    <tr><td>①</td><td><strong>주봉 MACD 골든크로스 확정 여부</strong> — 현재 +0.04 차이. 다음 주봉 마감 시 확인 필수.</td></tr>
+    <tr><td>②</td><td><strong>52W 저점 3,410원 지지 여부</strong> — 이 구간 이탈 시 추세 전환 지연 가능.</td></tr>
+    <tr><td>③</td><td><strong>신규 품목 매출 공시</strong> — 골관절염 신약 분기별 매출 공시 체크. 30→50억 돌파가 핵심 촉매.</td></tr>
+  </table>
+</div>
+
+<footer>
+  본 보고서는 투자 참고용이며 투자 결과에 대한 책임을 지지 않습니다.<br>
+  데이터: Yahoo Finance OHLCV 직접 계산 (2026.05.17 기준) | 팜젠사이언스(004720.KS)
+</footer>
+</body>
+</html>
