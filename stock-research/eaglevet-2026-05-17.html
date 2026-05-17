@@ -6,7 +6,7 @@
 <title>이글벳(044960) 심층 분석 — 2026.05.17</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#0d1117;color:#c9d1d9;font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;padding:16px}
+  body{background:#0d1117;color:#c9d1d9;font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;padding:16px;max-width:980px;margin:0 auto}
   h1{font-size:22px;font-weight:700;color:#f0f6fc;margin-bottom:4px}
   h2{font-size:16px;font-weight:700;color:#00d4aa;border-left:3px solid #00d4aa;padding-left:10px;margin:24px 0 12px}
   h3{font-size:14px;font-weight:600;color:#8b949e;margin:14px 0 8px}
@@ -37,6 +37,7 @@
   .up{color:#00d4aa;font-weight:600}
   .down{color:#ff4444;font-weight:600}
   .neutral{color:#ffc400;font-weight:600}
+  .section-label{font-size:11px;color:#8b949e;background:#21262d;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px}
   .highlight-box{background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
   .warning-box{background:rgba(255,196,0,0.08);border:1px solid rgba(255,196,0,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
   .danger-box{background:rgba(255,68,68,0.08);border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:14px;margin:12px 0;font-size:13px}
@@ -365,33 +366,347 @@
 </div>
 
 <!-- ⑥ 재무 -->
-<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(2026.05 기준 최신)</span></h2>
+<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(DART 별도재무제표 기준 · 2026.05.17)</span></h2>
 <div class="card">
-  <div class="table-wrap">
+
+  <!-- 1. 연도별 손익계산서 상세 -->
+  <div class="section-label">① 연도별 손익계산서 전체 구조 (2022–2025 + 2026 Q1)</div>
+  <div class="table-wrap" style="margin-bottom:4px">
   <table>
-    <tr><th>구분</th><th>2023년</th><th>2024년 (연간)</th><th>2025년 H1</th><th>2026년 Q1</th></tr>
-    <tr><td>매출액</td><td>~449억원</td><td><strong>~438억원</strong> (-2.5%)</td><td>전년比 +1.0%</td><td><strong>108억원</strong> (+10.2%)</td></tr>
-    <tr><td>영업이익</td><td>~43억원</td><td><strong>~45억원</strong> (+4.3%)</td><td>전년比 <strong class="up">+33.3%</strong></td><td><strong>18억원</strong> (+33.4%)</td></tr>
-    <tr><td>당기순이익</td><td>—</td><td>전년比 +24.5%</td><td>전년比 -10.4%</td><td><strong>14억원</strong> (+14.3%)</td></tr>
-    <tr><td>영업이익률</td><td>~9.6%</td><td>~10.3%</td><td>개선 중</td><td><strong>16.7%</strong></td></tr>
-    <tr><td>시가총액</td><td colspan="3">—</td><td><strong>~380억원</strong></td></tr>
+    <tr>
+      <th>구분</th>
+      <th style="text-align:right">2022</th>
+      <th style="text-align:right">2023</th>
+      <th style="text-align:right">2024</th>
+      <th style="text-align:right">2025</th>
+      <th style="text-align:right">22→25 증감</th>
+      <th style="text-align:right;color:#ffc400">2026 Q1</th>
+    </tr>
+    <tr>
+      <td><strong>매출액</strong></td>
+      <td style="text-align:right">435.4억</td>
+      <td style="text-align:right">427.9억</td>
+      <td style="text-align:right">417.2억</td>
+      <td style="text-align:right"><strong>433.2억</strong></td>
+      <td style="text-align:right" class="down">-0.5%</td>
+      <td style="text-align:right;color:#ffc400"><strong>110.1억</strong></td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.04)">
+      <td>↳ 매출원가</td>
+      <td style="text-align:right;color:#8b949e">287.2억</td>
+      <td style="text-align:right;color:#8b949e">282.5억</td>
+      <td style="text-align:right;color:#8b949e">276.8억</td>
+      <td style="text-align:right;color:#8b949e"><strong>285.3억</strong></td>
+      <td style="text-align:right" class="up">-0.7%</td>
+      <td style="text-align:right;color:#8b949e">70.9억</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.04)">
+      <td>↳ 매출원가율</td>
+      <td style="text-align:right" class="neutral">66.0%</td>
+      <td style="text-align:right" class="neutral">66.0%</td>
+      <td style="text-align:right" class="neutral">66.4%</td>
+      <td style="text-align:right" class="neutral"><strong>65.9%</strong></td>
+      <td style="text-align:right" class="up">-0.1%p</td>
+      <td style="text-align:right" class="up">64.4% ★</td>
+    </tr>
+    <tr>
+      <td><strong>매출총이익</strong></td>
+      <td style="text-align:right">148.2억</td>
+      <td style="text-align:right">145.4억</td>
+      <td style="text-align:right">140.3억</td>
+      <td style="text-align:right"><strong>147.9억</strong></td>
+      <td style="text-align:right" class="down">-0.2%</td>
+      <td style="text-align:right" class="up"><strong>39.2억</strong></td>
+    </tr>
+    <tr>
+      <td>↳ 매출총이익률</td>
+      <td style="text-align:right" class="neutral">34.0%</td>
+      <td style="text-align:right" class="neutral">34.0%</td>
+      <td style="text-align:right" class="neutral">33.6%</td>
+      <td style="text-align:right" class="neutral"><strong>34.1%</strong></td>
+      <td style="text-align:right" class="up">+0.1%p</td>
+      <td style="text-align:right" class="up"><strong>35.6% ★</strong></td>
+    </tr>
+    <tr style="background:rgba(255,196,0,0.04)">
+      <td><strong>판매비·관리비</strong></td>
+      <td style="text-align:right;color:#8b949e">112.6억</td>
+      <td style="text-align:right;color:#8b949e">112.2억</td>
+      <td style="text-align:right;color:#8b949e">105.6억</td>
+      <td style="text-align:right;color:#8b949e"><strong>105.3억</strong></td>
+      <td style="text-align:right" class="up">-6.5% ↓</td>
+      <td style="text-align:right;color:#8b949e">25.5억</td>
+    </tr>
+    <tr style="background:rgba(255,196,0,0.04)">
+      <td>↳ 판관비율</td>
+      <td style="text-align:right" class="neutral">25.9%</td>
+      <td style="text-align:right" class="neutral">26.2%</td>
+      <td style="text-align:right" class="up">25.3%</td>
+      <td style="text-align:right" class="up"><strong>24.3%</strong></td>
+      <td style="text-align:right" class="up">-1.6%p ★</td>
+      <td style="text-align:right" class="up">23.2% ★</td>
+    </tr>
+    <tr>
+      <td><strong>영업이익</strong></td>
+      <td style="text-align:right">35.6억</td>
+      <td style="text-align:right">33.3억</td>
+      <td style="text-align:right">34.7억</td>
+      <td style="text-align:right" class="up"><strong>42.6억</strong></td>
+      <td style="text-align:right" class="up">+19.8% ★</td>
+      <td style="text-align:right" class="up"><strong>13.7억</strong></td>
+    </tr>
+    <tr>
+      <td>↳ 영업이익률</td>
+      <td style="text-align:right">8.2%</td>
+      <td style="text-align:right">7.8%</td>
+      <td style="text-align:right">8.3%</td>
+      <td style="text-align:right" class="up"><strong>9.8%</strong></td>
+      <td style="text-align:right" class="up">+1.7%p ★</td>
+      <td style="text-align:right" class="up"><strong>12.4% ★</strong></td>
+    </tr>
+    <tr>
+      <td><strong style="color:#00d4aa">FCF (잉여현금흐름)</strong></td>
+      <td style="text-align:right" class="down">-7.1억</td>
+      <td style="text-align:right" class="up">+2.2억</td>
+      <td style="text-align:right" class="up">+15.1억</td>
+      <td style="text-align:right" class="up"><strong>+39.1억</strong></td>
+      <td style="text-align:right" class="up">흑자 가속 ★</td>
+      <td style="text-align:right" class="up"><strong>+9.7억</strong></td>
+    </tr>
+    <tr>
+      <td>당기순이익</td>
+      <td style="text-align:right;color:#8b949e">26.4억</td>
+      <td style="text-align:right;color:#8b949e">29.8억</td>
+      <td style="text-align:right;color:#8b949e">37.1억</td>
+      <td style="text-align:right" class="up"><strong>39.5억</strong></td>
+      <td style="text-align:right" class="up">+49.4% ★</td>
+      <td style="text-align:right" class="up"><strong>14.5억</strong></td>
+    </tr>
   </table>
   </div>
-  <div class="highlight-box" style="margin-top:12px">
-    <strong>2026 Q1 핵심 포인트:</strong> 매출 +10.2% vs 영업이익 +33.4% — 매출 성장보다 이익이 3배 빠른 영업 레버리지 구조. 2025 H1도 영업이익 +33.3%로 동일한 패턴. 수익성 개선 추세가 뚜렷합니다.
+  <div style="font-size:11px;color:#484f58;margin-bottom:14px">※ DART 별도재무제표 원천 데이터 기반 (이글벳은 종속회사 없어 별도=연결). 분기 보고서·사업보고서 직접 파싱.</div>
+
+  <!-- 2. 구조 핵심 분석 -->
+  <div class="section-label" style="margin-top:4px">② 손익 구조 핵심 분석</div>
+  <div class="card-grid" style="margin-bottom:14px">
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ 영업이익 가속 성장</div>
+      <div class="indicator-value" style="color:#00d4aa">35.6 → 42.6억</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">2022 → 2025 (+19.8%), 특히 2024→2025 +22.7%</div>
+      <div class="indicator-desc" style="color:#00d4aa">매출은 거의 정체(-0.5%)했으나 영업이익은 +19.8% 성장. 이는 <strong>판관비 효율화</strong>(112.6→105.3억, -6.5%)의 결과. 매출 성장 없이 이익만 성장하는 운영 효율화 단계.</div>
+    </div>
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ 매출원가율 매우 안정</div>
+      <div class="indicator-value" style="color:#00d4aa">66.0% ± 0.5%</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">4년간 매출원가율 표준편차 0.3%p</div>
+      <div class="indicator-desc">동물의약품 제조·유통업의 안정적 마진 구조. 원자재 변동 헤지 능력 양호. 2026 Q1 64.4%로 추가 개선 시그널.</div>
+    </div>
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ 판관비율 지속 개선</div>
+      <div class="indicator-value" style="color:#00d4aa">25.9% → 23.2%</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">2022 → 2026 Q1 (-2.7%p)</div>
+      <div class="indicator-desc">팜젠사이언스(판관비율 48.9→61.1%, +12.2%p)와 정반대 패턴. 비용 통제력이 이익률 개선의 핵심 동력.</div>
+    </div>
   </div>
-  <div style="margin-top:12px">
-    <strong style="color:#8b949e;font-size:12px">재무 강점</strong>
+
+  <!-- 3. 매출 구성 분석 -->
+  <div class="section-label" style="margin-top:4px">③ 매출 구성 (제품 vs 상품 vs 용역·임대)</div>
+  <div class="table-wrap" style="margin-bottom:4px">
+  <table>
+    <tr>
+      <th>매출 분류</th>
+      <th style="text-align:right">2022</th>
+      <th style="text-align:right">2023</th>
+      <th style="text-align:right">2024</th>
+      <th style="text-align:right">2025</th>
+      <th style="text-align:right">2026 Q1</th>
+      <th>비고</th>
+    </tr>
+    <tr>
+      <td><strong>제품매출</strong><br><span style="font-size:11px;color:#8b949e">자체 제조 동물의약품·백신</span></td>
+      <td style="text-align:right">157.0억<br><span style="font-size:11px;color:#8b949e">(36.1%)</span></td>
+      <td style="text-align:right">153.9억<br><span style="font-size:11px;color:#8b949e">(36.0%)</span></td>
+      <td style="text-align:right">136.1억<br><span style="font-size:11px;color:#8b949e">(32.6%)</span></td>
+      <td style="text-align:right" class="up">151.5억<br><span style="font-size:11px;color:#8b949e">(35.0%)</span></td>
+      <td style="text-align:right;color:#ffc400">41.1억<br><span style="font-size:11px;color:#8b949e">(37.3%)</span></td>
+      <td style="font-size:12px;color:#8b949e">2024 부진 후 회복, 26Q1 비중 최고</td>
+    </tr>
+    <tr>
+      <td><strong>상품매출</strong><br><span style="font-size:11px;color:#8b949e">외부 유통(사료·외자 의약품 등)</span></td>
+      <td style="text-align:right">272.6억<br><span style="font-size:11px;color:#8b949e">(62.6%)</span></td>
+      <td style="text-align:right">268.7억<br><span style="font-size:11px;color:#8b949e">(62.8%)</span></td>
+      <td style="text-align:right">275.7억<br><span style="font-size:11px;color:#8b949e">(66.1%)</span></td>
+      <td style="text-align:right">277.0억<br><span style="font-size:11px;color:#8b949e">(63.9%)</span></td>
+      <td style="text-align:right">67.9억<br><span style="font-size:11px;color:#8b949e">(61.6%)</span></td>
+      <td style="font-size:12px;color:#8b949e">매출의 60% 이상 안정 차지</td>
+    </tr>
+    <tr>
+      <td><strong>용역매출</strong><br><span style="font-size:11px;color:#8b949e">CMO·기술 용역</span></td>
+      <td style="text-align:right;color:#8b949e">2.34억</td>
+      <td style="text-align:right;color:#8b949e">1.80억</td>
+      <td style="text-align:right;color:#8b949e">1.73억</td>
+      <td style="text-align:right;color:#8b949e">0.94억</td>
+      <td style="text-align:right;color:#8b949e">0.27억</td>
+      <td style="font-size:12px;color:#8b949e">규모 작음, 변동성 큼</td>
+    </tr>
+    <tr>
+      <td><strong>임대수익 등</strong><br><span style="font-size:11px;color:#8b949e">부동산 임대 등</span></td>
+      <td style="text-align:right;color:#8b949e">3.41억</td>
+      <td style="text-align:right;color:#8b949e">3.53억</td>
+      <td style="text-align:right;color:#8b949e">3.58억</td>
+      <td style="text-align:right;color:#8b949e">3.75억</td>
+      <td style="text-align:right;color:#8b949e">0.89억</td>
+      <td style="font-size:12px;color:#8b949e">안정적 마이너 수입원</td>
+    </tr>
+    <tr style="background:#1c2128">
+      <td><strong>합계 매출액</strong></td>
+      <td style="text-align:right"><strong>435.4억</strong></td>
+      <td style="text-align:right"><strong>427.9억</strong></td>
+      <td style="text-align:right"><strong>417.2억</strong></td>
+      <td style="text-align:right"><strong>433.2억</strong></td>
+      <td style="text-align:right"><strong>110.1억</strong></td>
+      <td style="font-size:12px;color:#8b949e">—</td>
+    </tr>
+  </table>
+  </div>
+  <div class="highlight-box" style="margin-top:10px">
+    <strong>매출 구성 시사점:</strong> 매출의 약 <strong>62~66%가 상품매출(외부 유통)</strong>, <strong>33~37%가 제품매출(자체 제조)</strong>입니다. 제품매출이 마진이 약간 더 높으며(매출원가율 ~65% vs 상품 ~67%), 2026 Q1 제품 비중이 37.3%로 4년 중 최고치 — 자체 제조 비중이 늘면서 매출총이익률(35.6%)도 동반 상승했습니다. <strong>EU-GMP 인증으로 자체 제조 수출이 본격화될 경우 제품 비중·마진 동시 상승하는 구조적 레버리지</strong>가 잠재되어 있습니다.
+  </div>
+
+  <!-- 4. 분기 비교 (2025 Q1 vs 2026 Q1) -->
+  <div class="section-label" style="margin-top:16px">④ 2026 Q1 vs 2025 Q1 — YoY 비교</div>
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th>항목</th>
+      <th style="text-align:right">2025 Q1</th>
+      <th style="text-align:right">2026 Q1</th>
+      <th style="text-align:right">YoY 증감</th>
+      <th>해석</th>
+    </tr>
+    <tr>
+      <td>매출액</td>
+      <td style="text-align:right">107.3억</td>
+      <td style="text-align:right">110.1억</td>
+      <td style="text-align:right" class="up">+2.7%</td>
+      <td style="font-size:12px;color:#8b949e">완만한 성장</td>
+    </tr>
+    <tr>
+      <td>매출총이익</td>
+      <td style="text-align:right">37.8억</td>
+      <td style="text-align:right">39.2억</td>
+      <td style="text-align:right" class="up">+3.8%</td>
+      <td style="font-size:12px;color:#8b949e">매출보다 빠른 성장</td>
+    </tr>
+    <tr>
+      <td>매출총이익률</td>
+      <td style="text-align:right">35.2%</td>
+      <td style="text-align:right" class="up">35.6%</td>
+      <td style="text-align:right" class="up">+0.4%p</td>
+      <td style="font-size:12px;color:#8b949e">제품 비중 증가 효과</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.05)">
+      <td><strong>영업이익</strong></td>
+      <td style="text-align:right">12.7억</td>
+      <td style="text-align:right"><strong>13.7억</strong></td>
+      <td style="text-align:right" class="up"><strong>+8.0%</strong></td>
+      <td style="font-size:12px;color:#00d4aa;font-weight:600">매출보다 3배 빠른 영업 레버리지</td>
+    </tr>
+    <tr>
+      <td>영업이익률</td>
+      <td style="text-align:right">11.8%</td>
+      <td style="text-align:right" class="up"><strong>12.4%</strong></td>
+      <td style="text-align:right" class="up">+0.6%p</td>
+      <td style="font-size:12px;color:#8b949e">2025 연간(9.8%)보다도 높음</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.05)">
+      <td><strong>당기순이익</strong></td>
+      <td style="text-align:right">10.6억</td>
+      <td style="text-align:right"><strong>14.5억</strong></td>
+      <td style="text-align:right" class="up"><strong>+36.7%</strong></td>
+      <td style="font-size:12px;color:#00d4aa;font-weight:600">금융수익(평가이익) 기여로 가파른 성장</td>
+    </tr>
+  </table>
+  </div>
+  <div class="warning-box" style="margin-top:10px">
+    <strong>주의 — 영업이익 +8.0% vs 순이익 +36.7% 괴리:</strong> 2026 Q1 당기순이익이 영업이익 대비 빠르게 증가한 것은 본업 외 요인입니다. DART 원본 확인 결과 <strong>당기손익인식금융자산평가이익 17.2억(전년比 약 6배 증가)</strong>이 큰 기여를 했습니다. 본업 영업 레버리지는 +8.0%로 견조하나 회계상 평가이익은 시장 상황에 따라 변동성이 큽니다. <strong>본업 모멘텀은 영업이익 +8.0%로 평가</strong>가 적절합니다.
+  </div>
+
+  <!-- 5. FCF 상세 -->
+  <div style="margin-top:20px;border-top:1px solid #21262d;padding-top:16px">
+    <div class="section-label">⑤ 잉여현금흐름(FCF) — DART 검증 수치</div>
+    <div style="font-size:13px;line-height:1.8;color:#8b949e;margin:10px 0 12px">
+      <strong style="color:#c9d1d9">FCF = 영업활동현금흐름 − 유형자산의 취득(CAPEX)</strong>. 감가상각·평가손익 등 비현금 항목 영향을 받지 않아 <strong style="color:#c9d1d9">"실제 현금 창출력"</strong>을 직접 보여주는 지표입니다.
+    </div>
+    <div style="font-size:12px;color:#484f58;margin-bottom:8px">▼ DART 사업보고서 현금흐름표 원천 데이터 (건물·토지·기계장치·차량·구축물·사무용비품 취득 합산)</div>
+    <div class="table-wrap">
+    <table>
+      <tr>
+        <th>연도</th>
+        <th style="text-align:right">영업활동현금흐름</th>
+        <th style="text-align:right">유형자산 취득(CAPEX)</th>
+        <th style="text-align:right">FCF</th>
+        <th>의미</th>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td style="text-align:right" class="down">-3.2억</td>
+        <td style="text-align:right;color:#8b949e">-3.9억</td>
+        <td style="text-align:right;font-weight:800" class="down">-7.1억</td>
+        <td style="font-size:12px;color:#8b949e">영업CF 적자 + 설비투자</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.05)">
+        <td style="color:#00d4aa;font-weight:700">2023 ★</td>
+        <td style="text-align:right" class="up">+48.9억</td>
+        <td style="text-align:right;color:#ff4444">-46.8억</td>
+        <td style="text-align:right;font-weight:800" class="up">+2.2억</td>
+        <td style="font-size:12px;color:#00d4aa;font-weight:600">건물 36억 등 대규모 설비투자에도 FCF 흑자 전환</td>
+      </tr>
+      <tr>
+        <td>2024</td>
+        <td style="text-align:right" class="up">+43.4억</td>
+        <td style="text-align:right;color:#8b949e">-28.3억</td>
+        <td style="text-align:right;font-weight:800" class="up">+15.1억</td>
+        <td style="font-size:12px;color:#8b949e">건물·토지 추가 투자 + FCF 흑자 확대</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.06)">
+        <td style="font-weight:700">2025 ★</td>
+        <td style="text-align:right" class="up">+55.1억</td>
+        <td style="text-align:right;color:#8b949e">-16.0억</td>
+        <td style="text-align:right;font-weight:800;color:#00d4aa;font-size:15px">+39.1억</td>
+        <td style="font-size:12px;color:#00d4aa;font-weight:600">3년 연속 흑자 + 가속 — 본업 현금 창출력 정점</td>
+      </tr>
+      <tr style="background:rgba(255,196,0,0.06)">
+        <td style="color:#ffc400;font-weight:700">2026 Q1</td>
+        <td style="text-align:right" class="up">+10.9억</td>
+        <td style="text-align:right;color:#8b949e">-1.2억</td>
+        <td style="text-align:right;font-weight:800;color:#ffc400">+9.7억</td>
+        <td style="font-size:12px;color:#ffc400">분기 FCF 호조 (연환산 시 +39억 페이스 유지)</td>
+      </tr>
+    </table>
+    </div>
+    <div class="highlight-box" style="margin-top:12px">
+      <strong>★ FCF의 의미:</strong> 2023년부터 3년 연속 FCF 흑자이며 <strong>2025년 +39.1억으로 정점</strong>. 시가총액 ~380억 기준 <strong>FCF Yield 약 10%</strong>로 매우 우수합니다. 팜젠사이언스(2025 FCF +38억, 시가총액 935억, FCF Yield 4%) 대비 <strong>2.5배 높은 현금 창출력 효율</strong>을 보입니다. 2023년 대규모 건물·토지 투자(약 47억) 사이클이 끝난 이후 CAPEX 부담이 줄면서 FCF가 가파르게 개선되는 구조입니다.
+    </div>
+  </div>
+
+  <!-- 6. 재무 강점·리스크 -->
+  <div style="margin-top:14px">
+    <strong style="color:#8b949e;font-size:12px">재무 강점 (DART 검증)</strong>
     <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
-      <li><strong>EU-GMP 무균 액상 주사제 인증 실사 진행</strong> (2025.02) — 한국 동물약품 기업 최초. 유럽 수출 문호 개방</li>
-      <li>반려동물 사업부 5년간 2배 성장 (2019년 110억 → 2024년 214억원)</li>
-      <li>녹십자수의약품 CMO 계약 (30억원) — 안정적 B2B 수익원</li>
-      <li>영업이익률 개선 추세 (~9% → 2026Q1 16.7%) — 수익 구조 고도화</li>
+      <li><strong>FCF 3년 연속 흑자 + 가속</strong> (+2.2 → +15.1 → +39.1억) — 본업 현금 창출력 정점</li>
+      <li><strong>당기순이익 49% 성장</strong> (2022 26.4억 → 2025 39.5억) — 매출 정체 속에서 이익만 성장</li>
+      <li><strong>판관비율 25.9% → 24.3% 개선</strong> — 비용 통제력 우수, 팜젠과 정반대 패턴</li>
+      <li><strong>매출원가율 66% 안정</strong> (4년 표준편차 0.3%p) — 동물의약품 사업 마진 구조 견고</li>
+      <li><strong>EU-GMP 무균 액상 주사제 인증 실사</strong> (2025.02) — 한국 동물약품 기업 최초, 유럽 수출 문호 개방</li>
+      <li><strong>반려동물 사업부 5년간 2배 성장</strong> (2019년 110억 → 2024년 214억원)</li>
+      <li><strong>이익잉여금 286억</strong> (2025말) — 자기자본 두텁고 무차입경영 기조</li>
     </ul>
-    <strong style="color:#8b949e;font-size:12px;margin-top:10px;display:block">재무 리스크</strong>
+    <strong style="color:#8b949e;font-size:12px;margin-top:12px;display:block">재무 리스크</strong>
     <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
-      <li>시가총액 ~380억원 소형주 — 유동성 위기 시 주가 충격 크고 기관 관심 제한</li>
-      <li>2024 연간 매출 -2.5% 감소 경험 — 매출 성장 지속 여부 관찰 필요</li>
+      <li><strong>매출 정체</strong> (2022 435억 → 2025 433억) — 4년간 거의 변동 없음. 성장 동력 부재</li>
+      <li><strong>상품매출(외부유통) 비중 63%</strong> — 자체 제조 비중 확대 전까지 마진 구조 한계</li>
+      <li><strong>2026 Q1 순익 +37%는 금융자산 평가이익 영향</strong> — 본업 영업이익 +8%가 실질 모멘텀</li>
+      <li><strong>시가총액 ~380억 소형주</strong> — 유동성 위기 시 주가 충격, 기관 커버리지 제한</li>
       <li>동물약품 시장 다국적사 경쟁 심화 (반려동물 의약품 외자사 점유율 높음)</li>
     </ul>
   </div>
@@ -441,7 +756,7 @@
     <table style="font-size:12px">
       <tr><td>6개월 목표가</td><td class="up">4,200원 (+12.0%)</td></tr>
       <tr><td>12개월 목표가</td><td class="up">4,700원 (+25.3%)</td></tr>
-      <tr><td>조건</td><td>52W 저점 지지 확인 + 일봉 Stoch 교차 반등 + 주봉 MACD 골든크로스 + Q2 실적 개선</td></tr>
+      <tr><td>조건</td><td>52W 저점 지지 확인 + 일봉 Stoch 교차 반등 + 주봉 MACD 골든크로스 + 2026 Q2 영업이익 +10% 이상 성장 지속</td></tr>
     </table>
   </div>
   <div class="scenario-card scenario-base">
@@ -494,7 +809,7 @@
   <table>
     <tr><td>①</td><td><strong>52W 저점 3,650원 지지 여부</strong> — 이 구간이 무너지면 시나리오 전면 재검토 필요.</td></tr>
     <tr><td>②</td><td><strong>일봉 Stochastic K(0.8) 교차 발생 여부</strong> — %K가 %D를 상향 돌파하면 단기 반등 신호.</td></tr>
-    <tr><td>③</td><td><strong>2025 Q2 실적 공시</strong> — Q1의 +33% 영업이익 성장이 지속되면 펀더멘털 매수 근거 형성.</td></tr>
+    <tr><td>③</td><td><strong>2026 Q2 실적 공시</strong> — 2026 Q1 영업이익 +8.0% YoY 성장세 지속 + 영업이익률 12.4% 유지 여부. 본업 모멘텀 검증 핵심 분기.</td></tr>
   </table>
 </div>
 
