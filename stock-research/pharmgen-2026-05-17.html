@@ -359,11 +359,11 @@
 </div>
 
 <!-- ⑥ 기업 재무 -->
-<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(DART 별도재무제표 기준 · FnGuide 집계 · 2026.05)</span></h2>
+<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(DART 별도재무제표 직접 파싱 · 2026.05.17)</span></h2>
 <div class="card">
 
   <!-- 1. 연도별 손익계산서 상세 -->
-  <div class="section-label">① 연도별 손익계산서 전체 구조 (2022–2025)</div>
+  <div class="section-label">① 연도별 손익계산서 전체 구조 (2022–2025 + 2026 Q1)</div>
   <div class="table-wrap" style="margin-bottom:4px">
   <table>
     <tr>
@@ -373,6 +373,7 @@
       <th style="text-align:right">2024</th>
       <th style="text-align:right">2025</th>
       <th style="text-align:right">22→25 증감</th>
+      <th style="text-align:right;color:#ffc400">2026 Q1</th>
     </tr>
     <tr>
       <td><strong>매출액</strong></td>
@@ -381,6 +382,7 @@
       <td style="text-align:right">1,713억</td>
       <td style="text-align:right"><strong>1,731억</strong></td>
       <td style="text-align:right" class="up">+14.7%</td>
+      <td style="text-align:right;color:#ffc400"><strong>433억</strong></td>
     </tr>
     <tr style="background:rgba(0,212,170,0.04)">
       <td>↳ 매출원가</td>
@@ -389,6 +391,7 @@
       <td style="text-align:right;color:#8b949e">633억</td>
       <td style="text-align:right;color:#8b949e"><strong>614억</strong></td>
       <td style="text-align:right" class="up">-11.8% ↓</td>
+      <td style="text-align:right;color:#8b949e">149억</td>
     </tr>
     <tr style="background:rgba(0,212,170,0.04)">
       <td>↳ 매출원가율</td>
@@ -397,6 +400,7 @@
       <td style="text-align:right" class="up">36.9%</td>
       <td style="text-align:right" class="up"><strong>35.5%</strong></td>
       <td style="text-align:right" class="up">-10.6%p ★</td>
+      <td style="text-align:right" class="up"><strong>34.4% ★</strong></td>
     </tr>
     <tr>
       <td><strong>매출총이익</strong></td>
@@ -405,6 +409,7 @@
       <td style="text-align:right">1,080억</td>
       <td style="text-align:right"><strong>1,117억</strong></td>
       <td style="text-align:right" class="up">+37.4%</td>
+      <td style="text-align:right" class="up"><strong>284억</strong></td>
     </tr>
     <tr>
       <td>↳ 매출총이익률</td>
@@ -413,6 +418,7 @@
       <td style="text-align:right" class="up">63.0%</td>
       <td style="text-align:right" class="up"><strong>64.5%</strong></td>
       <td style="text-align:right" class="up">+10.6%p ★</td>
+      <td style="text-align:right" class="up"><strong>65.6% ★</strong></td>
     </tr>
     <tr style="background:rgba(255,68,68,0.04)">
       <td><strong style="color:#ff4444">판매비·관리비</strong></td>
@@ -421,6 +427,7 @@
       <td style="text-align:right;color:#ff4444">974억</td>
       <td style="text-align:right;color:#ff4444"><strong>1,057억</strong></td>
       <td style="text-align:right" class="down">+43.2% ⚠</td>
+      <td style="text-align:right;color:#ff4444"><strong>267억</strong></td>
     </tr>
     <tr style="background:rgba(255,68,68,0.04)">
       <td>↳ 판관비율</td>
@@ -429,6 +436,7 @@
       <td style="text-align:right" class="down">56.9%</td>
       <td style="text-align:right" class="down"><strong>61.1%</strong></td>
       <td style="text-align:right" class="down">+12.2%p ⚠</td>
+      <td style="text-align:right" class="down"><strong>61.6%</strong></td>
     </tr>
     <tr>
       <td><strong>영업이익</strong></td>
@@ -437,6 +445,7 @@
       <td style="text-align:right">106억</td>
       <td style="text-align:right"><strong>60억</strong></td>
       <td style="text-align:right" class="down">-20.0%</td>
+      <td style="text-align:right"><strong>17.7억</strong></td>
     </tr>
     <tr>
       <td>↳ 영업이익률</td>
@@ -445,6 +454,7 @@
       <td style="text-align:right">6.2%</td>
       <td style="text-align:right" class="down"><strong>3.5%</strong></td>
       <td style="text-align:right" class="down">-1.5%p ↓</td>
+      <td style="text-align:right" class="down"><strong>4.1%</strong></td>
     </tr>
     <tr>
       <td><strong style="color:#00d4aa">FCF (잉여현금흐름)</strong></td>
@@ -453,14 +463,16 @@
       <td style="text-align:right" class="up">+15억</td>
       <td style="text-align:right" class="up"><strong>+38억</strong></td>
       <td style="text-align:right" class="up">흑자 전환</td>
+      <td style="text-align:right" class="up"><strong>+6.8억</strong></td>
     </tr>
     <tr>
       <td>당기순이익</td>
-      <td style="text-align:right;color:#8b949e">흑자</td>
-      <td style="text-align:right;color:#8b949e">흑자</td>
-      <td style="text-align:right" class="up">+28억</td>
+      <td style="text-align:right;color:#8b949e">+12억</td>
+      <td style="text-align:right;color:#8b949e">+157억</td>
+      <td style="text-align:right" class="up">+70억</td>
       <td style="text-align:right" class="down"><strong>-1,166억</strong></td>
       <td style="text-align:right" class="down">적자전환</td>
+      <td style="text-align:right" class="down"><strong>-9.9억</strong></td>
     </tr>
     <tr>
       <td>시가총액</td>
@@ -469,10 +481,11 @@
       <td style="text-align:right;color:#8b949e">—</td>
       <td style="text-align:right"><strong>935억</strong></td>
       <td style="text-align:right;color:#8b949e">현재가 기준</td>
+      <td style="text-align:right;color:#8b949e">—</td>
     </tr>
   </table>
   </div>
-  <div style="font-size:11px;color:#484f58;margin-bottom:14px">※ DART 별도(개별)재무제표 기준 · FnGuide 집계. 연결 기준과 수치가 다를 수 있음.</div>
+  <div style="font-size:11px;color:#484f58;margin-bottom:14px">※ DART 별도재무제표(OFS) 원천 데이터 직접 파싱. 2025 사업보고서(정정본 2026.05.15), 2026 1분기보고서(2026.05.15) 기준. 연결재무제표는 2025년부터 DART 미공시 → 별도재무제표로 통일.</div>
 
   <!-- 2. 구조 핵심 분석 -->
   <div class="section-label" style="margin-top:4px">② 손익 구조 핵심 분석</div>
@@ -548,10 +561,24 @@
       <td style="text-align:right"><strong>3.5%</strong></td>
       <td style="font-size:12px;color:#8b949e">Q4 비용 집중이 연간 이익 압박</td>
     </tr>
+    <tr style="background:rgba(255,196,0,0.06)">
+      <td style="color:#ffc400;font-weight:700">2026 Q1 ★</td>
+      <td style="text-align:right">433억</td>
+      <td style="text-align:right;color:#8b949e">267억</td>
+      <td style="text-align:right">+17.7억</td>
+      <td style="text-align:right">4.1%</td>
+      <td style="font-size:12px;color:#ffc400">YoY 매출 +1.0%, 영업익 -13.5% (모멘텀 둔화)</td>
+    </tr>
   </table>
   </div>
   <div class="danger-box" style="margin-top:10px">
     <strong>Q4 영업적자(-8억)의 구조:</strong> Q4 매출(428억)은 Q2(459억) 대비 낮지 않으나, 판관비가 278억으로 분기 중 최고치를 기록했습니다. 연말 신약 마케팅 강화·학술 행사·R&D 비용의 계절적 집중이 원인으로 추정됩니다. 이 패턴이 반복될 경우 2026년 Q4도 동일한 압박이 예상됩니다.
+  </div>
+  <div class="warning-box" style="margin-top:10px">
+    <strong>★ 2026 Q1 시사점 (DART 1Q보고서 2026.05.15 공시):</strong>
+    매출 433억(YoY +1.0%)으로 사실상 정체, 매출원가율은 34.4%로 추가 개선되어 매출총이익률 65.6%(2025연간 64.5% 대비 +1.1%p) 달성했으나,
+    <strong>판관비 267억(YoY +8.1%) 증가가 매출총이익 +17억 개선분을 모두 상쇄</strong>하면서 영업이익 17.7억으로 2025 Q1(20.5억) 대비 -13.5% 감소.
+    <strong>당기순이익 -9.9억 적자전환은 영업외 손실 약 -27.6억(2025 Q1 -12.8억 대비 2배 이상 확대)</strong>이 원인 — 추가 손상차손 또는 지분법손실 가능성으로 우려 신호.
   </div>
 
   <!-- 4. 매출 구성 분석 -->
@@ -669,7 +696,7 @@
 
   <!-- 7. FCF 상세 섹션 -->
   <div style="margin-top:20px;border-top:1px solid #21262d;padding-top:16px">
-    <div class="section-label">⑦ 잉여현금흐름(FCF) — DART 검증 수치 + 2022년 적자 원인 분석</div>
+    <div class="section-label">⑥ 잉여현금흐름(FCF) — DART 검증 수치 + 2022년 적자 원인 분석</div>
     <div style="font-size:13px;line-height:1.8;color:#8b949e;margin:10px 0 12px">
       <strong style="color:#c9d1d9">FCF = 영업활동현금흐름 − 유형자산의 취득(CAPEX)</strong>. 감가상각·손상차손 등 비현금 항목의 영향을 받지 않아 <strong style="color:#c9d1d9">"실제 현금 창출력"</strong>을 직접 보여주는 지표입니다.
     </div>
@@ -737,6 +764,187 @@
 
     <div class="highlight-box" style="margin-top:12px">
       <strong>FCF vs 당기순이익의 극단적 괴리:</strong> 2025년 당기순이익 <span class="down">-1,166억원</span>이지만 FCF는 <span class="up">+38억원(흑자)</span>. 손상차손 1,330억원은 <strong>현금 유출 없는 장부가 조정</strong>이므로 FCF에 영향 없습니다. 회계 손실만 보고 기업 체력을 판단하는 것은 왜곡입니다.
+    </div>
+    <div class="table-wrap" style="margin-top:12px">
+    <table>
+      <tr>
+        <th>2026 Q1 FCF 분해</th>
+        <th style="text-align:right">2025 Q1</th>
+        <th style="text-align:right">2026 Q1</th>
+        <th style="text-align:right">YoY</th>
+      </tr>
+      <tr>
+        <td>영업활동현금흐름</td>
+        <td style="text-align:right" class="down">-39.0억</td>
+        <td style="text-align:right" class="up">+16.3억</td>
+        <td style="text-align:right" class="up">+55억 ★</td>
+      </tr>
+      <tr>
+        <td>유형자산 취득(CAPEX)</td>
+        <td style="text-align:right;color:#8b949e">-1.3억</td>
+        <td style="text-align:right;color:#8b949e">-9.4억</td>
+        <td style="text-align:right" class="down">CAPEX 7배 증가</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.05)">
+        <td><strong>FCF (Q1)</strong></td>
+        <td style="text-align:right" class="down"><strong>-40.3억</strong></td>
+        <td style="text-align:right" class="up"><strong>+6.8억</strong></td>
+        <td style="text-align:right" class="up"><strong>흑자 전환</strong></td>
+      </tr>
+    </table>
+    </div>
+    <div style="font-size:12px;color:#8b949e;margin-top:6px">※ 2025 Q1 영업CF 적자(-39억)는 운전자본 일시 부담. 2026 Q1은 본업 영업CF 회복으로 분기 FCF 흑자. 연환산 가정 시 연 27~30억 페이스(2025 연간 +38억과 유사 흐름).</div>
+  </div>
+
+  <!-- 6. 판관비 세부 항목 분석 (DART 주28) -->
+  <div style="margin-top:20px;border-top:1px solid #21262d;padding-top:16px">
+    <div class="section-label">⑦ 판관비 증가의 정확한 원인 — DART 주석28 직접 파싱</div>
+    <div style="font-size:13px;line-height:1.8;color:#8b949e;margin:10px 0 12px">
+      판관비 폭증(2023 887억 → 2025 1,057억, +19.1%)의 정확한 항목별 원인입니다. <strong style="color:#c9d1d9">사업보고서 주석28 "판매비와관리비"</strong>에서 직접 추출.
+    </div>
+    <div style="font-size:12px;color:#484f58;margin-bottom:8px">▼ DART 사업보고서 주석28 원천 (2025 사업보고서 2026.03.23 / 정정본 2026.05.15, 2024 사업보고서 2025.03.21)</div>
+    <div class="table-wrap">
+    <table>
+      <tr>
+        <th>판관비 세부 항목</th>
+        <th style="text-align:right">2023</th>
+        <th style="text-align:right">2024</th>
+        <th style="text-align:right">2025</th>
+        <th style="text-align:right">23→25 증감</th>
+        <th>해석</th>
+      </tr>
+      <tr style="background:rgba(255,68,68,0.08)">
+        <td><strong style="color:#ff4444">★ 지급수수료</strong></td>
+        <td style="text-align:right">512억</td>
+        <td style="text-align:right">598억</td>
+        <td style="text-align:right"><strong>669억</strong></td>
+        <td style="text-align:right" class="down"><strong>+157억 (+30.7%)</strong></td>
+        <td style="font-size:12px;color:#ff4444;font-weight:600">★ 판관비 증가의 압도적 1위 동력 (전체 증가 +169억 중 93%)</td>
+      </tr>
+      <tr>
+        <td>↳ 판관비 내 비중</td>
+        <td style="text-align:right" class="neutral">57.7%</td>
+        <td style="text-align:right" class="neutral">61.4%</td>
+        <td style="text-align:right" class="down"><strong>63.3%</strong></td>
+        <td style="text-align:right" class="down">+5.6%p</td>
+        <td style="font-size:12px;color:#8b949e">판관비의 약 ⅔가 외부 위탁 비용</td>
+      </tr>
+      <tr style="background:rgba(255,196,0,0.05)">
+        <td><strong>여비교통비</strong></td>
+        <td style="text-align:right">41.1억</td>
+        <td style="text-align:right">47.4억</td>
+        <td style="text-align:right"><strong>67.0억</strong></td>
+        <td style="text-align:right" class="down">+25.9억 (+62.9%)</td>
+        <td style="font-size:12px;color:#8b949e">영업·MR 활동 강화 (병원 디테일링 추정)</td>
+      </tr>
+      <tr style="background:rgba(255,196,0,0.05)">
+        <td><strong>광고선전비</strong></td>
+        <td style="text-align:right">4.2억</td>
+        <td style="text-align:right">6.1억</td>
+        <td style="text-align:right"><strong>9.3억</strong></td>
+        <td style="text-align:right" class="down">+5.1억 (+121.7%)</td>
+        <td style="font-size:12px;color:#8b949e">골관절염 신약 등 신약 론칭 마케팅</td>
+      </tr>
+      <tr style="background:rgba(255,196,0,0.05)">
+        <td><strong>업무추진비</strong></td>
+        <td style="text-align:right">27.9억</td>
+        <td style="text-align:right">32.6억</td>
+        <td style="text-align:right"><strong>40.7억</strong></td>
+        <td style="text-align:right" class="down">+12.9억 (+46.2%)</td>
+        <td style="font-size:12px;color:#8b949e">영업 활동 확대 (학회·접대 등)</td>
+      </tr>
+      <tr>
+        <td>대손상각비</td>
+        <td style="text-align:right">-1.3억</td>
+        <td style="text-align:right">2.0억</td>
+        <td style="text-align:right">5.5억</td>
+        <td style="text-align:right" class="down">+6.8억</td>
+        <td style="font-size:12px;color:#8b949e">매출채권 부실 우려 증가 (소규모)</td>
+      </tr>
+      <tr>
+        <td>무형자산상각비</td>
+        <td style="text-align:right">5.5억</td>
+        <td style="text-align:right">11.5억</td>
+        <td style="text-align:right">13.5억</td>
+        <td style="text-align:right" class="down">+8.0억 (+143%)</td>
+        <td style="font-size:12px;color:#8b949e">신약 라이선스 등 무형자산 상각 증가</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.04)">
+        <td>급여 (인건비)</td>
+        <td style="text-align:right">152.7억</td>
+        <td style="text-align:right">141.2억</td>
+        <td style="text-align:right" class="up">122.8억</td>
+        <td style="text-align:right" class="up">-29.9억 (-19.6%) ↓</td>
+        <td style="font-size:12px;color:#00d4aa">정직원 감축 (외주 전환 시사)</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.04)">
+        <td>퇴직급여</td>
+        <td style="text-align:right">21.9억</td>
+        <td style="text-align:right">21.9억</td>
+        <td style="text-align:right" class="up">17.6억</td>
+        <td style="text-align:right" class="up">-4.3억 (-19.6%) ↓</td>
+        <td style="font-size:12px;color:#00d4aa">인력 감축 동반 효과</td>
+      </tr>
+      <tr style="background:rgba(0,212,170,0.04)">
+        <td>복리후생비</td>
+        <td style="text-align:right">23.5억</td>
+        <td style="text-align:right">22.5억</td>
+        <td style="text-align:right" class="up">18.7억</td>
+        <td style="text-align:right" class="up">-4.7억 (-20.2%) ↓</td>
+        <td style="font-size:12px;color:#00d4aa">인력 감축 동반 효과</td>
+      </tr>
+      <tr>
+        <td>경상연구개발비</td>
+        <td style="text-align:right">51.2억</td>
+        <td style="text-align:right">44.0억</td>
+        <td style="text-align:right">46.4억</td>
+        <td style="text-align:right" class="up">-4.8억 (-9.3%) ↓</td>
+        <td style="font-size:12px;color:#8b949e">자체 R&D 비용은 오히려 소폭 감소</td>
+      </tr>
+      <tr>
+        <td>판매촉진비</td>
+        <td style="text-align:right">19.2억</td>
+        <td style="text-align:right">16.2억</td>
+        <td style="text-align:right">15.6억</td>
+        <td style="text-align:right" class="up">-3.6억 (-19.0%) ↓</td>
+        <td style="font-size:12px;color:#8b949e">샘플·프로모션 축소</td>
+      </tr>
+      <tr>
+        <td>기타 (24개 항목)</td>
+        <td style="text-align:right;color:#8b949e">~38억</td>
+        <td style="text-align:right;color:#8b949e">~38억</td>
+        <td style="text-align:right;color:#8b949e">~31억</td>
+        <td style="text-align:right;color:#8b949e">미세 변동</td>
+        <td style="font-size:12px;color:#8b949e">통신·감가상각·임차 등</td>
+      </tr>
+      <tr style="background:#1c2128">
+        <td><strong>판관비 합계</strong></td>
+        <td style="text-align:right"><strong>887억</strong></td>
+        <td style="text-align:right"><strong>974억</strong></td>
+        <td style="text-align:right"><strong>1,057억</strong></td>
+        <td style="text-align:right" class="down"><strong>+170억 (+19.1%)</strong></td>
+        <td style="font-size:12px;color:#8b949e">—</td>
+      </tr>
+    </table>
+    </div>
+    <div class="danger-box" style="margin-top:12px">
+      <strong>★ 핵심 발견 — "판관비 폭증의 진짜 원인은 지급수수료(외주 비용)":</strong><br>
+      DART 주석28 직접 파싱 결과, 판관비 +170억 증가분(2023→2025) 중 <strong>지급수수료가 +157억(93%)</strong>으로 압도적입니다.
+      급여(-30억), 퇴직급여(-4억), 복리후생비(-5억), 판매촉진비(-4억), 경상연구개발비(-5억) 등 <strong>내부 비용은 모두 감소</strong>한 반면,
+      <strong>외부 위탁 비용만 폭증</strong>한 구조입니다.
+    </div>
+    <div class="warning-box" style="margin-top:8px">
+      <strong>지급수수료 669억의 정체 (추정):</strong> 사업보고서 본문(사업의 내용·연구개발 활동)과 결합 분석 시 다음 항목이 주된 구성으로 추정됩니다:<br>
+      ① <strong>R&D 임상 위탁(CRO)</strong> — 비만치료제, 골관절염 개량신약, 역류성식도염 등 5종 파이프라인 임상 외주<br>
+      ② <strong>영업 외주(영업대행·학술마케팅 에이전시)</strong> — MR 정직원 감축(급여 -19.6%)에 대응한 외주 영업조직 전환<br>
+      ③ <strong>생물학적동등성시험 위탁</strong> — 56억 누적 투자, 19개 성분 동등성 확보(원문 명시)<br>
+      ④ 법무·회계감사·자문 수수료 (소액)<br><br>
+      <strong>※ DART 주석은 지급수수료를 추가 분해해 공시하지 않으므로,</strong> 위 항목별 정확한 비중은 사업보고서 본문 및 IR 컨퍼런스 콜 자료 추가 확인이 필요합니다.
+    </div>
+    <div class="highlight-box" style="margin-top:8px">
+      <strong>긍정적 측면 — 비용 구조 전환의 본질:</strong> 정직원 급여·복리후생비 감소 + 외주 비용 증가 패턴은 <strong>"고정비를 변동비로 전환"</strong>하는 전략입니다.
+      신약 매출이 본격화될 경우 외주 비용 축소가 빠르게 가능해 영업 레버리지가 크게 작동할 수 있습니다.
+      그러나 신약 매출(2025 골관절염 30억)이 외주 비용 증가분(+157억)을 따라잡기 전까지는 영업이익 압박이 지속됩니다.
     </div>
   </div>
 </div>
