@@ -381,6 +381,7 @@
   <div class="nav-pill">②-W 주봉(Weekly) 분석 ★</div>
   <div class="nav-pill">②-M 월봉(Monthly) 분석 ★</div>
   <div class="nav-pill">③ 재무 상태</div>
+  <div class="nav-pill">③-CF 2023·2024 영업CF 부진 원인 ★</div>
   <div class="nav-pill">③′ 2025 적자 해부</div>
   <div class="nav-pill">③′′ 2026Q1 적자 + 재고/손상 정밀분석 ★</div>
   <div class="nav-pill">④ 파이프라인</div>
@@ -1245,6 +1246,236 @@
         <strong>실제로 67억원의 현금이 남았다</strong>는 의미입니다.
         이것이 "순이익 적자보다 FCF 흑자가 훨씬 중요한 신호"인 이유입니다.
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ③-CF 2023·2024 영업현금흐름 부진 원인 — DART 직접 분해 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(239,68,68,.15);">🩺</div>
+    ③-CF 2023·2024 영업현금흐름이 형편없었던 진짜 이유 — DART 원문 분해
+  </div>
+
+  <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">
+    <strong style="color:var(--green);">✓ DART OpenAPI 직접 조회</strong> — 2023.12 사업보고서(접수번호 20240314001516) / 2024.12 사업보고서(접수번호 20250313001448) 별도재무제표 현금흐름표 원문 데이터.
+  </div>
+
+  <!-- 한 줄 결론 -->
+  <div class="card" style="background:linear-gradient(135deg, rgba(239,68,68,.06) 0%, rgba(245,158,11,.06) 100%); border:1px solid rgba(239,68,68,.3); margin-bottom:16px;">
+    <div style="font-weight:700; color:var(--red); margin-bottom:10px; font-size:15px;">⚡ 한 줄 결론</div>
+    <div style="font-size:14px; line-height:1.85;">
+      2023·2024년의 FCF 적자는 <strong style="color:var(--yellow);">CAPEX(설비투자) 탓도 있지만, 더 큰 원인은 영업CF 자체의 부진</strong>이었습니다.
+      그 영업CF 부진의 핵심은 <strong style="color:var(--red);">재고자산 누적과 매출채권 증가</strong> — 즉 "매출은 인식했지만 현금으로 안 들어온" 운전자본 잠식 때문입니다.
+      2년간 자산·부채 변동에서만 누적 <strong style="color:var(--red);">-334억</strong>의 영업현금이 빠져나갔습니다.
+    </div>
+  </div>
+
+  <!-- 영업CF 분해 비교 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:6px;">📊 영업활동현금흐름 구조 분해 (단위: 억원, 별도)</div>
+    <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">
+      간접법(Indirect Method): 영업CF = 당기순이익 ± 비현금 항목 ± 운전자본 변동 + 이자/법인세 등.
+      운전자본 변동에서 빠진 돈이 영업CF의 발목을 잡았습니다.
+    </div>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+    <table style="min-width:640px;">
+      <tr>
+        <th>구분</th>
+        <th style="text-align:right;">2023년</th>
+        <th style="text-align:right;">2024년</th>
+        <th style="text-align:right; color:var(--green);">2025년 ★</th>
+        <th style="font-size:11px;">메모</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">당기순이익</td>
+        <td style="text-align:right;">+36.1</td>
+        <td style="text-align:right;">+147.2</td>
+        <td style="text-align:right; color:var(--red);">-106.7</td>
+        <td style="font-size:11px; color:var(--muted);">2024년은 법인세수익 +203억(이연법인세자산 인식) 일회성</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">(+/-) 비현금 항목 조정</td>
+        <td style="text-align:right;">+69.3</td>
+        <td style="text-align:right;">+65.5</td>
+        <td style="text-align:right;">+241.6</td>
+        <td style="font-size:11px; color:var(--muted);">감가·상각·이자비용 가산, 평가이익·법인세수익 차감</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.10);">
+        <td style="font-weight:700; color:var(--red);">(±) 영업활동 자산·부채 변동 ★</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-148.4</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-185.6</td>
+        <td style="text-align:right; font-weight:700; color:var(--green);">개선됨</td>
+        <td style="font-size:11px; color:var(--red);">운전자본이 영업CF를 빨아들임</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">이자수취/지급 · 법인세 등</td>
+        <td style="text-align:right;">+16.1</td>
+        <td style="text-align:right;">-1.7</td>
+        <td style="text-align:right;">—</td>
+        <td style="font-size:11px; color:var(--muted);">2024년은 사채 조기상환 이자지급 -14억 영향</td>
+      </tr>
+      <tr style="background:rgba(79,142,247,.08);">
+        <td style="font-weight:700; color:var(--accent);">= 영업활동현금흐름</td>
+        <td style="text-align:right; font-weight:800;" class="dn">-26.9</td>
+        <td style="text-align:right; font-weight:800;" class="warn">+25.4</td>
+        <td style="text-align:right; font-weight:800;" class="up">+110.4</td>
+        <td style="font-size:11px; color:var(--muted);">2025년 4.3배 점프 = 재고/채권 정상화</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- 운전자본 변동 상세 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:6px;">🔬 "자산·부채 변동" 안에서 누가 돈을 가져갔나 (DART 원문, 단위: 억원)</div>
+    <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">
+      양수(+) = 현금 유입 / 음수(-) = 현금 유출. <strong style="color:var(--red);">2년 누적 -334억</strong>이 영업CF 부진의 핵심.
+    </div>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+    <table style="min-width:640px;">
+      <tr>
+        <th>운전자본 항목</th>
+        <th style="text-align:right;">2023년</th>
+        <th style="text-align:right;">2024년</th>
+        <th style="text-align:right;">2년 누적</th>
+        <th>해석</th>
+      </tr>
+      <tr style="background:rgba(239,68,68,.10);">
+        <td style="font-weight:700; color:var(--red);">재고자산 증감 ★★</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-121.7</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-132.7</td>
+        <td style="text-align:right; font-weight:800; color:var(--red);">-254.4</td>
+        <td style="font-size:12px;">완제품·원재료 비축에 254억 묶임 (2025년에 폐기·감액으로 정리)</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.06);">
+        <td style="font-weight:700; color:var(--red);">매출채권 증감 ★</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-58.6</td>
+        <td style="text-align:right; font-weight:700; color:var(--red);">-28.9</td>
+        <td style="text-align:right; font-weight:800; color:var(--red);">-87.5</td>
+        <td style="font-size:12px;">매출 인식 후 미회수. 수출(아벨라·라드) 대금 시차</td>
+      </tr>
+      <tr>
+        <td>매입채무 증감</td>
+        <td style="text-align:right;" class="up">+30.9</td>
+        <td style="text-align:right;" class="dn">-19.9</td>
+        <td style="text-align:right;" class="warn">+11.0</td>
+        <td style="font-size:12px;">2024년에 매입대금 결제 가속 → 현금 유출</td>
+      </tr>
+      <tr>
+        <td>미지급금 증감</td>
+        <td style="text-align:right;" class="up">+9.2</td>
+        <td style="text-align:right;" class="up">+7.9</td>
+        <td style="text-align:right;" class="up">+17.1</td>
+        <td style="font-size:12px;">소폭 플러스. 운전자본 도움은 제한적</td>
+      </tr>
+      <tr>
+        <td>퇴직금 지급</td>
+        <td style="text-align:right; color:var(--red);">-5.7</td>
+        <td style="text-align:right; color:var(--red);">-14.8</td>
+        <td style="text-align:right; color:var(--red);">-20.5</td>
+        <td style="font-size:12px;">실제 퇴직금 지급. 비현금 퇴직급여비용과 별개</td>
+      </tr>
+      <tr>
+        <td>기타 (선급금·미수금·선수금·예수금·선급비용 등)</td>
+        <td style="text-align:right;" class="up">+0.0</td>
+        <td style="text-align:right;" class="up">+2.8</td>
+        <td style="text-align:right;" class="up">+2.8</td>
+        <td style="font-size:12px;">경상적 변동, 영향 미미</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td style="font-weight:800;">합계 (자산·부채 변동)</td>
+        <td style="text-align:right; font-weight:800; color:var(--red);">-148.4</td>
+        <td style="text-align:right; font-weight:800; color:var(--red);">-185.6</td>
+        <td style="text-align:right; font-weight:800; color:var(--red);">-334.0</td>
+        <td style="font-size:12px; color:var(--red);">운전자본이 2년간 영업현금 334억을 흡수</td>
+      </tr>
+    </table>
+    </div>
+
+    <div class="note-box" style="margin-top:14px;">
+      <strong>왜 재고자산이 2년 연속 121억 → 132억씩 늘었나?</strong><br>
+      DART 사업보고서 주석 및 §③′′(2026 Q1 재고/손상 정밀분석)에서 이미 분석된 바와 같이, <strong>아벨라(파바갈)·라드(레블락) 수출 확대를 겨냥한 사전 비축</strong>과 <strong>러시아·CIS 매출 채널 정상화 지연으로 인한 출하 차질</strong>이 누적된 결과입니다.
+      그 결과 2025년에 <strong>재고자산 폐기손실 23.4억(2024)→ 충당금 환입 +0.96억(2025)</strong> 흐름으로 재고가 정리되면서, 운전자본이 풀려 2025년 영업CF가 한 번에 +110억으로 점프했습니다.
+    </div>
+
+    <div class="note-box" style="margin-top:10px;">
+      <strong>왜 매출채권이 2년 연속 늘었나?</strong><br>
+      이수앱지스 매출의 상당 비중은 <strong>해외 파트너 출하(아벨라·라드·메바자임)</strong>로, 선적 후 인보이스 결제까지 60~120일 시차가 있습니다. 매출이 280억(2021) → 543억(2023) → 603억(2024)으로 빠르게 늘면서 매출채권도 같이 부풀어, 회수 속도가 매출 성장을 못 따라잡았습니다.
+      2025년에 매출이 -6% 역성장(603→567억)한 것도 영업CF에는 역설적으로 채권 회수 정상화 효과를 만들었습니다.
+    </div>
+  </div>
+
+  <!-- 2024년 추가 함정 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:10px; color:var(--yellow);">⚠️ 2024년의 추가 함정 — "영업이익 134억인데 영업CF 25억"의 비밀</div>
+    <div style="font-size:13px; line-height:1.8; color:var(--muted);">
+      2024년 표면 실적은 화려했습니다. 매출 603억(역대 최대), 영업이익 +134억, 순이익 +147억.
+      그런데 영업CF는 겨우 +25.4억. 영업이익의 5분의 1 수준입니다. DART 현금흐름표를 들여다보면 그 이유가 보입니다.
+    </div>
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:12px;">
+    <table style="min-width:560px;">
+      <tr>
+        <th>2024년 순이익 147억의 비현금 분해</th>
+        <th style="text-align:right;">금액</th>
+        <th>현금성 여부</th>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td>법인세수익 (이연법인세자산 인식)</td>
+        <td style="text-align:right; color:var(--red);">+203.3억</td>
+        <td style="color:var(--red);">❌ 비현금 (회계상 이익만)</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td>파생금융자산평가이익 (CB 콜옵션 등)</td>
+        <td style="text-align:right; color:var(--red);">+214.2억</td>
+        <td style="color:var(--red);">❌ 비현금 (평가만)</td>
+      </tr>
+      <tr style="background:rgba(34,197,94,.06);">
+        <td>사채상환손실 (CB 800억 조기상환)</td>
+        <td style="text-align:right; color:var(--green);">-180.5억</td>
+        <td style="color:var(--green);">⚠️ 비현금 손실 (현금은 별도 재무활동)</td>
+      </tr>
+      <tr style="background:rgba(34,197,94,.06);">
+        <td>파생상품평가손실</td>
+        <td style="text-align:right; color:var(--green);">-138.9억</td>
+        <td style="color:var(--green);">⚠️ 비현금 손실</td>
+      </tr>
+      <tr>
+        <td>이자비용(영업이익 차감 후 가산)</td>
+        <td style="text-align:right;">+86.1억</td>
+        <td>가산 후 실제 지급은 -14억</td>
+      </tr>
+      <tr>
+        <td>감가상각비 + 무형자산상각비</td>
+        <td style="text-align:right;">+46.4억</td>
+        <td>✅ 정상 비현금 가산</td>
+      </tr>
+      <tr>
+        <td>무형자산손상차손</td>
+        <td style="text-align:right;">+28.6억</td>
+        <td>✅ 비현금 손상</td>
+      </tr>
+    </table>
+    </div>
+    <div class="good-box" style="margin-top:14px;">
+      즉 <strong style="color:var(--text);">순이익 147억의 표면 수치 중 약 +417억(법인세수익 +203 + 평가이익 +214)이 실제 현금이 안 들어온 회계상 이익</strong>이었고, 반대로 -319억(사채상환손실 -180 + 평가손실 -139)은 비현금 손실로 다시 더해졌습니다.
+      이 거대 비현금 항목들을 모두 걷어내고 운전자본 잠식 -185.6억까지 반영하면 영업CF는 +25.4억밖에 안 남는 게 정상입니다.
+      <strong>2024년의 "역대 최대 실적"은 사실 일회성·평가성 이익이 만든 거품이었고, 본업 현금 창출력은 아직 약했다는 의미</strong>입니다.
+    </div>
+  </div>
+
+  <!-- 2025년 반전 정리 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:10px; color:var(--green);">✅ 2025년에 왜 영업CF가 +110억으로 4.3배 점프했나</div>
+    <div style="font-size:13px; line-height:1.8;">
+      <strong style="color:var(--green);">① 운전자본 잠식이 멈췄음</strong> — 재고자산은 2023~2024년 누적 +254억 비축 후 2025년에 폐기·감액·정상 출하로 정리. 매출채권은 매출 -6% 역성장 효과로 회수 정상화.<br>
+      <strong style="color:var(--green);">② 비현금 항목의 충격 흡수</strong> — 2025년에 순이익은 -107억으로 적자였지만, 그 적자는 대부분 <strong>파생상품평가손실 등 비현금 항목</strong>이라 영업CF에는 +로 다시 더해짐 (간접법의 핵심 매커니즘).<br>
+      <strong style="color:var(--green);">③ 본업 영업이익 +16억 유지</strong> — 영업단계 자체는 흑자였고, 운전자본 풀림과 결합돼 +110억 영업CF로 이어짐.<br><br>
+      <strong style="color:var(--accent);">결론:</strong> 2023·2024년의 영업CF 부진은 <strong>"본업이 망가져서"가 아니라 "성장을 위해 재고/채권에 돈을 묶어두었기 때문"</strong>이었습니다.
+      2025년 재고·채권 정상화로 그 돈이 풀려나오면서 영업CF가 폭발적으로 증가했고, FCF도 마침내 +67억으로 흑자 전환했습니다.
+      이것이 본 보고서가 "순이익 적자보다 FCF 흑자가 훨씬 중요한 신호"라고 평가하는 핵심 근거입니다.
     </div>
   </div>
 </div>
