@@ -359,59 +359,234 @@
 </div>
 
 <!-- ⑥ 기업 재무 -->
-<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(2026.05 기준 최신)</span></h2>
+<h2>⑥ 기업 재무 분석 <span style="font-size:11px;color:#484f58;font-weight:400">(DART 별도재무제표 기준 · FnGuide 집계 · 2026.05)</span></h2>
 <div class="card">
-  <div class="table-wrap">
+
+  <!-- 1. 연도별 손익계산서 상세 -->
+  <div class="section-label">① 연도별 손익계산서 전체 구조 (2022–2025)</div>
+  <div class="table-wrap" style="margin-bottom:4px">
   <table>
-    <tr><th>구분</th><th>2023년</th><th>2024년</th><th>2025년 (최신)</th><th>증감 (23→25)</th></tr>
-    <tr><td>매출액</td><td>1,668억원</td><td>1,713억원</td><td><strong>1,731억원</strong></td><td class="up">+3.8%</td></tr>
-    <tr><td>영업이익</td><td>107억원</td><td>106억원</td><td><strong>60억원</strong></td><td class="down">-43.9%</td></tr>
-    <tr><td>영업이익률</td><td>6.4%</td><td>6.2%</td><td><strong>3.5%</strong></td><td class="down">악화</td></tr>
-    <tr><td>당기순이익</td><td>흑자</td><td>+28억원</td><td><strong class="down">-1,166억원</strong></td><td class="down">적자전환</td></tr>
-    <tr><td><strong style="color:#00d4aa">FCF (잉여현금흐름)</strong></td><td class="up">+111억원</td><td class="up">+15억원</td><td class="up"><strong>+38억원</strong></td><td class="up">3년 연속 흑자</td></tr>
-    <tr><td>시가총액</td><td>—</td><td>—</td><td><strong>935억원</strong></td><td style="color:#8b949e">현재가 기준</td></tr>
+    <tr>
+      <th>구분</th>
+      <th style="text-align:right">2022</th>
+      <th style="text-align:right">2023</th>
+      <th style="text-align:right">2024</th>
+      <th style="text-align:right">2025</th>
+      <th style="text-align:right">22→25 증감</th>
+    </tr>
+    <tr>
+      <td><strong>매출액</strong></td>
+      <td style="text-align:right">1,509억</td>
+      <td style="text-align:right">1,668억</td>
+      <td style="text-align:right">1,713억</td>
+      <td style="text-align:right"><strong>1,731억</strong></td>
+      <td style="text-align:right" class="up">+14.7%</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.04)">
+      <td>↳ 매출원가</td>
+      <td style="text-align:right;color:#8b949e">696억</td>
+      <td style="text-align:right;color:#8b949e">689억</td>
+      <td style="text-align:right;color:#8b949e">633억</td>
+      <td style="text-align:right;color:#8b949e"><strong>614억</strong></td>
+      <td style="text-align:right" class="up">-11.8% ↓</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.04)">
+      <td>↳ 매출원가율</td>
+      <td style="text-align:right" class="up">46.1%</td>
+      <td style="text-align:right" class="up">41.3%</td>
+      <td style="text-align:right" class="up">36.9%</td>
+      <td style="text-align:right" class="up"><strong>35.5%</strong></td>
+      <td style="text-align:right" class="up">-10.6%p ★</td>
+    </tr>
+    <tr>
+      <td><strong>매출총이익</strong></td>
+      <td style="text-align:right">813억</td>
+      <td style="text-align:right">979억</td>
+      <td style="text-align:right">1,080억</td>
+      <td style="text-align:right"><strong>1,117억</strong></td>
+      <td style="text-align:right" class="up">+37.4%</td>
+    </tr>
+    <tr>
+      <td>↳ 매출총이익률</td>
+      <td style="text-align:right" class="up">53.9%</td>
+      <td style="text-align:right" class="up">58.7%</td>
+      <td style="text-align:right" class="up">63.0%</td>
+      <td style="text-align:right" class="up"><strong>64.5%</strong></td>
+      <td style="text-align:right" class="up">+10.6%p ★</td>
+    </tr>
+    <tr style="background:rgba(255,68,68,0.04)">
+      <td><strong style="color:#ff4444">판매비·관리비</strong></td>
+      <td style="text-align:right;color:#ff4444">738억</td>
+      <td style="text-align:right;color:#ff4444">887억</td>
+      <td style="text-align:right;color:#ff4444">974억</td>
+      <td style="text-align:right;color:#ff4444"><strong>1,057억</strong></td>
+      <td style="text-align:right" class="down">+43.2% ⚠</td>
+    </tr>
+    <tr style="background:rgba(255,68,68,0.04)">
+      <td>↳ 판관비율</td>
+      <td style="text-align:right" class="down">48.9%</td>
+      <td style="text-align:right" class="down">53.2%</td>
+      <td style="text-align:right" class="down">56.9%</td>
+      <td style="text-align:right" class="down"><strong>61.1%</strong></td>
+      <td style="text-align:right" class="down">+12.2%p ⚠</td>
+    </tr>
+    <tr>
+      <td><strong>영업이익</strong></td>
+      <td style="text-align:right">75억</td>
+      <td style="text-align:right">91억</td>
+      <td style="text-align:right">106억</td>
+      <td style="text-align:right"><strong>60억</strong></td>
+      <td style="text-align:right" class="down">-20.0%</td>
+    </tr>
+    <tr>
+      <td>↳ 영업이익률</td>
+      <td style="text-align:right">5.0%</td>
+      <td style="text-align:right">5.5%</td>
+      <td style="text-align:right">6.2%</td>
+      <td style="text-align:right" class="down"><strong>3.5%</strong></td>
+      <td style="text-align:right" class="down">-1.5%p ↓</td>
+    </tr>
+    <tr>
+      <td><strong style="color:#00d4aa">FCF (잉여현금흐름)</strong></td>
+      <td style="text-align:right" class="down">-112억</td>
+      <td style="text-align:right" class="up">+111억</td>
+      <td style="text-align:right" class="up">+15억</td>
+      <td style="text-align:right" class="up"><strong>+38억</strong></td>
+      <td style="text-align:right" class="up">흑자 전환</td>
+    </tr>
+    <tr>
+      <td>당기순이익</td>
+      <td style="text-align:right;color:#8b949e">흑자</td>
+      <td style="text-align:right;color:#8b949e">흑자</td>
+      <td style="text-align:right" class="up">+28억</td>
+      <td style="text-align:right" class="down"><strong>-1,166억</strong></td>
+      <td style="text-align:right" class="down">적자전환</td>
+    </tr>
+    <tr>
+      <td>시가총액</td>
+      <td style="text-align:right;color:#8b949e">—</td>
+      <td style="text-align:right;color:#8b949e">—</td>
+      <td style="text-align:right;color:#8b949e">—</td>
+      <td style="text-align:right"><strong>935억</strong></td>
+      <td style="text-align:right;color:#8b949e">현재가 기준</td>
+    </tr>
   </table>
   </div>
-  <div class="danger-box" style="margin-top:12px">
-    <strong>⚠ 2025 순손실 1,166억원의 실체 — 대규모 손상차손 일시 반영:</strong> 영업이익은 60억원(흑자)이나, 자회사 엑세스바이오에 대한 손상차손 <strong>약 1,330억원</strong>을 일시에 인식한 결과. 장부가 1,679억 → 공정가치 349억 조정. <strong>현금 유출 없는 회계 손실</strong>이며, 코로나 진단 특수 소멸 + 에스테틱 피벗이라는 구조적 재평가를 2025년에 한꺼번에 반영한 것.<br><br>
-    <strong>⚠ 단, "완전 해소"는 아님:</strong> 엑세스바이오 잔존 장부가 <strong>349억원</strong>에 대한 추가 손상 위험은 여전히 열려 있습니다. K-IFRS(IAS 36)상 손상 징후가 발생하면 매 보고기간에 재검토가 의무화되며, 에스테틱 피벗(알에프바이오 등 3건 투자) 성과가 기대 이하거나 엑세스바이오 현금 소진이 지속될 경우 2026년 이후에도 <strong>소규모 손상차손이 반복될 가능성</strong>을 배제할 수 없습니다. 피벗 성과 확인 전까지 349억 공정가치를 지지하는 근거가 아직 검증되지 않았습니다.
+  <div style="font-size:11px;color:#484f58;margin-bottom:14px">※ DART 별도(개별)재무제표 기준 · FnGuide 집계. 연결 기준과 수치가 다를 수 있음.</div>
+
+  <!-- 2. 구조 핵심 분석 -->
+  <div class="section-label" style="margin-top:4px">② 손익 구조 핵심 분석</div>
+  <div class="card-grid" style="margin-bottom:14px">
+    <div class="indicator-card" style="border-color:rgba(0,212,170,0.4)">
+      <div class="indicator-title">★ 매출원가율 지속 개선</div>
+      <div class="indicator-value" style="color:#00d4aa">46.1% → 35.5%</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">2022 → 2025 (4년간 -10.6%p)</div>
+      <div class="indicator-desc" style="color:#00d4aa">매출원가 절대액이 줄면서(696→614억) 제품 믹스와 생산 효율이 꾸준히 개선. 매출총이익률 53.9%→64.5%로 10%p 이상 상승 — 본업 경쟁력 강화의 확실한 증거.</div>
+    </div>
+    <div class="indicator-card" style="border-color:rgba(255,68,68,0.4)">
+      <div class="indicator-title">⚠ 판관비 폭증 — 영업이익 압박</div>
+      <div class="indicator-value" style="color:#ff4444">738억 → 1,057억</div>
+      <div style="font-size:11px;color:#8b949e;margin-bottom:4px">2022 → 2025 (+43.2%, 매출 증가율의 3배)</div>
+      <div class="indicator-desc">같은 기간 <strong>매출은 +14.7%</strong> 증가했으나 판관비는 <strong>+43.2%</strong> 폭증. 신약 개발·론칭 마케팅(골관절염·당뇨), 생물학적동등성시험 투자, 영업 인력 확대가 복합 요인으로 추정. 매출총이익이 아무리 늘어도 판관비가 이를 잠식하는 구조.</div>
+    </div>
   </div>
-  <div style="margin-top:12px">
+  <div class="warning-box">
+    <strong>영업이익 하락의 본질:</strong> 2024→2025년 영업이익 <strong>106억 → 60억원(-43.4%)</strong> 급감은 매출 부진이 아닌 <strong>판관비 급증(974→1,057억, +8.5%)</strong>이 원인입니다.
+    매출총이익은 오히려 1,080→1,117억으로 증가했습니다. 즉, 제품을 파는 능력(원가 구조)은 개선 중이나,
+    신약 개발·론칭 투자 비용을 아직 매출이 따라가지 못하는 <strong>'투자 선행 → 수익 후행' 국면</strong>입니다.
+  </div>
+
+  <!-- 3. 2025 분기별 실적 -->
+  <div class="section-label" style="margin-top:16px">③ 2025년 분기별 영업이익 추이</div>
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th>분기</th>
+      <th style="text-align:right">매출액</th>
+      <th style="text-align:right">판매비·관리비</th>
+      <th style="text-align:right">영업이익</th>
+      <th style="text-align:right">영업이익률</th>
+      <th>비고</th>
+    </tr>
+    <tr>
+      <td>2025 Q1</td>
+      <td style="text-align:right">429억</td>
+      <td style="text-align:right;color:#8b949e">247억</td>
+      <td style="text-align:right" class="up">+20억</td>
+      <td style="text-align:right" class="up">4.7%</td>
+      <td style="font-size:12px;color:#8b949e">연초 안정적 출발</td>
+    </tr>
+    <tr style="background:rgba(0,212,170,0.05)">
+      <td style="font-weight:700;color:#00d4aa">2025 Q2 ★</td>
+      <td style="text-align:right">459억</td>
+      <td style="text-align:right;color:#8b949e">275억</td>
+      <td style="text-align:right" class="up"><strong>+33억</strong></td>
+      <td style="text-align:right" class="up"><strong>7.2%</strong></td>
+      <td style="font-size:12px;color:#00d4aa;font-weight:600">연간 최고 분기 — 매출·이익 동반 최고</td>
+    </tr>
+    <tr>
+      <td>2025 Q3</td>
+      <td style="text-align:right">415억</td>
+      <td style="text-align:right;color:#8b949e">256억</td>
+      <td style="text-align:right" class="neutral">+14억</td>
+      <td style="text-align:right" class="neutral">3.4%</td>
+      <td style="font-size:12px;color:#8b949e">하반기 매출 감소, 이익 축소</td>
+    </tr>
+    <tr style="background:rgba(255,68,68,0.04)">
+      <td style="color:#ff4444;font-weight:700">2025 Q4 ⚠</td>
+      <td style="text-align:right">428억</td>
+      <td style="text-align:right;color:#ff4444"><strong>278억</strong></td>
+      <td style="text-align:right" class="down"><strong>-8억</strong></td>
+      <td style="text-align:right" class="down"><strong>-1.9%</strong></td>
+      <td style="font-size:12px;color:#ff4444;font-weight:600">판관비 분기 최고치 → 영업적자</td>
+    </tr>
+    <tr style="background:#1c2128">
+      <td><strong>2025 합계</strong></td>
+      <td style="text-align:right"><strong>1,731억</strong></td>
+      <td style="text-align:right;color:#8b949e"><strong>1,057억</strong></td>
+      <td style="text-align:right"><strong>+60억</strong></td>
+      <td style="text-align:right"><strong>3.5%</strong></td>
+      <td style="font-size:12px;color:#8b949e">Q4 비용 집중이 연간 이익 압박</td>
+    </tr>
+  </table>
+  </div>
+  <div class="danger-box" style="margin-top:10px">
+    <strong>Q4 영업적자(-8억)의 구조:</strong> Q4 매출(428억)은 Q2(459억) 대비 낮지 않으나, 판관비가 278억으로 분기 중 최고치를 기록했습니다. 연말 신약 마케팅 강화·학술 행사·R&D 비용의 계절적 집중이 원인으로 추정됩니다. 이 패턴이 반복될 경우 2026년 Q4도 동일한 압박이 예상됩니다.
+  </div>
+
+  <!-- 4. 손상차손 -->
+  <div class="section-label" style="margin-top:16px">④ 당기순이익 -1,166억원 실체</div>
+  <div class="danger-box">
+    <strong>⚠ 대규모 손상차손 일시 반영:</strong> 영업이익은 60억원(흑자)이나, 자회사 엑세스바이오에 대한 손상차손 <strong>약 1,330억원</strong>을 일시에 인식한 결과. 장부가 1,679억 → 공정가치 349억 조정. <strong>현금 유출 없는 회계 손실</strong>이며, 코로나 진단 특수 소멸 + 에스테틱 피벗이라는 구조적 재평가를 2025년에 한꺼번에 반영한 것.<br><br>
+    <strong>⚠ "완전 해소"는 아님:</strong> 잔존 장부가 <strong>349억원</strong>에 대한 추가 손상 가능성은 여전히 열려 있습니다. K-IFRS(IAS 36)상 손상 징후 발생 시 매 보고기간 재검토가 의무화되며, 에스테틱 피벗(알에프바이오 등 3건 투자) 성과 부진 또는 엑세스바이오 현금 소진 지속 시 2026년 이후에도 <strong>소규모 손상차손이 반복될 수 있습니다.</strong> 피벗 성과 확인 전까지 349억 공정가치를 지지하는 근거가 아직 미검증입니다.
+  </div>
+
+  <!-- 5. 재무 강점·리스크 -->
+  <div style="margin-top:14px">
     <strong style="color:#8b949e;font-size:12px">재무 강점</strong>
     <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
-      <li>매출액 3년 연속 성장 (1,668→1,713→1,731억원), 수익 기반 꾸준한 확대</li>
-      <li>영업이익 흑자 유지 (2025년 60억원) — 영업 본체는 정상 작동 중</li>
-      <li>엑세스바이오 손상차손 처리 완료 → 2026년부터 재무 부담 해소</li>
-      <li>골관절염 개량신약 첫해 매출 30억원 달성 — 신약 포트폴리오 가시화</li>
+      <li><strong>매출 4년 연속 성장</strong> (1,509→1,668→1,713→1,731억) — 수익 기반 꾸준한 확대</li>
+      <li><strong>매출총이익률 53.9% → 64.5%</strong> — 원가 경쟁력과 제품 믹스 꾸준히 개선</li>
+      <li>영업이익 흑자 유지 (2025년 60억) — 본업 영업 체력 정상 작동 중</li>
+      <li>FCF 3년 연속 흑자 (2023~2025) — 실제 현금 창출력 검증됨</li>
+      <li>골관절염 개량신약 첫해 매출 30억원 달성 — 신약 포트폴리오 현금화 시작</li>
     </ul>
-    <strong style="color:#8b949e;font-size:12px;margin-top:10px;display:block">재무 리스크</strong>
+    <strong style="color:#8b949e;font-size:12px;margin-top:12px;display:block">재무 리스크</strong>
     <ul style="margin:8px 0 0 16px;font-size:13px;line-height:1.8">
-      <li>영업이익률 6.4% → 3.5% 하락 추세 — 원가·판관비 구조 개선 필요</li>
-      <li>엑세스바이오 에스테틱 사업 전환 성과가 불확실 (신규 투자 단계)</li>
-      <li>시가총액 935억원으로 제약 업종 내 소형주 — 기관 관심도 제한적</li>
+      <li><strong>판관비율 48.9% → 61.1%</strong> — 매출 증가율(+14.7%)의 3배 속도로 비용 증가 중</li>
+      <li>Q4 구조적 판관비 집중 패턴 → 연간 이익의 변동성 확대 요인</li>
+      <li>엑세스바이오 에스테틱 피벗 성과 불확실 — 추가 손상차손 가능성 잔존</li>
+      <li>시가총액 935억원 (소형주) — 기관 커버리지 제한, 유동성 리스크</li>
     </ul>
   </div>
 
-  <!-- FCF 상세 섹션 -->
+  <!-- 6. FCF 상세 섹션 -->
   <div style="margin-top:20px;border-top:1px solid #21262d;padding-top:16px">
-    <strong style="color:#f0f6fc;font-size:14px">💡 잉여현금흐름(FCF)이란 무엇인가 — 개념과 DART 검증 수치</strong>
-
+    <div class="section-label">⑤ 잉여현금흐름(FCF) — DART 검증 수치</div>
     <div style="font-size:13px;line-height:1.8;color:#8b949e;margin:10px 0 12px">
-      <strong style="color:#c9d1d9">FCF(Free Cash Flow, 잉여현금흐름)</strong>이란 영업활동으로 벌어들인 현금에서
-      실물 자산 유지·확장에 쓴 자본적 지출(CAPEX)을 차감한 수치입니다.
-      순이익과 달리 감가상각·손상차손 등 비현금 회계 항목의 영향을 받지 않아,
-      <strong style="color:#c9d1d9">"기업이 실제로 얼마나 현금을 버는가"</strong>를 가장 직접적으로 보여줍니다.
+      <strong style="color:#c9d1d9">FCF = 영업활동현금흐름 − 유형자산의 취득(CAPEX)</strong>. 감가상각·손상차손 등 비현금 항목의 영향을 받지 않아 <strong style="color:#c9d1d9">"실제 현금 창출력"</strong>을 직접 보여주는 지표입니다.
     </div>
-
-    <div class="warning-box" style="margin-bottom:12px">
-      <strong>이 보고서의 FCF 계산식 (DART 별도재무제표 기준)</strong><br>
-      <code style="font-size:14px;font-weight:800;color:#ffc400;background:rgba(0,0,0,.3);padding:3px 8px;border-radius:4px;display:inline-block;margin:6px 0">FCF = 영업활동현금흐름 − 유형자산의 취득(CAPEX)</code>
-    </div>
-
-    <div style="font-size:12px;color:#484f58;margin-bottom:8px">
-      ▼ DART 금융감독원 사업보고서(별도재무제표) 원천 데이터 기반 · FnGuide 제공 (2026.05.17 기준)
-    </div>
-
+    <div style="font-size:12px;color:#484f58;margin-bottom:8px">▼ DART 사업보고서(별도재무제표) 원천 데이터 기반 · FnGuide 집계 (2026.05.17)</div>
     <div class="table-wrap">
     <table>
       <tr>
@@ -423,42 +598,36 @@
       </tr>
       <tr>
         <td>2022</td>
-        <td style="text-align:right" class="down">-13억원</td>
-        <td style="text-align:right;color:#8b949e">-99억원</td>
-        <td style="text-align:right;font-weight:800" class="down">-112억원</td>
+        <td style="text-align:right" class="down">-13억</td>
+        <td style="text-align:right;color:#8b949e">-99억</td>
+        <td style="text-align:right;font-weight:800" class="down">-112억</td>
         <td style="font-size:12px;color:#8b949e">대규모 생산설비 투자 집중기</td>
       </tr>
       <tr style="background:rgba(0,212,170,0.05)">
         <td style="color:#00d4aa;font-weight:700">2023 ★</td>
-        <td style="text-align:right" class="up">+134억원</td>
-        <td style="text-align:right;color:#8b949e">-23억원</td>
-        <td style="text-align:right;font-weight:800" class="up">+111억원</td>
-        <td style="font-size:12px;color:#00d4aa;font-weight:600">FCF 흑자 전환 — 본업 현금 창출 시작</td>
+        <td style="text-align:right" class="up">+134억</td>
+        <td style="text-align:right;color:#8b949e">-23억</td>
+        <td style="text-align:right;font-weight:800" class="up">+111억</td>
+        <td style="font-size:12px;color:#00d4aa;font-weight:600">FCF 흑자 전환</td>
       </tr>
       <tr>
         <td>2024</td>
-        <td style="text-align:right" class="up">+24억원</td>
-        <td style="text-align:right;color:#8b949e">-9억원</td>
-        <td style="text-align:right;font-weight:800" class="up">+15억원</td>
+        <td style="text-align:right" class="up">+24억</td>
+        <td style="text-align:right;color:#8b949e">-9억</td>
+        <td style="text-align:right;font-weight:800" class="up">+15억</td>
         <td style="font-size:12px;color:#8b949e">흑자 유지 (CAPEX 안정화)</td>
       </tr>
       <tr style="background:rgba(0,212,170,0.06)">
         <td style="font-weight:700">2025 ★</td>
-        <td style="text-align:right" class="up">+53억원</td>
-        <td style="text-align:right;color:#8b949e">-15억원</td>
-        <td style="text-align:right;font-weight:800;color:#00d4aa;font-size:15px">+38억원</td>
-        <td style="font-size:12px;color:#00d4aa;font-weight:600">FCF 확대 — 3년 연속 흑자</td>
+        <td style="text-align:right" class="up">+53억</td>
+        <td style="text-align:right;color:#8b949e">-15억</td>
+        <td style="text-align:right;font-weight:800;color:#00d4aa;font-size:15px">+38억</td>
+        <td style="font-size:12px;color:#00d4aa;font-weight:600">3년 연속 흑자 — 본업 현금 창출 지속</td>
       </tr>
     </table>
     </div>
-
     <div class="highlight-box" style="margin-top:12px">
-      <strong>FCF vs 당기순이익의 극단적 괴리:</strong> 2025년 당기순이익은 <span class="down">-1,166억원(대규모 적자)</span>이지만
-      FCF는 <span class="up">+38억원(흑자)</span>입니다.
-      자회사 엑세스바이오 손상차손 1,330억원은 <strong>현금이 실제로 나간 것이 아닌 장부가 조정</strong>이므로
-      FCF에 전혀 영향을 주지 않습니다.<br><br>
-      2023년 이후 FCF 3년 연속 흑자는 팜젠사이언스의 본업 현금 창출력이 견조하게 유지되고 있음을 뜻합니다.
-      회계 손실만 보고 기업 체력을 판단하는 것은 왜곡일 수 있습니다.
+      <strong>FCF vs 당기순이익의 극단적 괴리:</strong> 2025년 당기순이익 <span class="down">-1,166억원</span>이지만 FCF는 <span class="up">+38억원(흑자)</span>. 손상차손 1,330억원은 <strong>현금 유출 없는 장부가 조정</strong>이므로 FCF에 영향 없습니다. 회계 손실만 보고 기업 체력을 판단하는 것은 왜곡입니다.
     </div>
   </div>
 </div>
