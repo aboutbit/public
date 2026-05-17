@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이수앱지스(086890) 심층 분석 리포트 v2 · 2026.05.17</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222636;
+    --border: #2e3248;
+    --accent: #4f8ef7;
+    --accent2: #7c5cfc;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --orange: #f97316;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #222046 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 24px 32px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(79,142,247,0.15);
+    border: 1px solid rgba(79,142,247,0.4);
+    color: var(--accent);
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 32px; font-weight: 800;
+    background: linear-gradient(90deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header .subtitle { color: var(--muted); font-size: 14px; }
+  .price-hero {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-top: 24px; flex-wrap: wrap;
+  }
+  .price-main { font-size: 48px; font-weight: 900; color: var(--red); }
+  .price-change { font-size: 20px; color: var(--red); font-weight: 600; }
+  .as-of { color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+  /* ── 레이아웃 ── */
+  .container { max-width: 980px; margin: 0 auto; padding: 32px 24px; }
+  .section { margin-bottom: 44px; }
+  .section-title {
+    font-size: 20px; font-weight: 700; color: #fff;
+    margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; box-shadow: var(--card-shadow);
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  @media(max-width:660px){
+    .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr 1fr; }
+    .price-main { font-size: 36px; }
+  }
+  @media(max-width:420px){
+    .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── KPI 카드 ── */
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 16px;
+  }
+  .kpi-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .kpi-value { font-size: 22px; font-weight: 800; }
+  .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .up { color: var(--green); }
+  .dn { color: var(--red); }
+  .warn { color: var(--yellow); }
+  .neutral { color: var(--muted); }
+  .info { color: var(--accent); }
+
+  /* ── 범위 바 ── */
+  .range-bar-wrap { margin: 20px 0; }
+  .range-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .range-bar-bg { height: 10px; background: var(--surface2); border-radius: 99px; position: relative; }
+  .range-bar-fill { position: absolute; left:0; top:0; height:100%; border-radius:99px; background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 50%, var(--green) 100%); }
+  .range-needle { position: absolute; top:-4px; width:18px; height:18px; background:#fff; border:3px solid var(--accent); border-radius:50%; transform:translateX(-50%); box-shadow:0 2px 8px rgba(0,0,0,.5); }
+  .range-cur-label { text-align:center; font-size:13px; color:var(--accent); font-weight:700; margin-top:14px; }
+
+  /* ── 테이블 ── */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { background:var(--surface2); color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.5px; padding:10px 12px; text-align:left; }
+  td { padding:11px 12px; border-top:1px solid var(--border); vertical-align:top; }
+  tr:hover td { background:rgba(255,255,255,.02); }
+
+  /* ── 신호 게이지 ── */
+  .signal-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid var(--border); }
+  .signal-row:first-child { border-top:none; }
+  .signal-name { width:160px; font-size:13px; color:var(--muted); flex-shrink:0; }
+  .signal-bar-wrap { flex:1; height:8px; background:var(--surface2); border-radius:99px; position:relative; }
+  .signal-bar { height:100%; border-radius:99px; }
+  .signal-val { width:64px; text-align:right; font-size:12px; font-weight:700; flex-shrink:0; }
+  .signal-tag { font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; width:70px; text-align:center; flex-shrink:0; }
+  .tag-strong-buy { background:rgba(34,197,94,.2); color:var(--green); }
+  .tag-buy { background:rgba(34,197,94,.1); color:#86efac; }
+  .tag-neutral { background:rgba(148,163,184,.15); color:var(--muted); }
+  .tag-sell { background:rgba(239,68,68,.1); color:#fca5a5; }
+  .tag-strong-sell { background:rgba(239,68,68,.2); color:var(--red); }
+
+  /* ── 기술 지표 박스 ── */
+  .indicator-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  @media(max-width:600px){ .indicator-grid { grid-template-columns:1fr 1fr; } }
+  .indicator-box {
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:10px; padding:14px 12px;
+  }
+  .ind-label { font-size:11px; color:var(--muted); font-weight:600; margin-bottom:6px; text-transform:uppercase; }
+  .ind-value { font-size:20px; font-weight:800; }
+  .ind-signal { font-size:11px; margin-top:4px; font-weight:600; }
+  .ind-desc { font-size:11px; color:var(--muted); margin-top:4px; line-height:1.5; }
+
+  /* ── 피보나치 바 ── */
+  .fib-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--border); }
+  .fib-row:first-child { border-top:none; }
+  .fib-level { width:52px; font-size:12px; font-weight:700; flex-shrink:0; }
+  .fib-price { width:64px; font-size:13px; font-weight:700; flex-shrink:0; }
+  .fib-bar-wrap { flex:1; height:6px; background:var(--surface2); border-radius:99px; }
+  .fib-bar { height:100%; border-radius:99px; }
+  .fib-desc { width:120px; font-size:11px; color:var(--muted); text-align:right; flex-shrink:0; }
+
+  /* ── 연간 차트 ── */
+  .year-chart { display:flex; gap:12px; align-items:flex-end; height:140px; margin:16px 0; }
+  .year-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .year-rect { width:100%; border-radius:4px 4px 0 0; min-height:4px; }
+  .year-label { font-size:11px; color:var(--muted); }
+  .year-val { font-size:11px; font-weight:600; }
+
+  /* ── 시나리오 카드 ── */
+  .scenario-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media(max-width:640px){ .scenario-grid { grid-template-columns:1fr; } }
+  .scenario-card {
+    border-radius:14px; padding:20px;
+    border: 1px solid var(--border);
+  }
+  .scenario-header { font-size:13px; font-weight:700; margin-bottom:4px; }
+  .scenario-date { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .scenario-range { font-size:22px; font-weight:800; margin-bottom:12px; }
+  .scenario-item { font-size:13px; color:var(--muted); padding:5px 0; border-top:1px solid var(--border); line-height:1.5; }
+  .scenario-item:first-child { border-top:none; }
+  .scenario-item strong { color:var(--text); }
+  .scenario-prob { display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; margin-top:10px; }
+
+  /* ── 파이프라인 ── */
+  .pipeline-item { display:flex; gap:14px; padding:14px 0; border-top:1px solid var(--border); }
+  .pipeline-item:first-child { border-top:none; }
+  .pipeline-stage { width:80px; flex-shrink:0; font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; text-align:center; height:fit-content; margin-top:2px; }
+  .stage-done { background:rgba(34,197,94,.2); color:var(--green); }
+  .stage-signed { background:rgba(79,142,247,.2); color:var(--accent); }
+  .stage-p2 { background:rgba(124,92,252,.2); color:#a78bfa; }
+  .stage-p1 { background:rgba(245,158,11,.15); color:var(--yellow); }
+  .stage-pre { background:rgba(148,163,184,.15); color:var(--muted); }
+  .pipeline-info .name { font-weight:700; font-size:14px; }
+  .pipeline-info .desc { font-size:13px; color:var(--muted); margin-top:4px; }
+  .pipeline-info .note { font-size:12px; color:var(--yellow); margin-top:4px; }
+  .pipeline-info .good { font-size:12px; color:var(--green); margin-top:4px; }
+
+  /* ── 위험도 게이지 ── */
+  .risk-gauge { display:flex; gap:6px; margin:12px 0; }
+  .risk-cell { flex:1; height:8px; border-radius:4px; }
+
+  /* ── 최종 결론 ── */
+  .verdict {
+    background:linear-gradient(135deg,#1a1d27 0%,#1e2040 100%);
+    border:1px solid rgba(79,142,247,.3); border-radius:16px; padding:28px 24px;
+  }
+  .verdict-row { display:flex; gap:12px; margin-bottom:10px; }
+  .verdict-bullet { width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; margin-top:2px; }
+  .bullet-green { background:rgba(34,197,94,.2); color:var(--green); }
+  .bullet-red { background:rgba(239,68,68,.2); color:var(--red); }
+  .bullet-yellow { background:rgba(245,158,11,.2); color:var(--yellow); }
+  .verdict-text { font-size:14px; line-height:1.75; }
+  .score-box { background:var(--surface2); border-radius:12px; padding:16px; text-align:center; }
+  .score-number { font-size:52px; font-weight:900; }
+  .score-label { color:var(--muted); font-size:13px; }
+  .score-desc { font-size:13px; margin-top:6px; font-weight:600; }
+
+  /* ── 유틸 ── */
+  .highlight-box { background:rgba(79,142,247,.07); border-left:3px solid var(--accent); padding:12px 16px; border-radius:0 8px 8px 0; font-size:14px; margin:14px 0; }
+  .note-box { background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.25); border-radius:10px; padding:14px 16px; font-size:13px; color:#fcd34d; margin-top:14px; }
+  .good-box { background:rgba(34,197,94,.07); border:1px solid rgba(34,197,94,.25); border-radius:10px; padding:14px 16px; font-size:13px; color:#86efac; margin-top:14px; }
+  .divider { height:1px; background:var(--border); margin:36px 0; }
+  .source { font-size:12px; color:var(--muted); margin-top:40px; padding-top:16px; border-top:1px solid var(--border); }
+  .source a { color:var(--accent); text-decoration:none; }
+  .source a:hover { text-decoration:underline; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; }
+  .tag-green { background:rgba(34,197,94,.15); color:var(--green); }
+  .tag-red { background:rgba(239,68,68,.15); color:var(--red); }
+  .tag-yellow { background:rgba(245,158,11,.15); color:var(--yellow); }
+  .tag-blue { background:rgba(79,142,247,.15); color:var(--accent); }
+  .section-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  .nav-pill { background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ HEADER ══════════════════════════ -->
+<div class="header">
+  <div class="badge">심층 분석 리포트 v2 · 중장기 투자 관점 포함 · 2026.05.17</div>
+  <h1>이수앱지스 (086890)</h1>
+  <div class="subtitle">KOSDAQ · 바이오의약품 · 설립 2001년 · 상장 2009년 · 직원 178명</div>
+  <div class="price-hero">
+    <div>
+      <div class="price-main">₩4,135</div>
+      <div class="price-change">▼ 170원 (-3.95%)</div>
+      <div class="as-of">2026.05.15 기준 · 52주 최고(₩6,350) 대비 <strong style="color:#f87171;">-34.9%</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section-nav">
+  <div class="nav-pill">① 주가 위치</div>
+  <div class="nav-pill">② 심층 기술적 분석</div>
+  <div class="nav-pill">③ 재무 상태</div>
+  <div class="nav-pill">④ 파이프라인</div>
+  <div class="nav-pill">⑤ 리스크</div>
+  <div class="nav-pill">⑥ 중장기 시나리오 ★</div>
+  <div class="nav-pill">⑦ 종합 결론</div>
+</div>
+
+<!-- ══════ ① 주가 위치 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(239,68,68,.15);">📉</div>
+    ① 현재 주가 위치
+  </div>
+  <div class="card">
+    <div class="grid-4">
+      <div class="kpi-card">
+        <div class="kpi-label">현재가</div>
+        <div class="kpi-value dn">₩4,135</div>
+        <div class="kpi-sub">2026.05.15</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">52주 최고</div>
+        <div class="kpi-value up">₩6,350</div>
+        <div class="kpi-sub">고점 대비 -34.9%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">52주 최저</div>
+        <div class="kpi-value dn">₩3,810</div>
+        <div class="kpi-sub">저점 대비 +8.5%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">1년 수익률</div>
+        <div class="kpi-value dn">-17.5%</div>
+        <div class="kpi-sub">시장 대비 부진</div>
+      </div>
+    </div>
+    <div class="range-bar-wrap" style="margin-top:24px;">
+      <div class="range-labels">
+        <span>52주 최저 ₩3,810</span>
+        <span>52주 최고 ₩6,350</span>
+      </div>
+      <div class="range-bar-bg">
+        <div class="range-bar-fill" style="width:100%;"></div>
+        <!-- 현재가 위치: (4135-3810)/(6350-3810) = 12.8% -->
+        <div class="range-needle" style="left:12.8%;"></div>
+      </div>
+      <div class="range-cur-label">현재가 ₩4,135 — 52주 범위 하단 12.8% 위치 · 역사적 저점권</div>
+    </div>
+    <div class="highlight-box" style="margin-top:8px;">
+      주가는 52주 최저가(₩3,810) 바로 위에 위치한 <strong>역사적 저점권</strong>입니다.
+      고점 대비 -34.9% 하락했지만, 이는 동시에 반등 여력이 그만큼 크다는 의미이기도 합니다.
+      중장기 투자자 관점에서는 "쌀 때 들어가는 구간"에 해당합니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ② 심층 기술적 분석 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(79,142,247,.15);">📊</div>
+    ② 심층 기술적 분석 — 이동평균 · MACD · ADX · CCI · 피보나치
+  </div>
+
+  <!-- 2-A 이동평균 배열 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:4px;">A. 이동평균선 배열 분석 (Moving Average Alignment)</div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">주가와 각 이동평균의 관계가 추세의 방향과 강도를 보여줍니다.</div>
+
+    <div class="signal-row">
+      <div class="signal-name">현재가</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:100%; background:var(--border);"></div></div>
+      <div class="signal-val neutral">₩4,135</div>
+      <div class="signal-tag tag-neutral">기준</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA5 (단기5일)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:65%; background:var(--green);"></div></div>
+      <div class="signal-val up">₩4,126</div>
+      <div class="signal-tag tag-buy">매수</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA50 (중기50일)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:72%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩4,268</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA200 (장기200일)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:82%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩4,640</div>
+      <div class="signal-tag tag-strong-sell">강저항</div>
+    </div>
+
+    <div class="note-box">
+      <strong>데드크로스 완성 상태:</strong> MA5(4,126) &lt; MA50(4,268) &lt; MA200(4,640) — 단기·중기·장기 모두 하락 배열.<br>
+      골든크로스(반등 신호) 조건: MA5가 MA50 위로 돌파 필요 → 현재 약 133원 차이. MA5가 현재가와 거의 동일하다는 건 <strong class="up">단기 하락 속도가 멈췄다</strong>는 신호입니다.
+    </div>
+    <div class="good-box" style="margin-top:8px;">
+      <strong>중장기 관점 해석:</strong> 장기 이동평균(MA200: ₩4,640)이 회복 목표가 됩니다.
+      MA200 돌파 시 본격 상승 추세 전환 확인 → <strong>단기 목표 ₩4,640 → 중기 목표 ₩5,500</strong>
+    </div>
+  </div>
+
+  <!-- 2-B 모멘텀 지표 -->
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">B. MACD — 모멘텀 방향</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">MACD Line (12,26)</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">-45.3</span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          음수 영역 = 단기(12일) 이평이 장기(26일) 이평 아래에 있음.<br>
+          하락 모멘텀이 지속되고 있으나, <strong style="color:var(--yellow);">-45 수준은 극단적 음수</strong> → 반등 전 과도한 눌림목일 가능성.
+        </div>
+      </div>
+      <table>
+        <tr><th>해석 포인트</th><th>현재 상태</th></tr>
+        <tr><td>MACD &lt; 0</td><td class="dn">하락 추세 지속</td></tr>
+        <tr><td>히스토그램 방향</td><td class="warn">축소 중(감소세 둔화)</td></tr>
+        <tr><td>Signal Line 돌파</td><td class="warn">미달성 (관전 포인트)</td></tr>
+        <tr><td>제로선 돌파</td><td class="warn">상승 전환 핵심 조건</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">C. ADX — 추세 강도</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">ADX(14)</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">37.8</span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          ADX &gt; 25 = 강한 추세 존재. ADX 37.8 = 현재 하락 추세가 <strong style="color:var(--red);">매우 강력</strong>하게 작동 중.<br>
+          ADX는 방향을 말하지 않고 추세의 세기만 측정 — -DI &gt; +DI 확인되면 하락 추세 확정.
+        </div>
+      </div>
+      <table>
+        <tr><th>ADX 수준</th><th>의미</th></tr>
+        <tr><td>0~25</td><td class="neutral">추세 없음 (횡보)</td></tr>
+        <tr><td>25~50</td><td class="warn">강한 추세 ← 현재(37.8)</td></tr>
+        <tr><td>50~75</td><td class="dn">매우 강한 추세</td></tr>
+        <tr><td>75~100</td><td class="dn">극단적 추세</td></tr>
+      </table>
+      <div class="note-box" style="margin-top:10px;">
+        ADX &gt; 25이면 역추세 매매(반등 베팅) 위험. 추세 확인 후 진입 권장.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-C 과매도 지표 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:14px;">D. 과매도 지표 — CCI · Stochastic · RSI · ATR</div>
+    <div class="indicator-grid">
+      <div class="indicator-box">
+        <div class="ind-label">CCI (14일)</div>
+        <div class="ind-value dn">-133.2</div>
+        <div class="ind-signal up">⚡ 극도 과매도</div>
+        <div class="ind-desc">-100 이하 = 과매도 경고. -133은 역사적 저점권. 기술적 반등 여건 성숙. 반등 후 중립(-100~+100) 복귀 시도 예상.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">Stochastic (14일)</div>
+        <div class="ind-value warn">35.8</div>
+        <div class="ind-signal warn">↘ 약세권</div>
+        <div class="ind-desc">20 이하 = 과매도. 현재 35.8로 과매도 직전 구간. %K가 %D 상향돌파 시 매수 신호 발생 기대.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">RSI (14일)</div>
+        <div class="ind-value warn">43.8</div>
+        <div class="ind-signal warn">↘ 중립 이하</div>
+        <div class="ind-desc">30 이하 = 과매도, 70 이상 = 과매수. 현재 43.8은 중립 이하지만 아직 과매도 미진입. 40선 지지 시 반등 시도 가능.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">ATR (14일)</div>
+        <div class="ind-value neutral">92.9원</div>
+        <div class="ind-signal neutral">📏 일간 변동</div>
+        <div class="ind-desc">일평균 변동폭 ≈93원(2.2%). 중간 수준의 변동성. 손절선 설정 시 ATR×2 = 약 186원 여유 필요.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">MA 신호 종합</div>
+        <div class="ind-value dn">2 / 12</div>
+        <div class="ind-signal dn">매수2 · 매도10</div>
+        <div class="ind-desc">단기(MA5) 매수 신호만 켜진 상태. 중장기 이평선 모두 매도 배열. 추세 반전까지 시간 필요.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">기술적 종합</div>
+        <div class="ind-value dn">Strong<br>Sell</div>
+        <div class="ind-signal warn">⚠ 단기 주의</div>
+        <div class="ind-desc">현재 기술적 지표 다수 매도 신호. 단기 매매자에게 불리. 중장기 관점에서는 저점 누적 구간.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-D 피보나치 -->
+  <div class="card">
+    <div style="font-weight:700; font-size:15px; margin-bottom:4px;">E. 피보나치 되돌림 분석 (Fibonacci Retracement)</div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">
+      기준: 52주 저점 ₩3,810 → 52주 고점 ₩6,350 (상승폭 ₩2,540). 현재가(₩4,135)는 아직 23.6% 회복 레벨에도 미치지 못한 상태.
+    </div>
+
+    <div class="fib-row">
+      <div class="fib-level" style="color:var(--green);">0%</div>
+      <div class="fib-price up">₩3,810</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:0%; background:var(--green);"></div></div>
+      <div class="fib-desc" style="color:var(--green);">52주 저점 · 강지지</div>
+    </div>
+    <div class="fib-row" style="background:rgba(79,142,247,.05); border-radius:6px; padding:8px 0 8px 4px; margin:2px 0;">
+      <div class="fib-level" style="color:var(--accent); font-size:14px;">현재가</div>
+      <div class="fib-price info">₩4,135</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:12.8%; background:var(--accent);"></div></div>
+      <div class="fib-desc" style="color:var(--accent);">⬅ 여기에 있음 (12.8%)</div>
+    </div>
+    <div class="fib-row">
+      <div class="fib-level" style="color:var(--yellow);">23.6%</div>
+      <div class="fib-price warn">₩4,409</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:23.6%; background:var(--yellow);"></div></div>
+      <div class="fib-desc">1차 저항 · 단기 목표</div>
+    </div>
+    <div class="fib-row">
+      <div class="fib-level" style="color:var(--orange);">38.2%</div>
+      <div class="fib-price warn">₩4,781</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:38.2%; background:var(--orange);"></div></div>
+      <div class="fib-desc">2차 저항 · 중기 목표</div>
+    </div>
+    <div class="fib-row">
+      <div class="fib-level" style="color:#fb923c;">50%</div>
+      <div class="fib-price" style="color:#fb923c;">₩5,080</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:50%; background:#fb923c;"></div></div>
+      <div class="fib-desc">심리적 반환점 · 6M 목표</div>
+    </div>
+    <div class="fib-row">
+      <div class="fib-level" style="color:#a78bfa;">61.8%</div>
+      <div class="fib-price" style="color:#a78bfa;">₩5,379</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:61.8%; background:#a78bfa;"></div></div>
+      <div class="fib-desc">황금비율 · 12M 목표</div>
+    </div>
+    <div class="fib-row">
+      <div class="fib-level" style="color:var(--green);">100%</div>
+      <div class="fib-price up">₩6,350</div>
+      <div class="fib-bar-wrap"><div class="fib-bar" style="width:100%; background:var(--green);"></div></div>
+      <div class="fib-desc">52주 고점 · 18M 목표</div>
+    </div>
+
+    <div class="good-box" style="margin-top:16px;">
+      <strong>중장기 투자자 시각:</strong> 현재가(₩4,135)는 피보나치 0~23.6% 사이 — 반등의 출발선에 있습니다.
+      6개월 내 38.2% 레벨(₩4,781), 12개월 내 61.8% 레벨(₩5,379)을 목표로 할 수 있습니다.
+      각 피보나치 레벨이 저항이자 도달 목표가 됩니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ③ 재무 분석 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(34,197,94,.15);">💰</div>
+    ③ 재무 상태 — 5개년 추이 분석
+  </div>
+
+  <div class="grid-4" style="margin-bottom:16px;">
+    <div class="kpi-card">
+      <div class="kpi-label">시가총액</div>
+      <div class="kpi-value neutral">1,685억</div>
+      <div class="kpi-sub">소형주</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">FY2025 매출</div>
+      <div class="kpi-value dn">567억</div>
+      <div class="kpi-sub">-6% YoY</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">FY2025 순이익</div>
+      <div class="kpi-value dn">-107억</div>
+      <div class="kpi-sub">적자 재발</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">FY2025 잉여현금</div>
+      <div class="kpi-value up">+67억</div>
+      <div class="kpi-sub">흑자 전환!</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-weight:700; font-size:15px; margin-bottom:16px;">5개년 연간 실적 추이 (단위: 억원)</div>
+    <div class="year-chart">
+      <div class="year-col">
+        <div class="year-val neutral">280</div>
+        <div class="year-rect" style="height:44%; background:var(--accent); opacity:0.5;"></div>
+        <div class="year-label">2021</div>
+      </div>
+      <div class="year-col">
+        <div class="year-val neutral">412</div>
+        <div class="year-rect" style="height:64%; background:var(--accent); opacity:0.6;"></div>
+        <div class="year-label">2022</div>
+      </div>
+      <div class="year-col">
+        <div class="year-val neutral">543</div>
+        <div class="year-rect" style="height:85%; background:var(--accent); opacity:0.7;"></div>
+        <div class="year-label">2023</div>
+      </div>
+      <div class="year-col">
+        <div class="year-val up">603</div>
+        <div class="year-rect" style="height:95%; background:var(--green); opacity:0.85;"></div>
+        <div class="year-label">2024 ★</div>
+      </div>
+      <div class="year-col">
+        <div class="year-val dn">567</div>
+        <div class="year-rect" style="height:89%; background:var(--red); opacity:0.7;"></div>
+        <div class="year-label">2025</div>
+      </div>
+      <div class="year-col">
+        <div class="year-val up" style="font-size:12px;">94(Q1)</div>
+        <div class="year-rect" style="height:15%; background:var(--green); opacity:0.9;"></div>
+        <div class="year-label" style="color:var(--green);">2026 Q1</div>
+      </div>
+    </div>
+
+    <table style="margin-top:8px;">
+      <tr>
+        <th>연도</th>
+        <th>매출</th>
+        <th>영업이익</th>
+        <th>순이익</th>
+        <th>잉여현금(FCF)</th>
+        <th>비고</th>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>280억</td>
+        <td class="dn">-90억</td>
+        <td class="up">+8억</td>
+        <td class="neutral">-</td>
+        <td style="font-size:12px; color:var(--muted);">초기 성장기</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>412억</td>
+        <td class="dn">-160억</td>
+        <td class="dn">-72억</td>
+        <td class="neutral">-</td>
+        <td style="font-size:12px; color:var(--muted);">R&D 투자 집중</td>
+      </tr>
+      <tr>
+        <td>2023</td>
+        <td>543억</td>
+        <td class="warn">+39억</td>
+        <td class="up">+36억</td>
+        <td class="dn">-54억</td>
+        <td style="font-size:12px; color:var(--muted);">첫 흑자 전환</td>
+      </tr>
+      <tr>
+        <td style="color:var(--green); font-weight:700;">2024 ★</td>
+        <td class="up">603억</td>
+        <td class="up">+134억</td>
+        <td class="up">+147억</td>
+        <td class="dn">-28억</td>
+        <td style="font-size:12px; color:var(--green); font-weight:600;">역대 최대 실적</td>
+      </tr>
+      <tr>
+        <td>2025</td>
+        <td class="dn">567억</td>
+        <td class="warn">+16억</td>
+        <td class="dn">-107억</td>
+        <td class="up">+67억</td>
+        <td style="font-size:12px; color:var(--muted);">순이익 적자 재발, FCF 흑자</td>
+      </tr>
+      <tr style="background:rgba(34,197,94,.04);">
+        <td style="color:var(--accent); font-weight:700;">2026 Q1</td>
+        <td class="up">94억 (+32%)</td>
+        <td class="dn">-34억</td>
+        <td class="dn">-2억</td>
+        <td class="neutral">-</td>
+        <td style="font-size:12px; color:var(--accent);">2Q 흑자전환 예고</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box" style="margin-top:14px;">
+      <strong>핵심 패턴:</strong> 2021→2024년까지 매출 <strong>2.15배 성장</strong> (280억→603억).
+      2025년 매출 소폭 감소(-6%)는 우려되지만,
+      <strong class="up">잉여현금흐름(FCF)이 -54억→-28억→+67억으로 급격히 개선</strong>되고 있습니다.
+      FCF 흑자는 회사가 실제로 현금을 창출하기 시작했다는 신호 — 순이익 적자보다 훨씬 중요한 지표입니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ④ 파이프라인 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(124,92,252,.15);">🧬</div>
+    ④ 파이프라인 & 성장 동력 — 이미 성과가 나오고 있음
+  </div>
+  <div class="card">
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-done">판매중</div>
+      <div class="pipeline-info">
+        <div class="name">기존 주력 제품 (ISU302 외 희귀질환 바이오의약품)</div>
+        <div class="desc">혈우병(클로티냅), 고셔병(파바갈) 등 안정적 현금흐름 창출.</div>
+        <div class="good">✅ 2026 Q1 매출 +31.6% 성장 확인 — 기존 제품 견조 + 로열티 유입</div>
+      </div>
+    </div>
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-done">품목허가</div>
+      <div class="pipeline-info">
+        <div class="name">ISU305 (솔리리스 바이오시밀러) — 러시아 2026.01 허가 ✅</div>
+        <div class="desc">발작성 야간 혈색소뇨증(PNH) 치료제. 러시아 파마신테즈 기술수출 → 2026년 1월 러시아 보건당국 품목허가 획득.</div>
+        <div class="good">✅ 러시아 에쿨리주맙 시장 약 5,500만달러 규모. 판매 시작 → <strong>로열티 수익 연간화 시작</strong>. 마일스톤 수령 중.</div>
+      </div>
+    </div>
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-signed">계약완료</div>
+      <div class="pipeline-info">
+        <div class="name">ISU104 (ErbB3 항체 항암제) — 미국 기업에 8,550만달러 기술수출 ✅</div>
+        <div class="desc">HER3/ErbB3 표적 항체치료제. 두경부암·유방암·대장암 적응증. 임상 1상 완료.</div>
+        <div class="good">✅ 2024년 6월 미국 항암제 개발기업과 <strong>총 8,550만달러(약 1,185억원)</strong> 기술이전 계약 체결. FDA IND 제출 진행 중.</div>
+        <div class="note">💡 단계별 마일스톤 + 임상 성공 시 추가 수령. 주가 상승 모멘텀 이미 발동됨.</div>
+      </div>
+    </div>
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-p1">전임상</div>
+      <div class="pipeline-info">
+        <div class="name">ISU203 (신경·염증질환 항체)</div>
+        <div class="desc">비임상 단계. 신경질환 및 염증성 질환 타깃.</div>
+        <div class="note">📅 2~3년 내 임상 진입 목표 (중장기 모멘텀)</div>
+      </div>
+    </div>
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-pre">연구단계</div>
+      <div class="pipeline-info">
+        <div class="name">PRE2401·2501·2502 (면역항암) · PRE2503 (희귀질환)</div>
+        <div class="desc">4대 질환군(암·염증·섬유화·신경) 전략적 R&D 포트폴리오.</div>
+        <div class="note">📅 장기 파이프라인 (5년 이상)</div>
+      </div>
+    </div>
+    <div class="pipeline-item">
+      <div class="pipeline-stage stage-pre">준비중</div>
+      <div class="pipeline-info">
+        <div class="name">CDMO 사업 확장</div>
+        <div class="desc">기존 생산 역량 기반 위탁개발생산 수주 추진. 2026년 바이오 CDMO 시장 급성장 구간.</div>
+        <div class="note">💡 초기 수주 성사 시 밸류에이션 리레이팅(재평가) 트리거</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="good-box" style="margin-top:4px;">
+    <strong>중요한 사실 확인:</strong> 이수앱지스는 이미 실제 기술수출 성과를 내고 있습니다 —
+    ISU104 <strong>1,185억원 규모 계약</strong> + ISU305 <strong>러시아 품목허가</strong>.
+    "기대감"이 아닌 "실현된 이벤트"가 있는 종목입니다.
+    현재 주가 하락은 이 성과들을 반영하지 못하고 있는 것으로 보입니다.
+  </div>
+</div>
+
+<!-- ══════ ⑤ 리스크 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(239,68,68,.15);">⚠️</div>
+    ⑤ 핵심 리스크 요인
+  </div>
+  <div class="card">
+    <table>
+      <tr><th>리스크</th><th>내용</th><th>심각도</th><th>중장기 완화 여부</th></tr>
+      <tr>
+        <td style="font-weight:600;">수익성 변동</td>
+        <td style="font-size:13px;">영업이익이 연도별 극심하게 흔들림. 2024년 +134억 → 2025년 +16억 → 2026Q1 -34억.</td>
+        <td><span class="dn" style="font-weight:700;">높음</span></td>
+        <td style="font-size:12px;" class="warn">2Q26 흑자전환 예고로 개선 기대</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">순이익 적자</td>
+        <td style="font-size:13px;">FY2025 순이익 -107억. 단, FCF는 +67억으로 개선. 회계상 손실 vs 실제 현금은 다름.</td>
+        <td><span class="warn" style="font-weight:700;">중간</span></td>
+        <td style="font-size:12px;" class="up">FCF 흑자 전환으로 실질 개선</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">임상 불확실성</td>
+        <td style="font-size:13px;">ISU104 임상 2상 실패 가능성 존재. 그러나 기술수출로 위험 분산됨.</td>
+        <td><span class="warn" style="font-weight:700;">중간</span></td>
+        <td style="font-size:12px;" class="up">파트너사(미국 기업)가 임상 비용 부담</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">소형주 변동성</td>
+        <td style="font-size:13px;">시총 1,685억. 기관·외국인 수급 변동 시 주가 급등락 취약.</td>
+        <td><span class="warn" style="font-weight:700;">중간</span></td>
+        <td style="font-size:12px;" class="warn">장기보유 시 희석됨</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">러시아 리스크</td>
+        <td style="font-size:13px;">ISU305 수익이 러시아 시장에 의존. 지정학적 리스크, 제재 가능성.</td>
+        <td><span class="warn" style="font-weight:700;">중간</span></td>
+        <td style="font-size:12px;" class="neutral">장기 불확실 요인</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">매출 감소 추세</td>
+        <td style="font-size:13px;">FY2024→FY2025 매출 -6% 감소. 2026Q1 반등으로 U자형 회복 기대.</td>
+        <td><span class="neutral" style="font-weight:700;">낮음</span></td>
+        <td style="font-size:12px;" class="up">2026 Q1 +32% 반등 확인</td>
+      </tr>
+    </table>
+    <div class="note-box" style="margin-top:12px;">
+      ⚠️ 가장 큰 구조적 리스크: <strong>수익성의 예측 불가능한 변동성</strong>. 2023→2024→2025→2026Q1 영업이익이 39→134→16→-34억으로 패턴 없이 등락. 안정적 수익 구조 확립 전까지 분기 실적에 주가 크게 흔들릴 수 있습니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ⑥ 중장기 시나리오 ★ ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(34,197,94,.15);">🎯</div>
+    ⑥ 중장기 투자 시나리오 — 6개월 · 12개월 · 18개월 ★
+  </div>
+
+  <div class="highlight-box" style="margin-bottom:20px;">
+    <strong>중장기 투자자에게 드리는 핵심 메시지:</strong> 기술적 지표는 현재 단기 매도 신호지만,
+    <strong>중장기(6~18개월) 관점에서는 매우 다른 그림이 그려집니다.</strong>
+    이미 확인된 기술수출 성과(ISU104 1,185억 + ISU305 러시아 허가), 매출 성장 추세, FCF 흑자 전환이
+    시간이 지날수록 주가에 반영될 가능성이 높습니다.
+  </div>
+
+  <div class="scenario-grid" style="margin-bottom:20px;">
+    <!-- 6개월 -->
+    <div class="scenario-card" style="background:rgba(245,158,11,.06); border-color:rgba(245,158,11,.3);">
+      <div class="scenario-header warn">단기 시나리오</div>
+      <div class="scenario-date">2026년 11~12월 (6개월 후)</div>
+      <div class="scenario-range warn">₩4,200 ~ ₩5,200</div>
+      <div class="scenario-item"><strong>핵심 변수:</strong> 2Q26 영업흑자 전환 여부</div>
+      <div class="scenario-item"><strong>낙관:</strong> 2Q·3Q 연속 흑자 → 추세 확인 → ₩4,800~5,200 도달</div>
+      <div class="scenario-item"><strong>비관:</strong> 2Q도 적자 → 신뢰도 하락 → ₩3,800~4,200 박스권</div>
+      <div class="scenario-item"><strong>ISU305:</strong> 러시아 로열티 첫 인식 → 매출 다각화 확인</div>
+      <div class="scenario-item"><strong>피보나치 목표:</strong> 23.6~38.2% (₩4,409~₩4,781)</div>
+      <div class="scenario-prob tag tag-yellow">모멘텀 확인기</div>
+    </div>
+
+    <!-- 12개월 -->
+    <div class="scenario-card" style="background:rgba(79,142,247,.06); border-color:rgba(79,142,247,.3);">
+      <div class="scenario-header info">중기 시나리오</div>
+      <div class="scenario-date">2027년 5~6월 (12개월 후)</div>
+      <div class="scenario-range info">₩4,800 ~ ₩6,500</div>
+      <div class="scenario-item"><strong>핵심 변수:</strong> 흑자 추세 안정화 + ISU104 임상 진전</div>
+      <div class="scenario-item"><strong>낙관:</strong> ISU104 FDA IND + 임상 중간 결과 → ₩6,000~6,500</div>
+      <div class="scenario-item"><strong>기본:</strong> 안정적 흑자 전환 확인 → ₩5,000~5,500</div>
+      <div class="scenario-item"><strong>비관:</strong> 임상 지연 + 실적 부진 → ₩4,200~4,800</div>
+      <div class="scenario-item"><strong>피보나치 목표:</strong> 50~61.8% (₩5,080~₩5,379)</div>
+      <div class="scenario-prob tag tag-blue">가치 재평가 구간</div>
+    </div>
+
+    <!-- 18개월 -->
+    <div class="scenario-card" style="background:rgba(34,197,94,.06); border-color:rgba(34,197,94,.3);">
+      <div class="scenario-header up">장기 시나리오</div>
+      <div class="scenario-date">2027년 11~12월 (18개월 후)</div>
+      <div class="scenario-range up">₩5,500 ~ ₩9,000+</div>
+      <div class="scenario-item"><strong>핵심 변수:</strong> ISU104 임상 데이터 + CDMO 수주</div>
+      <div class="scenario-item"><strong>폭등 시나리오:</strong> ISU104 긍정 임상 → 추가 기술수출 → ₩8,000~9,000+</div>
+      <div class="scenario-item"><strong>기본 시나리오:</strong> 안정적 성장 확인 → 고점(₩6,350) 회복 → ₩6,000~7,000</div>
+      <div class="scenario-item"><strong>비관 시나리오:</strong> 구조적 부진 지속 → ₩4,500~5,500</div>
+      <div class="scenario-item"><strong>피보나치 목표:</strong> 100% (₩6,350 고점 탈환 이후)</div>
+      <div class="scenario-prob tag tag-green">고점 돌파 도전</div>
+    </div>
+  </div>
+
+  <!-- 중장기 판단 근거 -->
+  <div class="card">
+    <div style="font-weight:700; font-size:15px; margin-bottom:16px;">중장기 투자 판단 — 이 주식이 오를 이유 3가지, 걱정되는 이유 2가지</div>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-size:14px; font-weight:700; color:var(--green); margin-bottom:12px;">✅ 중장기 상승 근거</div>
+      <div class="verdict-row">
+        <div class="verdict-bullet bullet-green">1</div>
+        <div class="verdict-text">
+          <strong>기술수출 마일스톤 수익이 실현되기 시작한다.</strong>
+          ISU104(8,550만달러 계약)의 마일스톤은 임상 단계 진전마다 수령합니다.
+          ISU305 러시아 판매 로열티도 올해부터 연간화됩니다.
+          이 현금 유입이 2026~2027년에 걸쳐 실적을 끌어올릴 가능성이 높습니다.
+        </div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-bullet bullet-green">2</div>
+        <div class="verdict-text">
+          <strong>매출 성장 5년 트랙레코드가 검증됐다.</strong>
+          2021년 280억 → 2024년 603억, 3년간 2.15배 성장.
+          2025년 일시 감소했지만 2026 Q1에 +31.6%로 즉시 반등.
+          구조적 성장 기업의 전형적 조정 → 회복 패턴입니다.
+        </div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-bullet bullet-green">3</div>
+        <div class="verdict-text">
+          <strong>밸류에이션이 극단적으로 저평가돼 있다.</strong>
+          P/S 3배 (섹터 평균 5~10배 대비 절반 이하).
+          시가총액(1,685억) &lt; ISU104 계약 총액(1,185억) + 기업 연매출(567억).
+          시장이 미래 가치를 전혀 반영하지 않은 상태입니다.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:14px; font-weight:700; color:var(--red); margin-bottom:12px;">⚠️ 중장기에도 남는 걱정</div>
+      <div class="verdict-row">
+        <div class="verdict-bullet bullet-red">1</div>
+        <div class="verdict-text">
+          <strong>수익성 사이클이 예측 불가하다.</strong>
+          2023(+39억) → 2024(+134억) → 2025(+16억) → 2026 Q1(-34억).
+          R&D 투자, 일회성 비용, 마일스톤 인식 시점에 따라 분기별 실적이 크게 흔들립니다.
+          장기보유 시 이 변동성을 감당할 심리적 준비가 필요합니다.
+        </div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-bullet bullet-red">2</div>
+        <div class="verdict-text">
+          <strong>소형주 특성상 수급 변화에 매우 취약하다.</strong>
+          시총 1,685억의 소형주는 기관 한 곳이 매도를 결정하면 주가가 10~20% 하락할 수 있습니다.
+          18개월 동안 단기 급락 구간이 여러 차례 올 수 있음을 각오해야 합니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 중장기 투자자용 행동 가이드 -->
+  <div class="card" style="margin-top:16px; background:rgba(79,142,247,.05); border-color:rgba(79,142,247,.3);">
+    <div style="font-weight:700; font-size:15px; margin-bottom:14px; color:var(--accent);">📌 중장기 투자자 전략 가이드 (6~18개월)</div>
+    <table>
+      <tr><th>전략 유형</th><th>접근법</th><th>손절선</th><th>목표가</th></tr>
+      <tr>
+        <td style="font-weight:600;" class="warn">보수적</td>
+        <td style="font-size:13px;">₩3,800~4,000에서 소액 분할매수 (총 포트의 3~5%)</td>
+        <td style="font-size:13px;" class="dn">₩3,600 이탈 시</td>
+        <td style="font-size:13px;" class="up">6M: ₩4,800 / 12M: ₩5,500</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;" class="info">중립적</td>
+        <td style="font-size:13px;">현재가(₩4,100~4,200) 진입 + 2Q 실적 확인 후 추가매수</td>
+        <td style="font-size:13px;" class="dn">₩3,700 이탈 시</td>
+        <td style="font-size:13px;" class="up">12M: ₩6,000 / 18M: ₩7,000</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;" class="up">공격적</td>
+        <td style="font-size:13px;">현재가 진입 + 2Q 흑자 확인 시 비중 확대 + ISU104 임상 결과 지켜보기</td>
+        <td style="font-size:13px;" class="dn">₩3,500 이탈 시</td>
+        <td style="font-size:13px;" class="up">18M: ₩8,000~9,000 (임상 성공 시)</td>
+      </tr>
+    </table>
+    <div class="good-box" style="margin-top:12px;">
+      <strong>공통 원칙:</strong> ① 전체 포트폴리오의 10% 이하로 제한 · ② 분기 실적 발표(2Q: 7~8월)마다 재검토 ·
+      ③ ISU104 임상 결과 발표 시 즉시 비중 조정 판단 · ④ ₩3,800 강지지선이 붕괴되면 즉시 관점 재검토
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════ ⑦ 종합 결론 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(79,142,247,.15);">🎖️</div>
+    ⑦ 종합 결론 — 6~18개월 중장기 관점에서 어떤가?
+  </div>
+
+  <div class="verdict">
+    <div class="grid-2" style="margin-bottom:24px; gap:20px;">
+      <div>
+        <div class="score-box" style="margin-bottom:12px;">
+          <div class="score-number" style="color:var(--yellow);">7</div>
+          <div class="score-label">/ 10 — 단기 관점</div>
+          <div class="score-desc warn">기술적 매도 신호 우세</div>
+        </div>
+        <div class="score-box">
+          <div class="score-number up">7.5</div>
+          <div class="score-label">/ 10 — 중장기 관점</div>
+          <div class="score-desc up">상승 근거 우세 · 저점 매수 구간</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:12px;">AI의 중장기 판단</div>
+        <div style="font-size:14px; line-height:1.85; color:var(--muted);">
+          <strong style="color:var(--text);">6~18개월 중장기 보유 관점에서는 긍정적으로 봅니다.</strong>
+          <br><br>
+          단기 기술적 지표(Strong Sell)와 달리, 중장기 펀더멘털은
+          이수앱지스가 조용하지만 실질적인 성과를 내고 있음을 보여줍니다.
+          <strong style="color:var(--green);">이미 1,185억원 기술수출 계약이 체결됐고,
+          러시아 품목허가도 났습니다.</strong>
+          시장은 이 사실들을 아직 주가에 충분히 반영하지 못한 것으로 보입니다.
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:16px; font-weight:700; color:#fff; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:16px;">
+      중장기 투자자라면 — 걱정보다 기회에 집중할 시점
+    </div>
+
+    <div class="verdict-row">
+      <div class="verdict-bullet bullet-green">↑</div>
+      <div class="verdict-text">
+        <strong>주가 하락이 실적 악화 때문이 아닙니다.</strong>
+        매출은 성장 중(2026 Q1 +32%)이고, 기술수출도 이미 성사됐습니다.
+        주가 하락은 시장 전반의 바이오 섹터 약세 + 소형주 수급 이탈이 주된 원인으로 보입니다.
+        즉, 회사 내부 문제보다 외부 요인이 더 큰 것입니다.
+      </div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-bullet bullet-green">↑</div>
+      <div class="verdict-text">
+        <strong>ISU104 마일스톤과 ISU305 로열티가 앞으로 2~3년간 매출을 끌어올립니다.</strong>
+        기술수출 계약의 단계별 마일스톤은 임상이 진전될수록 꾸준히 유입됩니다.
+        이 수익이 실적에 본격 반영될수록 주가는 재평가받을 것입니다.
+      </div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-bullet bullet-green">↑</div>
+      <div class="verdict-text">
+        <strong>CCI -133 극도 과매도 + 피보나치 0~23.6% 구간 = 역사적 저점 매수 구간.</strong>
+        기술적으로도 현재는 과매도 극단으로, 중장기 보유 시 진입 타이밍으로 좋은 구간입니다.
+      </div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-bullet bullet-yellow">→</div>
+      <div class="verdict-text">
+        <strong>2026년 2분기 실적(7~8월 발표)이 핵심 확인 포인트입니다.</strong>
+        회사가 공식 예고한 2Q26 흑자전환이 실현되면 — 중장기 상승 추세 진입의 강력한 신호.
+        이 시점까지 포지션 유지하면서 확인 후 비중 조정이 합리적입니다.
+      </div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-bullet bullet-red">⚠</div>
+      <div class="verdict-text">
+        <strong>단, ₩3,800 강지지선만큼은 절대 기준으로 삼으세요.</strong>
+        52주 최저가 아래로 이탈 시에는 시장의 판단을 신뢰하고 포지션 재검토가 필요합니다.
+        손절선은 미리 정해두고, 어떤 시나리오에도 흔들리지 않는 기준을 갖는 것이 중요합니다.
+      </div>
+    </div>
+
+    <div style="margin-top:24px; background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.25); border-radius:12px; padding:20px;">
+      <div style="font-size:15px; font-weight:800; color:var(--green); margin-bottom:12px;">최종 결론 (중장기 6~18개월)</div>
+      <div style="font-size:14px; line-height:1.85; color:var(--text);">
+        이수앱지스는 <strong>현재 주가 하락을 크게 걱정할 필요는 없는 상황</strong>입니다.
+        주가 하락의 원인이 기업 체력 약화가 아니라 시장 환경에 있고,
+        기업 내부적으로는 이미 구체적인 성과(기술수출, 품목허가)가 나오고 있습니다.<br><br>
+        중장기(6~18개월) 관점에서 <strong>현재 구간은 매도보다 홀딩 혹은 분할매수가 적절</strong>합니다.
+        핵심 카탈리스트 3가지를 지켜보세요:<br>
+        <strong>① 2Q26 흑자전환 실현 여부 (7~8월)</strong><br>
+        <strong>② ISU104 FDA IND 제출 + 임상 진전 소식</strong><br>
+        <strong>③ ISU305 러시아 로열티 분기 실적 반영</strong><br><br>
+        18개월 후 ₩6,000~₩7,000 목표는 현실적으로 달성 가능한 수준이며,
+        임상 성공이라는 업사이드 시나리오에서는 ₩8,000 이상도 열려 있습니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="source">
+  <strong>데이터 출처 (2026.05.17 작성)</strong><br>
+  <a href="https://stockanalysis.com/quote/kosdaq/086890/" target="_blank">StockAnalysis — ISU Abxis 086890 재무</a> ·
+  <a href="https://www.investing.com/equities/isu-abxis-co-ltd-technical" target="_blank">Investing.com — 기술적 지표 (MA·MACD·ADX·CCI·Stochastic·ATR)</a> ·
+  <a href="https://news.nate.com/view/20260508n07261" target="_blank">네이트뉴스 — 이수앱지스 2026 Q1 실적</a> ·
+  <a href="https://www.biotimes.co.kr/news/articleView.html?idxno=26593" target="_blank">바이오타임즈 — ISU305 러시아 품목허가</a> ·
+  <a href="https://www.medipana.com/news/articleView.html?idxno=401448" target="_blank">메디파나뉴스 — ISU104 기술수출 8,550만달러</a> ·
+  <a href="https://www.asiae.co.kr/article/2026012011155612466" target="_blank">아시아경제 — ISU305 러시아 승인</a><br><br>
+  <span style="color:#64748b;">⚠️ 본 리포트는 정보 제공 목적으로만 작성된 분석 자료이며, 투자 권유가 아닙니다. 투자 결정은 본인의 판단과 책임 하에 이루어져야 합니다. 주식 투자에는 원금 손실 위험이 있습니다.</span>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
