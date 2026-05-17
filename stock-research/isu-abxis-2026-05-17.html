@@ -248,6 +248,7 @@
   <div class="nav-pill">② 심층 기술적 분석</div>
   <div class="nav-pill">③ 재무 상태</div>
   <div class="nav-pill">③′ 2025 적자 해부</div>
+  <div class="nav-pill">③′′ 2026Q1 적자 + 재고/손상 정밀분석 ★</div>
   <div class="nav-pill">④ 파이프라인</div>
   <div class="nav-pill">⑤ 리스크</div>
   <div class="nav-pill">⑥ 중장기 시나리오 ★</div>
@@ -950,6 +951,431 @@
       ③ <strong style="color:var(--red);">단기 현금유출 리스크 모니터링</strong> — 2026.06.22 / 09.22 조기상환청구 일정 확인 필수. 청구 규모가 크면 단기 유동성 압박 가능.<br><br>
       ④ <strong style="color:var(--accent);">CB 전환 진행은 장기 호재</strong> — 이미 242억 전환 완료. 추가 전환이 일어날수록 부채 감소 + 자본 확충 + 향후 평가손실 리스크 제거. 다만 주식 수 증가에 따른 희석은 별개 리스크.<br><br>
       ⑤ <strong style="color:var(--green);">표면 PER 무의미</strong> — 당기순손실 -107억으로 PER 계산 불가. <strong>EV/매출, EV/영업현금흐름, P/B</strong> 등 대체 지표로 판단 권장.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ③′′ 2026 Q1 영업적자 + 재고/손상차손 정밀 분석 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <span style="font-size:22px;">🔬</span>
+    ③′′ 2026 Q1 영업적자 -34억 해부 + "재고폐기손실 / 클로티냅 손상차손" 정확한 정체 (DART 직접 파싱)
+  </div>
+
+  <!-- 안내 -->
+  <div class="card" style="background:rgba(124,92,252,.08); border-color:rgba(124,92,252,.35); margin-bottom:18px;">
+    <div style="font-size:13px; line-height:1.85; color:var(--muted);">
+      <strong style="color:var(--text);">데이터 출처:</strong> DART 사업보고서 2025.12(2026.03.12 공시) · 분기보고서 2026.03(2026.05.15 공시) 원문 XBRL/주석 직접 파싱. 별도재무제표(OFS) 기준.<br>
+      <strong style="color:var(--accent);">⚠ 중요:</strong> 사용자가 인용한 <em>"재고자산폐기손실 반영 + 약 88% 감소한 16억"</em> 문구는 <strong>FY2025 사업보고서의 이사의 경영진단 원문</strong>이며 <strong>FY2025 연간 결과(매출 567억, 영업이익 16억)</strong>를 설명한 것입니다. 2026 Q1은 별도 사건(영업적자 -34억)으로 아래 ⑤번 카드에서 분석합니다.
+    </div>
+  </div>
+
+  <!-- ① 재고자산폐기손실의 정확한 내용 -->
+  <div class="card" style="background:rgba(239,68,68,.05); border-color:rgba(239,68,68,.3); margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:12px; color:var(--red);">① 재고자산폐기손실의 정체 — DART 주석7 "재고자산" 직접 파싱</div>
+
+    <div style="font-size:13px; line-height:1.85; color:var(--muted); margin-bottom:10px;">
+      <strong style="color:var(--text);">정의:</strong> 보유 재고가 (a)유통기한 도래·시장성 상실로 <strong>실제 폐기</strong>되었거나 (b)순실현가능가치(NRV)가 장부원가보다 낮아 <strong>평가절하</strong>되었을 때 매출원가에 가산하는 비용. 회계상 매출원가에 포함됨.
+    </div>
+
+    <table style="margin-bottom:10px;">
+      <tr>
+        <th>구분 (단위: 백만원)</th>
+        <th style="text-align:right;">2024년 (전기)</th>
+        <th style="text-align:right;">2025년 (당기)</th>
+        <th style="text-align:right;">2025 Q1</th>
+        <th style="text-align:right;">2026 Q1</th>
+      </tr>
+      <tr>
+        <td><strong>재고자산폐기손실</strong></td>
+        <td style="text-align:right;">234</td>
+        <td style="text-align:right; font-weight:700;" class="dn">4,426</td>
+        <td style="text-align:right;">33</td>
+        <td style="text-align:right; font-weight:700;" class="dn">453</td>
+      </tr>
+      <tr>
+        <td>재고자산평가손실 (평가충당금 설정)</td>
+        <td style="text-align:right;">96</td>
+        <td style="text-align:right; font-weight:700;" class="dn">2,564</td>
+        <td style="text-align:right;">(76) 환입</td>
+        <td style="text-align:right; font-weight:700;" class="dn">1,500</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.1);">
+        <td style="font-weight:700;">합계 (재고 관련 손실)</td>
+        <td style="text-align:right; font-weight:700;">330</td>
+        <td style="text-align:right; font-weight:700;" class="dn">6,989</td>
+        <td style="text-align:right; font-weight:700;">(43)</td>
+        <td style="text-align:right; font-weight:700;" class="dn">1,953</td>
+      </tr>
+      <tr>
+        <td style="font-size:12px; color:var(--muted);">YoY 증가배수</td>
+        <td colspan="2" style="text-align:center; font-size:12px; color:var(--red);">연간 +21배 ⚠</td>
+        <td colspan="2" style="text-align:center; font-size:12px; color:var(--red);">Q1 YoY +적자전환 ⚠</td>
+      </tr>
+    </table>
+
+    <div style="font-weight:600; font-size:13px; color:#fff; margin-bottom:8px;">▶ 무엇이 평가절하/폐기되었나 (재고자산 구성, DART 주석7-(1))</div>
+    <table style="margin-bottom:10px;">
+      <tr>
+        <th>구분 (단위: 백만원)</th>
+        <th style="text-align:right;">2024말 원가</th>
+        <th style="text-align:right;">2025말 원가</th>
+        <th style="text-align:right;">2025말 평가충당금</th>
+        <th style="text-align:right;">2025말 장부금액</th>
+      </tr>
+      <tr>
+        <td>원재료 (무혈청배지 등)</td>
+        <td style="text-align:right;">4,143</td>
+        <td style="text-align:right;">4,035</td>
+        <td style="text-align:right; color:var(--muted);">-</td>
+        <td style="text-align:right;">4,035</td>
+      </tr>
+      <tr>
+        <td>부재료</td>
+        <td style="text-align:right;">1,761</td>
+        <td style="text-align:right;">1,618</td>
+        <td style="text-align:right; color:var(--muted);">-</td>
+        <td style="text-align:right;">1,618</td>
+      </tr>
+      <tr>
+        <td>재공품 (생산 중)</td>
+        <td style="text-align:right;">2,402</td>
+        <td style="text-align:right;">1,312</td>
+        <td style="text-align:right; color:var(--muted);">-</td>
+        <td style="text-align:right;">1,312</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td><strong style="color:var(--red);">★ 제품 (애브서틴·파바갈·클로티냅 완제품)</strong></td>
+        <td style="text-align:right;">24,844</td>
+        <td style="text-align:right; font-weight:700;">27,656</td>
+        <td style="text-align:right; font-weight:700;" class="dn">(2,640)</td>
+        <td style="text-align:right; font-weight:700;">25,016</td>
+      </tr>
+      <tr>
+        <td>상품 (페부레인·트리엔탑·카사반)</td>
+        <td style="text-align:right;">9</td>
+        <td style="text-align:right;">14</td>
+        <td style="text-align:right; color:var(--muted);">-</td>
+        <td style="text-align:right;">14</td>
+      </tr>
+      <tr style="background:rgba(255,255,255,.03);">
+        <td style="font-weight:700;">합계</td>
+        <td style="text-align:right; font-weight:700;">33,159</td>
+        <td style="text-align:right; font-weight:700;">34,635</td>
+        <td style="text-align:right; font-weight:700;" class="dn">(2,640)</td>
+        <td style="text-align:right; font-weight:700;">31,995</td>
+      </tr>
+    </table>
+
+    <div style="font-size:13px; line-height:1.85; color:var(--muted);">
+      <strong style="color:var(--text);">DART 직접 확인 결과:</strong><br>
+      ① <strong style="color:var(--red);">평가충당금 26.4억원은 100% "제품(완제 의약품)"에 설정</strong> — 원재료·부재료·재공품·상품에는 평가절하 없음<br>
+      ② 즉, <strong>완제품 재고 27,656백만 중 26.4억(약 9.5%)이 순실현가능가치 미만으로 평가</strong>됨<br>
+      ③ 별도로 <strong>FY2025 폐기손실 44.3억원도 주로 제품 재고</strong>에서 발생 (실제 폐기 처분)<br>
+      ④ <strong>제품 재고 원가는 1년 만에 248억 → 277억(+11.3%) 증가</strong>한 반면, 매출은 -6% 감소 → <strong>"생산은 했는데 팔리지 않음"</strong> 구조<br>
+      ⑤ <strong>재고자산회전율 1.34회(2023) → 0.64회(2024) → 0.80회(2025)</strong> — 재고 소진 속도 절반 이하로 둔화 (사업보고서 직접 인용)
+    </div>
+
+    <div style="margin-top:12px; padding:10px 12px; background:rgba(255,196,0,.08); border-left:3px solid var(--yellow); border-radius:4px; font-size:13px; line-height:1.8;">
+      <strong style="color:var(--yellow);">⚠ 의미 정리:</strong> "재고자산폐기손실 반영"은 <strong>완제품 바이오의약품(애브서틴·파바갈·클로티냅)이 유통기한 도래 또는 시장 수요 부진으로 폐기·평가절하된 것</strong>입니다. 바이오의약품은 유효기간이 통상 2~3년이고, 글로벌 수출 일정이 어긋나면 대규모 폐기가 발생합니다. FY2025 사업보고서 회사 설명에서 <em>"글로벌 경기 둔화·원/달러 변동성·지정학적 리스크"</em>를 매출 감소 사유로 든 것은 <strong>주로 애브서틴(고셔병 효소대체요법) 수출 차질을 의미</strong>합니다.
+    </div>
+  </div>
+
+  <!-- ② 클로티냅 임상3상 손상차손 953백만원 정확한 정체 -->
+  <div class="card" style="background:rgba(255,196,0,.05); border-color:rgba(255,196,0,.3); margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:12px; color:var(--yellow);">② 클로티냅 임상3상 손상차손 9.53억원의 정확한 정체 — DART 사업보고서 "II. 사업의 내용 - 자산손상" 직접 인용</div>
+
+    <div style="margin-bottom:12px; padding:10px 12px; background:rgba(0,0,0,.25); border-left:3px solid var(--yellow); border-radius:4px; font-size:13px; line-height:1.8; color:var(--muted); font-style:italic;">
+      "당사는 아직 사용할 수 없는 개발비와 손상징후가 식별된 개발비에 대하여 손상검사를 수행하였으며, <strong style="color:var(--yellow); font-style:normal;">손상된 자산은 '클로티냅(임상3상)'으로 클로티냅 임상과 관련하여 투입된 비용을 자산화하고 있습니다.</strong> 당사는 해당 개발비의 상각개시일부터 상각종료일까지의 현금흐름을 추정하였으나, <strong style="color:var(--yellow); font-style:normal;">25년말 기준 장부금액보다 회수가능액이 적게 산출됨에 따라 해당 차액인 953백만원을 손상차손으로 인식하였습니다.</strong> 또한 보유중인 당기손익-공정가치 측정 금융자산에 대해서도 순자산가치법에 근거하여 공정가치 평가를 진행하였고 그 결과 약 173백만원의 평가손실을 인식하였습니다."
+    </div>
+
+    <div style="font-weight:600; font-size:13px; color:#fff; margin-bottom:8px;">▶ 풀어쓴 의미 (회계 메커니즘)</div>
+    <table style="margin-bottom:10px;">
+      <tr>
+        <th style="width:30%;">구성 요소</th>
+        <th>내용</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">대상 자산</td>
+        <td>"클로티냅(임상3상)" — <strong>임상3상 단계의 클로티냅 후속 개발비</strong>가 무형자산(개발비)으로 자산화되어 재무상태표 무형자산에 계상되어 있음 (K-IFRS 1038호 "개발비 자산화" 요건 충족 시)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">평가 방법</td>
+        <td>K-IFRS 1036호 "자산손상" 절차. 상각개시일~상각종료일까지의 <strong>미래 현금흐름 추정 → 현재가치 할인 → "회수가능액" 산출</strong>. 이 금액이 장부금액보다 작으면 차액을 손상차손으로 즉시 인식.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">결과</td>
+        <td><strong style="color:var(--yellow);">9.53억원(953,000,000원) 손상차손 인식</strong> → 무형자산 장부금액 9.53억 감소 + 영업외 비용 9.53억 발생 (현금 유출 없음)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">추가 인식</td>
+        <td>당기손익-공정가치 측정 금융자산 평가손실 <strong>1.73억원</strong> 별도 인식 (자산 항목 다름, 합산 시 ~11.26억 비현금성 손실)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">왜 발생?</td>
+        <td>회사가 직접 추정한 <strong>"임상3상 성공 시 예상 매출 - 추가 임상비용"의 현재가치</strong>가 이미 투입된 R&D 비용보다 작다고 판단. = <strong>회사가 자발적으로 클로티냅 임상3상의 사업적 가치를 9.53억 하향 평가</strong>한 결과.</td>
+      </tr>
+    </table>
+
+    <div style="font-weight:600; font-size:13px; color:#fff; margin-bottom:6px;">▶ 클로티냅이란?</div>
+    <div style="font-size:13px; line-height:1.85; color:var(--muted); margin-bottom:10px;">
+      <strong>관상동맥확장술(PCI) 시술 후 혈관 재협착·심혈관 질환 재발 예방용 항체치료제</strong> (사업보고서 정의). 국내 최초의 항체치료제로 이수앱지스의 상징적 제품.<br>
+      - 현재 시판 클로티냅: 2025년 매출 52.62억(매출비중 9.3%), 2026 Q1 매출 15.43억(매출비중 16.3% — 비중 상승)<br>
+      - 임상3상은 <strong>적응증 확장 또는 후속 제형 개발</strong>로 추정 (DART에 구체 임상명·적응증 미공시)
+    </div>
+
+    <div style="margin-top:10px; padding:10px 12px; background:rgba(255,196,0,.1); border-left:3px solid var(--yellow); border-radius:4px; font-size:13px; line-height:1.8;">
+      <strong style="color:var(--yellow);">⚠ 추가 손상 가능성:</strong> 손상차손 9.53억은 <strong>"완전 상각"이 아닌 회수가능액까지 부분 평가절하</strong>. 잔존 장부금액에 대해 매 보고기간 재검토 의무(K-IFRS 1036) → 임상 진척이 더디거나 사업성 평가가 더 나빠지면 <strong>2026년 이후에도 추가 손상 가능</strong>. 단, 시판 클로티냅 매출은 별개로 견조 (Q1 비중 16.3% 상승).
+    </div>
+  </div>
+
+  <!-- ③ 매출 구성 상세 - 품목별 -->
+  <div class="card" style="background:rgba(34,197,94,.04); border-color:rgba(34,197,94,.3); margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:12px; color:var(--green);">③ 매출 구성 상세 — 품목별 매출실적 (DART 가. 매출실적 표 직접 파싱)</div>
+
+    <table style="margin-bottom:10px;">
+      <tr>
+        <th>매출유형</th>
+        <th>품목 (특징)</th>
+        <th style="text-align:right;">2023</th>
+        <th style="text-align:right;">2024</th>
+        <th style="text-align:right;">2025</th>
+        <th style="text-align:right; color:var(--yellow);">2026 Q1</th>
+        <th>비중 추이</th>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>제품매출</strong></td>
+        <td><strong>애브서틴</strong><br><span style="font-size:11px; color:var(--muted);">고셔병 효소대체요법<br>(수출 비중 高)</span></td>
+        <td style="text-align:right;">349.2억<br><span style="font-size:11px; color:var(--muted);">(64.3%)</span></td>
+        <td style="text-align:right;">304.5억<br><span style="font-size:11px; color:var(--muted);">(50.5%)</span></td>
+        <td style="text-align:right;">381.8억<br><span style="font-size:11px; color:var(--muted);">(67.4%)</span></td>
+        <td style="text-align:right;" class="dn">20.4억<br><span style="font-size:11px; color:var(--red);">(21.5%) ↓</span></td>
+        <td style="font-size:12px; color:var(--red);">★ 최대 품목, Q1 수출 부진</td>
+      </tr>
+      <tr>
+        <td><strong>파바갈</strong><br><span style="font-size:11px; color:var(--muted);">파브리병 효소대체요법</span></td>
+        <td style="text-align:right;">124.9억<br><span style="font-size:11px; color:var(--muted);">(23.0%)</span></td>
+        <td style="text-align:right;">154.1억<br><span style="font-size:11px; color:var(--muted);">(25.6%)</span></td>
+        <td style="text-align:right;">98.4억<br><span style="font-size:11px; color:var(--muted);">(17.4%)</span></td>
+        <td style="text-align:right;" class="up">43.0억<br><span style="font-size:11px; color:var(--green);">(45.4%) ★</span></td>
+        <td style="font-size:12px; color:var(--green);">Q1 1위 부상 (내수 +급증)</td>
+      </tr>
+      <tr>
+        <td><strong>클로티냅</strong><br><span style="font-size:11px; color:var(--muted);">PCI 후 항체치료제<br>(국내 최초)</span></td>
+        <td style="text-align:right;">38.7억<br><span style="font-size:11px; color:var(--muted);">(7.1%)</span></td>
+        <td style="text-align:right;">61.1억<br><span style="font-size:11px; color:var(--muted);">(10.1%)</span></td>
+        <td style="text-align:right;">52.6억<br><span style="font-size:11px; color:var(--muted);">(9.3%)</span></td>
+        <td style="text-align:right;" class="up">15.4억<br><span style="font-size:11px; color:var(--green);">(16.3%)</span></td>
+        <td style="font-size:12px; color:var(--green);">Q1 비중 사상 최고</td>
+      </tr>
+      <tr>
+        <td><strong>상품매출</strong></td>
+        <td>페부레인 · 트리엔탑 · 카사반</td>
+        <td style="text-align:right;">19.8억<br><span style="font-size:11px; color:var(--muted);">(3.7%)</span></td>
+        <td style="text-align:right;">21.3억<br><span style="font-size:11px; color:var(--muted);">(3.5%)</span></td>
+        <td style="text-align:right;">24.2억<br><span style="font-size:11px; color:var(--muted);">(4.3%)</span></td>
+        <td style="text-align:right; color:var(--muted);">-</td>
+        <td style="font-size:12px; color:var(--muted);">소규모 안정</td>
+      </tr>
+      <tr>
+        <td><strong>기술매출</strong></td>
+        <td>ISU104 · ISU305 외 (기술이전 계약금/마일스톤)</td>
+        <td style="text-align:right;">10.4억<br><span style="font-size:11px; color:var(--muted);">(1.9%)</span></td>
+        <td style="text-align:right;" class="up">61.6억<br><span style="font-size:11px; color:var(--muted);">(10.2%)</span></td>
+        <td style="text-align:right;">9.7억<br><span style="font-size:11px; color:var(--muted);">(1.7%)</span></td>
+        <td style="text-align:right;" class="up">15.8억<br><span style="font-size:11px; color:var(--green);">(16.7%) ★</span></td>
+        <td style="font-size:12px; color:var(--accent);">Q1 신규 마일스톤 수령</td>
+      </tr>
+      <tr style="background:rgba(255,255,255,.03);">
+        <td colspan="2"><strong>합계 (제25기/제24기/제23기/제26기 Q1)</strong></td>
+        <td style="text-align:right; font-weight:700;">543.1억</td>
+        <td style="text-align:right; font-weight:700;">602.6억</td>
+        <td style="text-align:right; font-weight:700;">566.7억</td>
+        <td style="text-align:right; font-weight:700; color:var(--yellow);">94.5억</td>
+        <td style="font-size:12px; color:var(--muted);">Q1 YoY +31.6%</td>
+      </tr>
+    </table>
+
+    <div style="font-size:13px; line-height:1.85; color:var(--muted);">
+      <strong style="color:var(--text);">2026 Q1 핵심 발견:</strong><br>
+      ① <strong style="color:var(--red);">애브서틴 수출 격감</strong> — 2025 연간 수출 302억(분기 평균 75억) → 2026 Q1 수출 단 7.2억 (-90%). 내수 13.1억은 양호. <strong>수출 사이클상 일시적일 가능성 있으나 재고 폐기(완제품) 사태와 직결 가능성</strong><br>
+      ② <strong style="color:var(--green);">파바갈 내수 급증</strong> — 2025 내수 98억(분기 평균 24.6억) → 2026 Q1 내수 43억 (+74%). <strong>Q1 매출 비중 1위로 부상</strong><br>
+      ③ <strong style="color:var(--accent);">기술매출 15.8억 (Q1만)</strong> — ISU305 외 신규 마일스톤. <strong>2025 연간(9.7억)을 분기에 이미 초과</strong>. 2024년 60억(ISU104 계약금) 수준의 일회성 유입 가능성<br>
+      ④ <strong style="color:var(--yellow);">클로티냅 비중 사상 최고 16.3%</strong> — 손상차손 인식과는 별개로 시판 매출은 견조
+    </div>
+  </div>
+
+  <!-- ④ 2026 Q1 영업적자 -34.4억 정밀 분해 -->
+  <div class="card" style="background:rgba(239,68,68,.06); border-color:rgba(239,68,68,.4); margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:12px; color:var(--red);">④ 2026 Q1 영업적자 -34.4억의 정확한 원인 분해 (DART 1Q 분기보고서 직접 파싱)</div>
+
+    <div style="font-size:13px; line-height:1.85; color:var(--muted); margin-bottom:10px;">
+      매출은 <strong style="color:var(--green);">+31.6% 성장</strong>했음에도 영업이익이 -4.6억 → -34.4억으로 적자 7.4배 확대된 진짜 원인:
+    </div>
+
+    <table style="margin-bottom:14px;">
+      <tr>
+        <th>항목 (단위: 억원)</th>
+        <th style="text-align:right;">2025 Q1</th>
+        <th style="text-align:right;">2026 Q1</th>
+        <th style="text-align:right;">증감</th>
+        <th>의미</th>
+      </tr>
+      <tr>
+        <td>매출액</td>
+        <td style="text-align:right;">71.83</td>
+        <td style="text-align:right;" class="up">94.52</td>
+        <td style="text-align:right;" class="up">+22.69 (+31.6%)</td>
+        <td style="font-size:12px; color:var(--muted);">파바갈 내수+급증, 기술매출 일회성</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.1);">
+        <td><strong style="color:var(--red);">★ 매출원가</strong></td>
+        <td style="text-align:right;">23.06</td>
+        <td style="text-align:right; font-weight:700;" class="dn">62.11</td>
+        <td style="text-align:right; font-weight:700;" class="dn">+39.05 (+169%) ★★</td>
+        <td style="font-size:12px; color:var(--red); font-weight:600;">압도적 1위 원인</td>
+      </tr>
+      <tr>
+        <td>↳ 매출원가율</td>
+        <td style="text-align:right;">32.1%</td>
+        <td style="text-align:right;" class="dn">65.7%</td>
+        <td style="text-align:right;" class="dn">+33.6%p ⚠</td>
+        <td style="font-size:12px; color:var(--muted);">정상 마진 구조 붕괴</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.06);">
+        <td style="padding-left:18px;">└ <strong>재고자산평가손실</strong> (매출원가에 포함)</td>
+        <td style="text-align:right; color:var(--muted);">(0.76 환입)</td>
+        <td style="text-align:right;" class="dn">15.00</td>
+        <td style="text-align:right;" class="dn">+15.76 ⚠</td>
+        <td style="font-size:12px; color:var(--red);">완제품 평가절하</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.06);">
+        <td style="padding-left:18px;">└ <strong>재고자산폐기손실</strong> (매출원가에 포함)</td>
+        <td style="text-align:right;">0.33</td>
+        <td style="text-align:right;" class="dn">4.53</td>
+        <td style="text-align:right;" class="dn">+4.20 ⚠</td>
+        <td style="font-size:12px; color:var(--red);">유통기한 도래 폐기</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.04);">
+        <td style="padding-left:18px;">└ <strong>재고 손실 합계</strong></td>
+        <td style="text-align:right;">(0.43)</td>
+        <td style="text-align:right;" class="dn">19.53</td>
+        <td style="text-align:right;" class="dn">+19.96 ⚠⚠</td>
+        <td style="font-size:12px; color:var(--red); font-weight:600;">★ Q1 영업적자 악화의 65%</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.04);">
+        <td style="padding-left:18px;">└ 일반 매출원가 (재고손실 제외 추정)</td>
+        <td style="text-align:right; color:var(--muted);">~23.49</td>
+        <td style="text-align:right; color:var(--muted);">~42.58</td>
+        <td style="text-align:right; color:var(--muted);">+19.09 (+81%)</td>
+        <td style="font-size:12px; color:var(--muted);">매출 증가에 따른 원가 증가</td>
+      </tr>
+      <tr>
+        <td>매출총이익</td>
+        <td style="text-align:right;">48.77</td>
+        <td style="text-align:right;" class="dn">32.40</td>
+        <td style="text-align:right;" class="dn">-16.37 (-33.5%)</td>
+        <td style="font-size:12px; color:var(--muted);">재고손실이 잠식</td>
+      </tr>
+      <tr style="background:rgba(255,196,0,.06);">
+        <td><strong style="color:var(--yellow);">★ 판매비와관리비</strong></td>
+        <td style="text-align:right;">53.40</td>
+        <td style="text-align:right; font-weight:700;" class="dn">66.81</td>
+        <td style="text-align:right; font-weight:700;" class="dn">+13.41 (+25.1%) ⚠</td>
+        <td style="font-size:12px; color:var(--yellow); font-weight:600;">2위 원인</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td><strong>영업이익(손실)</strong></td>
+        <td style="text-align:right; font-weight:700;" class="dn">-4.63</td>
+        <td style="text-align:right; font-weight:700;" class="dn">-34.41</td>
+        <td style="text-align:right; font-weight:700;" class="dn">-29.78 (적자 7.4배) ⚠</td>
+        <td style="font-size:12px; color:var(--red);">매출 성장에도 적자 폭증</td>
+      </tr>
+      <tr>
+        <td>당기순이익</td>
+        <td style="text-align:right;" class="dn">-87.62</td>
+        <td style="text-align:right;" class="up">-2.02</td>
+        <td style="text-align:right;" class="up">+85.60 ★</td>
+        <td style="font-size:12px; color:var(--green);">금융수익+50, 금융비용-15<br>(CB 평가 흑전)</td>
+      </tr>
+    </table>
+
+    <div style="font-weight:600; font-size:13px; color:#fff; margin-bottom:8px;">▶ 판관비 +13.4억 증가의 세부 원인 (DART 주석20 "판매비와관리비")</div>
+    <table style="margin-bottom:10px;">
+      <tr>
+        <th>판관비 항목 (단위: 백만원)</th>
+        <th style="text-align:right;">2025 Q1</th>
+        <th style="text-align:right;">2026 Q1</th>
+        <th style="text-align:right;">증감</th>
+      </tr>
+      <tr style="background:rgba(239,68,68,.08);">
+        <td><strong style="color:var(--red);">★ 경상연구개발비</strong></td>
+        <td style="text-align:right;">1,574</td>
+        <td style="text-align:right; font-weight:700;">2,229</td>
+        <td style="text-align:right; font-weight:700;" class="dn">+655 (+41.6%) ★ 1위</td>
+      </tr>
+      <tr>
+        <td>인건비 합계 (급여+퇴직+복리)</td>
+        <td style="text-align:right;">1,082</td>
+        <td style="text-align:right;">1,436</td>
+        <td style="text-align:right;" class="dn">+354 (+32.7%)</td>
+      </tr>
+      <tr>
+        <td>세금과공과</td>
+        <td style="text-align:right;">45</td>
+        <td style="text-align:right;">310</td>
+        <td style="text-align:right;" class="dn">+265 (+591%)</td>
+      </tr>
+      <tr>
+        <td>지급수수료 (외주·자문)</td>
+        <td style="text-align:right;">1,906</td>
+        <td style="text-align:right;">1,900</td>
+        <td style="text-align:right; color:var(--muted);">-7 (보합)</td>
+      </tr>
+      <tr>
+        <td>접대비 + 광고선전비</td>
+        <td style="text-align:right;">229</td>
+        <td style="text-align:right;">110</td>
+        <td style="text-align:right;" class="up">-119 (-52%)</td>
+      </tr>
+      <tr>
+        <td>감가상각비 + 무형자산상각</td>
+        <td style="text-align:right;">352</td>
+        <td style="text-align:right;">209</td>
+        <td style="text-align:right;" class="up">-144 (-41%)</td>
+      </tr>
+      <tr>
+        <td>기타 (운송보관·여비교통·수도광열 등)</td>
+        <td style="text-align:right;">152</td>
+        <td style="text-align:right;">487</td>
+        <td style="text-align:right;" class="dn">+335</td>
+      </tr>
+      <tr style="background:rgba(255,255,255,.03);">
+        <td style="font-weight:700;">판관비 합계</td>
+        <td style="text-align:right; font-weight:700;">5,340</td>
+        <td style="text-align:right; font-weight:700;">6,681</td>
+        <td style="text-align:right; font-weight:700;" class="dn">+1,341 (+25.1%)</td>
+      </tr>
+    </table>
+
+    <div style="margin-top:10px; padding:12px 14px; background:rgba(0,0,0,.3); border-left:3px solid var(--red); border-radius:4px; font-size:13px; line-height:1.85;">
+      <strong style="color:var(--red);">⚠ 결론 — 2026 Q1 영업적자 -34.4억의 정확한 분해:</strong><br>
+      ① <strong>재고자산 손실 19.5억 (영업적자 악화의 65%)</strong> ★ — 완제품(주로 애브서틴 추정) 폐기 4.5억 + 평가절하 15.0억<br>
+      ② <strong>판관비 증가 +13.4억 (악화의 45%)</strong> — 경상연구개발비 +6.6억(임상 비용)이 절반, 인건비 +3.5억<br>
+      ③ 두 요인 합계 약 33억으로 영업이익 악화분(-29.8억)을 모두 설명<br>
+      ④ <strong style="color:var(--yellow);">정상화 가정 시 (재고손실 제외):</strong> 영업이익 약 -14.9억 — 그래도 적자이나 -34억보다 훨씬 양호. 본업 영업력 자체는 회복 중(매출 +31.6%, 매출총이익 -33.5%는 재고손실 흡수 결과)<br>
+      ⑤ <strong style="color:var(--green);">긍정 신호:</strong> 당기순손실 -87.6억 → -2.0억으로 대폭 개선. <strong>금융수익 50억(CB 평가이익 등 추정) - 금융비용 15억</strong>으로 영업외에서 흑전 — 2025년 적자의 핵심 원인이었던 CB 평가손실 부담이 Q1엔 반대 방향으로 작동.
+    </div>
+  </div>
+
+  <!-- ⑤ 종합 시사점 -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(124,92,252,.08) 0%,rgba(79,142,247,.08) 100%); border:1px solid rgba(124,92,252,.35);">
+    <div style="font-weight:700; font-size:15px; margin-bottom:12px; color:var(--accent2);">💡 DART 정밀 분석 종합 — 4가지 결론</div>
+    <div style="font-size:13px; line-height:1.95;">
+      ① <strong style="color:var(--red);">"재고자산폐기손실"은 완제품(주로 애브서틴) 사태</strong> — 2025년 한 해에만 폐기 44억 + 평가 26억 = 70억대 비용을 매출원가에 흡수. 글로벌 수출 차질이 본질이며 2026 Q1에도 추가 19.5억 발생 (Q1만 70억의 28% 수준). <strong>2026 Q2~Q3 추가 발생 여부가 가장 큰 모니터링 포인트.</strong><br><br>
+      ② <strong style="color:var(--yellow);">"클로티냅 임상3상 손상차손 9.53억"은 회사 자체 평가 하향</strong> — 임상3상 미래 현금흐름 추정치가 이미 투입된 R&D 비용 미만으로 산출. 시판 클로티냅(2025 매출 52.6억, Q1 비중 16.3%로 상승)은 별개로 견조. <strong>임상3상 진척에 따라 추가 손상 또는 환입 가능.</strong><br><br>
+      ③ <strong style="color:var(--red);">2026 Q1 영업적자 -34.4억의 진짜 원인 = 재고손실 19.5억 + 판관비 +13.4억</strong>. 외형(매출)은 +31.6% 성장하고 있으나 <strong>마진 구조가 일시적으로 붕괴</strong>. 정상화 시 분기 영업이익 -15억 수준.<br><br>
+      ④ <strong style="color:var(--green);">당기순이익은 -87.6억 → -2.0억으로 대폭 개선</strong> — CB 평가 항목이 2025년의 반대 방향(이익)으로 작용. <strong>2025 적자의 핵심이었던 CB 평가손실 부담이 줄어들고 있음을 시사.</strong>
     </div>
   </div>
 </div>
