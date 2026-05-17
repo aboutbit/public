@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>이수앱지스(086890) 심층 분석 리포트 v2 · 2026.05.17</title>
 <style>
   :root {
@@ -21,6 +21,7 @@
     --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
@@ -28,6 +29,8 @@
     font-size: 15px;
     line-height: 1.7;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* ── 헤더 ── */
@@ -223,6 +226,134 @@
   .tag-blue { background:rgba(79,142,247,.15); color:var(--accent); }
   .section-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
   .nav-pill { background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-size:12px; color:var(--muted); }
+
+  /* ── Tablet / mobile layout (content unchanged) ── */
+  @media(max-width:768px){
+    .header {
+      padding: max(28px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 26px max(18px, env(safe-area-inset-left));
+    }
+    .header h1 { font-size: 26px; word-break: keep-all; line-height: 1.25; }
+    .subtitle { font-size: 13px; line-height: 1.55; }
+    .price-hero { gap: 12px; margin-top: 18px; }
+    .price-main { font-size: 38px; line-height: 1.1; }
+    .price-change { font-size: 17px; }
+    .container {
+      padding: 22px max(14px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    }
+    .section { margin-bottom: 32px; }
+    .section-title {
+      font-size: 17px;
+      line-height: 1.35;
+      flex-wrap: wrap;
+      word-break: keep-all;
+      gap: 8px;
+    }
+    .icon { width: 30px; height: 30px; font-size: 15px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .scenario-grid { grid-template-columns: 1fr; }
+    .card {
+      padding: 16px max(14px, env(safe-area-inset-right)) 16px max(14px, env(safe-area-inset-left));
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .card table { min-width: 480px; width: 100%; }
+    .year-chart {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      justify-content: flex-start;
+      gap: 10px;
+      padding-bottom: 8px;
+      margin-left: -6px;
+      margin-right: -6px;
+      padding-left: 6px;
+      padding-right: 6px;
+      scroll-padding-inline: 6px;
+    }
+    .year-col { flex: 0 0 46px; min-width: 46px; }
+    .pipeline-item { flex-wrap: wrap; gap: 10px; }
+    .pipeline-stage { margin-top: 0; }
+    .verdict { padding: 22px max(16px, env(safe-area-inset-right)) 22px max(16px, env(safe-area-inset-left)); }
+    .verdict-row { flex-wrap: wrap; }
+    .score-number { font-size: 42px; }
+    .section-nav { gap: 6px; margin-bottom: 18px; }
+    .nav-pill { font-size: 11px; padding: 5px 11px; line-height: 1.35; }
+    .signal-row {
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 6px 10px;
+      padding: 12px 0;
+    }
+    .signal-name {
+      flex: 1 1 auto;
+      min-width: 0;
+      width: auto;
+      word-break: keep-all;
+    }
+    .signal-val, .signal-tag { flex-shrink: 0; }
+    .signal-bar-wrap {
+      flex: 1 1 100%;
+      order: 4;
+      min-width: 0;
+      margin-top: 2px;
+    }
+    .fib-row {
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 6px 10px;
+      padding: 10px 0;
+    }
+    .fib-level, .fib-price { flex-shrink: 0; }
+    .fib-bar-wrap {
+      flex: 1 1 100%;
+      order: 4;
+      min-width: 0;
+      margin-top: 2px;
+    }
+    .fib-desc {
+      flex: 1 1 100%;
+      order: 5;
+      width: 100%;
+      text-align: left;
+      margin-top: 2px;
+      word-break: keep-all;
+    }
+    .source {
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    tr:hover td { background: transparent; }
+  }
+  @media(max-width:640px){
+    body { font-size: 14px; }
+    .header h1 { font-size: 22px; }
+    .price-main { font-size: 32px; }
+    .price-change { font-size: 15px; }
+    .container { padding-top: 18px; }
+    .card { padding: 14px 12px; border-radius: 12px; }
+    .card table { min-width: 440px; font-size: 13px; }
+    th { font-size: 10px; padding: 8px 8px; }
+    td { padding: 9px 8px; font-size: 12px; word-break: keep-all; overflow-wrap: break-word; }
+    .kpi-value { font-size: 19px; }
+    .indicator-grid { grid-template-columns: 1fr; }
+    .indicator-box { padding: 12px 11px; }
+    .ind-value { font-size: 18px; word-break: break-all; }
+    .scenario-range { font-size: 18px; }
+    .pipeline-stage { width: auto; min-width: 72px; }
+    .score-number { font-size: 36px; }
+    .highlight-box, .note-box, .good-box { font-size: 13px; padding: 12px 13px; line-height: 1.65; }
+  }
+  @media(max-width:380px){
+    body { font-size: 13px; }
+    .price-main { font-size: 28px; }
+    .card table { min-width: 400px; font-size: 12px; }
+    th { font-size: 9px; padding: 6px 6px; }
+    td { padding: 8px 6px; font-size: 11px; }
+    .year-col { flex-basis: 40px; min-width: 40px; }
+    .nav-pill { font-size: 10px; padding: 4px 9px; }
+  }
 </style>
 </head>
 <body>
