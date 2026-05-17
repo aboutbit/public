@@ -376,7 +376,10 @@
 
 <div class="section-nav">
   <div class="nav-pill">① 주가 위치</div>
-  <div class="nav-pill">② 심층 기술적 분석</div>
+  <div class="nav-pill">② 일봉(Daily) 기술적 분석</div>
+  <div class="nav-pill">②′ 멀티타임프레임 종합 ★</div>
+  <div class="nav-pill">②-W 주봉(Weekly) 분석 ★</div>
+  <div class="nav-pill">②-M 월봉(Monthly) 분석 ★</div>
   <div class="nav-pill">③ 재무 상태</div>
   <div class="nav-pill">③′ 2025 적자 해부</div>
   <div class="nav-pill">③′′ 2026Q1 적자 + 재고/손상 정밀분석 ★</div>
@@ -627,6 +630,417 @@
       <strong>중장기 투자자 시각:</strong> 현재가(₩4,135)는 피보나치 0~23.6% 사이 — 반등의 출발선에 있습니다.
       6개월 내 38.2% 레벨(₩4,781), 12개월 내 61.8% 레벨(₩5,379)을 목표로 할 수 있습니다.
       각 피보나치 레벨이 저항이자 도달 목표가 됩니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ②′ 멀티타임프레임 종합 비교 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(124,92,252,.18);">🧭</div>
+    ②′ 멀티타임프레임 종합 — 일봉 · 주봉 · 월봉 동시 판단
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:4px;">한눈 비교표 (2026-05-15 종가 ₩4,135 기준)</div>
+    <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">
+      Yahoo Finance OHLCV 원본을 직접 계산 (TradingView 동일 공식, RSI = Wilder, ADX/ATR = Wilder 평활). Investing.com·네이버 가공값과는 수십~수백원 오차가 날 수 있습니다.
+    </div>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+    <table style="min-width:560px;">
+      <tr>
+        <th>지표</th>
+        <th>일봉 (Daily)<br><span style="font-weight:400; color:var(--muted); font-size:10px;">1~수주</span></th>
+        <th>주봉 (Weekly)<br><span style="font-weight:400; color:var(--muted); font-size:10px;">3~12개월</span></th>
+        <th>월봉 (Monthly)<br><span style="font-weight:400; color:var(--muted); font-size:10px;">1년~</span></th>
+      </tr>
+      <tr>
+        <td>MA 배열</td>
+        <td class="dn">역배열 (P&lt;MA5/20/50/200)</td>
+        <td class="dn">역배열 (P&lt;MA5/20/50/200)</td>
+        <td class="dn">역배열 (P&lt;MA5/20/50/120)</td>
+      </tr>
+      <tr>
+        <td>SMA5 / 20</td>
+        <td>₩4,192 / ₩4,646</td>
+        <td>₩4,463 / ₩5,028</td>
+        <td>₩4,577 / ₩5,022</td>
+      </tr>
+      <tr>
+        <td>SMA50 / 200</td>
+        <td>₩4,722 / ₩5,254</td>
+        <td>₩5,231 / ₩5,963</td>
+        <td>₩5,996 / —</td>
+      </tr>
+      <tr>
+        <td>MACD hist</td>
+        <td class="dn">-55.6 (≈정체)</td>
+        <td class="dn">-102.6 (↓확대)</td>
+        <td class="dn">-53.7 (↓확대)</td>
+      </tr>
+      <tr>
+        <td>RSI(14)</td>
+        <td class="warn">33.2 <span style="font-size:10px;">과매도</span></td>
+        <td class="warn">34.1 <span style="font-size:10px;">과매도 근접</span></td>
+        <td class="neutral">40.7 <span style="font-size:10px;">중립</span></td>
+      </tr>
+      <tr>
+        <td>Stoch %K / %D</td>
+        <td class="dn">26.6 / 36.6 <span style="font-size:10px;">K&lt;D</span></td>
+        <td class="up">15.4 / 11.2 <span style="font-size:10px;">바닥권 K&gt;D</span></td>
+        <td class="warn">12.8 / 14.5 <span style="font-size:10px;">바닥권 K&lt;D</span></td>
+      </tr>
+      <tr>
+        <td>ADX(14)</td>
+        <td class="dn">26.2 <span style="font-size:10px;">강한 추세</span></td>
+        <td class="warn">16.9 <span style="font-size:10px;">추세 약화</span></td>
+        <td class="up">12.9 <span style="font-size:10px;">추세 소진</span></td>
+      </tr>
+      <tr>
+        <td>+DI / -DI</td>
+        <td class="dn">17.6 / 37.6</td>
+        <td class="dn">14.3 / 29.0</td>
+        <td class="warn">16.0 / 18.5</td>
+      </tr>
+      <tr>
+        <td>CCI(20)</td>
+        <td class="warn">-113 <span style="font-size:10px;">과매도</span></td>
+        <td class="up">-136 <span style="font-size:10px;">극단 과매도</span></td>
+        <td class="up">-169 <span style="font-size:10px;">극단 과매도</span></td>
+      </tr>
+      <tr>
+        <td>BB %B</td>
+        <td class="warn">9.7</td>
+        <td class="warn">7.2</td>
+        <td class="warn">8.0</td>
+      </tr>
+      <tr>
+        <td>ATR(14)</td>
+        <td>₩209</td>
+        <td>₩459</td>
+        <td>₩1,033</td>
+      </tr>
+    </table>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>판독 (상위 타임프레임 가중치 적용):</strong><br>
+      ① <strong>일봉</strong>은 -DI 37.6 &gt; +DI 17.6 + ADX 26 → <span class="dn">강한 하락 추세 한복판</span>이지만 RSI 33·CCI -113·BB%B 9.7로 <span class="warn">과매도 진입</span>.<br>
+      ② <strong>주봉</strong>은 ADX 16.9 (&lt;25) → 하락 추세의 모멘텀이 <span class="up">약해지고</span> 있고, Stoch %K 15.4 &gt; %D 11.2로 바닥권 골든크로스 시도. CCI -136은 <span class="up">극단 과매도</span>.<br>
+      ③ <strong>월봉</strong>은 ADX 12.9 (&lt;20)로 장기 추세력 사실상 소진, CCI -169 + RSI 40으로 <span class="up">역사적 저점권</span>에 들어옴. 단 MACD hist는 아직 더 음수로 확장 중이라 모멘텀 반전 확인이 필요.
+    </div>
+
+    <div class="good-box" style="margin-top:10px;">
+      <strong>중장기 결론:</strong> 상위 타임프레임(월·주)이 "추세 소진 + 극단 과매도"를 동시에 가리키므로 <strong>중기적 바닥 탐색 / 장기 분할 매수 구간</strong>에 들어왔다고 판단할 수 있습니다.
+      단, 단기(일봉) ADX가 여전히 26으로 살아 있어 "추세 확정 매수"보다는 <strong>분할·관망 전략</strong>이 합리적입니다.
+      반전 확인은 ① <strong>주봉 MACD hist 음수 축소</strong>, ② <strong>일봉 -DI &lt; +DI</strong>, ③ <strong>주봉 종가 MA5(₩4,463) 회복</strong> 순으로 체크.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ②-W 주봉(Weekly) 기술적 분석 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(245,158,11,.15);">📆</div>
+    ②-W 주봉(Weekly) 기술적 분석 — 중기 3~12개월 추세
+  </div>
+
+  <!-- W-A 이동평균 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:4px;">A. 주봉 이동평균선 배열</div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">주봉 MA는 중기 매수세·매도세 균형선. 주봉 SMA5/20은 한 분기·1년 추세, SMA200은 약 4년 평균 매입가.</div>
+
+    <div class="signal-row">
+      <div class="signal-name">현재가 (W 종가)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:100%; background:var(--border);"></div></div>
+      <div class="signal-val neutral">₩4,135</div>
+      <div class="signal-tag tag-neutral">기준</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA5 (5주)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:55%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩4,463</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA20 (20주 ≈ 5개월)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:70%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩5,028</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA50 (50주 ≈ 1년)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:78%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩5,231</div>
+      <div class="signal-tag tag-strong-sell">강저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA200 (200주 ≈ 4년)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:90%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩5,963</div>
+      <div class="signal-tag tag-strong-sell">장기 저항</div>
+    </div>
+
+    <div class="note-box" style="margin-top:14px;">
+      모든 주봉 MA가 현재가 위 → <strong>완전한 역배열</strong>. 다만 MA5(₩4,463)와 현재가 차이는 약 -7.4%로 가까워, <strong>MA5 회복</strong>이 1차 중기 반등 신호가 됩니다. 4년 평균 매입가(MA200 ₩5,963) 대비로는 -30.6% 할인된 가격대.
+    </div>
+  </div>
+
+  <!-- W-B MACD / ADX -->
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">B. 주봉 MACD — 중기 모멘텀</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">MACD / Signal</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">-281.2 / -178.6</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">Histogram (prev)</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">-102.6 (-96.7)</span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          MACD가 Signal보다 더 아래(데드존). 히스토그램이 -96.7 → -102.6으로 <strong style="color:var(--red);">소폭 더 음수</strong> 확장 — 중기 모멘텀은 여전히 하락 쪽.
+        </div>
+      </div>
+      <table>
+        <tr><th>해석 포인트</th><th>현재 상태</th></tr>
+        <tr><td>MACD &lt; Signal</td><td class="dn">데드존 지속</td></tr>
+        <tr><td>히스토그램 방향</td><td class="dn">소폭 확대 (-96.7→-102.6)</td></tr>
+        <tr><td>0선 위/아래</td><td class="dn">0선 아래 (중기 하락)</td></tr>
+        <tr><td>중기 반등 신호</td><td class="warn">히스토그램 음수 축소 필요</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">C. 주봉 ADX — 추세 강도</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">ADX(14)</span>
+          <span class="warn" style="font-weight:800; font-size:18px;">16.9</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">+DI / -DI</span>
+          <span style="font-weight:800; font-size:14px;"><span class="up">14.3</span> / <span class="dn">29.0</span></span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          ADX 16.9 (&lt;25) = <strong style="color:var(--yellow);">추세 약화 구간</strong>. 일봉(26.2)에 비해 주봉 추세 강도는 이미 식어가는 중. -DI가 +DI 위지만, ADX가 25 아래라 "추세는 하락 방향이되 그 추세력 자체가 빠르게 빠지고 있다"는 신호.
+        </div>
+      </div>
+      <table>
+        <tr><th>ADX 수준</th><th>의미</th></tr>
+        <tr><td>0~20</td><td class="neutral">추세 없음 (횡보)</td></tr>
+        <tr><td>20~25</td><td class="warn">약한 추세 ← 현재(16.9)</td></tr>
+        <tr><td>25~50</td><td class="warn">강한 추세</td></tr>
+        <tr><td>50+</td><td class="dn">매우 강함</td></tr>
+      </table>
+      <div class="good-box" style="margin-top:10px;">
+        주봉 ADX &lt; 25 = 중기 하락 추세의 <strong>잔존 동력 약화</strong> → 역사적으로 중기 바닥권 진입 직전에 자주 나오는 패턴.
+      </div>
+    </div>
+  </div>
+
+  <!-- W-C 과매도 지표 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:14px;">D. 주봉 과매도 지표 — CCI · Stochastic · RSI · ATR</div>
+
+    <div class="indicator-grid">
+      <div class="indicator-box">
+        <div class="ind-label">CCI (20주)</div>
+        <div class="ind-value up">-135.8</div>
+        <div class="ind-signal up">극단 과매도 ★</div>
+        <div class="ind-desc">-100 이하 = 과매도. -150 근접은 주봉 기준 매우 드문 영역으로, 통계적 평균 회귀 기대.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">Stoch %K / %D</div>
+        <div class="ind-value up">15.4 / 11.2</div>
+        <div class="ind-signal up">바닥권 + K&gt;D ★</div>
+        <div class="ind-desc">둘 다 20 이하(바닥권)인데 %K가 %D를 위로 돌파 = 중기 반등 시도 시그널.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">RSI (14주)</div>
+        <div class="ind-value warn">34.1</div>
+        <div class="ind-signal warn">과매도 근접</div>
+        <div class="ind-desc">30 아래가 정통 과매도. 34는 그 직전 구간으로 추가 하락 시 30 진입 가능.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">ATR (14주)</div>
+        <div class="ind-value neutral">₩459</div>
+        <div class="ind-signal neutral">변동성 큼</div>
+        <div class="ind-desc">주간 평균 변동폭 약 ₩459 (현재가의 약 11%). 손절·익절 폭 산정 기준.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">Bollinger %B (20주)</div>
+        <div class="ind-value warn">7.2</div>
+        <div class="ind-signal warn">하단 부근</div>
+        <div class="ind-desc">%B&lt;20은 하단 부근. 7.2 = 주봉 BB 하단(₩3,985)에 매우 근접한 상태.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">52주 위치</div>
+        <div class="ind-value dn">12.8%</div>
+        <div class="ind-signal dn">저점권</div>
+        <div class="ind-desc">52주 범위(₩3,810~₩6,350) 중 하단 12.8% 위치. 주봉 종가 5개: 4,950 → 4,760 → 4,335 → 4,135 → 4,135.</div>
+      </div>
+    </div>
+
+    <div class="good-box" style="margin-top:14px;">
+      <strong>주봉 종합:</strong> <span class="up">Stoch 바닥권 골든크로스 + CCI 극단 과매도 + ADX&lt;25</span> = "하락 추세는 약화되고 중기 바닥 탐색이 시작됐다"는 전형적 시그널. 다만 MACD 히스토그램이 아직 추가 음수 확장 중이라 <strong>모멘텀 반전 확인 전까지는 분할 매수</strong>가 안전합니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ②-M 월봉(Monthly) 기술적 분석 ══════ -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(34,197,94,.18);">🗓️</div>
+    ②-M 월봉(Monthly) 기술적 분석 — 장기 1년 이상 추세
+  </div>
+
+  <!-- M-A 이동평균 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:4px;">A. 월봉 이동평균선 배열</div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">월봉 MA는 본질 가치 대비 시장 평가의 큰 흐름을 보여줌. MA12(1년)·MA60(5년)이 핵심.</div>
+
+    <div class="signal-row">
+      <div class="signal-name">현재가 (M 종가)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:100%; background:var(--border);"></div></div>
+      <div class="signal-val neutral">₩4,135</div>
+      <div class="signal-tag tag-neutral">기준</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA5 (5개월)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:55%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩4,577</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA10 (10개월)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:65%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩4,999</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA20 (20개월 ≈ 1.7년)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:66%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩5,022</div>
+      <div class="signal-tag tag-sell">저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA50 (50개월 ≈ 4년)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:80%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩5,996</div>
+      <div class="signal-tag tag-strong-sell">강저항</div>
+    </div>
+    <div class="signal-row">
+      <div class="signal-name">MA120 (10년)</div>
+      <div class="signal-bar-wrap"><div class="signal-bar" style="width:95%; background:var(--red);"></div></div>
+      <div class="signal-val dn">₩7,596</div>
+      <div class="signal-tag tag-strong-sell">역사적 평균</div>
+    </div>
+
+    <div class="note-box" style="margin-top:14px;">
+      현재가는 <strong>지난 10년 월봉 평균(₩7,596) 대비 -45.6%</strong> 할인. 동시에 5개월 평균(₩4,577) 아래 -9.7%. 즉 단기 평균 매입가에도 못 미치는, 장기 관점에서 매우 낮은 평가 수준.
+    </div>
+  </div>
+
+  <!-- M-B MACD / ADX -->
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">B. 월봉 MACD — 장기 모멘텀</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">MACD / Signal</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">-457.5 / -403.8</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">Histogram (prev)</span>
+          <span class="dn" style="font-weight:800; font-size:18px;">-53.7 (-26.0)</span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          월봉 MACD는 deep negative. 히스토그램이 -26.0 → -53.7로 <strong style="color:var(--red);">2배 가까이 확대</strong> — 장기 모멘텀은 여전히 하방. 단, 절대값으로는 0선에서 멀어진 상태라 평균 회귀 압력도 누적 중.
+        </div>
+      </div>
+      <table>
+        <tr><th>관찰 포인트</th><th>현재 상태</th></tr>
+        <tr><td>MACD &lt; 0</td><td class="dn">장기 하락 모멘텀</td></tr>
+        <tr><td>히스토그램 방향</td><td class="dn">확대 (-26 → -54)</td></tr>
+        <tr><td>장기 반전 신호</td><td class="warn">히스토그램 둔화 → 양전환 순</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700; font-size:15px; margin-bottom:14px;">C. 월봉 ADX — 장기 추세 강도</div>
+      <div style="background:var(--surface2); border-radius:10px; padding:16px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">ADX(14)</span>
+          <span class="up" style="font-weight:800; font-size:18px;">12.9</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; color:var(--muted);">+DI / -DI</span>
+          <span style="font-weight:800; font-size:14px;"><span class="up">16.0</span> / <span class="warn">18.5</span></span>
+        </div>
+        <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+          월봉 ADX 12.9 (&lt;20) = <strong style="color:var(--green);">장기 추세력 사실상 소진</strong>. +DI와 -DI가 16 vs 18로 거의 동일 → "장기 방향성 없음" 상태. 다음 큰 추세는 양방향 모두 열려 있다는 의미.
+        </div>
+      </div>
+      <table>
+        <tr><th>ADX 수준</th><th>의미</th></tr>
+        <tr><td>0~20</td><td class="up">횡보·추세 소진 ← 현재(12.9)</td></tr>
+        <tr><td>20~25</td><td class="warn">약한 추세</td></tr>
+        <tr><td>25~50</td><td class="warn">강한 추세</td></tr>
+      </table>
+      <div class="good-box" style="margin-top:10px;">
+        장기 하락 추세는 이미 식었다는 신호. 새 추세(상승 또는 추가 횡보)가 시작될 수 있는 <strong>전환 후보 구간</strong>입니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- M-C 과매도 지표 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-weight:700; font-size:15px; margin-bottom:14px;">D. 월봉 과매도·변동성 지표</div>
+
+    <div class="indicator-grid">
+      <div class="indicator-box">
+        <div class="ind-label">CCI (20월)</div>
+        <div class="ind-value up">-169.4</div>
+        <div class="ind-signal up">역사적 극단 ★★</div>
+        <div class="ind-desc">월봉 CCI -150 이하는 매우 드문 구간. 장기적으로 평균 회귀 가능성이 통계적으로 높음.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">Stoch %K / %D</div>
+        <div class="ind-value warn">12.8 / 14.5</div>
+        <div class="ind-signal warn">바닥권 K&lt;D</div>
+        <div class="ind-desc">둘 다 20 이하(바닥권). 다만 %K&lt;%D라 아직 장기 반전 교차는 안 일어남.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">RSI (14월)</div>
+        <div class="ind-value neutral">40.7</div>
+        <div class="ind-signal neutral">중립</div>
+        <div class="ind-desc">월봉 RSI는 일·주봉보다 천천히 움직임. 40대는 "약세이되 과매도까지는 아닌" 영역.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">ATR (14월)</div>
+        <div class="ind-value neutral">₩1,033</div>
+        <div class="ind-signal neutral">월간 변동폭</div>
+        <div class="ind-desc">월간 평균 변동폭 약 ₩1,033 (현재가의 25%). 장기 손절·익절 산정 기준.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">Bollinger %B (20월)</div>
+        <div class="ind-value warn">8.0</div>
+        <div class="ind-signal warn">하단 부근</div>
+        <div class="ind-desc">월봉 BB 하단(₩3,966) 근처. 과거 월봉 하단 도달 후 평균 회귀 패턴을 보였음.</div>
+      </div>
+      <div class="indicator-box">
+        <div class="ind-label">최근 5개 월봉 종가</div>
+        <div class="ind-value dn" style="font-size:14px;">5,390→4,465→4,760→4,135</div>
+        <div class="ind-signal warn">단기 하락 가속</div>
+        <div class="ind-desc">2026년 1월부터 4개월 연속 하락(누적 -23%). 월봉 음봉 연속 = 단기 매도 압력 강함.</div>
+      </div>
+    </div>
+
+    <div class="good-box" style="margin-top:14px;">
+      <strong>월봉 종합:</strong> ADX 12.9(추세 소진) + CCI -169(역사적 극단 과매도) + BB%B 8(하단)이 <span class="up">동시에 발생</span> — 이는 장기적으로 의미 있는 매수 구간 신호. 다만 단기 4개월 연속 음봉 + MACD 히스토그램 확대는 "아직 칼이 떨어지는 중"이라는 경고. <strong>일시 매입보다 3~6개월 분할 매수</strong>가 통계적으로 유리합니다.
     </div>
   </div>
 </div>
