@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027 반도체 성과급과 부동산 시장 전망 | SK하이닉스 · 삼성전자</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#0B1220; --ink2:#1E293B; --muted:#64748B; --line:#E2E8F0;
+    --paper:#FBFCFE; --card:#FFFFFF;
+    --sk:#E4002B;        /* SK Red */
+    --sk-soft:#FCE4E8;
+    --ss:#1428A0;        /* Samsung Blue */
+    --ss-soft:#E3E8FB;
+    --gold:#A77B2D; --gold-soft:#F6EFDF;
+    --up:#DC2626; --down:#2563EB;
+    --green:#0F766E;
+    --shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:"Pretendard","Pretendard Variable",-apple-system,system-ui,sans-serif;
+    color:var(--ink); background:var(--paper); line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(1200px 400px at 15% -10%, rgba(228,0,43,.18), transparent 60%),
+      radial-gradient(1200px 400px at 90% 0%, rgba(20,40,160,.22), transparent 55%),
+      linear-gradient(160deg,#0B1220 0%,#111a30 100%);
+    color:#fff; padding:64px 0 56px; position:relative; overflow:hidden;
+  }
+  .hero:before{
+    content:""; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:42px 42px; mask:linear-gradient(180deg,#000,transparent);
+  }
+  .hero .wrap{position:relative}
+  .kicker{
+    display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;letter-spacing:.04em;
+    color:#cbd5e1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+    padding:6px 13px;border-radius:999px;margin-bottom:20px;
+  }
+  .hero h1{font-size:40px;line-height:1.22;margin:0 0 16px;font-weight:800;letter-spacing:-.02em}
+  .hero h1 .hl{background:linear-gradient(120deg,#ff5d77,#9db4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:17px;color:#cbd5e1;max-width:680px;margin:0}
+  .hero .meta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:#94a3b8}
+  .hero .meta b{color:#e2e8f0;font-weight:600}
+
+  /* TL;DR strip */
+  .tldr{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-34px auto 0;position:relative;z-index:5}
+  .tldr .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;box-shadow:var(--shadow)}
+  .tldr .stat .n{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .tldr .stat .l{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:500}
+  .tldr .stat.sk .n{color:var(--sk)} .tldr .stat.ss .n{color:var(--ss)}
+  .tldr .stat.gd .n{color:var(--gold)} .tldr .stat.gr .n{color:var(--green)}
+
+  section{padding:52px 0 8px}
+  .sec-tag{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+  h2{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:8px 0 6px}
+  h3{font-size:19px;font-weight:700;margin:30px 0 12px}
+  .lead{color:var(--muted);font-size:16px;margin:0 0 8px;max-width:740px}
+  p{margin:14px 0}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin:22px 0}
+  .chart-box{position:relative;width:100%;}
+  .chart-cap{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0}
+  th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  thead th{font-size:12.5px;color:var(--muted);font-weight:600;border-bottom:2px solid var(--ink2);text-transform:uppercase;letter-spacing:.03em}
+  tbody tr:hover{background:#f8fafc}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:6px}
+  .tag.sk{background:var(--sk-soft);color:var(--sk)} .tag.ss{background:var(--ss-soft);color:var(--ss)}
+
+  .callout{border-left:4px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0}
+  .callout.blue{border-color:var(--ss);background:var(--ss-soft)}
+  .callout.red{border-color:var(--sk);background:var(--sk-soft)}
+  .callout b{font-weight:700}
+  .callout .ttl{font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+
+  /* region map diagram */
+  .maprow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .belt{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card);box-shadow:var(--shadow)}
+  .belt h4{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .belt .sub{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .node{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px dashed var(--line)}
+  .node:first-of-type{border-top:none}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.hub{width:13px;height:13px}
+  .node .name{font-weight:600;font-size:14.5px}
+  .node .role{font-size:12px;color:var(--muted);margin-left:auto}
+
+  .scen{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:18px 0}
+  .scen .col{padding:18px;border-right:1px solid var(--line)}
+  .scen .col:last-child{border-right:none}
+  .scen .col h5{margin:0 0 2px;font-size:14px;color:var(--muted);font-weight:600}
+  .scen .col .big{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .scen .col small{color:var(--muted);font-size:12px}
+  .scen .a .big{color:var(--green)} .scen .b .big{color:var(--gold)} .scen .c .big{color:var(--sk)}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:18px 0}
+  .flow .step{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative}
+  .flow .step .s-n{font-size:11px;color:var(--gold);font-weight:700}
+  .flow .step .s-v{font-size:21px;font-weight:800;margin:4px 0}
+  .flow .step .s-t{font-size:12.5px;color:var(--muted)}
+  .flow .arr{display:flex;align-items:center;color:var(--muted);font-size:22px;padding:0 6px}
+
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+  .verdict .v{border-radius:16px;padding:20px;border:1px solid var(--line)}
+  .verdict .pro{background:#f0fdf9;border-color:#99f6e4}
+  .verdict .con{background:#fef2f2;border-color:#fecaca}
+  .verdict h4{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .verdict ul{margin:0;padding-left:18px} .verdict li{margin:7px 0;font-size:14px}
+
+  .src{font-size:13px;color:var(--muted)}
+  .src a{color:var(--ss);text-decoration:none;border-bottom:1px solid var(--line)}
+  .src li{margin:6px 0}
+  .disc{font-size:12.5px;color:var(--muted);background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:22px 0}
+  footer{padding:40px 0 60px;color:var(--muted);font-size:13px;text-align:center}
+
+  @media(max-width:720px){
+    .hero h1{font-size:30px}
+    .tldr{grid-template-columns:1fr 1fr}
+    .grid2,.maprow,.verdict{grid-template-columns:1fr}
+    .grid3{grid-template-columns:1fr}
+    .scen{grid-template-columns:1fr} .scen .col{border-right:none;border-bottom:1px solid var(--line)}
+    .flow .arr{transform:rotate(90deg);width:100%;justify-content:center;padding:4px 0}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">🔬 SEMICONDUCTOR · REAL ESTATE OUTLOOK</span>
+    <h1>2027년 <span class="hl">역대급 반도체 성과급</span>,<br>부동산 시장을 흔들까?</h1>
+    <p>HBM 슈퍼사이클이 만든 SK하이닉스·삼성전자의 사상 최대 성과급. 누가 얼마를 받고, 어느 지역으로 돈이 흐르며, 집값에 실제로 얼마나 영향을 줄지 — 최신 노사 합의·제도·실거래 데이터로 추산했습니다.</p>
+    <div class="meta">
+      <span>📅 작성 <b>2026.05.22</b></span>
+      <span>🏢 대상 <b>SK하이닉스 · 삼성전자 DS</b></span>
+      <span>🎯 기준연도 <b>2026 실적 → 2027 지급분</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tldr">
+    <div class="stat sk"><div class="n">~12.9억</div><div class="l">SK하이닉스 1인당 성과급<br>(낙관 시나리오 상단)</div></div>
+    <div class="stat ss"><div class="n">~6.0억</div><div class="l">삼성 메모리 1인당<br>(2026 노사 합의)</div></div>
+    <div class="stat gd"><div class="n">~40조</div><div class="l">두 회사 명목 성과급<br>총 재원 추정</div></div>
+    <div class="stat gr"><div class="n">+6.93%</div><div class="l">용인 수지 누적 상승률<br>(수도권 평균 1.54%)</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<section id="bonus">
+  <div class="wrap">
+    <span class="sec-tag">Part 1 · 누가 얼마를 받나</span>
+    <h2>성과급 규모 추산</h2>
+    <p class="lead">두 회사의 셈법은 다릅니다. SK하이닉스는 <b>영업이익의 10%를 현금 PS로</b>, 삼성전자는 <b>사업성과의 10.5%를 자사주 특별성과급으로</b> 나눕니다. 제도와 인원 수를 대입해 1인당 금액을 추산합니다.</p>
+
+    <div class="callout red">
+      <div class="ttl">🔴 SK하이닉스 — 영업이익 10% 룰 (현금)</div>
+      2023년 성과급 상한 폐지 + <b>2025년 9월 노사합의</b>(대의원 투표 찬성률 95.4%)로 <b>매년 영업이익의 10%를 PS(초과이익분배금) 재원</b>으로 쓰는 구조가 확립됐고, 이 기준은 <b>향후 10년간(2025~2034년 적용분) 유지</b>하기로 합의했습니다. 2026년 2월 지급분 PS는 기본급의 <b>약 2,964~3,264%</b>(연봉 1.85억 직원 기준 세전 약 1.48억 원). 올해부터 <b>80%는 당해, 20%는 향후 2년에 걸쳐 분할</b> 지급합니다. 임직원 수는 약 <b>3.5만 명</b>(2025년 말 34,549명).
+    </div>
+
+    <h3>SK하이닉스 — 2027년 지급분 시나리오 (2026 실적 기준)</h3>
+    <p>2027년 초에 지급될 성과급은 <b>2026년 영업이익</b>에 좌우됩니다. HBM 증설·가격에 따라 편차가 크므로, 영업이익 가정별로 1인당 평균을 추산했습니다. (재원 = 영업이익 × 10% ÷ 3.5만 명)</p>
+
+    <div class="scen">
+      <div class="col a"><h5>보수 (영업이익 70조)</h5><div class="big">약 2.0억</div><small>현재 추세 둔화 가정</small></div>
+      <div class="col b"><h5>기준 (영업이익 100조)</h5><div class="big">약 2.9억</div><small>HBM 수요 견조</small></div>
+      <div class="col c"><h5>낙관 (영업이익 150조+)</h5><div class="big">4.3억~12.9억</div><small>슈퍼사이클·맥쿼리 인용</small></div>
+    </div>
+    <p class="src" style="margin-top:-4px">※ 일부 매체가 인용한 <b>1인당 12.9억 원</b>은 맥쿼리의 극단적 영업이익 시나리오(447조 원)를 단순 대입한 수치로, 현실성보다 상징성에 가깝습니다. 본 보고서는 <b>기준 시나리오 2~3억 원대</b>를 중심값으로 봅니다.</p>
+
+    <div class="card">
+      <div class="chart-box" style="height:300px"><canvas id="skScenario"></canvas></div>
+      <div class="chart-cap">그림 1. SK하이닉스 2026년 영업이익 가정별 1인당 평균 성과급 추산 (재원 = 영업이익 ×10% ÷ 3.5만 명)</div>
+    </div>
+
+    <div class="callout blue">
+      <div class="ttl">🔵 삼성전자 DS — 2026.5.20 노사 극적 합의 (자사주)</div>
+      파업 직전 정부 중재로 타결. 기존 OPI를 유지하면서 DS부문에 <b>특별경영성과급</b>을 신설했습니다. 재원은 <b>사업성과의 10.5%</b>(상한 폐지), <b>부문 공통 40% + 사업부 60%</b>로 배분. 전액 세후 <b>자사주</b>로 주되, <b>1/3만 즉시 매각 가능</b>하고 2/3는 1년·2년 락업. 향후 10년간 적용(2026~28년 DS 영업이익 200조/년 조건). 임금은 평균 6.2% 인상.
+    </div>
+
+    <h3>삼성전자 — 사업부별 1인당 성과급 (2026 합의 기준)</h3>
+    <table>
+      <thead><tr><th>사업부 / 조직</th><th>인원(추정)</th><th>지급률 위계</th><th>1인당 추정(세전)</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag ss">메모리</span> DRAM·NAND·HBM</td><td class="num">~2.8만</td><td>기준 (100%)</td><td class="num" style="color:var(--ss)">~6.0억</td></tr>
+        <tr><td><span class="tag ss">공통</span> 연구·인프라 등</td><td class="num">~3.0만</td><td>메모리의 70%</td><td class="num">~4.3억</td></tr>
+        <tr><td><span class="tag ss">파운드리·시스템LSI</span> (적자)</td><td class="num">~2.0만</td><td>공통의 60% 보장</td><td class="num">~1.6억</td></tr>
+        <tr style="background:#f8fafc"><td><b>DS 전체</b></td><td class="num"><b>~7.8만</b></td><td>—</td><td class="num"><b>총 재원 ~31.5조</b></td></tr>
+      </tbody>
+    </table>
+    <p class="src" style="margin-top:-2px">※ 적자 사업부(파운드리·시스템LSI)의 최소 보장 조항은 1년 유예돼 <b>2027년 지급분부터</b> 적용됩니다. 즉 "적자여도 1.6억"은 2027년에 본격화됩니다.</p>
+
+    <div class="card">
+      <div class="chart-box" style="height:320px"><canvas id="cmpBar"></canvas></div>
+      <div class="chart-cap">그림 2. 1인당 성과급 비교 — 삼성 DS 사업부별(자사주) vs SK하이닉스 시나리오별(현금)</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="margin:0">
+        <h3 style="margin-top:0">💵 명목 재원 vs 즉시 현금</h3>
+        <p style="margin-top:4px">두 회사 명목 성과급은 합쳐 <b>~40조 원</b> 규모이지만, "지금 쓸 수 있는 현금"은 훨씬 적습니다.</p>
+        <ul style="font-size:14px;padding-left:18px">
+          <li><b>삼성(자사주)</b>: 세후·락업으로 <b>당장 현금화 가능분은 1/3 이하</b></li>
+          <li><b>SK(현금)</b>: 당해 80% 지급이라 상대적으로 즉시 유동성 ↑, 단 20%는 분할</li>
+          <li>세금(고소득 누진 ~40%대) 차감 후가 실제 가용</li>
+        </ul>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="chart-box" style="height:240px"><canvas id="liqDonut"></canvas></div>
+        <div class="chart-cap">그림 3. 명목 재원의 성격별 분해 (추정)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="region">
+  <div class="wrap">
+    <span class="sec-tag">Part 2 · 돈이 흐르는 지도</span>
+    <h2>서울·경기 어디가 영향받나</h2>
+    <p class="lead">반도체 인력은 <b>출퇴근 셔틀 노선</b>을 따라 산다 — 이른바 '셔세권(셔틀+역세권)'. 두 회사의 캠퍼스 분포와 대표 주거 선호지를 정리하면, 영향권은 <b>경기 남부 직주근접 벨트</b>와 <b>분당·판교 상급지</b>로 나뉩니다.</p>
+
+    <div class="maprow">
+      <div class="belt">
+        <h4>🔴 SK하이닉스 벨트</h4>
+        <div class="sub">이천 본사·청주 생산 → 분당·판교 주거 선호</div>
+        <div class="node"><span class="dot hub" style="background:var(--sk)"></span><span class="name">이천</span><span class="role">본사·메인 Fab</span></div>
+        <div class="node"><span class="dot hub" style="background:var(--sk)"></span><span class="name">청주</span><span class="role">M15·생산(HBM)</span></div>
+        <div class="node"><span class="dot" style="background:var(--sk)"></span><span class="name">용인</span><span class="role">신규 클러스터</span></div>
+        <div class="node"><span class="dot" style="background:#94a3b8"></span><span class="name">분당·판교</span><span class="role">R&D·IT 주거 1순위</span></div>
+        <div class="node"><span class="dot" style="background:#94a3b8"></span><span class="name">광주(경기)·수지</span><span class="role">이천 직주근접</span></div>
+      </div>
+      <div class="belt">
+        <h4>🔵 삼성전자 DS 벨트</h4>
+        <div class="sub">수원·기흥·화성·평택 '나노시티' → 광교·동탄 주거</div>
+        <div class="node"><span class="dot hub" style="background:var(--ss)"></span><span class="name">수원 디지털시티</span><span class="role">본사·R&D</span></div>
+        <div class="node"><span class="dot hub" style="background:var(--ss)"></span><span class="name">기흥·화성</span><span class="role">메모리·파운드리</span></div>
+        <div class="node"><span class="dot hub" style="background:var(--ss)"></span><span class="name">평택(고덕)</span><span class="role">최대 Fab</span></div>
+        <div class="node"><span class="dot" style="background:#94a3b8"></span><span class="name">수원 영통·광교</span><span class="role">직주근접 핵심</span></div>
+        <div class="node"><span class="dot" style="background:#94a3b8"></span><span class="name">화성 동탄·용인 수지</span><span class="role">셔틀 종착 주거</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-box" style="height:340px"><canvas id="regionBar"></canvas></div>
+      <div class="chart-cap">그림 4. 반도체 셔틀 노선 집중 지역의 아파트 누적 상승률 (한국부동산원, 수도권 평균 1.54% 대비)</div>
+    </div>
+
+    <h3>실거래로 본 온도차</h3>
+    <div class="grid3">
+      <div class="card" style="margin:0">
+        <div style="font-size:13px;color:var(--muted)">용인 수지 · 성복역 롯데캐슬골드타운 84㎡</div>
+        <div style="font-size:24px;font-weight:800;color:var(--up);margin:6px 0">17.4억 <span style="font-size:14px">신고가</span></div>
+        <div style="font-size:13px;color:var(--muted)">셔틀·신분당선 직주근접 프리미엄</div>
+      </div>
+      <div class="card" style="margin:0">
+        <div style="font-size:13px;color:var(--muted)">화성 동탄 · 센트럴푸르지오 59㎡</div>
+        <div style="font-size:24px;font-weight:800;color:var(--up);margin:6px 0">8.2억 <span style="font-size:14px">+24.7%</span></div>
+        <div style="font-size:13px;color:var(--muted)">전년 동월 대비, 평택 Fab 배후</div>
+      </div>
+      <div class="card" style="margin:0">
+        <div style="font-size:13px;color:var(--muted)">수원 권선·영통 거래량</div>
+        <div style="font-size:24px;font-weight:800;color:var(--up);margin:6px 0">+41.6% <span style="font-size:14px">/ +18.5%</span></div>
+        <div style="font-size:13px;color:var(--muted)">매수세 유입 — 거래량 선행 신호</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="ttl">🚌 핵심 입지 키워드: '셔세권'</div>
+      중개업소 자금조달계획서상 매수자 다수가 반도체 종사자. <b>SK</b>는 분당·판교·수지(이천 직주근접), <b>삼성</b>은 영통·광교·동탄·수지로 수요가 갈립니다. 두 벨트가 겹치는 <b>용인 수지·성남 분당</b>이 최대 교집합 수혜지입니다.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="impact">
+  <div class="wrap">
+    <span class="sec-tag">Part 3 · 집값에 얼마나?</span>
+    <h2>큰 충격일까, 생각보다 미미할까</h2>
+    <p class="lead">결론부터: <b>"국지적으로는 유의미, 전체 시장에는 제한적"</b>입니다. 성과급의 성격(자사주·일시소득)과 부동산 경제학의 탄력성 개념을 적용해 유동성→가격 경로를 추정했습니다.</p>
+
+    <h3>① 경제학적 근거 — 일시소득의 한계소비성향</h3>
+    <p>주택가격의 <b>소득탄력성</b>은 통상 1~2(소득 1%↑ → 가격 1~2%↑)로 알려져 있지만, 이는 <b>항상소득(permanent income)</b> 기준입니다. 성과급은 매년 변동하는 <b>일시소득(transitory income)</b>이라, 프리드먼의 항상소득가설에 따르면 한계소비성향(MPC)이 영구소득보다 낮습니다(실증 연구상 일시소득 MPC ≈ 0.2~0.5). 즉 <b>성과급의 상당 부분은 저축·부채상환으로 가고, 일부만 자산매입으로 향합니다.</b></p>
+    <p>다만 부동산에서는 이 '일부'가 <b>레버리지로 증폭</b>됩니다. 성과급은 주택 구매의 <b>계약금(down payment) 트리거</b>로 작동하고, 여기에 삼성·SK의 <b>사내 주택대출(최대 약 5억, 저금리)</b>이 결합하면 실제 매수력은 성과급의 수 배가 됩니다.</p>
+
+    <h3>② 유동성 → 부동산 유입 시나리오 (합리적 가정)</h3>
+    <div class="flow">
+      <div class="step"><div class="s-n">STEP 1 · 명목</div><div class="s-v">~40조</div><div class="s-t">두 회사 명목 성과급 총재원</div></div>
+      <div class="arr">→</div>
+      <div class="step"><div class="s-n">STEP 2 · 가용</div><div class="s-v">~9조</div><div class="s-t">세금·자사주 락업 차감 후 <b>즉시 현금</b> (가정 ~22%)</div></div>
+      <div class="arr">→</div>
+      <div class="step"><div class="s-n">STEP 3 · 유입</div><div class="s-v">~2.7조</div><div class="s-t">주택 계약금·매입 유입 (가용의 30% 가정)</div></div>
+      <div class="arr">→</div>
+      <div class="step"><div class="s-n">STEP 4 · 매수력</div><div class="s-v">~8조</div><div class="s-t">LTV·사내대출 레버리지 3배 증폭</div></div>
+    </div>
+    <p class="src" style="margin-top:-2px">※ 가정값(락업·세후 즉시현금 22%, 부동산 유입률 30%, 레버리지 3배)을 바꾸면 결과가 크게 달라집니다. 핵심은 <b>"명목 40조 ≠ 부동산 매수력"</b>이며, 실제 시장에 닿는 증폭 매수력은 <b>한 자릿수 조 원대</b>라는 점입니다.</p>
+
+    <div class="card">
+      <div class="chart-box" style="height:280px"><canvas id="funnel"></canvas></div>
+      <div class="chart-cap">그림 5. 성과급 유동성의 부동산 시장 유입 깔때기 (명목 → 즉시현금 → 부동산 유입 → 레버리지 매수력)</div>
+    </div>
+
+    <h3>③ 그래서, 충격의 크기는?</h3>
+    <p>~8조 원의 증폭 매수력이 <b>전국 주택시장</b>(연 거래대금 수백조)에 흩어지면 미미합니다. 그러나 실제로는 <b>경기 남부 + 분당·판교</b>라는 좁은 권역에 <b>같은 시기(연초 지급)·같은 직군</b>이 집중되므로, 해당 권역에서는 <b>국지적 초과수요 → 단기 호가·신고가</b>를 만들기 충분합니다. 거래량 급증(권선 +41.6%)이 이미 선행 신호로 나타났습니다.</p>
+
+    <div class="verdict">
+      <div class="v pro">
+        <h4>📈 영향이 클 것이라는 근거</h4>
+        <ul>
+          <li>좁은 권역에 <b>고소득 매수층 동시 집중</b> (셔세권)</li>
+          <li>성과급 = <b>계약금 트리거</b> + 사내대출 5억 결합 → 매수력 증폭</li>
+          <li>역대 최대 규모 — 메모리 6억·하이닉스 2~3억대</li>
+          <li><b>심리·기대</b> 자극: "내년 더 받는다"는 선반영 매수</li>
+          <li>거래량 선행 급증 이미 관측 (수원·화성)</li>
+        </ul>
+      </div>
+      <div class="v con">
+        <h4>📉 생각보다 미미할 것이라는 근거</h4>
+        <ul>
+          <li>삼성 특별성과급은 <b>자사주 + 1·2년 락업</b> → 즉시 현금 아님</li>
+          <li>일시소득 MPC 낮음 → 상당분 저축·대출상환</li>
+          <li>고소득 누진세(~40%대)로 실수령 대폭 축소</li>
+          <li>이미 유주택 비중 높아 <b>신규 순매수보다 갈아타기</b></li>
+          <li>대출규제(DSR·LTV)·고금리가 레버리지 제약</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="ttl">🎯 종합 판단</div>
+      <b>전체 수도권 집값을 끌어올리는 거시 동력은 아니다.</b> 하지만 <b>용인 수지·성남 분당·수원 영통/광교·화성 동탄·평택 고덕</b> 등 셔세권 핵심 단지에서는 <b>2027년 1~3월 성과급 지급 시즌에 국지적 가격·거래 강세</b>가 재현될 가능성이 높습니다. 특히 SK하이닉스의 <b>현금성</b> 성과급이 삼성의 <b>락업 자사주</b>보다 단기 부동산 자극 효과가 큽니다. 변수는 그 시점의 <b>대출규제와 금리</b>입니다.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="disc">
+      <b>⚠️ 데이터 주의.</b> 본 보고서의 1인당 금액·지역 상승률은 2026년 5월 시점의 언론 보도와 노사 합의 내용을 바탕으로 하며, 인원·영업이익·유입률 등은 공개 추정치와 합리적 가정을 결합한 <b>추산값</b>입니다. 특히 SK하이닉스 2027년 지급분은 2026년 실적 확정 전이라 시나리오로 제시했고, 삼성 적자 사업부 1.6억 보장은 2027년 지급분부터 적용됩니다. 실제 금액은 확정 실적·세율·개인별 직급에 따라 달라집니다.
+    </div>
+
+    <h3>📚 출처</h3>
+    <ul class="src">
+      <li><a href="https://www.hankyung.com/article/2026052102857">한국경제 — 삼성전자 메모리 6억 성과급…적자 사업부도 최소 1.6억 (2026.05.21)</a></li>
+      <li><a href="https://www.sedaily.com/article/20046582">서울경제 — 삼성전자 성과급 파격 합의, 메모리 1인당 6억</a></li>
+      <li><a href="https://v.daum.net/v/20260520235138181">다음/뉴스 — 삼성전자 노사, 특별성과급 전액 주식으로…상한 폐지</a></li>
+      <li><a href="https://topictree.co.kr/economy/sk-hynix-samsung-union-bonus-gap-widens/">토픽트리 — "1인당 12.9억" SK하이닉스 성과급 전망</a></li>
+      <li><a href="https://www.khan.co.kr/article/202509011833001">경향신문 — SK하이닉스 노사 성과급 합의(매년 영업이익 10%, 10년 유지·2025~2034 적용)</a></li>
+      <li><a href="https://www.industrynews.co.kr/news/articleView.html?idxno=71070">인더스트리뉴스 — SK하이닉스 2025 임금협상 타결(찬성률 95.4%, 영업익 10% PS 10년 약정)</a></li>
+      <li><a href="https://www.hankyung.com/article/202604178737g">한국경제 — '상소문' 이후 바뀐 SK하이닉스 성과급 [노무스쿨]</a></li>
+      <li><a href="https://www.investchosun.com/site/data/html_dir/2026/04/13/2026041380123.html">인베스트조선 — "평균 연봉 10억" SK하이닉스가 만든 新소득계층</a></li>
+      <li><a href="https://www.sedaily.com/article/20033465">서울경제 — "성과급 따라 움직인다" '셔세권' 집값 들썩 [집슐랭]</a></li>
+      <li><a href="https://www.bizhankook.com/bk/article/32034">비즈한국 — 삼성 성과급이 향하는 곳, 수원·화성·판교 아파트</a></li>
+      <li><a href="https://www.fnnews.com/news/202605211027048576">파이낸셜뉴스 — "동탄·평택 부동산으로 뛰어가라"… '6억 성과급' 반응</a></li>
+      <li><a href="https://www.financialpost.co.kr/news/articleView.html?idxno=253649">파이낸셜포스트 — SK하이닉스 임직원 2,159명 증가(3.45만 명)</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">반도체 성과급 × 부동산 전망 리포트 · 2026.05.22 · 추정·가정 기반 분석 (투자 권유 아님)</div>
+</footer>
+
+<script>
+const KRW = '#0B1220';
+Chart.defaults.font.family = "Pretendard, system-ui, sans-serif";
+Chart.defaults.color = '#475569';
+Chart.defaults.font.size = 12.5;
+const won = v => v.toLocaleString('ko-KR');
+
+// 그림1 — SK 시나리오
+new Chart(document.getElementById('skScenario'), {
+  type:'bar',
+  data:{
+    labels:['보수 70조','기준 100조','낙관 150조','매체인용 447조'],
+    datasets:[{
+      label:'1인당 평균 성과급(억 원)',
+      data:[2.0,2.9,4.3,12.9],
+      backgroundColor:['#0F766E','#A77B2D','#E4002B','#cbd5e1'],
+      borderRadius:8, maxBarThickness:80
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>'약 '+c.parsed.y+'억 원 / 인'}}},
+    scales:{y:{title:{display:true,text:'억 원 / 인'},grid:{color:'#eef2f7'}},x:{grid:{display:false}}}
+  }
+});
+
+// 그림2 — 비교 막대
+new Chart(document.getElementById('cmpBar'), {
+  type:'bar',
+  data:{
+    labels:['삼성 메모리','삼성 공통','삼성 적자\n(2027~)','SK 보수','SK 기준','SK 낙관'],
+    datasets:[{
+      label:'1인당 성과급(억 원)',
+      data:[6.0,4.3,1.6,2.0,2.9,4.3],
+      backgroundColor:['#1428A0','#3b53c4','#9aa9e0','#E4002B','#ef4d6e','#f59aac'],
+      borderRadius:8, maxBarThickness:64
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>'약 '+c.parsed.x+'억 원 / 인'}}},
+    scales:{x:{title:{display:true,text:'억 원 / 인'},grid:{color:'#eef2f7'}},y:{grid:{display:false}}}
+  }
+});
+
+// 그림3 — 명목 재원 분해 도넛
+new Chart(document.getElementById('liqDonut'), {
+  type:'doughnut',
+  data:{
+    labels:['세금(누진)','자사주 락업·분할','즉시 현금화 가능'],
+    datasets:[{
+      data:[42,36,22],
+      backgroundColor:['#94a3b8','#1428A0','#0F766E'],
+      borderColor:'#fff', borderWidth:3
+    }]
+  },
+  options:{
+    cutout:'62%',
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}},
+      tooltip:{callbacks:{label:c=>c.label+' 약 '+c.parsed+'%'}}}
+  }
+});
+
+// 그림4 — 지역 상승률
+new Chart(document.getElementById('regionBar'), {
+  type:'bar',
+  data:{
+    labels:['용인 수지','성남 분당','하남','수원 영통','화성 동탄','수도권 평균'],
+    datasets:[{
+      label:'아파트 누적 상승률(%)',
+      data:[6.93,4.33,4.32,3.13,2.05,1.54],
+      backgroundColor:['#DC2626','#DC2626','#DC2626','#DC2626','#DC2626','#94a3b8'],
+      borderRadius:8, maxBarThickness:58
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>'+'+c.parsed.y+'%'}}},
+    scales:{y:{title:{display:true,text:'누적 상승률 (%)'},grid:{color:'#eef2f7'}},x:{grid:{display:false}}}
+  }
+});
+
+// 그림5 — 유입 깔때기
+new Chart(document.getElementById('funnel'), {
+  type:'bar',
+  data:{
+    labels:['명목 재원','즉시 현금','부동산 유입','레버리지 매수력'],
+    datasets:[{
+      label:'규모(조 원)',
+      data:[40,9,2.7,8],
+      backgroundColor:['#cbd5e1','#3b53c4','#A77B2D','#E4002B'],
+      borderRadius:8, maxBarThickness:70
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>'약 '+c.parsed.y+'조 원'}}},
+    scales:{y:{title:{display:true,text:'조 원'},grid:{color:'#eef2f7'}},x:{grid:{display:false}}}
+  }
+});
+</script>
+</body>
+</html>
