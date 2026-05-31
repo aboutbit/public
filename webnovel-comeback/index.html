@@ -155,14 +155,60 @@
   .prin .p .do b{color:#7ee08a;}
 
   @media(max-width:680px){
-    .hero h1{font-size:30px;}
-    .tldr{grid-template-columns:1fr;}
+    .wrap{padding:0 18px 84px;}
+    .hero{padding:52px 0 38px;}
+    .hero h1{font-size:28px; line-height:1.3;}
+    .hero p.lead{font-size:15px;}
+    .hero .meta{font-size:12px;}
+    .badge{font-size:11px; letter-spacing:.14em; padding:5px 13px;}
+    section{padding:42px 0;}
+    h2{font-size:22px;}
+    .sec-sub{font-size:14px;}
+    h3{font-size:17px;}
+    p{font-size:15px;}
+    .tldr{grid-template-columns:1fr; gap:12px;}
+    .tldr .big{font-size:27px;}
     .diag{grid-template-columns:1fr;}
-    .traj .row{grid-template-columns:120px 1fr 70px; gap:8px;}
-    .traj .name{font-size:12px;}
-    h2{font-size:23px;}
-    .prin .p{padding:20px 18px 20px 60px;}
-    .prin .p::before{left:16px;}
+    /* 궤적 차트: 좁은 폭에 맞춰 축소 */
+    .traj .row{grid-template-columns:108px 1fr 56px; gap:9px;}
+    .traj .name{font-size:11.5px;}
+    .traj .name small{font-size:10px;}
+    .traj .fill{font-size:10px; padding-right:7px;}
+    .traj .views{font-size:11.5px;}
+    /* 표: 넘치면 가로 스크롤 (깨짐 방지 안전망) */
+    .tbl-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:22px -18px; padding:0 18px;}
+    .tbl-scroll table{margin:0; min-width:440px;}
+    table{font-size:13px;}
+    th,td{padding:10px 11px;}
+    /* 수식·지형도 박스 */
+    .formula{padding:18px 14px;}
+    .formula .eq{font-size:14px !important; line-height:1.85 !important;}
+    .formula .eq span{padding:5px 11px; margin:3px;}
+    /* 창작 원칙 */
+    .prin .p{padding:20px 18px 20px 58px;}
+    .prin .p::before{left:14px; top:20px; width:30px; height:30px; font-size:15px;}
+    .prin .p h4{font-size:16px;}
+    .prin .p p{font-size:14px;}
+    .prin .p .do{font-size:12.5px;}
+    /* 제목 워크숍 */
+    .titles .ti{grid-template-columns:26px 1fr; gap:11px; padding:15px;}
+    .titles .ti .n{font-size:18px;}
+    .titles .ti .tt{font-size:15.5px;}
+    /* 컨셉/로드맵/콜아웃 여백 */
+    .concept{padding:18px;}
+    .road{padding-left:26px;}
+    .road .step::before{left:-25px;}
+    .callout, .urgent{padding:18px 18px;}
+    .callout p, .urgent p{font-size:15px;}
+    .check{padding:6px 18px;}
+  }
+  @media(max-width:400px){
+    /* 초소형: 막대 차트를 세로 스택으로 전환 */
+    .traj .row{grid-template-columns:1fr; gap:5px; padding:11px 0;}
+    .traj .name{text-align:left; font-size:13px;}
+    .traj .views{text-align:left; font-size:12px; color:var(--gold-soft);}
+    .traj .arrow{text-align:left;}
+    .hero h1{font-size:25px;}
   }
 </style>
 </head>
@@ -321,12 +367,14 @@
 
     <h3>케이스 스터디 — 보름 만에 1위, 「막장드라마의 엔딩에 빙의했다」</h3>
     <p>현재 조회 1위작은 베테랑 대체역사 작가 '핏콩'이 <strong>2026년 5월 16일</strong>에 연재를 시작해, 단 보름 만에 정상에 오른 신작입니다. 계승서열 47위 방계 황족이 테러로 윗 서열이 전멸해 황제가 되는 '신분 급상승' 빙의물입니다. 분해하면 성공 요인이 셋입니다.</p>
+    <div class="tbl-scroll">
     <table>
       <tr><th>성공 요인</th><th>무엇을 배울 것인가</th></tr>
       <tr><td><strong>① 강렬한 창작 동기</strong><br><span style="font-size:12px;color:var(--dim)">"드라마가 너무 빡쳐서 썼다"</span></td><td>진정성 있는 '쓰고 싶은 이유'가 초반 화력에 그대로 실린다. 의무감으로 쓴 글은 독자가 먼저 안다.</td></tr>
       <tr><td><strong>② 명확한 1줄 후크</strong><br><span style="font-size:12px;color:var(--dim)">서열 47위 → 황제</span></td><td>'밑바닥 → 정점'의 신분 상승이 제목·1화에서 즉시 작동. 핫식스 대표작의 '재능 강탈'과 같은 욕망 직격 구조.</td></tr>
       <tr><td><strong>③ 동료 작가 후원 부스팅</strong><br><span style="font-size:12px;color:var(--dim)">네임드 작가 다수 추천</span></td><td>런칭 초기 노출은 '혼자'가 아니라 '관계'로 만든다. 작가 커뮤니티·SNS·동료 추천이 투베 진입을 가속.</td></tr>
     </table>
+    </div>
     <p class="src">시사점: <strong>신작이 단기간에 정상에 오를 수 있는 동적 시장</strong>이라는 점은, 핫식스 작가에게 가장 희망적인 사실입니다. 누적 격차는 진입 장벽이 아닙니다.</p>
 
     <div class="callout">
@@ -347,6 +395,7 @@
         <span class="plus">+</span><span>욕망형 제목 "다 내꺼"</span>
       </div>
     </div>
+    <div class="tbl-scroll">
     <table>
       <tr><th>부품</th><th>역할</th><th>신작에 적용하는 법</th></tr>
       <tr><td><strong>회귀/리셋</strong></td><td>독자가 가진 '내가 만약 그때로 돌아간다면'의 대리만족</td><td>유지. 가장 검증된 진입 장치</td></tr>
@@ -354,6 +403,7 @@
       <tr><td><strong>명확한 승부판</strong></td><td>스포츠=점수로 즉시 판정 → 사이다 빈도 최고</td><td>경연·랭킹·시합 구조가 있는 소재 (요리/음악/주식/격투)</td></tr>
       <tr><td><strong>욕망 제목</strong></td><td>클릭을 강제하는 1차 후크</td><td>설정 나열 금지, '상황+반전 결과'형 문장</td></tr>
     </table>
+    </div>
   </section>
 
   <!-- 5. TITLE WORKSHOP -->
