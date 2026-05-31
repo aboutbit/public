@@ -73,7 +73,9 @@
   .traj .name{font-size:14px; color:var(--ink); text-align:right;}
   .traj .name small{display:block; color:var(--dim); font-size:11px; font-weight:400;}
   .traj .track{background:var(--panel2); border-radius:7px; height:30px; overflow:hidden; position:relative; border:1px solid var(--line);}
-  .traj .fill{height:100%; border-radius:6px 0 0 6px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; font-size:12px; font-weight:700; color:#0d1117;}
+  .traj .fill{height:100%; border-radius:6px 0 0 6px;}
+  .traj .flabel{position:absolute; right:11px; top:0; bottom:0; display:flex; align-items:center; font-size:12px; font-weight:700; color:#e6edf3; text-shadow:0 1px 3px rgba(0,0,0,.65); pointer-events:none; white-space:nowrap;}
+  .peak .flabel{color:#4a3712; text-shadow:none;}
   .traj .views{font-size:13px; color:var(--sub); text-align:right; font-variant-numeric:tabular-nums;}
   .peak .fill{background:linear-gradient(90deg,#f0cf86,#d4a13c);}
   .mid .fill{background:linear-gradient(90deg,#5aa6ff,#4b8fef);}
@@ -173,13 +175,17 @@
     .traj .row{grid-template-columns:108px 1fr 56px; gap:9px;}
     .traj .name{font-size:11.5px;}
     .traj .name small{font-size:10px;}
-    .traj .fill{font-size:10px; padding-right:7px;}
+    .traj .flabel{font-size:11px; right:9px;}
     .traj .views{font-size:11.5px;}
-    /* 표: 넘치면 가로 스크롤 (깨짐 방지 안전망) */
-    .tbl-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:22px -18px; padding:0 18px;}
-    .tbl-scroll table{margin:0; min-width:440px;}
-    table{font-size:13px;}
-    th,td{padding:10px 11px;}
+    /* 표: 모바일은 카드형으로 전환 (가로 스크롤 없음) */
+    .tbl-scroll{margin:20px 0; overflow:visible;}
+    table{display:block; width:100%; font-size:14px; margin:0;}
+    table tr{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:15px 16px; margin-bottom:11px;}
+    table tr:first-child{display:none;}
+    table td{display:block; border:none; padding:0;}
+    table td:first-child{font-size:15.5px; color:#fff; padding-bottom:10px; margin-bottom:10px; border-bottom:1px solid var(--line);}
+    table td + td{margin-top:11px; color:#cdd6e0; font-size:14px;}
+    table td[data-label]::before{content:attr(data-label); display:block; font-size:11px; letter-spacing:.04em; color:var(--gold-soft); font-weight:700; margin-bottom:3px;}
     /* 수식·지형도 박스 */
     .formula{padding:18px 14px;}
     .formula .eq{font-size:14px !important; line-height:1.85 !important;}
@@ -257,25 +263,25 @@
     <div class="traj">
       <div class="row peak">
         <div class="name">축구재능 다 내꺼<small>유료 376화 / 회귀+재능강탈</small></div>
-        <div class="track"><div class="fill" style="width:100%">선호 17,037</div></div>
+        <div class="track"><div class="fill" style="width:100%"></div><span class="flabel">선호 17,037</span></div>
         <div class="views">936만</div>
       </div>
       <div class="arrow">▼ &nbsp;−61% &nbsp;도달 독자 급감</div>
       <div class="row mid">
         <div class="name">던전 탈출이 너무 힘들다<small>유료 221화 / 현판·퓨전</small></div>
-        <div class="track"><div class="fill" style="width:39%">선호 16,992</div></div>
+        <div class="track"><div class="fill" style="width:39%"></div><span class="flabel">선호 16,992</span></div>
         <div class="views">364만</div>
       </div>
       <div class="arrow">▼ &nbsp;−50%</div>
       <div class="row mid">
         <div class="name">옆집 월클이 축구 재능을 갖다줌<small>유료 185화 / 전작 재탕</small></div>
-        <div class="track"><div class="fill" style="width:19%">선호 6,514</div></div>
+        <div class="track"><div class="fill" style="width:19%"></div><span class="flabel">선호 6,514</span></div>
         <div class="views">180만</div>
       </div>
       <div class="arrow">▼ &nbsp;−36%</div>
       <div class="row low">
         <div class="name">SSS급 언령술사<small>유료 100화 / 클리셰 제목</small></div>
-        <div class="track"><div class="fill" style="width:12%">선호 3,735</div></div>
+        <div class="track"><div class="fill" style="width:12%"></div><span class="flabel">선호 3,735</span></div>
         <div class="views">115만</div>
       </div>
     </div>
@@ -368,7 +374,7 @@
     <h3>케이스 스터디 — 보름 만에 1위, 「막장드라마의 엔딩에 빙의했다」</h3>
     <p>현재 조회 1위작은 베테랑 대체역사 작가 '핏콩'이 <strong>2026년 5월 16일</strong>에 연재를 시작해, 단 보름 만에 정상에 오른 신작입니다. 계승서열 47위 방계 황족이 테러로 윗 서열이 전멸해 황제가 되는 '신분 급상승' 빙의물입니다. 분해하면 성공 요인이 셋입니다.</p>
     <div class="tbl-scroll">
-    <table>
+    <table class="t-case">
       <tr><th>성공 요인</th><th>무엇을 배울 것인가</th></tr>
       <tr><td><strong>① 강렬한 창작 동기</strong><br><span style="font-size:12px;color:var(--dim)">"드라마가 너무 빡쳐서 썼다"</span></td><td>진정성 있는 '쓰고 싶은 이유'가 초반 화력에 그대로 실린다. 의무감으로 쓴 글은 독자가 먼저 안다.</td></tr>
       <tr><td><strong>② 명확한 1줄 후크</strong><br><span style="font-size:12px;color:var(--dim)">서열 47위 → 황제</span></td><td>'밑바닥 → 정점'의 신분 상승이 제목·1화에서 즉시 작동. 핫식스 대표작의 '재능 강탈'과 같은 욕망 직격 구조.</td></tr>
@@ -396,12 +402,12 @@
       </div>
     </div>
     <div class="tbl-scroll">
-    <table>
+    <table class="t-dna">
       <tr><th>부품</th><th>역할</th><th>신작에 적용하는 법</th></tr>
-      <tr><td><strong>회귀/리셋</strong></td><td>독자가 가진 '내가 만약 그때로 돌아간다면'의 대리만족</td><td>유지. 가장 검증된 진입 장치</td></tr>
-      <tr><td><strong>성장 시스템</strong></td><td>'재능 강탈'처럼 한 줄로 이해되는 고유 능력</td><td>강탈/복제/감정/흡수 등 <span class="em-gold">신선한 동사</span> 1개 선택</td></tr>
-      <tr><td><strong>명확한 승부판</strong></td><td>스포츠=점수로 즉시 판정 → 사이다 빈도 최고</td><td>경연·랭킹·시합 구조가 있는 소재 (요리/음악/주식/격투)</td></tr>
-      <tr><td><strong>욕망 제목</strong></td><td>클릭을 강제하는 1차 후크</td><td>설정 나열 금지, '상황+반전 결과'형 문장</td></tr>
+      <tr><td><strong>회귀/리셋</strong></td><td data-label="역할">독자가 가진 '내가 만약 그때로 돌아간다면'의 대리만족</td><td data-label="신작 적용">유지. 가장 검증된 진입 장치</td></tr>
+      <tr><td><strong>성장 시스템</strong></td><td data-label="역할">'재능 강탈'처럼 한 줄로 이해되는 고유 능력</td><td data-label="신작 적용">강탈/복제/감정/흡수 등 <span class="em-gold">신선한 동사</span> 1개 선택</td></tr>
+      <tr><td><strong>명확한 승부판</strong></td><td data-label="역할">스포츠=점수로 즉시 판정 → 사이다 빈도 최고</td><td data-label="신작 적용">경연·랭킹·시합 구조가 있는 소재 (요리/음악/주식/격투)</td></tr>
+      <tr><td><strong>욕망 제목</strong></td><td data-label="역할">클릭을 강제하는 1차 후크</td><td data-label="신작 적용">설정 나열 금지, '상황+반전 결과'형 문장</td></tr>
     </table>
     </div>
   </section>
