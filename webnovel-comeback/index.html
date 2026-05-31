@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>핫식스 작가 재기 전략 리포트</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c232d; --line:#2d3643;
+    --ink:#e6edf3; --sub:#9da7b3; --dim:#6b7682;
+    --gold:#d4a13c; --gold-soft:#f0cf86;
+    --hot:#ff5a4d; --up:#3fb950; --down:#4b8fef;
+    --accent:#7c6cff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 22px 120px;}
+
+  /* HERO */
+  .hero{
+    padding:72px 0 48px; text-align:center;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(900px 320px at 50% -40px, rgba(212,161,60,.16), transparent 70%);
+  }
+  .badge{
+    display:inline-block; font-size:12px; letter-spacing:.22em; font-weight:700;
+    color:var(--gold-soft); border:1px solid rgba(212,161,60,.4);
+    padding:6px 16px; border-radius:999px; margin-bottom:24px; text-transform:uppercase;
+  }
+  .hero h1{font-size:42px; line-height:1.25; letter-spacing:-.02em; margin-bottom:18px;}
+  .hero h1 .hl{color:var(--gold);}
+  .hero p.lead{font-size:17px; color:var(--sub); max-width:620px; margin:0 auto;}
+  .hero .meta{margin-top:26px; font-size:13px; color:var(--dim);}
+
+  /* SECTION */
+  section{padding:54px 0; border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px; letter-spacing:.2em; font-weight:700; color:var(--accent); text-transform:uppercase; margin-bottom:10px;}
+  h2{font-size:28px; letter-spacing:-.02em; margin-bottom:8px;}
+  h2 .num{color:var(--gold); font-weight:800; margin-right:10px;}
+  .sec-sub{color:var(--sub); font-size:15px; margin-bottom:30px; max-width:680px;}
+  h3{font-size:19px; margin:30px 0 12px; color:var(--ink);}
+  p{color:#cdd6e0; margin-bottom:14px;}
+  strong{color:#fff;}
+  .em-gold{color:var(--gold-soft); font-weight:700;}
+  .em-hot{color:var(--hot); font-weight:700;}
+
+  /* CALLOUT */
+  .callout{
+    background:linear-gradient(180deg, rgba(212,161,60,.08), rgba(212,161,60,.02));
+    border:1px solid rgba(212,161,60,.3); border-left:4px solid var(--gold);
+    border-radius:12px; padding:22px 24px; margin:24px 0;
+  }
+  .callout .t{font-size:13px; letter-spacing:.12em; color:var(--gold-soft); font-weight:700; margin-bottom:8px;}
+  .callout p{margin:0; font-size:16px; color:#eef3f8;}
+
+  /* TLDR grid */
+  .tldr{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:34px;}
+  .tldr .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .tldr .big{font-size:30px; font-weight:800; letter-spacing:-.02em;}
+  .tldr .lbl{font-size:13px; color:var(--sub); margin-top:4px;}
+  .tldr .c1 .big{color:var(--up);}
+  .tldr .c2 .big{color:var(--hot);}
+  .tldr .c3 .big{color:var(--gold);}
+
+  /* CHART: trajectory bars */
+  .traj{margin:30px 0 10px;}
+  .traj .row{display:grid; grid-template-columns:210px 1fr 96px; align-items:center; gap:14px; padding:9px 0;}
+  .traj .name{font-size:14px; color:var(--ink); text-align:right;}
+  .traj .name small{display:block; color:var(--dim); font-size:11px; font-weight:400;}
+  .traj .track{background:var(--panel2); border-radius:7px; height:30px; overflow:hidden; position:relative; border:1px solid var(--line);}
+  .traj .fill{height:100%; border-radius:6px 0 0 6px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; font-size:12px; font-weight:700; color:#0d1117;}
+  .traj .views{font-size:13px; color:var(--sub); text-align:right; font-variant-numeric:tabular-nums;}
+  .peak .fill{background:linear-gradient(90deg,#f0cf86,#d4a13c);}
+  .mid .fill{background:linear-gradient(90deg,#5aa6ff,#4b8fef);}
+  .low .fill{background:linear-gradient(90deg,#6b7682,#525c68);}
+  .new .fill{background:linear-gradient(90deg,#ff7a6d,#ff5a4d);}
+  .traj .arrow{text-align:center; color:var(--down); font-size:13px; padding:4px 0 14px; letter-spacing:.1em;}
+
+  /* TABLE */
+  table{width:100%; border-collapse:collapse; margin:22px 0; font-size:14px;}
+  th,td{padding:12px 14px; text-align:left; border-bottom:1px solid var(--line);}
+  th{color:var(--gold-soft); font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:700;}
+  td{color:#cdd6e0;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td .tag{font-size:11px; padding:2px 8px; border-radius:6px; background:var(--panel2); color:var(--sub); border:1px solid var(--line);}
+
+  /* DIAGNOSIS cards */
+  .diag{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;}
+  .diag .d{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative;}
+  .diag .d .ico{font-size:22px; margin-bottom:10px;}
+  .diag .d h4{font-size:17px; margin-bottom:8px; color:#fff;}
+  .diag .d p{font-size:14px; color:var(--sub); margin:0;}
+  .diag .d .ev{margin-top:12px; font-size:12.5px; color:var(--hot); border-top:1px dashed var(--line); padding-top:10px;}
+
+  /* market chips */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0;}
+  .chip{background:var(--panel2); border:1px solid var(--line); border-radius:999px; padding:7px 14px; font-size:13px; color:#cdd6e0;}
+  .chip b{color:var(--gold-soft);}
+
+  .formula{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px; margin:22px 0; text-align:center;}
+  .formula .eq{font-size:17px; font-weight:600; line-height:2; color:#dfe7ef;}
+  .formula .eq span{display:inline-block; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:6px 14px; margin:4px; color:var(--gold-soft);}
+  .formula .plus{color:var(--dim); margin:0 4px;}
+
+  /* title workshop */
+  .titles{margin-top:18px;}
+  .titles .ti{display:grid; grid-template-columns:34px 1fr; gap:14px; padding:16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-bottom:10px;}
+  .titles .ti .n{font-size:20px; font-weight:800; color:var(--gold);}
+  .titles .ti .tt{font-size:17px; font-weight:700; color:#fff; margin-bottom:4px;}
+  .titles .ti .why{font-size:13px; color:var(--sub);}
+
+  /* concepts */
+  .concept{background:linear-gradient(180deg, var(--panel), rgba(124,108,255,.04)); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:16px; border-left:3px solid var(--accent);}
+  .concept .ttl{font-size:18px; font-weight:700; color:#fff; margin-bottom:6px;}
+  .concept .one{font-size:14px; color:var(--gold-soft); margin-bottom:10px; font-style:italic;}
+  .concept .desc{font-size:14px; color:var(--sub); margin:0;}
+
+  /* roadmap */
+  .road{position:relative; margin-top:28px; padding-left:30px;}
+  .road::before{content:''; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--line);}
+  .road .step{position:relative; margin-bottom:26px;}
+  .road .step::before{content:''; position:absolute; left:-29px; top:4px; width:18px; height:18px; border-radius:50%; background:var(--gold); border:3px solid var(--bg);}
+  .road .step .when{font-size:12px; letter-spacing:.1em; color:var(--gold-soft); font-weight:700; text-transform:uppercase;}
+  .road .step .what{font-size:16px; font-weight:700; color:#fff; margin:3px 0 6px;}
+  .road .step p{font-size:14px; color:var(--sub); margin:0;}
+
+  /* checklist */
+  .check{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:8px 24px; margin-top:20px;}
+  .check .item{display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-bottom:1px solid var(--line);}
+  .check .item:last-child{border-bottom:none;}
+  .check .box{flex:none; width:20px; height:20px; border:2px solid var(--gold); border-radius:5px; margin-top:3px;}
+  .check .item .ct{font-size:15px; color:#dfe7ef;}
+  .check .item .cs{font-size:13px; color:var(--dim);}
+
+  .urgent{background:linear-gradient(180deg, rgba(255,90,77,.12), rgba(255,90,77,.03)); border:1px solid rgba(255,90,77,.35); border-radius:14px; padding:22px 24px; margin:22px 0;}
+  .urgent .t{color:var(--hot); font-weight:800; font-size:15px; letter-spacing:.05em; margin-bottom:6px;}
+  .urgent p{margin:0; color:#f4dcd9;}
+
+  .src{font-size:12px; color:var(--dim); margin-top:8px;}
+  .src a{color:var(--sub); text-decoration:none; border-bottom:1px dotted var(--dim);}
+  footer{padding:40px 0 0; text-align:center; color:var(--dim); font-size:13px;}
+
+  /* principles */
+  .prin{counter-reset:p; margin-top:24px;}
+  .prin .p{position:relative; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px 24px 22px 70px; margin-bottom:14px;}
+  .prin .p::before{counter-increment:p; content:counter(p); position:absolute; left:20px; top:22px; width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,#f0cf86,#d4a13c); color:#0d1117; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;}
+  .prin .p h4{font-size:18px; color:#fff; margin-bottom:8px;}
+  .prin .p p{font-size:14.5px; color:#cdd6e0; margin:0 0 10px;}
+  .prin .p .do{font-size:13px; color:var(--up); background:rgba(63,185,80,.08); border:1px solid rgba(63,185,80,.25); border-radius:8px; padding:8px 12px; display:inline-block;}
+  .prin .p .do b{color:#7ee08a;}
+
+  @media(max-width:680px){
+    .hero h1{font-size:30px;}
+    .tldr{grid-template-columns:1fr;}
+    .diag{grid-template-columns:1fr;}
+    .traj .row{grid-template-columns:120px 1fr 70px; gap:8px;}
+    .traj .name{font-size:12px;}
+    h2{font-size:23px;}
+    .prin .p{padding:20px 18px 20px 60px;}
+    .prin .p::before{left:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="badge">웹소설 재기 전략 리포트 · 문피아</span>
+    <h1>당신은 이미 <span class="hl">936만 조회</span>를<br>만들어낸 작가입니다</h1>
+    <p class="lead">문제는 재능이 아닙니다. 한 번 증명된 '대박 공식'을 잃어버렸을 뿐입니다. 이 리포트는 핫식스 작가의 커리어 궤적을 데이터로 해부하고, 2026년 문피아 시장에서 다시 정점에 오르기 위한 구체적 실행 플랜을 제시합니다.</p>
+    <div class="meta">작성일 2026-05-31 · 대상 작가 「핫식스」 · 플랫폼 문피아(남성향)</div>
+  </div>
+
+  <!-- TL;DR -->
+  <section>
+    <div class="kicker">핵심 요약</div>
+    <h2>3문장으로 보는 진단</h2>
+    <p class="sec-sub">데이터는 거짓말을 하지 않습니다. 단, 비교는 공정해야 합니다 — <strong>유료 연재가 진행된 4개 작품</strong>(100~376화)만 같은 잣대로 놓고 봅니다. 신작 「공무원…출세함」은 아직 무료 작가연재 20화의 데뷔 초기 단계라, 누적 지표로 줄 세우면 왜곡이 생깁니다.</p>
+    <div class="callout">
+      <div class="t">한 줄 진단</div>
+      <p>「축구재능 다 내꺼」(936만)로 정점을 찍은 뒤, <strong>유료작이 나올 때마다 도달 독자 수가 약 절반씩 줄어드는 계단식 하락</strong>이 진행됐습니다(936→364→180→115만). 원인은 실력 저하가 아니라 ① 자기 복제, ② 제목 후크의 퇴화, ③ 차별화 없는 클리셰 진입입니다. 그리고 <span class="em-gold">지금 무료 연재 중인 신작이 바로 이 흐름을 끊을 살아있는 기회</span>입니다.</p>
+    </div>
+    <div class="tldr">
+      <div class="card c1">
+        <div class="big">936만</div>
+        <div class="lbl">대표작 「축구재능 다 내꺼」 누적 조회 — 이미 검증된 흥행 DNA</div>
+      </div>
+      <div class="card c2">
+        <div class="big">936→115만</div>
+        <div class="lbl">유료작 4편의 계단식 하락 (신작은 무료연재 초기라 비교 제외)</div>
+      </div>
+      <div class="card c3">
+        <div class="big">D-21</div>
+        <div class="lbl">지상최대 공모전 마감(6/21)까지 — 재기의 실질적 분기점</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. TRAJECTORY -->
+  <section>
+    <div class="kicker">진단 · Part 1</div>
+    <h2><span class="num">01</span>커리어 궤적</h2>
+    <p class="sec-sub">공정한 비교를 위해 <strong>유료 연재가 끝까지 돌아간 4개 작품</strong>만 누적 조회수로 나란히 놓았습니다. '대박 → 절반 → 또 절반'의 하강 곡선이 선명합니다. 선호작(찜) 수는 유료화 성패를 가르는 핵심 지표입니다.</p>
+
+    <div class="traj">
+      <div class="row peak">
+        <div class="name">축구재능 다 내꺼<small>유료 376화 / 회귀+재능강탈</small></div>
+        <div class="track"><div class="fill" style="width:100%">선호 17,037</div></div>
+        <div class="views">936만</div>
+      </div>
+      <div class="arrow">▼ &nbsp;−61% &nbsp;도달 독자 급감</div>
+      <div class="row mid">
+        <div class="name">던전 탈출이 너무 힘들다<small>유료 221화 / 현판·퓨전</small></div>
+        <div class="track"><div class="fill" style="width:39%">선호 16,992</div></div>
+        <div class="views">364만</div>
+      </div>
+      <div class="arrow">▼ &nbsp;−50%</div>
+      <div class="row mid">
+        <div class="name">옆집 월클이 축구 재능을 갖다줌<small>유료 185화 / 전작 재탕</small></div>
+        <div class="track"><div class="fill" style="width:19%">선호 6,514</div></div>
+        <div class="views">180만</div>
+      </div>
+      <div class="arrow">▼ &nbsp;−36%</div>
+      <div class="row low">
+        <div class="name">SSS급 언령술사<small>유료 100화 / 클리셰 제목</small></div>
+        <div class="track"><div class="fill" style="width:12%">선호 3,735</div></div>
+        <div class="views">115만</div>
+      </div>
+    </div>
+
+    <div class="callout" style="border-left-color:var(--accent); background:linear-gradient(180deg, rgba(124,108,255,.08), rgba(124,108,255,.02)); border-color:rgba(124,108,255,.3);">
+      <div class="t" style="color:#b3a8ff;">⚠ 비교에서 분리한 작품 — 신작은 '진행 중'</div>
+      <p style="color:#e6e3ff;"><strong>공무원이 능력을 안 숨기고 출세함</strong> · 무료 작가연재 20화 · 조회 8,732 / 추천 363 / 선호 176 · "새글" 표시.<br>
+      이 작품은 <strong>아직 유료화 심사 이전의 데뷔 초기 단계</strong>입니다. 완결·장기 유료작과 누적 조회수를 직접 비교하는 건 부적절합니다(앞 차트에서 제외한 이유). 화당으로 환산하면 <span class="em-gold">조회 약 437/화, 선호 순증 약 8.8/화</span> 페이스이며, 문피아 유료화 문턱(선호 1,000~3,000)까지는 가속이 필요한 구간입니다. 이 작품은 '실패 데이터'가 아니라 <span class="em-gold">지금 이 리포트의 전술을 곧장 적용할 수 있는 살아있는 무대</span>입니다.</p>
+    </div>
+
+    <div class="callout">
+      <div class="t">놓치면 안 되는 디테일</div>
+      <p>「던전 탈출」은 조회는 절반으로 줄었지만 <strong>선호작 수는 16,992로 대표작과 거의 동일</strong>합니다. 즉 <span class="em-gold">'핵심 팬층(약 1.7만 명)'은 건재</span>합니다. 하락의 본질은 '신규 독자 유입'이 줄어든 것이지 기존 팬이 떠난 게 아닙니다. 이 1.7만 명을 다음 작품 첫 주에 불러오는 '런칭 설계'가 회복의 열쇠입니다.</p>
+    </div>
+  </section>
+
+  <!-- 2. DIAGNOSIS -->
+  <section>
+    <div class="kicker">진단 · Part 2</div>
+    <h2><span class="num">02</span>무엇이 무너졌나 — 4가지 병목</h2>
+    <p class="sec-sub">하락은 우연이 아니라 반복되는 4가지 전술적 실수의 누적입니다. 각각은 다음 작품에서 곧바로 교정할 수 있습니다.</p>
+    <div class="diag">
+      <div class="d">
+        <div class="ico">🔁</div>
+        <h4>① 자기 복제의 함정</h4>
+        <p>「옆집 월클이 축구 재능을 갖다줌」은 대표작의 '스포츠+재능' 코드를 재활용했지만, 독자에겐 "이미 본 것"으로 읽혔습니다. 익숙함은 신선함의 적입니다.</p>
+        <div class="ev">근거: 동일 소재 재탕 → 936만에서 180만으로 도달 −81%</div>
+      </div>
+      <div class="d">
+        <div class="ico">🎣</div>
+        <h4>② 제목 후크의 퇴화</h4>
+        <p>대표작 제목은 욕망("다 내꺼")이 박혀 있어 클릭을 부릅니다. 반면 「SSS급 언령술사」는 후크 없는 설정 나열일 뿐입니다. 2026년 베스트는 <strong>제목이 곧 로그라인</strong>입니다.</p>
+        <div class="ev">근거: 현재 베스트 25위권 제목은 전부 '상황+반전'형 문장</div>
+      </div>
+      <div class="d">
+        <div class="ico">🌫️</div>
+        <h4>③ 차별화 없는 진입</h4>
+        <p>'SSS급', '언령술사'는 수천 개 양산작과 구별되지 않는 레드오션 키워드입니다. 시장은 이미 포화됐고, 차별화 1줄이 없으면 알고리즘에 묻힙니다.</p>
+        <div class="ev">근거: 클리셰 제목 작품일수록 선호 전환율 하락 (3,735)</div>
+      </div>
+      <div class="d">
+        <div class="ico">🚀</div>
+        <h4>④ 신규 유입의 약화</h4>
+        <p>핵심 팬 1.7만은 그대로인데 유료작의 도달은 936→115만으로 줄었습니다. 즉 '신규 독자 유입'이 막힌 것. 진행 중 신작도 20화 선호 176으로, 유료화 문턱(선호 1,000~3,000)까지 가속이 필요한 상태입니다.</p>
+        <div class="ev">근거: 팬층 유지(1.7만) vs 신규 도달 −88% = 유입 깔때기 문제</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MARKET -->
+  <section>
+    <div class="kicker">시장 분석</div>
+    <h2><span class="num">03</span>2026 문피아는 지금 이게 팔린다</h2>
+    <p class="sec-sub">현재 문피아 <strong>조회수 기반 실시간 베스트 상위권(2026-05 스냅샷)</strong>을 해부한 결과입니다. 이 패턴 안으로 들어가지 않으면 아무리 잘 써도 노출되지 않습니다.</p>
+
+    <div class="callout" style="border-left-color:var(--accent); background:linear-gradient(180deg, rgba(124,108,255,.07), rgba(124,108,255,.02)); border-color:rgba(124,108,255,.28); margin-top:0; margin-bottom:26px;">
+      <div class="t" style="color:#b3a8ff;">데이터를 읽는 법 — 베스트에도 종류가 있다</div>
+      <p style="color:#e6e3ff;">문피아 순위는 ① <strong>조회수 베스트</strong>(유입 반영), ② <strong>유료(매출) 베스트</strong>(실제 돈), ③ <strong>선호작 베스트</strong>로 나뉩니다. 아래 목록은 <strong>조회수 기반</strong>이라 '많이 클릭된 것'이지 '가장 돈을 번 것'과 정확히 같지는 않습니다. 매출 베스트는 실시간 비공개로 변동해 외부에서 정적 집계가 어렵습니다. 따라서 이 분석은 <span class="em-gold">공개 조회·선호 지표 + 트렌드 정성분석</span> 기반임을 전제로 봐주세요.</p>
+    </div>
+
+    <h3>패턴 ① 제목이 줄거리 전체를 말한다</h3>
+    <p>이제 제목은 "무슨 장르"가 아니라 "1화에서 무슨 일이 벌어지는지"를 통째로 보여줍니다. 독자는 제목만 읽고 결제 여부를 정합니다.</p>
+    <div class="chips">
+      <div class="chip">갱단한테 곡 팔았더니 <b>음악천재로 착각 당했다</b></div>
+      <div class="chip">30억 달러 당첨금 받고 <b>계속 출근함</b></div>
+      <div class="chip">이혼했더니 <b>전능의 눈을 얻었다</b></div>
+      <div class="chip">해고후 신점 봐주니 <b>거물들이 미쳐날뜀</b></div>
+      <div class="chip">막장드라마의 엔딩에 <b>빙의했다</b></div>
+    </div>
+
+    <h3>패턴 ② 현대판타지 '일상 능력물'이 가장 큰 광맥</h3>
+    <p>상위권의 약 절반이 현대판타지입니다. 거창한 이세계가 아니라 <strong>직업·일상(요리·음악·감정·신점) + 사소해 보이는 능력 + 폭발적 사이다</strong>의 조합이 지배적입니다. 진입 장벽이 낮아 독자 몰입이 빠릅니다. 단, <span class="em-hot">헌터·이능력물은 예외</span>로, 과잉 양산되어 '양판소' 취급을 받는 <strong>대표적 레드오션</strong>입니다(아래 지형도 참고).</p>
+
+    <h3>패턴 ③ '착각·오해·날먹' 코드의 카타르시스</h3>
+    <p>주인공은 별것 아니라 여기는데 주변이 알아서 떠받드는 '착각계', 큰 노력 없이 능력으로 해결하는 '날먹(쉽게 먹음)' 코드가 강세입니다. 음악·작곡 소재의 착각물(「갱단한테 곡 팔았더니…」류)이 하나의 <strong>클러스터</strong>를 이룰 만큼 두텁습니다. 피로한 독자가 원하는 건 <span class="em-gold">스트레스 없는 우월감</span>입니다.</p>
+
+    <h3>패턴 ④ 회·빙·환은 '문법', 차별화는 '소재와 무대'에서</h3>
+    <p>회귀·빙의·환생은 이제 트렌드가 아니라 <strong>기본 문법</strong>에 가깝습니다(거의 모든 상위작이 채택). 그래서 차별화는 회빙환 자체가 아니라 <span class="em-gold">'어떤 무대에, 어떤 사소한 능력으로 떨어지는가'</span>에서 납니다. 최근엔 현판 일색을 벗어나 <strong>대체역사·가상 황실물</strong>(현 1위)도 강하게 부상 중입니다.</p>
+
+    <div class="formula" style="margin-top:26px;">
+      <div class="eq" style="font-size:15px; line-height:1.9;">
+        <span style="background:rgba(255,90,77,.12); border-color:rgba(255,90,77,.35); color:#ff8a80;">🔴 레드오션 · 양판소화</span><br>
+        헌터물 · 회귀 SSS급 이능력자 · 무한 날먹 던전물<br>
+        <span style="color:var(--dim); font-size:13px; display:block; margin:6px 0;">— 「SSS급 언령술사」가 묻힌 자리. 차별화 없으면 알고리즘에서 즉시 소멸 —</span>
+        <span style="background:rgba(63,185,80,.12); border-color:rgba(63,185,80,.35); color:#7ee08a;">🟢 상대적 블루오션 · 부상</span><br>
+        대체역사/가상 황실 · 음악·예술 천재 착각물 · 일상 직업(공무원·요식·감정) · 무협(공모전 특별상)
+      </div>
+    </div>
+
+    <h3>케이스 스터디 — 보름 만에 1위, 「막장드라마의 엔딩에 빙의했다」</h3>
+    <p>현재 조회 1위작은 베테랑 대체역사 작가 '핏콩'이 <strong>2026년 5월 16일</strong>에 연재를 시작해, 단 보름 만에 정상에 오른 신작입니다. 계승서열 47위 방계 황족이 테러로 윗 서열이 전멸해 황제가 되는 '신분 급상승' 빙의물입니다. 분해하면 성공 요인이 셋입니다.</p>
+    <table>
+      <tr><th>성공 요인</th><th>무엇을 배울 것인가</th></tr>
+      <tr><td><strong>① 강렬한 창작 동기</strong><br><span style="font-size:12px;color:var(--dim)">"드라마가 너무 빡쳐서 썼다"</span></td><td>진정성 있는 '쓰고 싶은 이유'가 초반 화력에 그대로 실린다. 의무감으로 쓴 글은 독자가 먼저 안다.</td></tr>
+      <tr><td><strong>② 명확한 1줄 후크</strong><br><span style="font-size:12px;color:var(--dim)">서열 47위 → 황제</span></td><td>'밑바닥 → 정점'의 신분 상승이 제목·1화에서 즉시 작동. 핫식스 대표작의 '재능 강탈'과 같은 욕망 직격 구조.</td></tr>
+      <tr><td><strong>③ 동료 작가 후원 부스팅</strong><br><span style="font-size:12px;color:var(--dim)">네임드 작가 다수 추천</span></td><td>런칭 초기 노출은 '혼자'가 아니라 '관계'로 만든다. 작가 커뮤니티·SNS·동료 추천이 투베 진입을 가속.</td></tr>
+    </table>
+    <p class="src">시사점: <strong>신작이 단기간에 정상에 오를 수 있는 동적 시장</strong>이라는 점은, 핫식스 작가에게 가장 희망적인 사실입니다. 누적 격차는 진입 장벽이 아닙니다.</p>
+
+    <div class="callout">
+      <div class="t">전략적 시사점</div>
+      <p>핫식스 작가의 대표작 「축구재능 다 내꺼」는 사실 <strong>현재 흥행 공식의 원형</strong>이었습니다 — '재능을 강탈한다'는 명확한 욕망 후크, 스포츠라는 즉각적 승부 카타르시스. 길을 잃은 게 아니라, <span class="em-gold">자신이 이미 알던 길로, 단 레드오션(헌터·SSS급)을 피해서 돌아오면 됩니다.</span></p>
+    </div>
+  </section>
+
+  <!-- 4. DNA REVERSE -->
+  <section>
+    <div class="kicker">성공 역설계</div>
+    <h2><span class="num">04</span>대표작의 흥행 DNA 분해</h2>
+    <p class="sec-sub">936만을 만든 「축구재능 다 내꺼」를 구성 요소로 분해하면, 재현 가능한 4개 부품이 나옵니다. 다음 작품은 이 4개를 의도적으로 다시 조립해야 합니다.</p>
+    <div class="formula">
+      <div class="eq">
+        <span>회귀(리셋)</span><span class="plus">+</span><span>재능 강탈 = 성장 시스템</span><br>
+        <span class="plus">+</span><span>스포츠 = 명확한 승부·즉시 카타르시스</span><br>
+        <span class="plus">+</span><span>욕망형 제목 "다 내꺼"</span>
+      </div>
+    </div>
+    <table>
+      <tr><th>부품</th><th>역할</th><th>신작에 적용하는 법</th></tr>
+      <tr><td><strong>회귀/리셋</strong></td><td>독자가 가진 '내가 만약 그때로 돌아간다면'의 대리만족</td><td>유지. 가장 검증된 진입 장치</td></tr>
+      <tr><td><strong>성장 시스템</strong></td><td>'재능 강탈'처럼 한 줄로 이해되는 고유 능력</td><td>강탈/복제/감정/흡수 등 <span class="em-gold">신선한 동사</span> 1개 선택</td></tr>
+      <tr><td><strong>명확한 승부판</strong></td><td>스포츠=점수로 즉시 판정 → 사이다 빈도 최고</td><td>경연·랭킹·시합 구조가 있는 소재 (요리/음악/주식/격투)</td></tr>
+      <tr><td><strong>욕망 제목</strong></td><td>클릭을 강제하는 1차 후크</td><td>설정 나열 금지, '상황+반전 결과'형 문장</td></tr>
+    </table>
+  </section>
+
+  <!-- 5. TITLE WORKSHOP -->
+  <section>
+    <div class="kicker">실전 처방 · A</div>
+    <h2><span class="num">05</span>제목 리디자인 워크숍</h2>
+    <p class="sec-sub">현재 연재 중인 신작 「공무원이 능력을 안 숨기고 출세함」은 방향은 맞지만(현판·사이다) 후크가 평면적입니다. 연재 중인 작품의 제목 자체는 바꾸기 어렵지만, <strong>차기작</strong>은 물론 <strong>현 작품의 작품 소개문·홍보 한 줄</strong>에도 곧장 적용할 수 있습니다. 아래는 '상황+반전' 공식을 적용한 리라이트 예시입니다.</p>
+    <div class="titles">
+      <div class="ti"><div class="n">1</div><div><div class="tt">만년 9급인 줄 알았더니 장관들이 줄 섰다</div><div class="why">'무시받던 약자 → 거물들이 떠받듦'의 착각계 + 반전 구조</div></div></div>
+      <div class="ti"><div class="n">2</div><div><div class="tt">퇴직하려는데 능력이 들통나서 못 나감</div><div class="why">'벗어나려는데 붙잡힘'의 역설 유머 — 현재 베스트의 "계속 출근함"과 동일 코드</div></div></div>
+      <div class="ti"><div class="n">3</div><div><div class="tt">민원 처리했더니 국가가 날 못 놓아줌</div><div class="why">사소한 일상 행위 → 거대한 결과의 갭(gap) 코미디</div></div></div>
+    </div>
+    <p class="src">※ 위는 작법 방향을 보여주는 예시이며, 동생분의 기획 의도에 맞게 다듬어야 합니다. 핵심 규칙: <strong>제목에 '동작'과 '예상 밖 결과'가 둘 다 들어갈 것.</strong></p>
+  </section>
+
+  <!-- 6. CONCEPTS -->
+  <section>
+    <div class="kicker">실전 처방 · B</div>
+    <h2><span class="num">06</span>차기작 컨셉 방향 3안</h2>
+    <p class="sec-sub">작가의 검증된 강점(스포츠/경쟁물 연출력 + 회귀물 운영 경험)과 2026 시장 코드를 교차시킨 방향 제안입니다. 그대로 쓰라는 게 아니라, '어느 좌표에 깃발을 꽂을지'에 대한 지도입니다.</p>
+
+    <div class="concept">
+      <div class="ttl">A. 강점 정면 승부 — 스포츠 회귀물의 갱신</div>
+      <div class="one">"전성기 재능을 가진 채로, 이번엔 감독으로 회귀했다"</div>
+      <p class="desc">작가가 가장 잘하는 스포츠 사이다를 유지하되, 시점을 '선수'에서 '감독/단장/에이전트'로 틀어 신선함 확보. 동일 독자층이 가장 거부감 없이 따라올 안전한 복귀작.</p>
+    </div>
+    <div class="concept">
+      <div class="ttl">B. 시장 정중앙 — 현판 '감정·날먹' 일상 능력물</div>
+      <div class="one">"남들 눈엔 사소한 능력인데, 그게 세상을 뒤집는다"</div>
+      <p class="desc">현재 베스트의 핵심 광맥(곡 감정, 유물 감정, 신점, 투시). 진입장벽 최저 + 회전율 최고. 작가의 사이다 연출력을 가장 큰 시장에 그대로 이식하는 안.</p>
+    </div>
+    <div class="concept">
+      <div class="ttl">C. 공모전 승부수 — 무협 특별상 노리기</div>
+      <div class="one">"3.8억 공모전 신설 부문, 경쟁자가 가장 적은 트랙"</div>
+      <p class="desc">올해 신설된 '무협 특별상'(5작 × 1천만 원)은 응모 풀이 상대적으로 얕습니다. 작가의 '재능 강탈/성장 시스템' 강점을 무협 사파/기연 구조에 얹으면 차별화 가능. 고위험·고수익 트랙.</p>
+    </div>
+  </section>
+
+  <!-- 7. CRAFT PRINCIPLES -->
+  <section>
+    <div class="kicker">장기 성장 · 본질</div>
+    <h2><span class="num">07</span>매 작품에 적용할 창작 원칙 7</h2>
+    <p class="sec-sub">제목·컨셉·런칭은 '한 번 터뜨리는' 전술입니다. 하지만 <strong>대박을 반복하는</strong> 작가는 쓰는 행위 자체의 기본기가 다릅니다. 아래 7가지는 작품이 바뀌어도 변하지 않는, 동생분이 앞으로 계속 단련해야 할 본질입니다.</p>
+    <div class="prin">
+      <div class="p">
+        <h4>연독률은 '화의 끝'에서 결정된다</h4>
+        <p>웹소설의 생사는 누적 독자가 아니라 <strong>'다음 화 클릭률(연독률)'</strong>입니다. 그리고 그건 본문 중간이 아니라 <strong>매 화 마지막 3~4줄</strong>에서 만들어집니다. 모든 화는 "다음 화를 안 보면 잠이 안 오는" 지점에서 끊어야 합니다. 반대로 1화는 3분(약 2,000자) 안에 첫 후크가 터져야 합니다.</p>
+        <span class="do">실천: <b>모든 화 끝에 '의문·위기·반전' 중 하나</b>를 의도적으로 심고, 1화는 설정 설명 없이 사건부터 연다</span>
+      </div>
+      <div class="p">
+        <h4>사이다는 '갚는 것'이다 — 빌드업 없는 사이다는 공허하다</h4>
+        <p>날먹·착각계가 유행이라고 처음부터 끝까지 이기기만 하면 독자는 3일이면 질립니다. 카타르시스는 <strong>쌓인 긴장(고구마)을 터뜨릴 때</strong> 가장 큽니다. 핵심은 '고구마를 길게'가 아니라 <span class="em-gold">긴장→해소의 리듬을 짧고 정확하게</span> 반복하는 것. 대표작이 통한 건 스포츠가 '승부'라는 천연 긴장-해소 장치를 갖고 있었기 때문입니다.</p>
+        <span class="do">실천: <b>사이다 1번당 그 직전에 작은 위기/무시/억울함 1개</b>를 배치해 '갚는 쾌감'을 설계</span>
+      </div>
+      <div class="p">
+        <h4>독자가 따라오는 건 '능력'이 아니라 '욕망을 가진 사람'이다</h4>
+        <p>능력·시스템은 진입 후크일 뿐, 200화를 끌고 가는 건 <strong>주인공의 명확한 결핍과 욕망</strong>입니다. "왜 이걸 원하는가"가 또렷할수록 독자는 응원합니다. 남성향이라고 캐릭터가 덜 중요한 게 아니라, 오히려 <span class="em-gold">'대신 욕망을 이뤄주는 대리인'</span>으로서의 주인공 매력이 장기 연독을 좌우합니다.</p>
+        <span class="do">실천: 주인공을 한 문장으로 — <b>"○○ 때문에 ○○를 반드시 갖고야 마는 사람"</b>이라 못 쓰면 다시 설계</span>
+      </div>
+      <div class="p">
+        <h4>'익숙함 90% + 새로움 10%'의 황금비</h4>
+        <p>너무 새로우면 안 읽히고(진입장벽), 다 똑같으면 안 클릭합니다(차별화 부재). 대박작은 예외 없이 <strong>익숙한 그릇(검증된 클리셰)에 새로운 재료 한 스푼</strong>입니다. 「SSS급 언령술사」의 문제는 새로움이 0이었던 것, 신작의 과제는 '공무원물'이라는 익숙함에 <span class="em-gold">'이것만은 처음 본다'는 한 가지</span>를 박는 것입니다.</p>
+        <span class="do">실천: 기획 단계에서 <b>"이 작품의 '처음 보는 것' 한 줄"</b>을 못 적으면 클리셰 과잉 신호</span>
+      </div>
+      <div class="p">
+        <h4>진짜 승부는 '중반 슬럼프(50~150화)'에서 난다</h4>
+        <p>대부분의 작품은 초반에 모은 독자를 <strong>중반에 잃습니다</strong>. 초반 후크가 소진되고 전개가 늘어지는 구간이죠. 장수작은 이 지점에 <strong>판을 키우는 새 국면·새 라이벌·새 무대</strong>를 미리 심어둡니다. 떡밥은 던질 때보다 <span class="em-gold">회수할 때 독자를 붙잡습니다</span>.</p>
+        <span class="do">실천: 연재 전 <b>'30화·80화·150화에 무슨 새 국면이 열리는가'</b>를 미리 적어두고 시작</span>
+      </div>
+      <div class="p">
+        <h4>댓글과 지표는 '실시간 편집자'다</h4>
+        <p>웹소설의 가장 큰 강점은 <strong>독자 반응을 보며 다음 화를 고칠 수 있다</strong>는 것. 조회·연독률이 꺾인 화가 '무엇이 지루했는지'의 답이고, 댓글은 독자의 욕망을 날것으로 보여줍니다. 단, 휘둘리지 말고 <span class="em-gold">'패턴'만 읽을 것</span> — 한 명의 악플이 아니라 다수가 이탈한 지점을 봅니다.</p>
+        <span class="do">실천: <b>매주 '조회 꺾인 화 + 댓글 반복 키워드'를 기록</b>해 다음 전개에 반영하는 루틴화</span>
+      </div>
+      <div class="p">
+        <h4>작가의 지속가능성: 비축과 '손절 판단'이 실력이다</h4>
+        <p>매일 연재는 재능이 아니라 <strong>시스템(비축분)</strong>으로 버팁니다. 휴재 3일이면 연독률이 무너지니, 최소 10~20화 비축이 곧 방어선입니다. 그리고 냉정한 진실 — <span class="em-gold">안 되는 작품을 오래 붙잡는 것이 가장 큰 손해</span>입니다. 매몰비용에 갇히지 말고, 초반 지표로 '밀지 손절할지'를 빠르게 판단하는 것도 프로의 핵심 역량입니다.</p>
+        <span class="do">실천: <b>'런칭 후 ○○화·선호 ○○ 미달이면 손절'</b> 기준을 시작 전에 미리 정해 감정 개입 차단</span>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="t">한 문장으로</div>
+      <p>전술(제목·컨셉)은 <strong>이번 작품을 살리고</strong>, 이 7가지 원칙은 <strong>다음 10작품을 살립니다.</strong> 핫식스 작가는 이미 1번·2번·3번을 「축구재능 다 내꺼」에서 무의식적으로 해냈습니다 — 이제 그걸 <span class="em-gold">'의식적으로, 매번' 재현</span>하는 것이 진짜 과제입니다.</p>
+    </div>
+  </section>
+
+  <!-- 8. ROADMAP -->
+  <section>
+    <div class="kicker">실행 로드맵</div>
+    <h2><span class="num">08</span>지금부터 90일</h2>
+
+    <div class="urgent">
+      <div class="t">⚠ 시간 민감 — 지금 결정해야 함</div>
+      <p><strong>2026 지상최대 웹소설 공모전</strong> 접수는 <strong>6월 21일 마감</strong>(오늘 5/31, D-21). 총상금 3.8억(대상 1억), 대상·최우수상은 웹툰화·정식연재 보장. 로맨스·19금 제외, <strong>현판·스포츠·무협·대체역사 응모 가능</strong> — 작가의 모든 강점 장르가 응모 대상입니다. 이건 '잃어버린 화력'을 플랫폼이 대신 밀어주는 기회입니다.</p>
+    </div>
+
+    <div class="road">
+      <div class="step">
+        <div class="when">Day 0–3 · 결정</div>
+        <div class="what">컨셉 1개 확정 + 제목 5개 후보 작성</div>
+        <p>위 컨셉 A/B/C 중 택1. 공모전을 노린다면 마감 역산이 시작점. 제목은 '동작+반전' 공식으로 5개 뽑아 주변 3명에게 "어느 걸 클릭하겠냐" 블라인드 테스트.</p>
+      </div>
+      <div class="step">
+        <div class="when">Day 3–18 · 비축</div>
+        <div class="what">1~5화 집필 + 최소 10화 비축</div>
+        <p>웹소설 성패는 1~3화에서 80% 결정. 1화 안에 '능력 획득 + 첫 사이다'를 반드시 터뜨릴 것. 휴재 3일이면 연독률 붕괴 → 연재 전 비축이 생명선.</p>
+      </div>
+      <div class="step">
+        <div class="when">Day 18–21 · 런칭</div>
+        <div class="what">'투데이 베스트' 진입을 노린 전략적 런칭</div>
+        <p>문피아 유입의 관문은 <strong>투베(투데이 베스트)</strong>입니다. 여기 올라야 신규 독자가 쏟아집니다. ① 첫 주 연재 시각은 <strong>골든타임(출퇴근·새벽)</strong>을 노리되 강자들이 몰리는 자정은 피한다. ② 보유 핵심 팬 1.7만을 작가의 말·SNS·동료 추천으로 첫 주에 호출해 초기 화력 집중. ③ 1차 목표는 선호작 1,000+ 조기 돌파. '조용한 런칭'이 가장 큰 실수입니다.</p>
+      </div>
+      <div class="step">
+        <div class="when">Day 21–90 · 가속</div>
+        <div class="what">주 7회 연재 → 선호 3,000+ → 유료화</div>
+        <p>주 5회 이상, 가능하면 매일 연재로 연독률 방어. 선호 3,000 돌파 시 유료화 안정권. 매주 조회·연독·선호 추이를 기록해 '꺾이는 화'를 찾아 즉시 전개 보정.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. CHECKLIST -->
+  <section style="border-bottom:none;">
+    <div class="kicker">최종 점검</div>
+    <h2><span class="num">09</span>다음 작품 출고 전 체크리스트</h2>
+    <p class="sec-sub">신작 1화를 올리기 전, 아래 7개를 모두 통과했는지 확인하세요. 하나라도 '아니오'면 936만의 길에서 벗어난 것입니다.</p>
+    <div class="check">
+      <div class="item"><div class="box"></div><div><div class="ct">제목만 읽고 '1화에서 무슨 일이 벌어질지' 알 수 있는가?</div><div class="cs">설정 나열(SSS급/언령술사) ❌ → 동작+반전 결과 ✅</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">전작과 다른 '신선한 동사' 하나가 있는가?</div><div class="cs">스포츠+재능강탈 재탕 ❌ → 시점·소재 중 최소 1개 비틀기</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">1화 안에 '능력 획득 + 첫 사이다'가 둘 다 터지는가?</div><div class="cs">설정 설명으로 1화를 소비하면 이탈</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">승부·판정 구조(점수·랭킹·시합)가 작동하는가?</div><div class="cs">대표작의 '스포츠=즉시 카타르시스' 원리 이식</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">현판이라면 진입장벽 낮은 일상 소재인가?</div><div class="cs">시장 절반이 일상능력물 — 노출 알고리즘 유리</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">런칭 전 최소 10화 비축 + 매일 연재 계획이 있는가?</div><div class="cs">휴재 3일 = 연독률 붕괴, 회복 거의 불가</div></div></div>
+      <div class="item"><div class="box"></div><div><div class="ct">기존 팬 1.7만을 첫 주에 부를 알림 채널이 있는가?</div><div class="cs">조용한 런칭이 신작 선호 176의 진짜 원인</div></div></div>
+    </div>
+
+    <div class="callout" style="margin-top:34px;">
+      <div class="t">마지막으로</div>
+      <p>몇 년간 대박이 없었다는 사실이 '재능이 식었다'는 증거는 아닙니다. 데이터는 정반대를 말합니다 — <strong>936만을 만든 손은 그대로</strong>이고, 잃어버린 건 '제목·차별화·런칭'이라는 세 개의 나사일 뿐입니다. 이 셋은 다음 작품에서 즉시 조일 수 있습니다. 그리고 마침, 플랫폼이 3.8억을 걸고 그 무대를 열어두고 있습니다.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>출처: 문피아 핫식스 작가 페이지 · 문피아 베스트 순위(2026-05) · 「축구재능 다 내꺼」 나무위키 · 파이낸셜뉴스 「3.8억 공모전」(2026-04-20) · 문피아 연독률/유료화 기준 자료</p>
+    <p style="margin-top:10px; color:#525c68;">데이터 주의: 4개 유료작은 누적 조회수로 비교했고, 신작 「공무원…출세함」은 무료 작가연재 20화('새글')의 초기 단계라 누적 비교에서 분리했습니다. 신작의 정확한 연재 시작일은 문피아 검색 노출에 표기되지 않아, 20화·'새글' 정황상 2026년 5월경 시작된 진행 중 작품으로 추정했습니다. 화당 지표는 누적값÷화수로 산출한 근사치입니다.</p>
+    <p style="margin-top:10px; color:#525c68;">시장 분석 주의: 베스트 목록은 '조회수 기반 실시간 베스트(2026-05 스냅샷)'로 매출(유료) 베스트와 다르며, 순위는 수시로 변동합니다. 매출 베스트는 실시간 비공개라 외부 정적 집계가 불가해, 본 분석은 공개 조회·선호 지표와 트렌드 정성분석을 종합한 것입니다. 「막장드라마의 엔딩에 빙의했다」(핏콩, 2026-05-16 연재 시작) 등 개별 작품 정보는 나무위키·커뮤니티 교차 확인.</p>
+    <p style="margin-top:10px; color:#525c68;">본 리포트는 공개 데이터 기반의 전략 분석 자료이며, 최종 기획 판단은 작가 본인의 몫입니다.</p>
+  </footer>
+
+</div>
+</body>
+</html>
