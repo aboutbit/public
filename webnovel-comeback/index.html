@@ -122,6 +122,26 @@
   .concept .one{font-size:14px; color:var(--gold-soft); margin-bottom:10px; font-style:italic;}
   .concept .desc{font-size:14px; color:var(--sub); margin:0;}
 
+  /* package — 출고용 기획 패키지 */
+  .pkg{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:24px; margin-bottom:18px; border-top:3px solid var(--gold);}
+  .pkg .ptop{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:13px;}
+  .pkg .ptag{font-size:11px; letter-spacing:.08em; font-weight:700; padding:4px 11px; border-radius:999px; text-transform:uppercase;}
+  .pkg .ptag.rec{background:rgba(63,185,80,.12); color:#7ee08a; border:1px solid rgba(63,185,80,.35);}
+  .pkg .ptag.alt{background:var(--panel2); color:var(--sub); border:1px solid var(--line);}
+  .pkg .proute{font-size:12px; color:var(--dim);}
+  .pkg .ptitle{font-size:21px; font-weight:800; color:#fff; letter-spacing:-.01em; line-height:1.35; margin-bottom:8px;}
+  .pkg .palt{font-size:13px; color:var(--sub); margin-bottom:16px;}
+  .pkg .palt b{color:var(--gold-soft); font-weight:600;}
+  .pkg .pblurb{background:var(--panel2); border:1px solid var(--line); border-radius:11px; padding:16px 18px; margin-bottom:16px;}
+  .pkg .pl{font-size:11px; letter-spacing:.12em; color:var(--gold-soft); font-weight:700; margin-bottom:8px; text-transform:uppercase;}
+  .pkg .pblurb p{font-size:14.5px; color:#dfe7ef; margin:0; line-height:1.78;}
+  .pkg .pl2{font-size:11px; letter-spacing:.12em; color:var(--accent); font-weight:700; margin-bottom:6px; text-transform:uppercase;}
+  .pkg .ep{display:grid; grid-template-columns:48px 1fr; gap:12px; padding:12px 0; border-bottom:1px solid var(--line);}
+  .pkg .ep:last-child{border-bottom:none;}
+  .pkg .ep .epn{font-size:12px; font-weight:800; color:var(--gold); background:var(--panel2); border:1px solid var(--line); border-radius:8px; height:30px; display:flex; align-items:center; justify-content:center;}
+  .pkg .ep .ept{font-size:15px; font-weight:700; color:#fff; margin-bottom:3px;}
+  .pkg .ep .epw{font-size:12.5px; color:var(--sub); margin:0;}
+
   /* roadmap */
   .road{position:relative; margin-top:28px; padding-left:30px;}
   .road::before{content:''; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--line);}
@@ -200,6 +220,11 @@
     .titles .ti{grid-template-columns:26px 1fr; gap:11px; padding:15px;}
     .titles .ti .n{font-size:18px;}
     .titles .ti .tt{font-size:15.5px;}
+    /* 출고용 패키지 */
+    .pkg{padding:19px 17px;}
+    .pkg .ptitle{font-size:18px;}
+    .pkg .ep{grid-template-columns:40px 1fr; gap:10px;}
+    .pkg .ep .ept{font-size:14.5px;}
     /* 컨셉/로드맵/콜아웃 여백 */
     .concept{padding:18px;}
     .road{padding-left:26px;}
@@ -448,10 +473,79 @@
     </div>
   </section>
 
-  <!-- 7. CRAFT PRINCIPLES -->
+  <!-- 7. READY PACKAGES -->
+  <section>
+    <div class="kicker">실전 처방 · C</div>
+    <h2><span class="num">07</span>출고용 기획 패키지 — 제목·작품소개·1~3화</h2>
+    <p class="sec-sub">06의 방향 3안을 <strong>1화 업로드 직전 형태</strong>까지 구체화한 예시 패키지입니다. 각 안마다 <strong>제목(메인 1 + 대안 2) · 작품소개(문피아 소개란용) · 1~3화 소제목</strong>을 묶었습니다. 리포트의 두 원칙 — <span class="em-gold">'동작+예상 밖 결과'형 제목</span>, <span class="em-gold">'1화 안에 능력 획득 + 첫 사이다'</span> — 을 그대로 적용했습니다. 그대로 쓰는 정답이 아니라, 동생분 기획에 맞춰 변형할 출발 템플릿입니다.</p>
+
+    <!-- PKG A -->
+    <div class="pkg">
+      <div class="ptop">
+        <span class="ptag alt">컨셉 A · 안전한 복귀작</span>
+        <span class="proute">강점 정면 — 스포츠 회귀물 + 감독 시점</span>
+      </div>
+      <div class="ptitle">꼴찌 구단 감독인데, 우승까지 미래가 보인다</div>
+      <div class="palt"><b>대안 ①</b> 방출당한 그날로 돌아와, 이번엔 벤치에 앉았다 &nbsp;·&nbsp; <b>대안 ②</b> 선수로는 실패했지만 감독으로는 전승한다</div>
+      <div class="pblurb">
+        <div class="pl">작품소개</div>
+        <p>K리그 최고의 먹튀, 무릎 부상으로 방출당하던 날—눈을 떠보니 10년 뒤, 강등권 꼴찌 구단의 신임 감독이 되어 있었다. 머릿속엔 앞으로 벌어질 모든 경기의 스코어와 선수들의 숨은 미래가 그대로 들어 있다. 그라운드 위에서 잃어버린 전성기를, 이번엔 벤치에서 되찾는다. 돈도 인맥도 없는 퇴물 감독이 '미래 기억' 하나로 리그를 통째로 뒤집는다.</p>
+      </div>
+      <div class="peps">
+        <div class="pl2">1~3화 소제목</div>
+        <div class="ep"><div class="epn">1화</div><div><div class="ept">방출, 그리고 10년 뒤 감독석</div><p class="epw">회귀 + 미래 기억 획득. 화 끝에 첫 경기 스코어를 정확히 적중시켜 1화 안에 첫 사이다.</p></div></div>
+        <div class="ep"><div class="epn">2화</div><div><div class="ept">0:2로 질 경기, 후반 교체 한 방이면 뒤집힌다</div><p class="epw">미래 지식 기반 역전 지시 → '스포츠=즉시 판정'으로 빠른 카타르시스.</p></div></div>
+        <div class="ep"><div class="epn">3화</div><div><div class="ept">벤치만 지키던 18세, 사실 미래의 국가대표다</div><p class="epw">숨은 유망주 발굴 떡밥 → 장기 성장 라인과 팬덤 형성의 씨앗.</p></div></div>
+      </div>
+    </div>
+
+    <!-- PKG B (추천) -->
+    <div class="pkg">
+      <div class="ptop">
+        <span class="ptag rec">★ 메인 추천</span>
+        <span class="proute">컨셉 B · 시장 정중앙 — 현판 일상 능력물 + 착각계</span>
+      </div>
+      <div class="ptitle">남의 재능이 다 보이는데, 회사가 날 천재로 착각한다</div>
+      <div class="palt"><b>대안 ①</b> 사람 위에 재능 수치가 뜨기 시작했다 &nbsp;·&nbsp; <b>대안 ②</b> 보이는 대로 말했더니 경영의 신이 됐다</div>
+      <div class="pblurb">
+        <div class="pl">작품소개</div>
+        <p>망해가는 중소기업 인사팀 막내. 어느 날부터 사람을 보면 머리 위에 '재능 수치'와 '숨은 적성'이 뜬다. 그저 보이는 자리에 사람을 앉혔을 뿐인데—헐값에 잘릴 뻔한 인턴이 1조짜리 인재였고, 다들 떠받들던 임원은 사실 빈 깡통이었다. 회사는 되살아나고, 사람들은 나를 '사람 보는 눈의 천재'라 부르기 시작했다. 난 그냥 떠 있는 숫자를 읽었을 뿐인데.</p>
+      </div>
+      <div class="peps">
+        <div class="pl2">1~3화 소제목</div>
+        <div class="ep"><div class="epn">1화</div><div><div class="ept">그날부터, 사람 위에 숫자가 떴다</div><p class="epw">능력 획득 + 즉시 한 명 적중(버려질 인턴이 최고 스펙)으로 1화 내 첫 사이다.</p></div></div>
+        <div class="ep"><div class="epn">2화</div><div><div class="ept">해고 1순위였던 그 인턴, 사실 1조짜리였다</div><p class="epw">숨은 인재 발굴이 실적으로 판정됨 → 사내 '성과'라는 즉시 카타르시스.</p></div></div>
+        <div class="ep"><div class="epn">3화</div><div><div class="ept">제가 천재라고요? 전 그냥 보이는 대로 말했는데</div><p class="epw">착각계 코드 가동 — 주변이 알아서 떠받드는 '스트레스 없는 우월감' 설계.</p></div></div>
+      </div>
+    </div>
+
+    <!-- PKG C -->
+    <div class="pkg">
+      <div class="ptop">
+        <span class="ptag alt">컨셉 C · 공모전 승부수</span>
+        <span class="proute">무협 특별상 트랙 — '재능 강탈' DNA를 무협에</span>
+      </div>
+      <div class="ptitle">쓰레기 취급받던 내가, 남의 무공을 강탈하기 시작했다</div>
+      <div class="palt"><b>대안 ①</b> 한 번 본 무공은 전부 내 것이 된다 &nbsp;·&nbsp; <b>대안 ②</b> 사파 말단의 비급 강탈이 시작됐다</div>
+      <div class="pblurb">
+        <div class="pl">작품소개</div>
+        <p>사파 최하류 무관의 잡일꾼. 매 맞고 무시당하다 죽기 직전, 기연으로 '탈천공(奪天功)'을 얻었다—한 번 두 눈으로 본 무공은 그대로 빼앗아 내 단전에 쌓인다. 정파의 비급도, 마교의 절기도, 보는 족족 내 것이 된다. 강호 모두가 비웃던 말단 잡부가, 천하의 무공을 집어삼키며 정점으로 올라선다. 대표작 「축구재능 다 내꺼」의 '재능 강탈' 공식을 무협 무대에 그대로 이식한 안.</p>
+      </div>
+      <div class="peps">
+        <div class="pl2">1~3화 소제목</div>
+        <div class="ep"><div class="epn">1화</div><div><div class="ept">죽기 직전, 남의 무공이 빨려 들어왔다</div><p class="epw">강탈 능력 획득 + 첫 강탈로 즉시 반격 → 1화 안에 첫 사이다.</p></div></div>
+        <div class="ep"><div class="epn">2화</div><div><div class="ept">한 번 본 검법, 이미 내 단전에 있다</div><p class="epw">능력의 규칙 시연 → 무시하던 자를 그자의 무공으로 제압(승부 판정).</p></div></div>
+        <div class="ep"><div class="epn">3화</div><div><div class="ept">말단 잡부가 장로의 절기를 펼치자</div><p class="epw">신분 격차 역전 + 정체 들통 위기를 화 끝에 심어 다음 화 후크.</p></div></div>
+      </div>
+    </div>
+
+    <p class="src">※ 세 패키지 모두 <strong>제목 = '동작 + 예상 밖 결과'</strong>, <strong>1화 = '능력 획득 + 첫 사이다' 동시 점화</strong> 규칙으로 설계했습니다. 작품소개는 문피아 소개란에 그대로 붙여 쓸 수 있는 길이(3~4문장)이며, 마지막 문장에 1화 후크를 압축했습니다. <strong>메인 추천은 B</strong>(시장 최대 광맥 + 진입장벽 최저 + 작가의 '재능' DNA 직결)이고, A는 가장 안전한 복귀, C는 경쟁자 적은 공모전 트랙입니다.</p>
+  </section>
+
+  <!-- 8. CRAFT PRINCIPLES -->
   <section>
     <div class="kicker">장기 성장 · 본질</div>
-    <h2><span class="num">07</span>매 작품에 적용할 창작 원칙 7</h2>
+    <h2><span class="num">08</span>매 작품에 적용할 창작 원칙 7</h2>
     <p class="sec-sub">제목·컨셉·런칭은 '한 번 터뜨리는' 전술입니다. 하지만 <strong>대박을 반복하는</strong> 작가는 쓰는 행위 자체의 기본기가 다릅니다. 아래 7가지는 작품이 바뀌어도 변하지 않는, 동생분이 앞으로 계속 단련해야 할 본질입니다.</p>
     <div class="prin">
       <div class="p">
@@ -496,10 +590,10 @@
     </div>
   </section>
 
-  <!-- 8. ROADMAP -->
+  <!-- 9. ROADMAP -->
   <section>
     <div class="kicker">실행 로드맵</div>
-    <h2><span class="num">08</span>지금부터 90일</h2>
+    <h2><span class="num">09</span>지금부터 90일</h2>
 
     <div class="urgent">
       <div class="t">⚠ 시간 민감 — 지금 결정해야 함</div>
@@ -530,10 +624,10 @@
     </div>
   </section>
 
-  <!-- 9. CHECKLIST -->
+  <!-- 10. CHECKLIST -->
   <section style="border-bottom:none;">
     <div class="kicker">최종 점검</div>
-    <h2><span class="num">09</span>다음 작품 출고 전 체크리스트</h2>
+    <h2><span class="num">10</span>다음 작품 출고 전 체크리스트</h2>
     <p class="sec-sub">다음 작품 1화를 올리기 전, 아래 7개를 모두 통과했는지 확인하세요. 하나라도 '아니오'면 936만의 길에서 벗어난 신호입니다.</p>
     <div class="check">
       <div class="item"><div class="box"></div><div><div class="ct">제목만 읽고 '1화에서 무슨 일이 벌어질지' 알 수 있는가?</div><div class="cs">설정 나열(SSS급/언령술사) ❌ → 동작+반전 결과 ✅</div></div></div>
