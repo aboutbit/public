@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>평창 휘닉스파크 가족여행 · 8/5–8/7</title>
+<style>
+  /* ---------- reset ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  img, picture, svg { max-width: 100%; display: block; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  table { border-collapse: collapse; }
+
+  /* ---------- tokens ---------- */
+  :root {
+    --ground: #F4F6F3;
+    --surface: #FFFFFF;
+    --surface-2: #EDF1EE;
+    --ink: #16201C;
+    --ink-soft: #5A6862;
+    --ink-faint: #8B978F;
+    --line: #DCE3DD;
+    --line-strong: #C3CEC6;
+    --accent: #2E6A5C;
+    --accent-ink: #1F4C42;
+    --accent-soft: #E3EFEA;
+    --ember: #9C5F27;
+    --ember-soft: #F6EBDF;
+    --shadow: 0 1px 2px rgba(22, 32, 28, .06), 0 8px 24px -16px rgba(22, 32, 28, .28);
+
+    --sans: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo",
+            "Malgun Gothic", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+    --fs-xs: .75rem;
+    --fs-sm: .8125rem;
+    --fs-base: .9375rem;
+    --fs-lg: 1.0625rem;
+    --fs-xl: 1.3125rem;
+    --fs-2xl: 1.75rem;
+    --fs-3xl: 2.375rem;
+
+    --wrap: 46rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #101613;
+      --surface: #18211D;
+      --surface-2: #1E2924;
+      --ink: #E8EDE9;
+      --ink-soft: #9CAAA3;
+      --ink-faint: #74827B;
+      --line: #2A352F;
+      --line-strong: #3A483F;
+      --accent: #6FBFA8;
+      --accent-ink: #8FD3BE;
+      --accent-soft: #1B2E28;
+      --ember: #D9A06A;
+      --ember-soft: #2A2118;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #101613;
+    --surface: #18211D;
+    --surface-2: #1E2924;
+    --ink: #E8EDE9;
+    --ink-soft: #9CAAA3;
+    --ink-faint: #74827B;
+    --line: #2A352F;
+    --line-strong: #3A483F;
+    --accent: #6FBFA8;
+    --accent-ink: #8FD3BE;
+    --accent-soft: #1B2E28;
+    --ember: #D9A06A;
+    --ember-soft: #2A2118;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .7);
+  }
+
+  :root[data-theme="light"] {
+    --ground: #F4F6F3;
+    --surface: #FFFFFF;
+    --surface-2: #EDF1EE;
+    --ink: #16201C;
+    --ink-soft: #5A6862;
+    --ink-faint: #8B978F;
+    --line: #DCE3DD;
+    --line-strong: #C3CEC6;
+    --accent: #2E6A5C;
+    --accent-ink: #1F4C42;
+    --accent-soft: #E3EFEA;
+    --ember: #9C5F27;
+    --ember-soft: #F6EBDF;
+    --shadow: 0 1px 2px rgba(22, 32, 28, .06), 0 8px 24px -16px rgba(22, 32, 28, .28);
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--fs-base);
+    line-height: 1.65;
+  }
+
+  .page {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* ---------- sticky quick nav (모바일 우선) ---------- */
+  .quicknav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: .375rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: .625rem 1.25rem;
+    margin: -2.5rem -1.25rem 0;
+    background: var(--ground);
+    border-bottom: 1px solid var(--line);
+  }
+
+  @supports (backdrop-filter: blur(8px)) {
+    .quicknav {
+      background: color-mix(in srgb, var(--ground) 88%, transparent);
+      backdrop-filter: blur(10px);
+    }
+  }
+
+  .quicknav::-webkit-scrollbar { display: none; }
+
+  .quicknav a {
+    flex: none;
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .04em;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .45rem .75rem;
+    white-space: nowrap;
+    transition: border-color .12s ease, color .12s ease;
+  }
+
+  .quicknav a:hover { border-color: var(--accent); color: var(--accent); }
+  .quicknav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .quicknav a.is-active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* sticky nav 높이만큼 앵커 여백 */
+  [id] { scroll-margin-top: 3.75rem; }
+
+  /* ---------- theme toggle ---------- */
+  .theme-btn {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 30;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: .375rem .75rem;
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .06em;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: .875rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .masthead h1 {
+    font-size: var(--fs-3xl);
+    line-height: 1.12;
+    letter-spacing: -.032em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  .masthead .lede { color: var(--ink-soft); max-width: 34rem; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .25rem; }
+
+  /* 텍스트 노드가 flex item이 되므로 nowrap으로 min-content 붕괴를 막는다.
+     .facts 쪽에서 wrap이 되므로 칩 단위 줄바꿈은 정상 동작한다. */
+  .fact {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .4rem;
+    white-space: nowrap;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: .3rem .6rem;
+    font-size: var(--fs-sm);
+  }
+
+  .fact b {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+
+  /* ---------- section ---------- */
+  .block { display: flex; flex-direction: column; gap: 1.125rem; }
+  .block-head { display: flex; flex-direction: column; gap: .3rem; }
+  .block-head h2 { font-size: var(--fs-xl); letter-spacing: -.018em; font-weight: 650; }
+  .block-head p { color: var(--ink-soft); font-size: var(--fs-sm); }
+
+  /* ---------- weather ---------- */
+  .weather { display: grid; grid-template-columns: repeat(3, 1fr); gap: .625rem; }
+
+  .wx {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: .875rem .75rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .wx-day {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .wx-temp {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .wx-temp span { font-size: var(--fs-sm); font-weight: 400; color: var(--ink-faint); }
+  .wx-desc { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.4; }
+
+  .wx-rain {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+    padding-top: .4rem;
+    border-top: 1px dashed var(--line);
+  }
+
+  .wx.is-best { border-color: var(--accent); background: var(--accent-soft); }
+  .wx.is-best .wx-day, .wx.is-best .wx-rain { color: var(--accent-ink); }
+
+  /* ---------- meal plan ---------- */
+  .meals { display: flex; flex-direction: column; gap: 0; }
+
+  .meal {
+    display: grid;
+    grid-template-columns: 5.25rem 1fr;
+    gap: .875rem;
+    padding: .75rem .25rem;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .meal:last-child { border-bottom: none; }
+
+  .meal-when {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+    padding-top: .18rem;
+    white-space: nowrap;
+  }
+
+  .meal-what { display: flex; flex-direction: column; gap: .15rem; }
+  .meal-name { font-weight: 600; }
+  .meal-name.is-pick { color: var(--accent-ink); }
+  .meal-why { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.5; }
+
+  .meal-baby {
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    margin-top: .3rem;
+    padding: .375rem .5rem;
+    background: var(--surface-2);
+    border-radius: 2px;
+    color: var(--ink-soft);
+  }
+
+  .meal-baby b {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .06em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: .375rem;
+  }
+
+  .meal-baby strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- alert ---------- */
+  .alert {
+    border: 1px solid var(--ember);
+    border-left-width: 4px;
+    background: var(--ember-soft);
+    border-radius: 0 3px 3px 0;
+    padding: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+  }
+
+  .alert-label {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    font-weight: 700;
+  }
+
+  .alert h3 { font-size: var(--fs-lg); font-weight: 700; letter-spacing: -.014em; line-height: 1.35; }
+  .alert p { font-size: var(--fs-sm); line-height: 1.6; color: var(--ink-soft); }
+  .alert p strong { color: var(--ink); font-weight: 650; }
+
+  .alert-do {
+    background: var(--surface);
+    border-radius: 2px;
+    padding: .75rem .875rem;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+
+  .alert-do strong { font-weight: 650; }
+
+  /* ---------- technique ---------- */
+  .tech { display: flex; flex-direction: column; gap: .5rem; }
+
+  .tech-item {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    gap: .75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: .75rem .875rem;
+    align-items: start;
+  }
+
+  .tech-n {
+    font-family: var(--mono);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    padding-top: .05rem;
+  }
+
+  .tech-b { display: flex; flex-direction: column; gap: .15rem; }
+  .tech-b h4 { font-size: var(--fs-base); font-weight: 650; }
+  .tech-b p { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.5; }
+  .tech-b p strong { color: var(--ink); font-weight: 600; }
+
+  .asks { display: flex; flex-wrap: wrap; gap: .375rem; }
+
+  .ask {
+    font-size: var(--fs-sm);
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: .25rem .75rem;
+    font-weight: 600;
+  }
+
+  /* ---------- restaurant ---------- */
+  .resto {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 3px 3px 0;
+    padding: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .resto-top { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+  .resto-top h4 { font-size: var(--fs-lg); font-weight: 650; letter-spacing: -.014em; }
+
+  .slot {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .06em;
+    background: var(--accent);
+    color: var(--ground);
+    padding: .15rem .45rem;
+    border-radius: 2px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ---------- day ---------- */
+  .day { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .day-head {
+    display: flex;
+    align-items: flex-start;
+    gap: .875rem;
+    padding-bottom: .875rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .day-num {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: .1em;
+    background: var(--ink);
+    color: var(--ground);
+    padding: .3rem .5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: .2rem;
+  }
+
+  .day-title { display: flex; flex-direction: column; gap: .1rem; flex: 1; }
+  .day-title h3 { font-size: var(--fs-2xl); letter-spacing: -.028em; font-weight: 700; line-height: 1.15; }
+  .day-title .sub { color: var(--ink-soft); font-size: var(--fs-sm); }
+
+  /* ---------- timeline ---------- */
+  .timeline { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0 .875rem; }
+
+  .tl-time {
+    font-family: var(--mono);
+    font-size: var(--fs-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    font-weight: 600;
+    padding: .7rem 0;
+    text-align: right;
+    border-top: 1px solid var(--line);
+  }
+
+  .tl-body {
+    padding: .7rem 0;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+  }
+
+  .tl-what { font-weight: 600; letter-spacing: -.006em; }
+  .tl-note { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.5; }
+
+  .tl-time.is-key, .tl-body.is-key { background: var(--accent-soft); }
+  .tl-time.is-key { padding-right: .5rem; border-radius: 2px 0 0 2px; }
+  .tl-body.is-key { padding-left: .625rem; padding-right: .625rem; border-radius: 0 2px 2px 0; }
+  .tl-body.is-key .tl-what { color: var(--accent-ink); }
+
+  .tl-time.is-meal, .tl-body.is-meal { background: var(--ember-soft); }
+  .tl-time.is-meal { padding-right: .5rem; border-radius: 2px 0 0 2px; color: var(--ember); }
+  .tl-body.is-meal { padding-left: .625rem; padding-right: .625rem; border-radius: 0 2px 2px 0; }
+  .tl-body.is-meal .tl-what { color: var(--ember); }
+
+  /* ---------- card ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1.125rem 1.125rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .card h4 { font-size: var(--fs-lg); font-weight: 650; letter-spacing: -.014em; }
+  .card > p { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.6; }
+  .card > p strong { color: var(--ink); font-weight: 600; }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: .4rem .875rem; font-size: var(--fs-sm); }
+
+  .kv dt {
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding-top: .18rem;
+    white-space: nowrap;
+  }
+
+  .kv dd { color: var(--ink); }
+  .kv dd strong { font-weight: 650; }
+
+  .bullets { display: flex; flex-direction: column; gap: .45rem; font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.55; }
+  /* 불릿은 absolute로 띄운다. li를 grid로 만들면 <strong> 뒤의 텍스트 노드가
+     익명 grid item으로 떨어져 나가 한 글자씩 세로로 쌓인다. */
+  .bullets li { position: relative; padding-left: 1.375rem; }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: .375rem;
+    top: .58rem;
+    width: .3125rem; height: .3125rem;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+  .bullets strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    border-left: 3px solid var(--ember);
+    background: var(--ember-soft);
+    border-radius: 0 3px 3px 0;
+    padding: .875rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+
+  .callout-label {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    font-weight: 700;
+  }
+
+  .callout p { font-size: var(--fs-sm); line-height: 1.55; }
+  .callout strong { font-weight: 650; }
+
+  /* ---------- options ---------- */
+  .options { display: flex; flex-direction: column; gap: .625rem; }
+
+  .opt {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: .875rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+  }
+
+  .opt.is-pick { border-color: var(--accent); border-left-width: 3px; }
+  .opt-top { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+  .opt-top h4 { font-size: var(--fs-base); font-weight: 650; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .1rem .375rem;
+    border-radius: 2px;
+    font-weight: 600;
+    background: var(--surface-2);
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .tag.tag-pick { background: var(--accent); color: var(--ground); }
+  .opt p { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.55; }
+  .opt p strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- table ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); }
+  table { width: 100%; font-size: var(--fs-sm); }
+  th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+
+  th {
+    font-family: var(--mono);
+    font-size: var(--fs-xs);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    background: var(--surface-2);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+  td.num.hot { color: var(--accent); font-weight: 600; }
+  tr.is-meal td { background: var(--ember-soft); font-weight: 600; }
+
+  /* ---------- checklist ---------- */
+  .check-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; }
+  .checklist { display: flex; flex-direction: column; }
+
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: .625rem;
+    padding: .5rem .25rem;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+  .check:last-child { border-bottom: none; }
+
+  .check input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.0625rem; height: 1.0625rem;
+    flex: none;
+    margin: .18rem 0 0;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 2px;
+    background: var(--surface);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: background .12s ease, border-color .12s ease;
+  }
+
+  .check input::after {
+    content: "";
+    width: .5rem; height: .28rem;
+    border-left: 2px solid var(--ground);
+    border-bottom: 2px solid var(--ground);
+    transform: rotate(-45deg) translateY(-.06rem);
+    opacity: 0;
+  }
+
+  .check input:checked { background: var(--accent); border-color: var(--accent); }
+  .check input:checked::after { opacity: 1; }
+  .check input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .check input:checked + span { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--line-strong); }
+
+  /* ---------- contacts ---------- */
+  .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .5rem; }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: .75rem .875rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .12s ease;
+  }
+
+  .contact:hover, .contact:focus-visible { border-color: var(--accent); }
+  .contact:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .contact .name { font-size: var(--fs-sm); font-weight: 600; }
+
+  .contact .tel {
+    font-family: var(--mono);
+    font-size: var(--fs-base);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    letter-spacing: -.01em;
+  }
+
+  .contact .meta { font-size: var(--fs-xs); color: var(--ink-faint); }
+  .contact.is-urgent { border-color: var(--ember); background: var(--ember-soft); }
+  .contact.is-urgent .tel { color: var(--ember); }
+
+  /* ---------- footer ---------- */
+  .foot {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 1.25rem;
+    font-size: var(--fs-xs);
+    color: var(--ink-faint);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+  .foot code { font-family: var(--mono); }
+
+  @media (max-width: 34rem) {
+    .page { padding: 2rem 1rem 4rem; gap: 2.5rem; }
+    .quicknav { margin: -2rem -1rem 0; padding: .5rem 1rem; }
+    .masthead { padding-bottom: 1.5rem; }
+    /* 모바일에서 표는 더 촘촘하게 */
+    th, td { padding: .45rem .6rem; }
+    .card, .resto { padding: 1rem; }
+    .check { padding: .625rem .25rem; }  /* 터치 타겟 확대 */
+    :root { --fs-3xl: 1.9rem; --fs-2xl: 1.5rem; }
+    .weather { grid-template-columns: 1fr; }
+    .wx { flex-direction: row; align-items: center; gap: .875rem; }
+    .wx-day { width: 4rem; flex: none; }
+    .wx-temp { font-size: 1.25rem; }
+    .wx-rain { border-top: none; border-left: 1px dashed var(--line); padding: 0 0 0 .75rem; margin-left: auto; }
+    .timeline { grid-template-columns: 3.125rem 1fr; gap: 0 .625rem; }
+    .meal { grid-template-columns: 4.5rem 1fr; gap: .625rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  @media print {
+    .theme-btn, .quicknav { display: none; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-btn" id="themeBtn" type="button" aria-label="테마 전환">THEME</button>
+
+<div class="page">
+
+  <nav class="quicknav" aria-label="빠른 이동">
+    <a href="#confirmed">확인</a>
+    <a href="#meals">식사</a>
+    <a href="#day1">8/5</a>
+    <a href="#day2">8/6</a>
+    <a href="#day3">8/7</a>
+    <a href="#drive">이동</a>
+    <a href="#sos">비상</a>
+    <a href="#pack">준비물</a>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">2026 · 여름 · 강원 평창</div>
+    <h1>휘닉스파크 2박 3일</h1>
+    <p class="lede">22개월 다은이와 함께하는 8월 5일(수) ~ 7일(금). 하루에 핵심 일정 하나, 낮잠 시간은 건드리지 않는 구성입니다.</p>
+    <div class="facts">
+      <span class="fact"><b>숙소</b> 휘닉스파크 리조트 내</span>
+      <span class="fact"><b>출발</b> 평촌어바인퍼스트</span>
+      <span class="fact"><b>편도</b> 147.9km · 성수기 2시간 33분</span>
+      <span class="fact"><b>예약</b> 블루캐니언 8/5(수)</span>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>3일 날씨</h2>
+      <p>8월 2일 기준 예보 · 아침 최저가 17~20℃까지 떨어지므로 아기 긴팔은 필수입니다.</p>
+    </div>
+    <div class="weather">
+      <div class="wx">
+        <div class="wx-day">8/5 수</div>
+        <div class="wx-temp">27.2°<span> / 19.7°</span></div>
+        <div class="wx-desc">흐림. 자외선 부담이 적어 물놀이에 오히려 유리</div>
+        <div class="wx-rain">강수확률 16%</div>
+      </div>
+      <div class="wx is-best">
+        <div class="wx-day">8/6 목 · 최상</div>
+        <div class="wx-temp">29.0°<span> / 17.7°</span></div>
+        <div class="wx-desc">대체로 맑음. 야외 일정을 이 날에 배치</div>
+        <div class="wx-rain">강수확률 4%</div>
+      </div>
+      <div class="wx">
+        <div class="wx-day">8/7 금</div>
+        <div class="wx-temp">30.1°<span> / 17.3°</span></div>
+        <div class="wx-desc">부분 흐림. 오후로 갈수록 비 가능성</div>
+        <div class="wx-rain">강수확률 24%</div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">참고</div>
+      <p>8월 8일(토)은 <strong>뇌우 예보(55%)</strong>입니다. 7일 귀가 판단이 맞습니다.</p>
+    </div>
+  </section>
+
+  <section class="block" id="confirmed">
+    <div class="block-head">
+      <h2>리조트 전화 확인 결과</h2>
+      <p>2026년 8월 2일 통화. 이 답변들로 계획이 세 군데 바뀌었습니다.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>답변</th><th>반영</th></tr></thead>
+        <tbody>
+          <tr><td>블루캐니언 8/5(수)</td><td><strong>정상 운영</strong></td><td>✅ 수요일 휴장 우려 해소</td></tr>
+          <tr class="is-meal"><td>워터파크 입장권</td><td><strong>총 4장 — 이틀 모두 사용 가능</strong></td><td>✅ <strong>8/7 오전 추가</strong></td></tr>
+          <tr><td>얼리체크인</td><td>극성수기라 미확정. 10시경 문자 → 12시 셀프체크인 시도</td><td>✅ 양평휴게소에서 문자 확인 → 횡성휴게소에서 12시 시도</td></tr>
+          <tr><td>배정 동</td><td><strong>그린동 / 오렌지동 랜덤</strong> (블루동 아님)</td><td>⚠️ 워터파크·카페 거리 미지수</td></tr>
+          <tr class="is-meal"><td>조식</td><td>뷔페 아닌 <strong>베이커리 카페</strong>(블루동 맞은편). 전날 사전신청. <strong>성인 29,000원</strong></td><td>✅ <strong>8/6만 신청</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <div class="callout-label">놓치기 쉬운 것</div>
+      <p><strong>8/5 저녁에 8/6 조식을 반드시 사전신청하세요.</strong> 잊으면 8/6 아침이 통째로 비고 08:30 출발이 무너집니다.</p>
+    </div>
+  </section>
+
+  <section class="block" id="meals">
+    <div class="block-head">
+      <h2>식당 배치</h2>
+      <p>풀내음과 초가집옛골은 봉평면 메밀꽃길에 <strong>도보 1~2분 거리로 붙어 있고 둘 다 메밀 전문</strong>입니다. 같은 날 몰면 메뉴가 겹치므로 이틀에 하나씩 나눴습니다.</p>
+    </div>
+
+    <div class="alert">
+      <div class="alert-label">출발 전 최우선 확인</div>
+      <h3>다은이가 메밀을 먹어본 적이 있나요?</h3>
+      <p>
+        <strong>메밀은 식약처 알레르기 유발물질 22종 표시대상</strong>이고, 한국에서 아나필락시스 위험이 높은 대표 식품입니다.
+        메밀베개 사용이 많아 해외보다 감작률이 높고 소아 사례가 느는 추세입니다.
+        그런데 이번에 가려는 식당 두 곳이 모두 메밀 전문점이고, 가장 가까운 응급실은 <strong>44분 거리</strong>입니다.
+      </p>
+      <p>
+        우리 집 유아식 원칙도 <strong>“새 식재료는 3일 간격으로 단독 시도해 반응 확인”</strong> 입니다.
+        여행지에서 처음 먹이는 건 이 원칙을 정면으로 어기는 셈입니다.
+      </p>
+      <div class="alert-do">
+        <span><strong>먹어본 적이 없다면</strong> — 오늘이 8/2, 출발이 8/5이라 <strong>3일 여유가 정확히 확보됩니다.</strong> 집에서 한 숟갈 소량으로 먼저 시도하고 2시간 이상 두드러기·구토·기침·입 주변 발적이 없는지 확인하세요. <strong>반드시 오전에</strong> 시도해야 이상 반응 시 낮에 병원에 갈 수 있습니다.</span>
+        <span><strong>테스트를 못 했다면</strong> — 다은이는 메밀을 건너뛰고 지참한 밥으로 먹입니다. 부모만 즐기면 되고, 계획은 그대로 굴러갑니다.</span>
+        <span><strong>메밀집에서의 대안</strong> — <strong>감자옹심이는 감자 기반</strong>이라 메밀을 피할 때 쓸 수 있습니다. 다만 쫄깃해서 1cm 이하로 잘라야 합니다.</span>
+      </div>
+    </div>
+
+    <div class="meals">
+      <div class="meal">
+        <div class="meal-when">8/5 간식</div>
+        <div class="meal-what">
+          <div class="meal-name">양평휴게소 <span style="color:var(--ink-faint);font-weight:400">09:46</span></div>
+          <div class="meal-why">어른은 아침을 거르고 11시 점심을 첫 끼로 삼습니다.</div>
+          <div class="meal-baby"><b>다은이</b>우유/물 + 쌀과자·과일 소량. <strong>배를 채우지 않는 수준으로.</strong> 여기서 밥을 먹이면 11:30 점심을 거릅니다.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="meal-when">8/5 점심</div>
+        <div class="meal-what">
+          <div class="meal-name">횡성휴게소 <span style="color:var(--ink-faint);font-weight:400">어른 11:00 · 아기 11:30</span></div>
+          <div class="meal-why">봉평 진입 전 마지막 대형 휴게소. 어른이 먼저 먹고, 아기는 30분 뛰어논 뒤 시작합니다.</div>
+          <div class="meal-baby"><b>다은이</b><strong>아기의자 있음.</strong> 휴게소 음식은 짜므로 지참한 아기밥 + 반찬. 우동면을 뜨거운 물에 헹궈 잘라주는 것도 가능합니다.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="meal-when">8/5 저녁</div>
+        <div class="meal-what">
+          <div class="meal-name">객실에서 <span style="color:var(--ink-faint);font-weight:400">18:00</span></div>
+          <div class="meal-why">온담이 비싸 리조트 밖·객실을 검토했습니다. <strong>물놀이 후 이동 0이 아기에게 최선</strong>입니다. 미리 사둔 즉석국·햇반으로.</div>
+          <div class="meal-baby"><b>다은이</b>물놀이 후라 잘 먹습니다. 지참한 아기밥 + 반찬. 밖에서 먹는다면 <strong>봉평 시내 11분</strong>, 만두국이 22개월에게 가장 무난합니다.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="meal-when">8/6 점심</div>
+        <div class="meal-what">
+          <div class="meal-name">곤드레산나물밥 — 진부 · 대관령면</div>
+          <div class="meal-why">봉평으로 돌아오면 왕복 84분을 버립니다. 대관령식당(진부면) 등 목장 근처에서 해결합니다.</div>
+          <div class="meal-baby"><b>다은이</b><strong>이번 여행에서 가장 적합한 메뉴입니다.</strong> 나물밥은 간이 약하고 양념장이 따로 나와 밥만 덜어주기 좋습니다.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="meal-when">8/6 저녁</div>
+        <div class="meal-what">
+          <div class="meal-name is-pick">풀내음</div>
+          <div class="meal-why">브레이크타임이 없고 19:30까지라 저녁에 시간 압박이 없습니다. 낮 일정에서 돌아와 씻고 나가도 여유롭습니다.</div>
+          <div class="meal-baby"><b>다은이</b>메밀묵은 <strong>양념장을 빼면</strong> 부드럽고 간이 없습니다. 그 외에는 지참한 아기밥 + 공깃밥.</div>
+        </div>
+      </div>
+      <div class="meal">
+        <div class="meal-when">8/7 점심</div>
+        <div class="meal-what">
+          <div class="meal-name is-pick">초가집옛골</div>
+          <div class="meal-why">이효석문화예술촌에서 도보권이라 주차 한 번으로 산책과 점심이 해결되고, 그대로 귀가 동선에 올라탑니다.</div>
+          <div class="meal-baby"><b>다은이</b>감자옹심이(잘게 자름), 메밀부침 조각. <strong>메밀전병은 김치소가 들어가 매우므로 제외합니다.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resto">
+      <div class="resto-top">
+        <h4>풀내음</h4>
+        <span class="slot">8/6 목 저녁</span>
+      </div>
+      <dl class="kv">
+        <dt>주소</dt><dd>평창군 봉평면 메밀꽃길 13</dd>
+        <dt>거리</dt><dd>리조트에서 <strong>11분 · 7.7km</strong></dd>
+        <dt>영업</dt><dd>10:00 ~ 19:30 (라스트오더 19:00)</dd>
+        <dt>휴무</dt><dd>매주 화요일 → <strong>8/6 정상 영업</strong></dd>
+        <dt>메뉴</dt><dd>메밀모둠, 메밀묵사발, 물막국수</dd>
+        <dt>주차</dt><dd>전용 주차장 있음</dd>
+      </dl>
+      <p style="font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.55;">
+        브레이크타임이 없는 것이 이 날 배치의 이유입니다. 월정사에서 15:45 복귀 → 씻고 쉬다가 17:30 출발해도 충분합니다.
+      </p>
+    </div>
+
+    <div class="resto">
+      <div class="resto-top">
+        <h4>초가집옛골</h4>
+        <span class="slot">8/7 금 점심</span>
+      </div>
+      <dl class="kv">
+        <dt>주소</dt><dd>평창군 봉평면 메밀꽃길 7 <strong>(풀내음에서 도보 1~2분)</strong></dd>
+        <dt>전화</dt><dd><a href="tel:0333363360" style="color: var(--accent); text-decoration: none;">033-336-3360</a></dd>
+        <dt>영업</dt><dd>수~토 10:30 ~ 19:00 · <strong>브레이크 16:00~17:00</strong></dd>
+        <dt>휴무</dt><dd>매주 화요일 → <strong>8/7 정상 영업</strong></dd>
+        <dt>메뉴</dt><dd>순메밀국수 물 12,000 / 비빔 13,000 · 메밀모듬 20,000 · 감자옹심이 13,000 · 메밀전병 9,000</dd>
+      </dl>
+      <p style="font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.55;">
+        100% 순메밀. 브레이크타임이 16~17시라 <strong style="color: var(--ink);">점심(12시)에는 영향이 없습니다.</strong>
+        다만 저녁에 갔다면 마감 19:00에 쫓겼을 곳이라, 점심 자리를 여기에 준 것입니다.
+      </p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">확인 필요</div>
+      <p>두 곳 모두 <strong>아기의자와 좌석 형태(좌식/입식)가 확인되지 않았습니다.</strong> 옛골은 033-336-3360으로 미리 물어보세요.
+      확실한 대안은 <strong>봉평메밀 미가연</strong>(봉평면 기풍로 108) — 아기의자와 전자레인지 이유식 데움이 확인된 곳입니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">조식 — 베이커리 카페 (블루동 맞은편)</div>
+      <h4>8/6만 신청, 8/7은 객실에서</h4>
+      <p>전화 확인 결과 조식은 뷔페가 아니라 <strong>베이커리 카페</strong>였습니다. 전날 사전신청 시 투숙객 할인이 적용되지만 <strong>성인 29,000원</strong>이라, 08:30 출발이 걸린 <strong>8/6만 신청</strong>하고 8/7 아침은 객실에서 해결합니다.</p>
+      <ul class="bullets">
+        <li><strong>8/5 저녁에 8/6 조식을 반드시 사전신청하세요.</strong> 잊으면 8/6 아침이 통째로 비고 08:30 출발이 무너집니다.</li>
+        <li><strong>빵 위주라 다은이 아침으로는 부족합니다.</strong> 지참한 아기밥이나 전날 사둔 것으로 보충하세요.</li>
+        <li>배정 동이 <strong>그린동 또는 오렌지동</strong>이라 블루동 맞은편 카페까지 이동이 필요합니다. 체크인 때 도보 시간을 확인해 07:30에 맞추세요.</li>
+        <li>8/7 아침은 객실에서 — <strong>전날 저녁 편의점에서 미리 사둡니다.</strong></li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">조식 관련 미확인</div>
+      <p><strong>베이커리 카페 영업 시작 시간</strong>과 <strong>다은이 요금(36개월 미만 무료 여부)</strong>은 아직 확인되지 않았습니다. 07:30 기준으로 계획했으니 <strong>사전신청할 때 시작 시간을 함께 확인</strong>하세요.</p>
+    </div>
+
+    <div class="block-head" style="margin-top:.75rem">
+      <h2>아기 동반 외식은 최소 80분</h2>
+      <p>어른 둘이면 40분에 끝날 식사가 22개월과는 두 배로 걸립니다. 일정에 이 시간을 그대로 넣었습니다.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>단계</th><th style="text-align:right">소요</th></tr></thead>
+        <tbody>
+          <tr><td>자리 잡기 · 아기의자 세팅 · 테이블 정리</td><td class="num">10분</td></tr>
+          <tr><td>주문 후 대기 (성수기엔 더 김)</td><td class="num">15분</td></tr>
+          <tr><td>식사 — 천천히 먹고 중간에 일어나려 함</td><td class="num">40분</td></tr>
+          <tr><td>정리 · 기저귀 교체 · 손 씻기</td><td class="num">15분</td></tr>
+          <tr class="is-meal"><td>합계</td><td class="num">80분</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>끼니</th><th style="text-align:right">배정</th></tr></thead>
+        <tbody>
+          <tr><td>8/5 점심 — 횡성휴게소</td><td class="num hot">80분</td></tr>
+          <tr><td>8/5 저녁 — 객실 (권장)</td><td class="num">75분</td></tr>
+          <tr><td>8/6 아침 — 베이커리 카페 <span style="color:var(--ink-faint)">사전신청</span></td><td class="num">60분</td></tr>
+          <tr><td>8/6 점심 — 곤드레산나물밥</td><td class="num hot">90분</td></tr>
+          <tr><td>8/6 저녁 — 풀내음</td><td class="num hot">80분</td></tr>
+          <tr><td>8/7 아침 — 객실에서 <span style="color:var(--ink-faint)">조식 미신청</span></td><td class="num">60분</td></tr>
+          <tr><td>8/7 점심 — 초가집옛골</td><td class="num hot">90분</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">원칙</div>
+      <p><strong>식사 시간은 줄이지 않습니다. 줄여야 할 상황이면 관광지를 뺍니다.</strong> 밥을 급하게 먹이면 그날 남은 일정이 전부 무너집니다.</p>
+    </div>
+
+    <div class="block-head" style="margin-top:.75rem">
+      <h2>식당에서 쓰는 3가지 기술</h2>
+      <p>어른 메뉴를 22개월이 먹을 수 있게 바꾸는 방법입니다. 우리 집 기준 국 염도는 0.3~0.4%인데 식당 국물은 이보다 훨씬 짭니다.</p>
+    </div>
+
+    <div class="tech">
+      <div class="tech-item">
+        <div class="tech-n">1</div>
+        <div class="tech-b">
+          <h4>헹구기</h4>
+          <p>면·나물·고기를 뜨거운 물에 한 번 헹구면 염분이 크게 줄어듭니다. 자리에 앉자마자 <strong>뜨거운 물 한 그릇</strong>을 부탁해 두세요.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-n">2</div>
+        <div class="tech-b">
+          <h4>자르기</h4>
+          <p>아기 가위로 1cm 이하. 특히 <strong>감자옹심이·메밀면·떡류는 질식 위험군</strong>이라 반드시 잘라야 합니다.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-n">3</div>
+        <div class="tech-b">
+          <h4>덜어놓기</h4>
+          <p>양념이 닿기 전에 먼저 덜어둡니다. 비빔 계열은 <strong>비비기 전에</strong> 확보해야 합니다. 국물은 원칙적으로 주지 않습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block-head" style="margin-top:.75rem">
+      <h2>자리에 앉으면 바로 요청</h2>
+    </div>
+    <div class="asks">
+      <span class="ask">아기의자</span>
+      <span class="ask">앞접시 + 가위</span>
+      <span class="ask">뜨거운 물</span>
+    </div>
+
+    <div class="block-head" style="margin-top:.75rem">
+      <h2>들어가는 순서는 아기 배 상태에 따라 뒤집힙니다</h2>
+    </div>
+
+    <div class="options">
+      <div class="opt is-pick">
+        <div class="opt-top">
+          <h4>아기가 배고픈 상태로 도착</h4>
+          <span class="tag tag-pick">아기 먼저</span>
+          <span class="tag">8/6 곤드레 · 8/7 옛골</span>
+        </div>
+        <p>한 명이 자리와 아기의자를 세팅하고 <strong>지참한 아기밥을 바로 개시</strong>, 다른 한 명이 주문하러 갑니다. 어른 음식이 나올 때쯤 아기는 절반을 먹은 상태가 됩니다. <strong>배고픈 아기는 주문 대기 15분을 못 견딥니다.</strong></p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>아기가 간식을 막 먹고 도착</h4>
+          <span class="tag">어른 먼저</span>
+          <span class="tag">8/5 횡성휴게소</span>
+        </div>
+        <p>아직 배가 안 고픕니다. <strong>30분 뛰어놀게 두고</strong> 배가 꺼지면 그때 먹입니다. 억지로 먼저 앉히면 안 먹고, 그러면 오후에 배고파집니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="day" id="day1">
+    <div class="day-head">
+      <div class="day-num">DAY 1</div>
+      <div class="day-title">
+        <h3>이동 &amp; 블루캐니언</h3>
+        <div class="sub">8월 5일 수요일</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-time is-meal">07:30</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">기상 · 아기만 아침</div>
+        <div class="tl-note">어른은 아침을 거르고 <strong>11시 휴게소를 첫 끼</strong>로 삼습니다. 그만큼 아침 준비가 가벼워집니다.</div>
+      </div>
+
+      <div class="tl-time">08:30</div>
+      <div class="tl-body">
+        <div class="tl-what">평촌어바인퍼스트 출발</div>
+      </div>
+
+      <div class="tl-time is-meal">09:45</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">1차 정차 — <strong>양평휴게소</strong> · 아기 오전 간식 <span style="color:var(--ink-faint);font-weight:400">25분</span></div>
+        <div class="tl-note">광주원주고속도로, 양평군 단석리. 경로이탈 77m로 실제 도착 09:46. <strong>간식입니다. 식사가 아닙니다.</strong> 우유/물 + 쌀과자 2~3개나 과일 몇 조각. 여기서 배를 채우면 11:30 점심을 거릅니다. 기저귀·스트레칭도 함께.</div>
+      </div>
+
+      <div class="tl-time">10:10</div>
+      <div class="tl-body">
+        <div class="tl-what">출발</div>
+      </div>
+
+      <div class="tl-time is-meal">11:00</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">횡성휴게소 도착 → <strong>어른 점심 먼저</strong></div>
+        <div class="tl-note">출발부터 118.9km. <strong>이 경로에서 유일하게 경로상에 있는 대형 휴게소이자 봉평 진입 전 마지막</strong>입니다. 아기의자 있음, 푸드코트 07:00~20:00. 다은이는 아직 배가 안 고프니 30분 뛰어놀게 둡니다.</div>
+      </div>
+
+      <div class="tl-time is-meal">11:30</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">아기 점심 <span style="color:var(--ink-faint);font-weight:400">총 80분</span></div>
+        <div class="tl-note">간식 먹은 지 1시간 45분 지난 시점. 지참한 아기밥 + 반찬으로. 기저귀 교체까지 마치고 12:20 출발.</div>
+      </div>
+
+      <div class="tl-time is-key">12:00</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">모바일 체크인 시도 <span style="color:var(--ink-faint);font-weight:400">식사 중에</span></div>
+        <div class="tl-note">12시부터 링크가 열리는 경우가 있습니다. <strong>도착 55분 전에 객실 여부를 알 수 있습니다.</strong></div>
+      </div>
+
+      <div class="tl-time">12:20</div>
+      <div class="tl-body">
+        <div class="tl-what">출발</div>
+        <div class="tl-note">남은 29km · 33분. <strong>밥 먹고 차를 타면 22개월은 대개 잠듭니다.</strong></div>
+      </div>
+
+      <div class="tl-time">12:55</div>
+      <div class="tl-body">
+        <div class="tl-what">리조트 도착</div>
+        <div class="tl-note"><strong>자고 있으면 깨우지 마세요.</strong> 프런트에는 한 명만 다녀옵니다.</div>
+      </div>
+
+      <div class="tl-time">~14:00</div>
+      <div class="tl-body">
+        <div class="tl-what">낮잠 — 객실 또는 차 <span style="color:var(--ink-faint);font-weight:400">약 85분</span></div>
+        <div class="tl-note">얼리체크인이 되면 조용히 안아서 객실로 옮기고, 안 되면 차에서 그대로 재웁니다.</div>
+      </div>
+
+      <div class="tl-time">14:00</div>
+      <div class="tl-body">
+        <div class="tl-what">물놀이 준비 <span style="color:var(--ink-faint);font-weight:400">30분</span></div>
+        <div class="tl-note">객실 또는 워터파크 라커룸에서.</div>
+      </div>
+
+      <div class="tl-time is-key">14:30</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">블루캐니언 입장 <span style="color:var(--ink-faint);font-weight:400">2시간 30분</span></div>
+        <div class="tl-note">실내존 유아풀 중심. <strong>16:00경 간식을 꼭 한 번</strong> 주세요. 물놀이는 에너지 소모가 큽니다.</div>
+      </div>
+
+      <div class="tl-time">17:00</div>
+      <div class="tl-body">
+        <div class="tl-what">퇴장 · 사우나와 샤워 <span style="color:var(--ink-faint);font-weight:400">55분</span></div>
+        <div class="tl-note">아기 씻기고 말리는 데 생각보다 오래 걸립니다.</div>
+      </div>
+
+      <div class="tl-time is-meal">18:00</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">저녁 — 객실에서 <span style="color:var(--ink-faint);font-weight:400">75분</span></div>
+        <div class="tl-note">미리 사둔 즉석국·햇반으로. <strong>물놀이 후 이동이 0이라 아기에게 가장 편합니다.</strong> 밖에서 먹으려면 봉평 시내 11분.</div>
+      </div>
+
+      <div class="tl-time is-key">19:15</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">★ 8/6 조식 사전신청</div>
+        <div class="tl-note"><strong>잊으면 8/6 아침이 통째로 비고 08:30 출발이 무너집니다.</strong></div>
+      </div>
+
+      <div class="tl-time">20:00</div>
+      <div class="tl-body">
+        <div class="tl-what">취침</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">왜 17:00 퇴장인가</div>
+      <p>물놀이를 30분 줄이는 대신 저녁이 훨씬 편해집니다. 성수기 리조트 식당의 저녁 피크는 18:30~19:30인데, <strong>물놀이로 지치고 배고픈 22개월을 데리고 대기줄에 서는 것이 이 날 최악의 시나리오</strong>입니다. 2시간 30분이면 22개월에게는 충분하고도 남습니다(상한이 3시간).</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">총 이동 4시간 25분</div>
+      <p>주행 2시간 33분 + 정차 1시간 45분(1차 25분 + 점심 80분). <strong>아기 위주로 잡으면 이 정도가 현실입니다.</strong> 주행 시간만 보고 계획하면 반드시 어긋납니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">8/5 식사 리듬</div>
+      <h4>간식과 점심을 헷갈리지 않기</h4>
+      <p>22개월의 하루는 <strong>아침 → 오전 간식 → 점심</strong>입니다. 09:45 정차는 <strong>오전 간식 자리이지 식사 자리가 아닙니다.</strong> 여기서 밥을 먹이면 11:30 점심을 안 먹습니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>시각</th><th>다은이</th><th>어른</th></tr></thead>
+          <tbody>
+            <tr><td class="num">07:30</td><td>아침 (집에서 든든히)</td><td>거름</td></tr>
+            <tr><td class="num">09:45</td><td>오전 간식 — 우유 + 쌀과자·과일 소량</td><td>—</td></tr>
+            <tr><td class="num">11:00</td><td>뛰어놀기 30분</td><td>점심 (첫 끼)</td></tr>
+            <tr class="is-meal"><td class="num">11:30</td><td>점심</td><td>아기 식사 돕기</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="bullets">
+        <li>간식은 <strong>배를 채우지 않고 허기만 달래는 수준</strong>으로. 바나나 한 개를 통째로 주면 점심을 거릅니다.</li>
+        <li>먹이는 것은 <strong>정차 중에만</strong>. 주행 중에는 사레·질식 위험이 있어 자른 간식도 주지 않습니다.</li>
+        <li>정차 시점에 정말 배고파하면 그때는 제대로 먹이고, <strong>휴게소에서는 어른만 식사</strong>하고 아기는 가볍게 넘어갑니다.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">얼리체크인</div>
+      <h4>기대지 않는 구조로 바꿨습니다</h4>
+      <p>얼리체크인은 <strong>케이스 바이 케이스</strong>입니다. 청소가 일찍 끝나면 12시에도 들어가지만 아니면 기다려야 합니다. 확답을 받아둔들 당일에 뒤집힐 수 있으니, <strong>낮잠 장소의 기본값을 객실이 아니라 차로 옮깁니다.</strong></p>
+      <p><strong>핵심은 이것입니다 — 밥 먹고 차 타면 22개월은 거의 잡니다.</strong> 12:20 출발 후 33분 주행 중에 잠들어, 12:55 도착 시점엔 이미 자고 있을 가능성이 높습니다. 그러면 <strong>깨우지 않는 것이 정답</strong>입니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>도착 시 상황</th><th>대응</th></tr></thead>
+          <tbody>
+            <tr><td>자고 있음 + 객실 가능</td><td>조용히 안아서 객실로 옮겨 이어서 재움</td></tr>
+            <tr class="is-meal"><td>자고 있음 + 객실 불가</td><td><strong>차에서 그대로 재움</strong> — 14:00까지</td></tr>
+            <tr><td>깨어 있음 + 객실 가능</td><td>객실에서 재움</td></tr>
+            <tr><td>깨어 있음 + 객실 불가</td><td>유모차로 로비·카페에서, 또는 낮잠 포기하고 물놀이 앞당김</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>어느 경우든 14:30 워터파크 입장은 지켜집니다.</strong> 이게 이 구조의 핵심입니다.</p>
+    </div>
+
+    <div class="block-head" style="margin-top:.5rem">
+      <h2>불확실성을 줄이는 3가지 장치</h2>
+    </div>
+
+    <div class="tech">
+      <div class="tech-item">
+        <div class="tech-n">1</div>
+        <div class="tech-b">
+          <h4>12:00, 휴게소에서 모바일 체크인 미리 시도</h4>
+          <p>점심 식사 중(11:00~12:20)에 12시가 지납니다. <strong>도착 55분 전에 객실 여부를 알 수 있어</strong> 도착 후 우왕좌왕할 일이 없습니다.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-n">2</div>
+        <div class="tech-b">
+          <h4>프런트에 "준비되면 전화 달라"고 요청</h4>
+          <p>워터파크에 있는 동안 연락이 오면 그때 처리하면 됩니다. 기다리며 서 있을 이유가 없습니다.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-n">3</div>
+        <div class="tech-b">
+          <h4>워터파크 가방을 따로 싸서 차 앞쪽에</h4>
+          <p>객실을 못 받아도 바로 꺼내 라커룸으로 갈 수 있게. <strong>나머지 짐은 프런트에 맡깁니다.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">발상 전환</div>
+      <p><strong>체크인은 물놀이 후에 해도 됩니다.</strong> 어차피 17:00에 퇴장해 씻고 객실에 들어갑니다. 객실이 필요한 진짜 이유는 낮잠 하나뿐이고, 그건 차로 해결됩니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">8/5 저녁 — 리조트 밖에서 저렴하게</div>
+      <h4>거리는 봉평 시내가 가장 가깝습니다</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>목적지</th><th style="text-align:right">거리</th><th style="text-align:right">소요</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr class="is-meal"><td>봉평 시내 (메밀꽃길)</td><td class="num">7.7km</td><td class="num">11분</td><td>가장 빠름</td></tr>
+            <tr><td>면온리</td><td class="num">5.1km</td><td class="num">17분</td><td>거리는 짧지만 산길이라 더 걸림</td></tr>
+            <tr><td>진조리 (평창한우마을)</td><td class="num">8.2km</td><td class="num">18분</td><td>한우 3인 30만원대 — 가격 목적에 역행</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>⚠️ 흔들바위(산채정식, 태기로 1)는 매주 수요일 휴무</strong>라 8/5에는 갈 수 없습니다. 25,000원대로 저렴하지도 않습니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">권장안</div>
+      <h4>미리 장을 봐서 객실에서 해결</h4>
+      <ul class="bullets">
+        <li><strong>비용이 압도적으로 저렴합니다.</strong> 온담 대비 1/3 이하.</li>
+        <li><strong>이동이 0입니다.</strong> 17:00 퇴장 → 샤워 → 바로 저녁. 지친 아기를 다시 차에 태우지 않습니다.</li>
+        <li>다은이는 어차피 지참한 아기밥을 먹습니다. <strong>어른 몫만 해결하면 됩니다.</strong></li>
+        <li><strong>장보기 타이밍</strong> — 8/5 횡성휴게소 점심(11:00~12:20) 때, 또는 리조트 도착 후 편의점에서. 즉석국·햇반·반찬이면 충분합니다.</li>
+        <li><strong>객실 조리 제한</strong> — 육류·튀김·생선 조리는 금지입니다. 데우는 수준만 가능합니다.</li>
+      </ul>
+    </div>
+
+    <div class="options">
+      <div class="opt">
+        <div class="opt-top">
+          <h4>김가네손만두국 — 봉평 시내</h4>
+          <span class="tag">11분</span>
+        </div>
+        <p><strong>만두는 22개월에게 최적입니다</strong> — 부드럽고 잘라주기 쉽습니다. 저렴하고, 8/6·8/7 메밀과도 겹치지 않습니다. 단 <strong>영업시간 미확인</strong>.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>면온리 숯불집</h4>
+          <span class="tag">17분</span>
+        </div>
+        <p>삼겹살·숯불닭갈비. 물놀이 후 단백질 보충에는 좋지만 <strong>불판이 있어 아기와는 주의</strong>가 필요하고 17분이 걸립니다.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>장보기를 놓쳤다면</h4>
+          <span class="tag">백업</span>
+        </div>
+        <p>리조트 <strong>편의점(호텔 옆)</strong> 또는 <strong>롯데리아 포장 → 객실.</strong> 아기는 지참한 아기밥, 어른만 햄버거로.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>아기가 물놀이 중 잠들면</h4>
+          <span class="tag">백업</span>
+        </div>
+        <p>저녁을 17:30으로 앞당기거나, 우유만 먹이고 그대로 재웁니다. 억지로 깨워 먹이지 않습니다.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">수요일 휴무 주의</div>
+      <p>8/5은 수요일이고 <strong>이 지역은 수요일 휴무가 흔합니다</strong>(흔들바위, 블루캐니언 평시 규정 모두 수요일). 밖에서 드실 거면 <strong>당일 낮에 전화로 영업 확인</strong>을 하시고, 안 되면 객실 안으로 돌리세요.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">물놀이 중 간식</div>
+      <p><strong>16:00경 간식을 꼭 한 번 주세요.</strong> 물놀이는 에너지 소모가 커서 이걸 거르면 퇴장 직후 배고파서 무너집니다. 간식이 있으면 샤워 55분과 18:00 저녁까지 무리 없이 버팁니다.</p>
+    </div>
+
+    <div class="alert">
+      <div class="alert-label">차에서 재울 때 안전수칙</div>
+      <h3>아기를 차에 혼자 두지 마세요</h3>
+      <div class="alert-do">
+        <span><strong>부모 한 명은 반드시 차 안에 함께 있습니다.</strong> 프런트에는 한 명만 다녀옵니다.</span>
+        <span><strong>그늘에 주차하고 시동을 켠 채 에어컨을 유지합니다.</strong> 8/5 낮 최고 27℃이지만 차 안 온도는 훨씬 빨리 올라갑니다.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">블루캐니언</div>
+      <h4>수요일 휴장 규정은 성수기에 적용되지 않습니다</h4>
+      <dl class="kv">
+        <dt>운영</dt><dd>10:00 ~ 18:00 · 마지막 입장 17:00</dd>
+        <dt>휴장</dt><dd>평시 매주 수요일이나 <strong>7/2부터 성수기 무휴</strong> → 8/5 정상 운영</dd>
+        <dt>실내존</dt><dd>지하 700m 천연 광천수 · 파도풀 · 유수풀 · 바데풀 · 유아풀</dd>
+        <dt>요금</dt><dd>36개월 미만 무료 (다은이 해당)</dd>
+        <dt>블루탑</dt><dd>야외 시즌존 7/17 ~ 8/23 운영 → 방문일 포함</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <div class="card-label">22개월 물놀이 운영법</div>
+      <ul class="bullets">
+        <li><strong>3시간이 상한입니다.</strong> 14:30 입장 → <strong>17:00 퇴장(2시간 30분)</strong>으로 잡아 저녁에 여유를 뒀습니다. 더 길게 잡으면 아기도 부모도 소진됩니다.</li>
+        <li><strong>30~40분 물놀이 → 15분 휴식</strong> 사이클을 지킵니다. 가장 큰 위험은 수온이 아니라 물 밖에서의 체온 저하입니다.</li>
+        <li>파도풀은 22개월에게 위험합니다. <strong>실내 유아풀 중심</strong>으로 움직이세요.</li>
+        <li>입술이 파래지면 즉시 중단하고 마른 타월로 감쌉니다.</li>
+        <li>목튜브 대신 <strong>가슴·겨드랑이 지지형 조끼</strong>를 씁니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="day" id="day2">
+    <div class="day-head">
+      <div class="day-num">DAY 2</div>
+      <div class="day-title">
+        <h3>대관령 하늘목장 &amp; 풀내음</h3>
+        <div class="sub">8월 6일 목요일 · 날씨가 가장 좋은 날</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-time">06:50</div>
+      <div class="tl-body">
+        <div class="tl-what">기상</div>
+        <div class="tl-note">조식 오픈에 맞추려면 40분 전에는 깨워야 합니다.</div>
+      </div>
+
+      <div class="tl-time is-meal">07:30</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">조식 — 베이커리 카페 (블루동 맞은편) <span style="color:var(--ink-faint);font-weight:400">60분</span></div>
+        <div class="tl-note">전날 사전신청분. 성인 29,000원. <strong>빵 위주라 다은이 아침은 지참한 아기밥으로 보충</strong>하세요. 8시를 넘기면 08:30 출발이 밀립니다.</div>
+      </div>
+
+      <div class="tl-time">08:30</div>
+      <div class="tl-body">
+        <div class="tl-what">리조트 출발</div>
+      </div>
+
+      <div class="tl-time is-key">09:20</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">대관령 하늘목장 도착</div>
+        <div class="tl-note">42분 · 44.9km</div>
+      </div>
+
+      <div class="tl-time">09:40</div>
+      <div class="tl-body">
+        <div class="tl-what">트랙터마차 탑승</div>
+        <div class="tl-note">40~45분. 걷지 않고 앉은 채로 목장 정상까지 올라갑니다.</div>
+      </div>
+
+      <div class="tl-time">10:30</div>
+      <div class="tl-body">
+        <div class="tl-what">건초주기 체험 · 초지 산책 <span style="color:var(--ink-faint);font-weight:400">50분</span></div>
+        <div class="tl-note">회당 2,000원. 다은이가 가장 좋아할 활동입니다.</div>
+      </div>
+
+      <div class="tl-time is-meal">11:35</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">점심 — 곤드레산나물밥 (진부 · 대관령면) <span style="color:var(--ink-faint);font-weight:400">90분</span></div>
+        <div class="tl-note">봉평으로 돌아오면 왕복 84분을 버립니다. <strong>대관령식당</strong>(진부면) 등. 나물밥은 간이 약하고 양념장이 따로 나와 <strong>다은이에게 이번 여행에서 가장 적합한 메뉴</strong>입니다.</div>
+      </div>
+
+      <div class="tl-time">13:05</div>
+      <div class="tl-body">
+        <div class="tl-what">월정사로 이동</div>
+        <div class="tl-note">25분. 차 안에서 낮잠을 유도합니다.</div>
+      </div>
+
+      <div class="tl-time is-key">13:30</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">월정사 주차장 도착 — 낮잠 연장</div>
+        <div class="tl-note"><strong>자고 있으면 그대로 재웁니다. 최대 40분 대기.</strong> 숲길은 깬 뒤에 걸어도 늦지 않습니다.</div>
+      </div>
+
+      <div class="tl-time">14:10</div>
+      <div class="tl-body">
+        <div class="tl-what">월정사 전나무숲길 <span style="color:var(--ink-faint);font-weight:400">60분</span></div>
+        <div class="tl-note">유모차 무료 대여, 평탄한 데크 편도 1km.</div>
+      </div>
+
+      <div class="tl-time">15:10</div>
+      <div class="tl-body">
+        <div class="tl-what">출발</div>
+      </div>
+
+      <div class="tl-time">15:50</div>
+      <div class="tl-body">
+        <div class="tl-what">리조트 복귀 · 씻고 휴식</div>
+      </div>
+
+      <div class="tl-time is-meal">17:45</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">저녁 — 풀내음 <span style="color:var(--ink-faint);font-weight:400">80분</span></div>
+        <div class="tl-note">17:30 출발, 11분 거리. 라스트오더 19:00이라 서두를 필요가 없습니다.</div>
+      </div>
+
+      <div class="tl-time">19:20</div>
+      <div class="tl-body">
+        <div class="tl-what">리조트 복귀</div>
+      </div>
+
+      <div class="tl-time">20:00</div>
+      <div class="tl-body">
+        <div class="tl-what">취침</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">이 날의 낮잠 설계</div>
+      <p>점심을 11:35에 시작하면 13시경 졸리기 시작합니다. 이동(25분)에서 잠들면 <strong>월정사 주차장에서 최대 40분 더 재우는 것</strong>이 핵심입니다. 낮잠을 확보해야 저녁 풀내음까지 버팁니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">왜 양떼목장이 아니라 하늘목장인가</div>
+      <h4>22개월에게 양떼목장은 권하지 않습니다</h4>
+      <p>
+        양떼목장 산책로는 1.2km 경사 흙길이라 유모차가 사실상 불가능하고, 결국 처음부터 끝까지 안고 걸어야 합니다.
+        하늘목장은 <strong>트랙터마차로 목장 핵심 구간을 앉아서 이동</strong>하므로 아기도 부모도 부담이 없습니다.
+      </p>
+      <dl class="kv">
+        <dt>운영</dt><dd>하절기 09:00 ~ 18:00 · 매표 마감 17:00 · 연중무휴</dd>
+        <dt>입장료</dt><dd>성인 8,000원 / 36개월 미만 무료</dd>
+        <dt>트랙터마차</dt><dd>별도 8,000원 내외 · 40~45분</dd>
+        <dt>건초주기</dt><dd>1회 2,000원</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <div class="card-label">월정사 전나무숲길</div>
+      <ul class="bullets">
+        <li><strong>편도 약 1km의 평탄한 무장애 데크길</strong>이라 유모차 주행에 최적입니다.</li>
+        <li>종합안내소에서 <strong>유모차와 휠체어를 무료로 대여</strong>해줍니다. 짐을 줄일 수 있습니다.</li>
+        <li>전나무 그늘이 깊어 한여름에도 시원합니다.</li>
+        <li>주소는 평창군 진부면 오대산로 374-8.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">컨디션이 안 좋으면</div>
+      <p>월정사를 생략하고 일찍 복귀해 <strong>풀내음 저녁만 지키세요.</strong> Day 2의 핵심은 하늘목장이고, 그것만으로 이미 충분한 하루입니다.</p>
+    </div>
+  </section>
+
+  <section class="day" id="day3">
+    <div class="day-head">
+      <div class="day-num">DAY 3</div>
+      <div class="day-title">
+        <h3>블루캐니언 2회차 &amp; 귀가</h3>
+        <div class="sub">8월 7일 금요일</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-time">07:00</div>
+      <div class="tl-body">
+        <div class="tl-what">기상</div>
+      </div>
+
+      <div class="tl-time is-meal">07:30</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">아침 — 객실에서 <span style="color:var(--ink-faint);font-weight:400">60분</span></div>
+        <div class="tl-note">조식 미신청(성인 29,000원). 지참한 아기밥 + 전날 편의점에서 산 것으로.</div>
+      </div>
+
+      <div class="tl-time">08:30</div>
+      <div class="tl-body">
+        <div class="tl-what">짐 정리 · <strong>물놀이 가방 분리</strong> <span style="color:var(--ink-faint);font-weight:400">60분</span></div>
+        <div class="tl-note">물놀이 가방만 따로 빼두고 나머지는 차에 싣습니다.</div>
+      </div>
+
+      <div class="tl-time">09:30</div>
+      <div class="tl-body">
+        <div class="tl-what">체크아웃 · 짐 싣기 <span style="color:var(--ink-faint);font-weight:400">30분</span></div>
+        <div class="tl-note">마감은 11:00이지만 <strong>물놀이 전에 미리 끝냅니다.</strong> 젖은 채로 짐 싸는 상황을 피해야 합니다.</div>
+      </div>
+
+      <div class="tl-time is-key">10:00</div>
+      <div class="tl-body is-key">
+        <div class="tl-what">블루캐니언 2회차 입장 <span style="color:var(--ink-faint);font-weight:400">1시간 30분</span></div>
+        <div class="tl-note">오픈 시각이라 가장 한산합니다. <strong>짧고 굵게, 실내 유아풀만.</strong></div>
+      </div>
+
+      <div class="tl-time">11:30</div>
+      <div class="tl-body">
+        <div class="tl-what">퇴장 · 샤워 <span style="color:var(--ink-faint);font-weight:400">60분</span></div>
+      </div>
+
+      <div class="tl-time is-meal">12:30</div>
+      <div class="tl-body is-meal">
+        <div class="tl-what">점심 — 초가집옛골 <span style="color:var(--ink-faint);font-weight:400">90분</span></div>
+        <div class="tl-note">메밀꽃길 7. 브레이크타임(16~17시)과 무관한 시간대입니다. <strong>귀가 전 마지막 식사라 쫓기지 않게 넉넉히 잡았습니다.</strong></div>
+      </div>
+
+      <div class="tl-time">14:00</div>
+      <div class="tl-body">
+        <div class="tl-what">출발</div>
+        <div class="tl-note">봉평 → 평촌 149.3km · 성수기 추정 158분</div>
+      </div>
+
+      <div class="tl-time">15:10</div>
+      <div class="tl-body">
+        <div class="tl-what">횡성휴게소 정차 <span style="color:var(--ink-faint);font-weight:400">25분</span></div>
+        <div class="tl-note">기저귀·간식·스트레칭. <strong>물놀이 후라 차에서 잘 잡니다.</strong> 귀가가 오히려 편해집니다.</div>
+      </div>
+
+      <div class="tl-time">16:50</div>
+      <div class="tl-body">
+        <div class="tl-what">평촌어바인퍼스트 도착</div>
+        <div class="tl-note">금요일 오후 정체는 강원도로 향하는 방향이라 귀경길은 유리합니다.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">8/7 물놀이 운영 원칙</div>
+      <ul class="bullets">
+        <li><strong>1시간 30분이 상한입니다.</strong> 이틀 연속이라 체력이 누적돼 있고, 끝나면 2시간 40분을 차에 앉아 가야 합니다.</li>
+        <li><strong>실내 유아풀만.</strong> 새로운 걸 시도하지 말고 어제 좋아했던 곳에서만 놀립니다.</li>
+        <li>10:00 오픈 입장이면 한산해서 짧은 시간에도 충분히 놉니다.</li>
+        <li><strong>체크아웃을 먼저 끝내는 게 핵심</strong>입니다. 물놀이 후 젖은 채로 짐을 싸는 상황은 피해야 합니다.</li>
+      </ul>
+    </div>
+
+    <div class="alert">
+      <div class="alert-label">발열 주의</div>
+      <h3>이틀 연속 물놀이는 발열 위험이 올라갑니다</h3>
+      <div class="alert-do">
+        <span>귀가 중 아기가 처지면 <strong>체온을 재보세요.</strong></span>
+        <span><strong>해열제는 차 안 손 닿는 곳</strong>에 두고 출발합니다. 트렁크 짐 속에 묻히면 소용이 없습니다.</span>
+      </div>
+    </div>
+
+    <div class="block-head" style="margin-top:.5rem">
+      <h2>워터파크 대신 근교를 가고 싶다면</h2>
+      <p>8/7 오전을 관광으로 돌릴 경우의 대체안입니다. 10:30 체크아웃 → 11:00 근교 → 12:30 옛골 점심 순서가 됩니다.</p>
+    </div>
+
+    <div class="options">
+      <div class="opt">
+        <div class="opt-top">
+          <h4>이효석문화예술촌</h4>
+          <span class="tag">12분</span>
+        </div>
+        <p>옛골과 같은 메밀꽃길 일대라 주차 한 번으로 해결됩니다. 다만 <strong>메밀꽃은 9월 개화라 8월 초엔 못 봅니다.</strong></p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>허브나라농원 + 흥정계곡</h4>
+          <span class="tag">19분</span>
+        </div>
+        <p>계곡에서 발을 담글 수 있어 아기 만족도는 높습니다. 다만 여기서 옛골까지 12~15분이 더 붙습니다.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>청태산자연휴양림</h4>
+          <span class="tag">19분</span>
+        </div>
+        <p>숲길에 유모차 진입 구간이 있고 더위를 피하기 좋습니다. 30℃까지 오르는 날이라 유효합니다.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-top">
+          <h4>비가 오면</h4>
+          <span class="tag">플랜 B</span>
+        </div>
+        <p>근교도 워터파크도 무리하지 말고 <strong>옛골 점심만 들른 뒤 바로 출발</strong>하세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2 id="drive">이동 시간</h2>
+      <p>실측 도로 경로 기준. 성수기 추정치는 자유주행에 25%를 더한 값입니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">평촌어바인퍼스트 → 휘닉스파크</div>
+      <h4>147.9km · 자유주행 122분 · 성수기 추정 153분</h4>
+      <p>경수대로 → 흥안대로 → <strong>수도권제1순환고속도로</strong> → 성남이천로 → <strong>광주원주고속도로(제2영동)</strong> → <strong>영동고속도로</strong> → 태기로</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>지점</th><th style="text-align:right">경로이탈</th><th style="text-align:right">출발부터</th><th style="text-align:right">성수기</th><th style="text-align:right">도착</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>경기광주휴게소 (원주방향)</td><td class="num">291m</td><td class="num">48.6km</td><td class="num">52분</td><td class="num">09:21</td></tr>
+          <tr class="is-meal"><td>양평휴게소 — 1차 정차</td><td class="num">77m</td><td class="num">74.8km</td><td class="num">76분</td><td class="num">09:46</td></tr>
+          <tr class="is-meal"><td>횡성휴게소 — 점심</td><td class="num">96m</td><td class="num">118.9km</td><td class="num">120분</td><td class="num">10:55</td></tr>
+          <tr><td>횡성휴게소 → 휘닉스파크</td><td class="num">—</td><td class="num">29.0km</td><td class="num">33분</td><td class="num">12:55</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:var(--fs-xs);color:var(--ink-faint)">08:30 출발 기준. 횡성휴게소 도착은 1차 정차 25분을 포함한 값입니다.</p>
+
+    <div class="card">
+      <div class="card-label">경로상 휴게소는 사실상 3곳뿐</div>
+      <h4>광주원주고속도로에는 휴게소가 딱 2곳입니다</h4>
+      <p>경기광주휴게소(동곤지암IC~흥천이포IC)와 양평휴게소(동여주IC~동양평IC). 이후 영동고속도로에서 횡성휴게소를 만납니다.</p>
+      <ul class="bullets">
+        <li><strong>1차 정차 = 양평휴게소.</strong> 09:46 도착으로 계획(09:45)과 일치하고 아기 오전 간식 타이밍에 정확히 맞습니다.</li>
+        <li>경기광주휴게소는 09:21로 조금 이릅니다. 출발이 늦어지거나 <strong>아기가 일찍 보채면 여기로 앞당겨</strong> 서면 됩니다.</li>
+        <li><strong>덕평(15.0km 이탈)·여주(15.8km)·문막(6.3km)은 이 경로 밖입니다.</strong></li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">내비가 다른 길을 택하면</div>
+      <p>영동고속도로 직행을 택했다면 양평휴게소가 없습니다. 그 경우 <strong>덕평자연휴게소</strong>(59.0km / 52분 / 약 09:30 도착)에서 1차 정차하세요. <strong>어느 경로든 횡성휴게소는 공통</strong>이며 봉평 진입 전 마지막 대형 휴게소입니다.</p>
+    </div>
+
+    <div class="block-head" style="margin-top:.75rem">
+      <h2>현지 이동 — 휘닉스파크 기준</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>목적지</th><th style="text-align:right">거리</th><th style="text-align:right">소요</th></tr>
+        </thead>
+        <tbody>
+          <tr class="is-meal"><td>풀내음 · 초가집옛골 (메밀꽃길)</td><td class="num">7.7 km</td><td class="num">11분</td></tr>
+          <tr><td>이효석문화예술촌</td><td class="num">7.5 km</td><td class="num hot">12분</td></tr>
+          <tr><td>허브나라농원 · 흥정계곡</td><td class="num">11.7 km</td><td class="num hot">19분</td></tr>
+          <tr><td>청태산자연휴양림</td><td class="num">16.9 km</td><td class="num hot">19분</td></tr>
+          <tr><td>진부역 (KTX)</td><td class="num">29.7 km</td><td class="num">28분</td></tr>
+          <tr><td>월정사</td><td class="num">39.0 km</td><td class="num">42분</td></tr>
+          <tr><td>대관령 하늘목장</td><td class="num">44.9 km</td><td class="num">42분</td></tr>
+          <tr><td>삼양라운드힐</td><td class="num">44.9 km</td><td class="num">44분</td></tr>
+          <tr><td>대관령 양떼목장</td><td class="num">47.0 km</td><td class="num">45분</td></tr>
+          <tr><td>평창군보건의료원</td><td class="num">38.2 km</td><td class="num">44분</td></tr>
+          <tr><td>육백마지기</td><td class="num">53.4 km</td><td class="num">62분</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <div class="callout-label">구간 간</div>
+      <p>하늘목장 → 월정사 <strong>31분</strong> · 월정사 → 리조트 <strong>42분</strong>. Day 2 동선이 한 바퀴로 자연스럽게 이어집니다.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2 id="sos">비상 연락처</h2>
+      <p>폰에서 번호를 누르면 바로 전화가 걸립니다.</p>
+    </div>
+    <div class="contacts">
+      <a class="contact is-urgent" href="tel:0333304812">
+        <span class="name">평창군보건의료원 응급실</span>
+        <span class="tel">033-330-4812</span>
+        <span class="meta">24시간 365일 · 리조트에서 44분</span>
+      </a>
+      <a class="contact" href="tel:0333306200">
+        <span class="name">휘닉스파크 리조트</span>
+        <span class="tel">033-330-6200</span>
+        <span class="meta">얼리체크인 · 워터파크 문의</span>
+      </a>
+      <a class="contact" href="tel:0333363360">
+        <span class="name">초가집옛골</span>
+        <span class="tel">033-336-3360</span>
+        <span class="meta">아기의자 · 좌석 형태 확인</span>
+      </a>
+      <a class="contact" href="tel:0333328061">
+        <span class="name">대관령 하늘목장</span>
+        <span class="tel">033-332-8061</span>
+        <span class="meta">트랙터마차 운행 확인</span>
+      </a>
+    </div>
+    <div class="callout">
+      <div class="callout-label">가장 흔한 시나리오</div>
+      <p>물놀이 다음 날의 발열입니다. <strong>해열제 2종(아세트아미노펜·이부프로펜)과 체온계</strong>는 반드시 챙기세요. 야간·휴일 약국은 e-gen.or.kr에서 검색됩니다.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2 id="pack">준비물</h2>
+      <p>체크 상태는 이 브라우저에 저장되니 짐 싸면서 그대로 쓰시면 됩니다.</p>
+    </div>
+    <div class="check-groups">
+      <div>
+        <div class="card-label" style="margin-bottom:.5rem">물놀이</div>
+        <div class="checklist" data-group="water">
+          <label class="check"><input type="checkbox"><span><strong>수영기저귀 4~5장</strong> — 일반 기저귀는 반입 불가</span></label>
+          <label class="check"><input type="checkbox"><span>아기 래시가드 상하의</span></label>
+          <label class="check"><input type="checkbox"><span>아쿠아슈즈 · 챙모자</span></label>
+          <label class="check"><input type="checkbox"><span>가슴·겨드랑이 지지형 조끼</span></label>
+          <label class="check"><input type="checkbox"><span>큰 타월 2장 · 갈아입을 옷 2벌</span></label>
+          <label class="check"><input type="checkbox"><span>물놀이 후 간식과 물</span></label>
+        </div>
+      </div>
+      <div>
+        <div class="card-label" style="margin-bottom:.5rem">아기 · 상비약</div>
+        <div class="checklist" data-group="baby">
+          <label class="check"><input type="checkbox"><span><strong>해열제 2종</strong> · 체온계</span></label>
+          <label class="check"><input type="checkbox"><span>밴드 · 지사제 · 보습제</span></label>
+          <label class="check"><input type="checkbox"><span>모기기피제</span></label>
+          <label class="check"><input type="checkbox"><span>얇은 긴팔·가디건 — 아침 17℃</span></label>
+          <label class="check"><input type="checkbox"><span>유모차 (숲길·목장용)</span></label>
+          <label class="check"><input type="checkbox"><span>카시트 점검 · 차량 햇빛가리개</span></label>
+        </div>
+      </div>
+      <div>
+        <div class="card-label" style="margin-bottom:.5rem">외식 키트</div>
+        <div class="checklist" data-group="dining">
+          <label class="check"><input type="checkbox"><span><strong>휴대용 부스터 시트</strong> — 두 메밀집 모두 아기의자 미확인. 좌식이어도 대응 가능</span></label>
+          <label class="check"><input type="checkbox"><span><strong>아기 가위</strong> — 면·나물·고기용</span></label>
+          <label class="check"><input type="checkbox"><span><strong>즉석 아기밥 4개 + 보온병(뜨거운 물)</strong></span></label>
+          <label class="check"><input type="checkbox"><span>시판 유아 반찬 · 아기 김</span></label>
+          <label class="check"><input type="checkbox"><span>아기 식판(또는 실리콘 매트) · 숟가락 · 포크 · 빨대컵</span></label>
+          <label class="check"><input type="checkbox"><span>턱받이 2~3장 · 물티슈 · 비닐봉투</span></label>
+          <label class="check"><input type="checkbox"><span>간식 — 쌀과자, 자른 과일</span></label>
+        </div>
+      </div>
+      <div>
+        <div class="card-label" style="margin-bottom:.5rem">출발 전 확인 전화</div>
+        <div class="checklist" data-group="calls">
+          <label class="check"><input type="checkbox"><span><strong>다은이 메밀 첫 섭취 여부 확인 → 없으면 8/2~8/3 오전에 집에서 소량 테스트</strong></span></label>
+          <label class="check"><input type="checkbox"><span>블루캐니언 8/5 예약 바우처와 <strong>성수기 무휴 운영</strong> 최종 확인</span></label>
+          <label class="check"><input type="checkbox"><span>얼리체크인 가능 여부 (12:00 모바일)</span></label>
+          <label class="check"><input type="checkbox"><span>객실 취사 가능 여부 · 아기 침대와 가드 요청</span></label>
+          <label class="check"><input type="checkbox"><span><strong>초가집옛골 아기의자·좌석</strong> 확인 (033-336-3360)</span></label>
+          <label class="check"><input type="checkbox"><span>풀내음 저녁 대기 여부 확인</span></label>
+          <label class="check"><input type="checkbox"><span>하늘목장 트랙터마차 예약 필요 여부</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>날씨는 2026년 8월 2일 open-meteo 예보, 이동 시간은 OSRM 도로 경로 실측입니다. 식당 영업시간과 요금은 출발 전 재확인을 권합니다.</span>
+    <span>마스터 문서 <code>context/travel/평창_휘닉스파크_가족여행_20260805.md</code></span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    /* theme toggle */
+    var THEME_KEY = 'pyeongchang-theme';
+    var root = document.documentElement;
+    var btn = document.getElementById('themeBtn');
+    try {
+      var stored = localStorage.getItem(THEME_KEY);
+      if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
+    } catch (e) {}
+
+    btn.addEventListener('click', function () {
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var current = root.getAttribute('data-theme') || (prefersDark ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+
+    /* quicknav: 현재 보고 있는 섹션 강조 + 칩을 화면 안으로 */
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('.quicknav a'));
+    var targets = navLinks.map(function (a) {
+      return document.getElementById(a.getAttribute('href').slice(1));
+    });
+
+    if ('IntersectionObserver' in window) {
+      var visible = {};
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+        var activeIdx = -1;
+        for (var i = 0; i < targets.length; i++) {
+          if (targets[i] && visible[targets[i].id]) { activeIdx = i; break; }
+        }
+        navLinks.forEach(function (a, i) { a.classList.toggle('is-active', i === activeIdx); });
+        if (activeIdx >= 0) {
+          var chip = navLinks[activeIdx];
+          var nav = chip.parentElement;
+          var left = chip.offsetLeft - nav.clientWidth / 2 + chip.clientWidth / 2;
+          nav.scrollTo({ left: left, behavior: 'smooth' });
+        }
+      }, { rootMargin: '-60px 0px -70% 0px' });
+      targets.forEach(function (t) { if (t) io.observe(t); });
+    }
+
+    /* checklist persistence */
+    var KEY = 'pyeongchang-2026-08-checklist';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+    var boxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+    boxes.forEach(function (box, i) {
+      var id = box.closest('.checklist').dataset.group + ':' + i;
+      if (saved[id]) box.checked = true;
+      box.addEventListener('change', function () {
+        saved[id] = box.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      });
+    });
+  })();
+</script>
+</body>
+</html>
