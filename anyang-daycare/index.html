@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>안양시 국공립 어린이집 — 정원 · 연령별 반 편성</title>
+<meta name="description" content="안양시 국공립 어린이집 50개소의 정원 · 현원 · 여석과 만0세~만5세 연령별 반 편성을 한눈에. 어린이집 정보공개포털 2026-09-07 기준.">
+<meta name="theme-color" content="#1f6f4a" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#101216" media="(prefers-color-scheme:dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="안양시 국공립 어린이집 50개소">
+<meta property="og:description" content="정원 · 여석 · 연령별 반 편성(만0~5세) · 반별 여유 추정. 2026-09-07 기준.">
+<style>
+:root{
+  --bg:#fbfbfa; --card:#fff; --ink:#16181d; --ink2:#5b6270; --ink3:#8b919d;
+  --line:#e6e7ea; --line2:#f0f1f3; --accent:#1f6f4a; --accent-soft:#eaf3ee;
+  --warn:#b4530f; --warn-soft:#fbf0e6;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#101216;--card:#171a1f;--ink:#e9eaec;--ink2:#a2a8b4;--ink3:#767d8a;
+        --line:#272b33;--line2:#1f232a;--accent:#5fbf8e;--accent-soft:#172a21;
+        --warn:#e0985c;--warn-soft:#2b1f14;}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 20px 80px}
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:24px}
+h1{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.sub{color:var(--ink2);font-size:13px}
+.sub b{color:var(--ink);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:22px}
+.stat{background:var(--card);padding:14px 16px}
+.stat .k{color:var(--ink3);font-size:11px;letter-spacing:.02em;margin-bottom:4px}
+.stat .v{font-size:20px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:12px;font-weight:500;color:var(--ink2);margin-left:2px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:transparent;color:var(--ink2);padding:7px 13px;font-size:13px;cursor:pointer;
+  font-family:inherit;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--accent);color:#fff;font-weight:600}
+input[type=search]{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);color:var(--ink);font-size:13px;font-family:inherit}
+input[type=search]::placeholder{color:var(--ink3)}
+select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);
+  color:var(--ink);font-size:13px;font-family:inherit}
+.agefilter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:18px}
+.agefilter .lb{color:var(--ink3);font-size:12px;margin-right:2px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;
+  padding:5px 11px;font-size:12px;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+
+.count{color:var(--ink3);font-size:12px;margin-bottom:10px}
+
+/* 표 */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line2);text-align:left;white-space:nowrap}
+thead th{position:sticky;top:0;background:var(--card);color:var(--ink3);font-weight:600;font-size:11px;
+  letter-spacing:.02em;border-bottom:1px solid var(--line);z-index:2}
+tbody tr:hover{background:var(--line2)}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.c,th.c{text-align:center;font-variant-numeric:tabular-nums;padding-left:4px;padding-right:4px}
+.nm{font-weight:600;white-space:normal;min-width:150px}
+.nm .gu{color:var(--ink3);font-weight:400;font-size:11px;margin-left:5px}
+.zero{color:var(--line)}
+.zero2{color:var(--ink3)}
+.neg-cell{color:var(--warn);font-weight:700}
+.ag.neg{border-color:var(--warn);background:var(--warn-soft)}
+.ag.neg .t,.ag.neg .n{color:var(--warn)}
+.on-cell{color:var(--accent);font-weight:700}
+.grp{border-left:1px solid var(--line)}
+.bar{display:inline-block;width:52px;height:5px;border-radius:3px;background:var(--line);
+  vertical-align:middle;margin-left:7px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar i.full{background:var(--warn)}
+.tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;
+  background:var(--accent-soft);color:var(--accent);margin-right:3px}
+.tag.w{background:var(--warn-soft);color:var(--warn)}
+
+/* 카드 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h3{margin:0 0 3px;font-size:15px;font-weight:650;letter-spacing:-.01em}
+.card .meta{color:var(--ink3);font-size:12px;margin-bottom:11px;line-height:1.45}
+.card .row{display:flex;justify-content:space-between;align-items:center;font-size:12px;
+  color:var(--ink2);padding:5px 0;border-top:1px solid var(--line2)}
+.card .row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.agegrid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin:10px 0 4px}
+.ag{border:1px solid var(--line);border-radius:6px;padding:5px 2px;text-align:center}
+.ag .t{font-size:10px;color:var(--ink3)}
+.ag .n{font-size:13px;font-weight:650;font-variant-numeric:tabular-nums;color:var(--line)}
+.ag.on{border-color:var(--accent);background:var(--accent-soft)}
+.ag.on .t{color:var(--accent)}
+.ag.on .n{color:var(--accent)}
+.extra{font-size:11px;color:var(--ink3);margin-bottom:8px}
+.hidden{display:none}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
+  color:var(--ink3);font-size:11.5px;line-height:1.7}
+/* ---------- 모바일 ---------- */
+@media(max-width:760px){
+  .wrap{padding:20px 13px 56px}
+  h1{font-size:20px;margin-bottom:5px}
+  .sub{font-size:12px}
+  header{padding-bottom:18px;margin-bottom:18px}
+
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats .stat:last-child{grid-column:1/-1}
+  .stat{padding:11px 13px}
+  .stat .v{font-size:18px}
+  .stat .k{font-size:10.5px}
+
+  .controls{gap:7px;margin-bottom:12px}
+  input[type=search]{flex:1 0 100%;order:-1;padding:11px 13px;font-size:16px}
+  select{flex:1;padding:10px}
+  .seg{flex:1}
+  .seg button{flex:1;padding:10px 8px;white-space:nowrap}
+  #viewSeg{flex:0 0 auto}
+  .chip{padding:8px 13px}
+  .agefilter{gap:5px;margin-bottom:14px}
+
+  /* 표: 좌측 기관명 고정 + 부가 열 숨김 */
+  table{min-width:600px;font-size:12.5px}
+  th,td{padding:9px 7px}
+  .hide-sm{display:none}
+  thead th:first-child{position:sticky;left:0;z-index:3;background:var(--card);
+    box-shadow:1px 0 0 var(--line)}
+  tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--card);
+    box-shadow:1px 0 0 var(--line)}
+  .nm{min-width:118px;max-width:132px;font-size:12.5px}
+  .bar{width:34px;margin-left:5px}
+
+  .cards{grid-template-columns:1fr;gap:10px}
+  .card{padding:14px}
+  .agegrid{gap:4px}
+  .ag{padding:7px 2px}
+  .card .row{padding:7px 0}
+  footer{font-size:11px}
+}
+@media(max-width:380px){
+  .stats{grid-template-columns:1fr 1fr}
+  .ag .t{font-size:9.5px}
+}
+a.lnk{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+a.lnk:active{color:var(--accent)}
+.card .meta a.lnk{color:var(--accent);border-bottom-color:transparent;font-weight:600}
+.mapbtn{display:inline-block;margin-left:6px;padding:1px 7px;border:1px solid var(--line);
+  border-radius:5px;font-size:11px;color:var(--ink2);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>안양시 국공립 어린이집</h1>
+  <div class="sub">전체 <b>322개소</b> 중 국공립 <b>50개소</b> · 정원 · 연령별 반 편성 ·
+    기준일 <b>2026-09-07</b> · 출처 어린이집 정보공개포털</div>
+</header>
+
+<div class="stats" id="stats"></div>
+
+<div class="controls">
+  <div class="seg" id="guSeg">
+    <button data-gu="" class="on">전체</button>
+    <button data-gu="만안구">만안구</button>
+    <button data-gu="동안구">동안구</button>
+  </div>
+  <input type="search" id="q" placeholder="어린이집명 · 주소 · 동 검색">
+  <select id="sort">
+    <option value="name">이름순</option>
+    <option value="capacity">정원 많은순</option>
+    <option value="vacancy">여석 많은순</option>
+    <option value="rate">충원율 낮은순</option>
+    <option value="openDate">개원 최신순</option>
+  </select>
+  <div class="seg" id="viewSeg">
+    <button data-view="table" class="on">표</button>
+    <button data-view="card">카드</button>
+  </div>
+</div>
+
+<div class="agefilter" id="ageFilter">
+  <span class="lb">운영 반</span>
+</div>
+
+<div class="agefilter" style="margin-top:-8px">
+  <span class="lb">연령별 표시</span>
+  <div class="seg" id="cellSeg">
+    <button data-cell="classes" class="on">반 수</button>
+    <button data-cell="children">아동 수</button>
+    <button data-cell="room">여유(추정)</button>
+  </div>
+  <span class="lb" id="cellHint"></span>
+</div>
+
+<div class="count" id="count"></div>
+<div id="tableView" class="tablewrap"></div>
+<div id="cardView" class="cards hidden"></div>
+
+<footer>
+  · 출처: 보건복지부 어린이집 정보공개포털(info.childcare.go.kr) 정보공시 &lt;요약&gt; · 수집 2026-09-07<br>
+  · <b>반 수</b>는 정보공시의 연령별 반 편성(실제 운영 중인 반) 기준이며, 아동수 합계는 현원과 일치합니다.<br>
+  · <b>정원 / 현원</b>은 인가 정원과 재원 아동 수입니다. 여석이 있어도 해당 연령 반에 자리가 없을 수 있으니 입소 전 전화 확인이 필요합니다.<br>
+  · <b>여유(추정)</b>은 <b>반 수 × 법정 반 정원</b>(만0세 3 · 만1세 5 · 만2세 7 · 만3세 15 · 만4~5세 20 · 특수/장애 3)에서 재원 아동을 뺀 값입니다. 지자체 초과보육 인가에 따라 실제 여유는 1~3명 늘어날 수 있고, 정원이 남아도 교사 배치 문제로 못 받는 경우가 있습니다.<br>
+  · 대기 신청은 임신육아종합포털 아이사랑(childcare.go.kr)에서 1인당 최대 3개소까지 가능합니다.
+</footer>
+</div>
+
+<script>
+const DATA = [{"name": "관양어린이집", "stcode": "41170000052", "gu": "동안구", "dong": "관양동", "address": "경기도 안양시 동안구 일동로200번길 33 (관양동)", "phone": "031-425-6824", "capacity": 80, "current": 56, "vacancy": 24, "rate": 70, "totalClasses": 9, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 2}, "kid": {"만0세": 0, "만1세": 9, "만2세": 14, "만3세": 11, "만4세": 11, "만5세": 5, "영아혼합": 0, "유아혼합": 0, "특수장애": 6}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1982-03-03", "director": "서난경", "authority": "경기도 안양시청", "cert": "2026-03", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(3회)"], "staff": 14}, {"name": "꿈이든어린이집", "stcode": "41170000447", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 시민대로 124 1층", "phone": "031-429-0602", "capacity": 63, "current": 43, "vacancy": 20, "rate": 68, "totalClasses": 9, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 5, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2025-06-01", "director": "박혜경", "authority": "경기도 안양시청", "cert": "-", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 13}, {"name": "꿈이있는어린이집", "stcode": "41170000107", "gu": "만안구", "dong": "석수동", "address": "경기도 안양시 만안구 충훈로90번길 47 (석수동)", "phone": "031-472-9176", "capacity": 82, "current": 62, "vacancy": 20, "rate": 76, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 10, "만2세": 14, "만3세": 10, "만4세": 11, "만5세": 17, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1996-12-30", "director": "김수희", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 14}, {"name": "늘희망어린이집", "stcode": "41170000032", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 명학로5번길 12 (안양동)", "phone": "031-449-3040", "capacity": 80, "current": 48, "vacancy": 32, "rate": 60, "totalClasses": 9, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 6, "만1세": 10, "만2세": 11, "만3세": 5, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 13, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "1997-02-25", "director": "이정희", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(4회)"], "staff": 14}, {"name": "달안어린이집", "stcode": "41170000410", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 동안로 178 달안어린이집", "phone": "031-425-2644", "capacity": 45, "current": 35, "vacancy": 10, "rate": 78, "totalClasses": 7, "cls": {"만0세": 2, "만1세": 3, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 15, "만2세": 14, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": [], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2012-06-01", "director": "우현주", "authority": "경기도 안양시청", "cert": "2025-10", "vehicle": "미운영", "services": [], "badges": ["연장보육반", "재인증(2회)"], "staff": 10}, {"name": "대궁어린이집", "stcode": "41170000420", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 시민대로327번길 11-41", "phone": "031-425-1737", "capacity": 88, "current": 69, "vacancy": 19, "rate": 78, "totalClasses": 12, "cls": {"만0세": 3, "만1세": 2, "만2세": 3, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 1, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 10, "만2세": 12, "만3세": 15, "만4세": 12, "만5세": 11, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["유아혼합"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2015-12-03", "director": "인태수", "authority": "경기도 안양시청", "cert": "2023-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "인증(1회)"], "staff": 17}, {"name": "덕천어린이집", "stcode": "41170000117", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 덕천로 122-3", "phone": "031-443-8859", "capacity": 69, "current": 63, "vacancy": 6, "rate": 91, "totalClasses": 5, "cls": {"만0세": 0, "만1세": 0, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 0, "만2세": 14, "만3세": 15, "만4세": 16, "만5세": 18, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만2세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1983-09-29", "director": "김미선", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 10}, {"name": "동편어린이집", "stcode": "41170000409", "gu": "동안구", "dong": "관양동", "address": "경기도 안양시 동안구 동편로 120 (관양동)", "phone": "031-425-2882", "capacity": 52, "current": 38, "vacancy": 14, "rate": 73, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 0, "만1세": 10, "만2세": 13, "만3세": 11, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 4, "특수장애": 0}, "agesOn": ["만1세", "만2세", "만3세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만1세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2012-01-01", "director": "정성화", "authority": "경기도 안양시청", "cert": "2024-02", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "재인증(2회)"], "staff": 10}, {"name": "두산위브더아티움늘해랑어린이집", "stcode": "41170000438", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 예술공원로 51-7 1층", "phone": "031-472-7776", "capacity": 36, "current": 36, "vacancy": 0, "rate": 100, "totalClasses": 8, "cls": {"만0세": 2, "만1세": 3, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 6, "만1세": 14, "만2세": 13, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2022-09-19", "director": "이은주", "authority": "경기도 안양시청", "cert": "2023-12", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반"], "staff": 13}, {"name": "매곡어린이집", "stcode": "41170000027", "gu": "동안구", "dong": "비산동", "address": "경기도 안양시 동안구 매곡로 1 시립매곡어린이집 (비산동)", "phone": "031-385-1385", "capacity": 88, "current": 86, "vacancy": 2, "rate": 98, "totalClasses": 10, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 6, "만1세": 10, "만2세": 14, "만3세": 15, "만4세": 20, "만5세": 18, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1998-08-05", "director": "한순두", "authority": "경기도 안양시청", "cert": "2025-04", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(4회)"], "staff": 18}, {"name": "박달어린이집", "stcode": "41170000113", "gu": "만안구", "dong": "박달동", "address": "경기도 안양시 만안구 박달로472번길 46 복지회관 1층 박달어린이집 (박달동)", "phone": "031-444-3049", "capacity": 60, "current": 31, "vacancy": 29, "rate": 52, "totalClasses": 7, "cls": {"만0세": 2, "만1세": 2, "만2세": 1, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 6, "만1세": 9, "만2세": 6, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 7, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1999-09-01", "director": "김현정", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(4회)"], "staff": 11}, {"name": "별하어린이집", "stcode": "41170000445", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 안양천서로 249 (안양동, 안양역푸르지오더샵)", "phone": "031-469-5959", "capacity": 85, "current": 75, "vacancy": 10, "rate": 88, "totalClasses": 9, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 12, "만2세": 15, "만3세": 15, "만4세": 14, "만5세": 0, "영아혼합": 0, "유아혼합": 13, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세"], "extraOn": ["유아혼합"], "minAge": "만0세", "maxAge": "만4세", "hours": "07:30 ~ 19:30", "openDate": "2025-03-01", "director": "사미경", "authority": "경기도 안양시청", "cert": "2026-09", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 15}, {"name": "부흥어린이집", "stcode": "41170000186", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 달안로 28 부흥어린이집", "phone": "031-385-7441", "capacity": 85, "current": 48, "vacancy": 37, "rate": 56, "totalClasses": 8, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 2, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 14, "만3세": 18, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "1993-03-18", "director": "허윤정", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 13}, {"name": "비산사회복지관어린이집", "stcode": "41170000025", "gu": "동안구", "dong": "비산동", "address": "경기도 안양시 동안구 임곡로 74 (비산동)", "phone": "031-441-3003", "capacity": 37, "current": 29, "vacancy": 8, "rate": 78, "totalClasses": 6, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 13, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": [], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1990-02-27", "director": "윤순용", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": [], "badges": ["연장보육반", "재인증(4회)"], "staff": 10}, {"name": "비산어린이집", "stcode": "41170000011", "gu": "동안구", "dong": "비산동", "address": "경기도 안양시 동안구 관악대로106번길 70 (비산동)", "phone": "031-385-3046", "capacity": 130, "current": 121, "vacancy": 9, "rate": 93, "totalClasses": 12, "cls": {"만0세": 1, "만1세": 2, "만2세": 4, "만3세": 2, "만4세": 2, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 3, "만1세": 10, "만2세": 28, "만3세": 25, "만4세": 35, "만5세": 20, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1981-03-07", "director": "윤지운", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 21}, {"name": "삼막어린이집", "stcode": "41170000419", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 삼막로24번길 107", "phone": "031-473-5253", "capacity": 46, "current": 37, "vacancy": 9, "rate": 80, "totalClasses": 6, "cls": {"만0세": 0, "만1세": 0, "만2세": 0, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 2, "유아혼합": 1, "특수장애": 2}, "kid": {"만0세": 0, "만1세": 0, "만2세": 0, "만3세": 10, "만4세": 0, "만5세": 0, "영아혼합": 9, "유아혼합": 13, "특수장애": 5}, "agesOn": ["만3세"], "extraOn": ["영아혼합", "유아혼합", "특수장애"], "minAge": "만3세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2015-12-03", "director": "서복희", "authority": "경기도 안양시청", "cert": "2023-11", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "인증(1회)"], "staff": 10}, {"name": "새샘어린이집", "stcode": "41170000018", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 안양로384번길 50 (안양동)", "phone": "031-468-3293", "capacity": 65, "current": 58, "vacancy": 7, "rate": 89, "totalClasses": 9, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 1, "영아혼합": 0, "유아혼합": 1, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 14, "만3세": 13, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 15, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만5세"], "extraOn": ["유아혼합"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1997-03-12", "director": "방경신", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 14}, {"name": "신안양어린이집", "stcode": "41170000075", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 경수대로 1159 다목적복지회관내 (안양동)", "phone": "031-474-7565", "capacity": 93, "current": 88, "vacancy": 5, "rate": 95, "totalClasses": 14, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 15, "만4세": 9, "만5세": 17, "영아혼합": 0, "유아혼합": 0, "특수장애": 9}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1998-11-06", "director": "김지숙", "authority": "경기도 안양시청", "cert": "2026-06", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(4회)"], "staff": 23}, {"name": "신촌어린이집", "stcode": "41170000407", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 동안로 28 신촌어린이집", "phone": "031-386-5858", "capacity": 185, "current": 180, "vacancy": 5, "rate": 97, "totalClasses": 22, "cls": {"만0세": 4, "만1세": 3, "만2세": 4, "만3세": 2, "만4세": 2, "만5세": 2, "영아혼합": 0, "유아혼합": 0, "특수장애": 5}, "kid": {"만0세": 12, "만1세": 15, "만2세": 28, "만3세": 30, "만4세": 40, "만5세": 40, "영아혼합": 0, "유아혼합": 0, "특수장애": 15}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2011-01-01", "director": "박선미", "authority": "경기도 안양시청", "cert": "2026-03", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "재인증(2회)"], "staff": 41}, {"name": "아르테자이 새론어린이집", "stcode": "41170000439", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 경수대로1166번길 9 1층", "phone": "031-471-2965", "capacity": 51, "current": 49, "vacancy": 2, "rate": 96, "totalClasses": 11, "cls": {"만0세": 3, "만1세": 4, "만2세": 3, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 15, "만2세": 18, "만3세": 10, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2022-11-01", "director": "김유숙", "authority": "경기도 안양시청", "cert": "2023-12", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 12}, {"name": "안양어린이집", "stcode": "41170000015", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 냉천로193번길 41 (안양동)", "phone": "031-449-2003", "capacity": 57, "current": 49, "vacancy": 8, "rate": 86, "totalClasses": 8, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 2, "유아혼합": 2, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 10, "만2세": 10, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 29, "특수장애": 0}, "agesOn": ["만1세", "만2세"], "extraOn": ["영아혼합", "유아혼합"], "minAge": "만1세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1981-11-05", "director": "신부용", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 11}, {"name": "안일어린이집", "stcode": "41170000411", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 장내로 170 안양1동주민센터", "phone": "031-449-0217", "capacity": 45, "current": 41, "vacancy": 4, "rate": 91, "totalClasses": 7, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 14, "만3세": 11, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2012-06-01", "director": "황정미", "authority": "경기도 안양시청", "cert": "2023-11", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(2회)"], "staff": 11}, {"name": "어반포레어린이집", "stcode": "41170000446", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 냉천로 125 (안양동)", "phone": "031-465-2007", "capacity": 68, "current": 66, "vacancy": 2, "rate": 97, "totalClasses": 8, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 15, "만3세": 15, "만4세": 20, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세"], "extraOn": [], "minAge": "만0세", "maxAge": "만4세", "hours": "07:30 ~ 19:30", "openDate": "2025-05-01", "director": "김혜영", "authority": "경기도 안양시청", "cert": "-", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 14}, {"name": "엄마사랑어린이집", "stcode": "41170000008", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 덕천로 94-9 안양7동복지회관 1층 (안양동)", "phone": "031-468-2666", "capacity": 31, "current": 31, "vacancy": 0, "rate": 100, "totalClasses": 7, "cls": {"만0세": 2, "만1세": 2, "만2세": 1, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 2, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 9, "만2세": 6, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 10, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["영아혼합"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1998-02-22", "director": "김해연", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["영아전담"], "badges": ["연장보육반", "재인증(4회)"], "staff": 11}, {"name": "엄지어린이집", "stcode": "41170000065", "gu": "동안구", "dong": "호계동", "address": "경기도 안양시 동안구 경수대로 725 (호계동)", "phone": "031-456-2208", "capacity": 77, "current": 71, "vacancy": 6, "rate": 92, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 10, "만2세": 14, "만3세": 15, "만4세": 20, "만5세": 12, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1995-12-28", "director": "김은수", "authority": "경기도 안양시청", "cert": "2026-01", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 16}, {"name": "연성어린이집", "stcode": "41170000078", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 냉천로157번길 18 (안양동)", "phone": "031-445-1133", "capacity": 77, "current": 51, "vacancy": 26, "rate": 66, "totalClasses": 7, "cls": {"만0세": 1, "만1세": 2, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 2, "특수장애": 0}, "kid": {"만0세": 3, "만1세": 10, "만2세": 14, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 24, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["유아혼합"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1997-11-25", "director": "김현주", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 12}, {"name": "우일어린이집", "stcode": "41170000013", "gu": "만안구", "dong": "박달동", "address": "경기도 안양시 만안구 양화로127번길 9 (박달동)", "phone": "031-445-0305", "capacity": 65, "current": 43, "vacancy": 22, "rate": 66, "totalClasses": 8, "cls": {"만0세": 1, "만1세": 2, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 1, "유아혼합": 2, "특수장애": 0}, "kid": {"만0세": 3, "만1세": 10, "만2세": 11, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 2, "유아혼합": 17, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["영아혼합", "유아혼합"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "1997-02-25", "director": "마미애", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 14}, {"name": "율목어린이집", "stcode": "41170000019", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 병목안로130번길 166 율목종합사회복지관 (안양동)", "phone": "031-466-9124", "capacity": 50, "current": 35, "vacancy": 15, "rate": 70, "totalClasses": 5, "cls": {"만0세": 0, "만1세": 0, "만2세": 1, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 2, "유아혼합": 2, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 0, "만2세": 6, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 6, "유아혼합": 23, "특수장애": 0}, "agesOn": ["만2세"], "extraOn": ["영아혼합", "유아혼합"], "minAge": "만2세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2003-03-10", "director": "박은숙", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 10}, {"name": "이룸어린이집", "stcode": "41170000413", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 삼봉로 66 육군관사 브라운스톤아파트", "phone": "031-441-2002", "capacity": 62, "current": 43, "vacancy": 19, "rate": 69, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 0, "만1세": 10, "만2세": 14, "만3세": 6, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 11, "특수장애": 2}, "agesOn": ["만1세", "만2세", "만3세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만1세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2012-12-01", "director": "박미정", "authority": "경기도 안양시청", "cert": "2024-02", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "재인증(2회)"], "staff": 11}, {"name": "인덕원어린이집", "stcode": "41170000020", "gu": "동안구", "dong": "관양동", "address": "경기도 안양시 동안구 인덕원로24번길 60 (관양동)", "phone": "031-421-0401", "capacity": 77, "current": 54, "vacancy": 23, "rate": 70, "totalClasses": 12, "cls": {"만0세": 2, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 2, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 13, "만3세": 10, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 15, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["유아혼합"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1998-08-25", "director": "신경희", "authority": "경기도 안양시청", "cert": "2024-09", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(3회)"], "staff": 14}, {"name": "정다운어린이집", "stcode": "41170000185", "gu": "만안구", "dong": "", "address": "경기도 안양시 만안구 안양로532번길 13-8", "phone": "031-473-0524", "capacity": 77, "current": 49, "vacancy": 28, "rate": 64, "totalClasses": 10, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 9, "만1세": 15, "만2세": 13, "만3세": 9, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "1995-12-28", "director": "정유경", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(4회)"], "staff": 16}, {"name": "평촌더샵아이파크어린이집", "stcode": "41170000427", "gu": "동안구", "dong": "관리동", "address": "경기도 안양시 동안구 경수대로610번길 36 평촌더샵아이파크아파트 관리동", "phone": "031-427-7177", "capacity": 76, "current": 75, "vacancy": 1, "rate": 99, "totalClasses": 8, "cls": {"만0세": 1, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 3, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 15, "만5세": 20, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2020-08-10", "director": "변정희", "authority": "경기도 안양시청", "cert": "2025-05", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반"], "staff": 16}, {"name": "평촌두산위브리버뷰 해든어린이집", "stcode": "41170000434", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 엘에스로45번길 30 평촌두산위브리버뷰 아파트", "phone": "031-429-8092", "capacity": 39, "current": 38, "vacancy": 1, "rate": 97, "totalClasses": 8, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": [], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2022-01-03", "director": "이수련", "authority": "경기도 안양시청", "cert": "2026-09", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 12}, {"name": "평촌래미안푸르지오 가온어린이집", "stcode": "41170000433", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 경수대로884번길 12 평촌래미안푸르지오 아파트", "phone": "031-388-2340", "capacity": 76, "current": 63, "vacancy": 13, "rate": 83, "totalClasses": 12, "cls": {"만0세": 2, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 0, "영아혼합": 0, "유아혼합": 2, "특수장애": 1}, "kid": {"만0세": 6, "만1세": 15, "만2세": 14, "만3세": 13, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 12, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만4세", "hours": "07:30 ~ 19:30", "openDate": "2022-01-03", "director": "강미영", "authority": "경기도 안양시청", "cert": "2026-09", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반"], "staff": 15}, {"name": "평촌센텀퍼스트 어린이집", "stcode": "41170000440", "gu": "동안구", "dong": "호계동", "address": "경기도 안양시 동안구 갈산로 15 1층(호계동)", "phone": "031-455-6633", "capacity": 51, "current": 43, "vacancy": 8, "rate": 84, "totalClasses": 9, "cls": {"만0세": 3, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 9, "만1세": 10, "만2세": 14, "만3세": 10, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2024-03-01", "director": "김희라", "authority": "경기도 안양시청", "cert": "2025-05", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반"], "staff": 13}, {"name": "평촌어바인퍼스트큰솔어린이집", "stcode": "41170000429", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 경수대로 581 평촌어바인퍼스트아파트 1단지", "phone": "031-456-0117", "capacity": 67, "current": 67, "vacancy": 0, "rate": 100, "totalClasses": 8, "cls": {"만0세": 0, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 0, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 15, "만5세": 15, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2021-02-10", "director": "장권용", "authority": "경기도 안양시청", "cert": "2025-11", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반"], "staff": 15}, {"name": "평촌어바인퍼스트호원어린이집", "stcode": "41170000430", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 경수대로 583 평촌어바인퍼스트아파트 2단지", "phone": "031-429-8098", "capacity": 77, "current": 71, "vacancy": 6, "rate": 92, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 0, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 14, "만5세": 20, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2021-02-10", "director": "심선영", "authority": "경기도 안양시청", "cert": "2025-11", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반"], "staff": 15}, {"name": "평촌엘프라우드 꿈샘어린이집", "stcode": "41170000442", "gu": "동안구", "dong": "비산동", "address": "경기도 안양시 동안구 운곡로 60 1층(비산동)", "phone": "031-388-7774", "capacity": 56, "current": 47, "vacancy": 9, "rate": 84, "totalClasses": 9, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 9, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2024-09-01", "director": "남의선", "authority": "경기도 안양시청", "cert": "2026-03", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 13}, {"name": "평촌엘프라우드 원어린이집", "stcode": "41170000441", "gu": "동안구", "dong": "비산동", "address": "경기도 안양시 동안구 매곡로 23 1층(비산동)", "phone": "031-381-5111", "capacity": 53, "current": 47, "vacancy": 6, "rate": 89, "totalClasses": 9, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 9, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": [], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2024-09-01", "director": "노은주", "authority": "경기도 안양시청", "cert": "2026-02", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 13}, {"name": "평촌자이아이파크 숲속애어린이집", "stcode": "41170000432", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 비산로 22 평촌자이아이파크 아파트", "phone": "031-447-2022", "capacity": 66, "current": 48, "vacancy": 18, "rate": 73, "totalClasses": 10, "cls": {"만0세": 4, "만1세": 2, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 12, "만1세": 10, "만2세": 14, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 10, "특수장애": 2}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2022-01-03", "director": "함정현", "authority": "경기도 안양시청", "cert": "2026-09", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반"], "staff": 18}, {"name": "평촌트리지아 라온어린이집", "stcode": "41170000444", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 귀인로 110", "phone": "031-477-7760", "capacity": 39, "current": 38, "vacancy": 1, "rate": 97, "totalClasses": 8, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": [], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2024-12-01", "director": "신혜숙", "authority": "경기도 안양시청", "cert": "2026-04", "vehicle": "미운영", "services": [], "badges": ["연장보육반"], "staff": 12}, {"name": "평촌트리지아 신기어린이집", "stcode": "41170000023", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 귀인로80번길 193 평촌트리지아3단지아파트", "phone": "031-452-0525", "capacity": 59, "current": 50, "vacancy": 9, "rate": 85, "totalClasses": 7, "cls": {"만0세": 0, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 0, "만1세": 15, "만2세": 14, "만3세": 14, "만4세": 7, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만1세", "만2세", "만3세", "만4세"], "extraOn": [], "minAge": "만1세", "maxAge": "만4세", "hours": "07:30 ~ 19:30", "openDate": "2001-10-01", "director": "김인숙", "authority": "경기도 안양시청", "cert": "2025-03", "vehicle": "미운영", "services": [], "badges": ["연장보육반", "재인증(2회)"], "staff": 12}, {"name": "평촌트리지아 하나어린이집", "stcode": "41170000443", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 귀인로98번길 12 1층", "phone": "031-453-8199", "capacity": 64, "current": 48, "vacancy": 16, "rate": 75, "totalClasses": 10, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 9, "만1세": 15, "만2세": 15, "만3세": 7, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 2}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "2024-12-01", "director": "노정희", "authority": "경기도 안양시청", "cert": "2026-04", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반"], "staff": 14}, {"name": "하나래어린이집", "stcode": "41170000414", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 동편로 80", "phone": "031-421-1047", "capacity": 53, "current": 40, "vacancy": 13, "rate": 75, "totalClasses": 10, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 9, "만1세": 12, "만2세": 12, "만3세": 0, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 4, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만2세", "hours": "07:30 ~ 19:30", "openDate": "2013-02-01", "director": "문정민", "authority": "경기도 안양시청", "cert": "2023-11", "vehicle": "미운영", "services": ["장애아통합"], "badges": ["연장보육반", "재인증(2회)"], "staff": 14}, {"name": "해누리어린이집", "stcode": "41170000012", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 소곡로 72 (안양동)", "phone": "031-442-2220", "capacity": 70, "current": 70, "vacancy": 0, "rate": 100, "totalClasses": 8, "cls": {"만0세": 1, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 3, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 15, "만5세": 15, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1995-04-28", "director": "김민선", "authority": "경기도 안양시청", "cert": "2026-02", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반"], "staff": 15}, {"name": "해와달어린이집", "stcode": "41170000007", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 동안로 153 (동안여성회관 1층 해와달어린이집)", "phone": "031-384-7897", "capacity": 85, "current": 76, "vacancy": 9, "rate": 89, "totalClasses": 9, "cls": {"만0세": 2, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 6, "만1세": 10, "만2세": 14, "만3세": 15, "만4세": 13, "만5세": 18, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1996-03-01", "director": "장승희", "authority": "경기도 안양시청", "cert": "2026-01", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 18}, {"name": "협심어린이집", "stcode": "41170000056", "gu": "만안구", "dong": "안양동", "address": "경기도 안양시 만안구 능곡로 21 (안양동)", "phone": "031-449-4701", "capacity": 80, "current": 59, "vacancy": 21, "rate": 74, "totalClasses": 9, "cls": {"만0세": 1, "만1세": 2, "만2세": 2, "만3세": 1, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 1, "특수장애": 2}, "kid": {"만0세": 3, "만1세": 10, "만2세": 14, "만3세": 12, "만4세": 0, "만5세": 0, "영아혼합": 0, "유아혼합": 15, "특수장애": 5}, "agesOn": ["만0세", "만1세", "만2세", "만3세"], "extraOn": ["유아혼합", "특수장애"], "minAge": "만0세", "maxAge": "만3세", "hours": "07:30 ~ 19:30", "openDate": "1982-03-08", "director": "정영희", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 17}, {"name": "호계꿈어린이집", "stcode": "41170000417", "gu": "동안구", "dong": "", "address": "경기도 안양시 동안구 경수대로 504", "phone": "031-427-3171", "capacity": 80, "current": 73, "vacancy": 7, "rate": 91, "totalClasses": 9, "cls": {"만0세": 0, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 1, "유아혼합": 1, "특수장애": 1}, "kid": {"만0세": 0, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 13, "만5세": 20, "영아혼합": 3, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": ["영아혼합", "유아혼합", "특수장애"], "minAge": "만1세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "2014-12-01", "director": "나경금", "authority": "경기도 안양시청", "cert": "2026-09", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "인증(1회)"], "staff": 15}, {"name": "호계어린이집", "stcode": "41170000061", "gu": "동안구", "dong": "호계동", "address": "경기도 안양시 동안구 흥안대로 147 (호계동)", "phone": "031-455-3608", "capacity": 95, "current": 72, "vacancy": 23, "rate": 76, "totalClasses": 12, "cls": {"만0세": 3, "만1세": 3, "만2세": 2, "만3세": 2, "만4세": 1, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 1}, "kid": {"만0세": 9, "만1세": 15, "만2세": 14, "만3세": 23, "만4세": 8, "만5세": 0, "영아혼합": 0, "유아혼합": 0, "특수장애": 3}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세"], "extraOn": ["특수장애"], "minAge": "만0세", "maxAge": "만4세", "hours": "07:30 ~ 19:30", "openDate": "1999-03-02", "director": "손은미", "authority": "경기도 안양시청", "cert": "2026-01", "vehicle": "미운영", "services": ["장애아통합", "야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 19}, {"name": "호성어린이집", "stcode": "41170000022", "gu": "동안구", "dong": "호계동", "address": "경기도 안양시 동안구 포도원로27번길 39 호성어린이집 (호계동)", "phone": "031-455-8367", "capacity": 77, "current": 77, "vacancy": 0, "rate": 100, "totalClasses": 7, "cls": {"만0세": 1, "만1세": 1, "만2세": 2, "만3세": 1, "만4세": 1, "만5세": 1, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "kid": {"만0세": 3, "만1세": 5, "만2세": 14, "만3세": 15, "만4세": 20, "만5세": 20, "영아혼합": 0, "유아혼합": 0, "특수장애": 0}, "agesOn": ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"], "extraOn": [], "minAge": "만0세", "maxAge": "만5세", "hours": "07:30 ~ 19:30", "openDate": "1995-03-07", "director": "신영례", "authority": "경기도 안양시청", "cert": "2025-12", "vehicle": "미운영", "services": ["야간연장형"], "badges": ["연장보육반", "재인증(4회)"], "staff": 14}];
+const AGES = ["만0세", "만1세", "만2세", "만3세", "만4세", "만5세"];
+const EXTRA = ["영아혼합", "유아혼합", "특수장애"];
+const RATIO = {"만0세":3,"만1세":5,"만2세":7,"만3세":15,"만4세":20,"만5세":20,
+  "영아혼합":5,"유아혼합":15,"특수장애":3};
+const CELL_HINT = {
+  classes:"각 연령에서 운영 중인 반 수",
+  children:"각 연령 반에 재원 중인 아동 수",
+  room:"반 수 × 법정 반 정원 − 재원 아동. 초과보육 인가 시 실제 여유는 달라질 수 있습니다"};
+const IS_SM = window.matchMedia && window.matchMedia("(max-width:760px)").matches;
+const S = {gu:"", q:"", sort:"name", view: IS_SM?"card":"table", cell:"classes", ages:new Set()};
+
+function cellVal(d,a){
+  const c=d.cls[a]||0, k=d.kid[a]||0;
+  if(!c) return {txt:"·", on:false, neg:false};
+  if(S.cell==="classes")  return {txt:String(c), on:true, neg:false};
+  if(S.cell==="children") return {txt:String(k), on:true, neg:false};
+  const room=c*RATIO[a]-k;
+  return {txt: room>0?"+"+room:String(room), on:room>0, neg:room<=0};
+}
+
+const fmt = n => (n||0).toLocaleString("ko-KR");
+
+function filtered(){
+  let r = DATA.filter(d=>{
+    if(S.gu && d.gu!==S.gu) return false;
+    if(S.ages.size && ![...S.ages].every(a=>d.cls[a]>0)) return false;
+    if(S.q){
+      const q=S.q.toLowerCase();
+      if(!(d.name+d.address+d.dong).toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+  const cmp = {
+    name:(a,b)=>a.name.localeCompare(b.name,"ko"),
+    capacity:(a,b)=>b.capacity-a.capacity||a.name.localeCompare(b.name,"ko"),
+    vacancy:(a,b)=>b.vacancy-a.vacancy||a.name.localeCompare(b.name,"ko"),
+    rate:(a,b)=>a.rate-b.rate||a.name.localeCompare(b.name,"ko"),
+    openDate:(a,b)=>(b.openDate||"").localeCompare(a.openDate||"")
+  }[S.sort];
+  return r.sort(cmp);
+}
+
+function renderStats(rows){
+  const cap=rows.reduce((s,d)=>s+d.capacity,0), cur=rows.reduce((s,d)=>s+d.current,0);
+  const cls=rows.reduce((s,d)=>s+d.totalClasses,0);
+  const infant=rows.filter(d=>d.cls["만0세"]>0).length;
+  const st=[
+    ["국공립 어린이집", fmt(rows.length), "개소"],
+    ["정원 합계", fmt(cap), "명"],
+    ["현원 합계", fmt(cur), "명"],
+    ["여석", fmt(cap-cur), "석"],
+    ["충원율", cap?Math.round(cur/cap*100):0, "%"],
+    ["운영 반", fmt(cls), "반"],
+    ["만0세반 운영", fmt(infant), "개소"],
+  ];
+  document.getElementById("stats").innerHTML = st.map(([k,v,u])=>
+    `<div class="stat"><div class="k">${k}</div><div class="v">${v}<small>${u}</small></div></div>`).join("");
+}
+
+function ageCells(d){
+  const cell=(a,pre)=>{
+    const v=cellVal(d,a);
+    const cl = v.neg?"neg-cell":(v.on?"on-cell":"zero");
+    return `<td class="c ${pre}${cl}">${v.txt}</td>`;
+  };
+  return AGES.map(a=>cell(a,"")).join("") + EXTRA.map((a,i)=>cell(a,i===0?"grp ":"")).join("");
+}
+
+function renderTable(rows){
+  const head = `<thead><tr>
+    <th>어린이집</th><th class="num">정원</th><th class="num">현원</th><th class="num">여석</th>
+    <th>충원율</th><th class="c">반</th>
+    ${AGES.map(a=>`<th class="c">${a.replace("만","").replace("세","")}세</th>`).join("")}
+    <th class="c grp">영아<br>혼합</th><th class="c">유아<br>혼합</th><th class="c">특수<br>장애</th>
+    <th class="hide-sm">운영시간</th><th>전화</th><th class="hide-sm">주소</th>
+  </tr></thead>`;
+  const body = rows.map(d=>{
+    const full = d.rate>=100;
+    return `<tr>
+      <td class="nm">${d.name}<span class="gu">${d.gu}${d.dong?" "+d.dong:""}</span></td>
+      <td class="num">${fmt(d.capacity)}</td>
+      <td class="num">${fmt(d.current)}</td>
+      <td class="num">${d.vacancy>0?fmt(d.vacancy):"<span class='zero2'>0</span>"}</td>
+      <td class="num">${d.rate}%<span class="bar"><i class="${full?"full":""}" style="width:${Math.min(d.rate,100)}%"></i></span></td>
+      <td class="c">${d.totalClasses}</td>
+      ${ageCells(d)}
+      <td class="hide-sm">${d.hours||"-"}</td>
+      <td>${d.phone?`<a class="lnk" href="tel:${d.phone.replace(/[^0-9]/g,"")}">${d.phone}</a>`:"-"}</td>
+      <td class="hide-sm" style="white-space:normal;min-width:220px;color:var(--ink2)">${d.address}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("tableView").innerHTML = `<table>${head}<tbody>${body}</tbody></table>`;
+}
+
+function renderCards(rows){
+  document.getElementById("cardView").innerHTML = rows.map(d=>{
+    const tags=[...d.badges,...d.services].map(t=>`<span class="tag${/야간|휴일|24/.test(t)?" w":""}">${t}</span>`).join("");
+    const grid=AGES.map(a=>{
+      const v=cellVal(d,a);
+      return `<div class="ag ${v.neg?"neg":(v.on?"on":"")}"><div class="t">${a.replace("만","")}</div><div class="n">${v.txt}</div></div>`;
+    }).join("");
+    const ex=EXTRA.filter(e=>d.cls[e]>0)
+      .map(e=>`${e} ${d.cls[e]}반 (${d.kid[e]}명)`).join(" · ");
+    return `<div class="card">
+      <h3>${d.name}</h3>
+      <div class="meta">${d.gu}${d.dong?" "+d.dong:""} · ${d.address}<a class="mapbtn" target="_blank" rel="noopener"
+          href="https://map.naver.com/p/search/${encodeURIComponent(d.name+" "+d.gu)}">지도</a><br>
+        ${d.phone?`<a class="lnk" href="tel:${d.phone.replace(/[^0-9]/g,"")}">${d.phone}</a>`:""}${d.hours?" · "+d.hours:""}</div>
+      ${tags?`<div style="margin-bottom:8px">${tags}</div>`:""}
+      <div class="agegrid">${grid}</div>
+      ${ex?`<div class="extra">${ex}</div>`:`<div class="extra">${d.minAge}~${d.maxAge} 운영</div>`}
+      <div class="row"><span>정원 / 현원</span><b>${fmt(d.capacity)} / ${fmt(d.current)}명 (${d.rate}%)</b></div>
+      <div class="row"><span>여석</span><b>${d.vacancy>0?fmt(d.vacancy)+"석":"없음"}</b></div>
+      <div class="row"><span>운영 반</span><b>${d.totalClasses}반 · 교직원 ${d.staff}명</b></div>
+      <div class="row"><span>개원일</span><b>${d.openDate||"-"}</b></div>
+      <div class="row"><span>평가 연월</span><b>${d.cert||"-"}</b></div>
+    </div>`;
+  }).join("");
+}
+
+function render(){
+  const rows=filtered();
+  renderStats(rows);
+  document.getElementById("count").textContent=`${rows.length}개소 표시`;
+  const t=document.getElementById("tableView"), c=document.getElementById("cardView");
+  if(S.view==="table"){t.classList.remove("hidden");c.classList.add("hidden");renderTable(rows);}
+  else{c.classList.remove("hidden");t.classList.add("hidden");renderCards(rows);}
+}
+
+const af=document.getElementById("ageFilter");
+AGES.forEach(a=>{
+  const b=document.createElement("button");
+  b.className="chip";b.textContent=a;
+  b.onclick=()=>{S.ages.has(a)?S.ages.delete(a):S.ages.add(a);b.classList.toggle("on");render();};
+  af.appendChild(b);
+});
+document.getElementById("guSeg").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+  e.target.classList.add("on");S.gu=e.target.dataset.gu;render();
+};
+document.getElementById("viewSeg").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+  e.target.classList.add("on");S.view=e.target.dataset.view;render();
+};
+document.getElementById("cellSeg").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+  e.target.classList.add("on");S.cell=e.target.dataset.cell;
+  document.getElementById("cellHint").textContent=CELL_HINT[S.cell];render();
+};
+document.getElementById("cellHint").textContent=CELL_HINT.classes;
+if(IS_SM){
+  document.querySelectorAll('#viewSeg button').forEach(b=>
+    b.classList.toggle("on", b.dataset.view==="card"));
+}
+document.getElementById("q").oninput=e=>{S.q=e.target.value.trim();render();};
+document.getElementById("sort").onchange=e=>{S.sort=e.target.value;render();};
+render();
+</script>
+</body>
+</html>
