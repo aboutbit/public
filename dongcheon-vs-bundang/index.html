@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>동천 vs 분당 4개 단지 심층 분석 (2026-09-09)</title>
+<meta name="description" content="동천자이·동천센트럴자이·장안타운건영2차·효자촌그린타운 — 투자·실거주·재건축·통근 종합 리포트">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#FBFAF7; --card:#FFFFFF; --ink:#15181D; --ink2:#3F454F; --muted:#767D89;
+  --line:#E7E4DC; --line2:#F0EEE8; --chip:#F4F2EC;
+  --up:#D32F2F; --down:#1565C0; --warn:#B45309; --ok:#15803D;
+  --c1:#2563EB; --c2:#0891B2; --c3:#D97706; --c4:#DC2626;
+  --rad:12px;
+}
+*{box-sizing:border-box;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);line-height:1.62;
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-size:15px;letter-spacing:-0.01em;word-break:keep-all}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px 96px}
+h1,h2,h3,h4{line-height:1.32;letter-spacing:-0.025em;margin:0}
+a{color:inherit}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* header */
+header{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:26px;font-weight:800;margin:10px 0 8px}
+.sub{color:var(--ink2);font-size:14px}
+.meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11.5px;background:var(--chip);border:1px solid var(--line);border-radius:99px;padding:3px 10px;color:var(--ink2);white-space:nowrap}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);margin:0 -16px;padding:0 16px}
+.navin{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:9px 0}
+.navin::-webkit-scrollbar{display:none}
+.navin a{flex:0 0 auto;font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;
+  padding:6px 11px;border-radius:99px;white-space:nowrap}
+.navin a:active{background:var(--chip)}
+
+section{padding:34px 0 6px;scroll-margin-top:56px}
+h2{font-size:20px;font-weight:800;margin-bottom:6px}
+h2 .no{color:var(--muted);font-weight:700;font-size:13px;display:block;margin-bottom:4px;letter-spacing:.1em}
+.lead{color:var(--ink2);font-size:14px;margin:8px 0 18px}
+h3{font-size:15.5px;font-weight:750;margin:24px 0 10px}
+p{margin:0 0 12px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:16px}
+.grid{display:grid;gap:10px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}}
+
+/* verdict */
+.verdict{background:var(--ink);color:#fff;border-radius:var(--rad);padding:18px;margin:18px 0}
+.verdict h3{color:#fff;margin:0 0 10px;font-size:16px}
+.verdict p{color:#D6D9DE;font-size:14px;margin:0 0 10px}
+.verdict p:last-child{margin:0}
+.verdict b{color:#fff}
+
+/* rank cards */
+.rank{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px;position:relative;overflow:hidden}
+.rank::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--bar,#ccc)}
+.rank .rk{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.1em}
+.rank .nm{font-size:16.5px;font-weight:800;margin:3px 0 2px}
+.rank .loc{font-size:12px;color:var(--muted)}
+.rank .pr{font-size:19px;font-weight:800;margin:9px 0 2px}
+.rank .pr small{font-size:12px;font-weight:600;color:var(--muted)}
+.rank ul{margin:9px 0 0;padding-left:16px;font-size:13px;color:var(--ink2)}
+.rank li{margin-bottom:3px}
+
+/* table */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--rad);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line2);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card);z-index:1;
+  box-shadow:1px 0 0 var(--line2)}
+thead th{background:#F7F5F0;font-weight:700;font-size:12px;color:var(--ink2);border-bottom:1px solid var(--line)}
+thead th:first-child{background:#F7F5F0}
+tbody tr:last-child td{border-bottom:none}
+td.best{background:#F0F7F1;font-weight:750}
+td.worst{color:#B0342B}
+caption{caption-side:bottom;text-align:left;font-size:11.5px;color:var(--muted);padding:9px 11px}
+
+/* chart */
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px 12px 8px;margin:14px 0}
+.chartbox h4{font-size:13.5px;font-weight:750;margin-bottom:2px}
+.chartbox .cs{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.cwrap{position:relative;height:280px}
+@media(max-width:640px){.cwrap{height:250px}}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:760px){.facts{grid-template-columns:repeat(4,1fr)}}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.fact .k{font-size:11px;color:var(--muted);font-weight:600}
+.fact .v{font-size:17px;font-weight:800;margin-top:2px}
+.fact .n{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* callout */
+.note{border-left:3px solid var(--warn);background:#FFFBF3;border-radius:0 10px 10px 0;padding:12px 14px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.note b{color:var(--ink)}
+.note.ok{border-color:var(--ok);background:#F2FAF4}
+.note.bad{border-color:var(--up);background:#FEF5F4}
+
+ul.bul{padding-left:18px;margin:0 0 14px;font-size:14px;color:var(--ink2)}
+ul.bul li{margin-bottom:7px}
+ul.bul b{color:var(--ink)}
+
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;vertical-align:middle}
+.p-ok{background:#E7F5EA;color:#15803D}.p-warn{background:#FDF3E3;color:#B45309}
+.p-bad{background:#FCEEEC;color:#C0362C}.p-neu{background:var(--chip);color:var(--ink2)}
+
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+footer b{color:var(--ink2)}
+.srcs{margin-top:10px;font-size:11.5px;line-height:1.8}
+.srcs a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Housing Deep Dive · 2026.09.09</div>
+  <h1>동천 신축 2 vs 분당 재건축 2<br>어디로 갈 것인가</h1>
+  <p class="sub">동천자이 · 동천센트럴자이 · 장안타운건영2차 · 효자촌그린타운<br>
+  투자 · 실거주 · 재건축 · 통근/등하원 종합 분석</p>
+  <div class="meta">
+    <span class="tag">국토부 실거래 8,363건</span>
+    <span class="tag">네이버 라이브 매물</span>
+    <span class="tag">카카오모빌리티 실측</span>
+    <span class="tag">기준 회사 NAVER 1784</span>
+    <span class="tag">기준 어린이집 푸르니수지</span>
+  </div>
+</header>
+
+<nav><div class="navin">
+  <a href="#verdict">결론</a><a href="#spec">스펙</a><a href="#commute">통근·등하원</a>
+  <a href="#price">시세</a><a href="#money">자금</a><a href="#rebuild">재건축</a>
+  <a href="#live">실거주</a><a href="#invest">투자</a><a href="#risk">리스크</a>
+  <a href="#timing">타이밍</a><a href="#listing">매물</a><a href="#method">출처</a>
+</div></nav>
+
+<section id="verdict">
+  <h2><span class="no">01 / CONCLUSION</span>결론 먼저</h2>
+  <p class="lead">네 단지는 사실상 <b>서로 다른 상품</b>입니다. 같은 전용 84㎡인데 필요한 자기자본이 8.3억에서 14.0억까지 벌어지고, 등하원 동선은 하루 25분과 65분으로 갈립니다.</p>
+
+  <div class="verdict">
+    <h3>한 줄 요약</h3>
+    <p><b>지금 국면에서 가장 합리적인 선택은 동천자이</b>입니다. 하루 70분의 등하원·출퇴근 시간을 되찾으면서 진입 자기자본이 가장 낮고(8.3억), 매물이 30건 쌓여 있어 협상 여지까지 있습니다.</p>
+    <p><b>자산 증식을 우선한다면 장안타운건영2차</b>가 유일하게 현실적인 대안입니다. 분당 재건축 두 곳 중 유일하게 <b>15억 미만</b>이라 주담대를 5.92억까지 받을 수 있고(효자촌은 4억으로 급감), 대지지분 20.3평을 확보합니다.</p>
+    <p><b>동천센트럴자이와 효자촌그린타운은 "좋지만 비쌉니다."</b> 동천센트럴자이는 동천자이보다 2.5억 비싼데 대출은 오히려 1.2억 적어 자기자본이 3.8억 더 듭니다. 효자촌그린타운은 재건축 기대가 가장 크지만 자기자본 14억·주차 0.96대·등하원 60분을 동시에 감당해야 합니다.</p>
+  </div>
+
+  <div class="grid g4" style="margin-top:14px">
+    <div class="rank" style="--bar:var(--c1)">
+      <div class="rk">종합 1순위</div><div class="nm">동천자이</div><div class="loc">용인 수지 동천동 · 2018년 · 1,437세대</div>
+      <div class="pr">13.0억 <small>호가 중앙 · 전용 84</small></div>
+      <ul><li>등하원 왕복 <b>25분</b> (최단)</li><li>자기자본 <b>8.3억</b> (최저)</li><li>매물 30건 → 협상 우위</li><li>재건축 기대 없음</li></ul>
+    </div>
+    <div class="rank" style="--bar:var(--c3)">
+      <div class="rk">자산 우선 대안</div><div class="nm">장안타운건영2차</div><div class="loc">성남 분당 분당동 · 1993년 · 1,688세대</div>
+      <div class="pr">14.8억 <small>호가 중앙 · 전용 85</small></div>
+      <ul><li>대지지분 <b>20.3평</b></li><li>15억 미만 → 대출 <b>5.92억</b></li><li>전용 85 매물 단 3건</li><li>등하원 왕복 65분</li></ul>
+    </div>
+    <div class="rank" style="--bar:var(--c2)">
+      <div class="rk">조건부</div><div class="nm">동천센트럴자이</div><div class="loc">용인 수지 동천동 · 2019년 · 1,057세대</div>
+      <div class="pr">15.5억 <small>호가 중앙 · 전용 84</small></div>
+      <ul><li>동천역 <b>904m</b> (유일한 도보권)</li><li>주차 1.34대 (최고)</li><li>15억 초과 → 대출 4억</li><li>자기자본 12.1억</li></ul>
+    </div>
+    <div class="rank" style="--bar:var(--c4)">
+      <div class="rk">고비용·고기대</div><div class="nm">효자촌그린타운</div><div class="loc">성남 분당 서현동 · 1994년 · 1,774세대</div>
+      <div class="pr">17.3억 <small>호가 중앙 · 전용 84</small></div>
+      <ul><li>통합재건축 <b>3,500세대</b> 계획</li><li>학군 최상 (서당초·양영중)</li><li>자기자본 <b>14.0억</b> (최고)</li><li>주차 <b>0.96대</b> (최저)</li></ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>이 순위를 뒤집는 단 하나의 변수</b> — 다은이 어린이집입니다. 푸르니수지어린이집은 동천동 고기로 176에 있는 <b>직장어린이집</b>이고, 동천자이에서 도보 646m입니다. 만약 아이를 분당 소재 어린이집으로 옮길 수 있다면 분당 두 단지의 등하원 페널티가 사라지고, 순위는 <b>장안타운건영2차 ↔ 동천자이</b>로 접전이 됩니다. 어린이집 이전 가능 여부가 이 의사결정의 최상단 분기점입니다.
+  </div>
+</section>
+
+<section id="spec">
+  <h2><span class="no">02 / SPEC</span>기본 스펙 비교</h2>
+  <p class="lead">신축 2 (용적률 297%, 주차 1.3대) vs 구축 2 (용적률 160%, 대지지분 2배). 물리적 성격이 정반대입니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>동천자이</th><th>동천센트럴자이</th><th>장안타운건영2차</th><th>효자촌그린타운</th></tr></thead>
+    <tbody>
+      <tr><td>소재지</td><td>용인 수지<br>동천동</td><td>용인 수지<br>동천동</td><td>성남 분당<br>분당동 68</td><td>성남 분당<br>서현동 310</td></tr>
+      <tr><td>준공</td><td class="mono">2018.08</td><td class="mono">2019.05</td><td class="mono">1993.12</td><td class="mono">1994.08</td></tr>
+      <tr><td>연식 (2026년)</td><td class="mono best">8년</td><td class="mono best">7년</td><td class="mono">33년</td><td class="mono">32년</td></tr>
+      <tr><td>세대수 / 동수</td><td class="mono">1,437 / 10</td><td class="mono">1,057 / 8</td><td class="mono">1,688 / 27</td><td class="mono">1,774 / 22</td></tr>
+      <tr><td>층수</td><td class="mono">23~36</td><td class="mono">28~36</td><td class="mono">11~20</td><td class="mono">10~25</td></tr>
+      <tr><td>용적률</td><td class="mono">297%</td><td class="mono">297%</td><td class="mono best">162%</td><td class="mono best">159%</td></tr>
+      <tr><td>건폐율</td><td class="mono">16%</td><td class="mono">15%</td><td class="mono">13%</td><td class="mono">15%</td></tr>
+      <tr><td>세대당 주차</td><td class="mono">1.29대</td><td class="mono best">1.34대</td><td class="mono">1.11대</td><td class="mono worst">0.96대</td></tr>
+      <tr><td>시공사</td><td>GS건설</td><td>GS건설</td><td>건영</td><td>대우·대창<br>화성·럭키</td></tr>
+      <tr><td>세대당 대지 (추정)</td><td class="mono">38.6㎡</td><td class="mono">36.9㎡</td><td class="mono best">72.8㎡</td><td class="mono">55.8㎡</td></tr>
+      <tr><td><b>전용84 대지지분</b></td><td class="mono">11.7평</td><td class="mono worst">11.2평</td><td class="mono best">20.3평</td><td class="mono best">20.0평</td></tr>
+      <tr><td>전용84 타입</td><td class="mono">4룸 2욕</td><td class="mono">3룸 2욕</td><td class="mono">3룸 2욕</td><td class="mono">3룸 2욕</td></tr>
+      <tr><td>배관 교체</td><td>해당없음<br>(신축)</td><td>해당없음<br>(신축)</td><td class="mono">2012년</td><td class="mono">2014년</td></tr>
+      <tr><td>가장 가까운 역</td><td>동천역<br><span class="mono">1,426m</span></td><td class="best">동천역<br><span class="mono">904m</span></td><td>서현역<br><span class="mono">2,242m</span></td><td>서현역<br><span class="mono">1,915m</span></td></tr>
+    </tbody>
+    <caption>출처 — 네이버부동산 단지정보 (2026-09-09 라이브). 세대당 대지·대지지분은 평형별 공급면적 합 ÷ 용적률로 역산한 추정치로, 등기부상 대지권 면적과는 차이가 있을 수 있습니다.</caption>
+  </table></div>
+
+  <div class="note">
+    <b>대지지분이 이 표의 핵심입니다.</b> 전용 84㎡ 기준으로 분당 구축 두 곳(20.3평·20.0평)이 동천 신축 두 곳(11.7평·11.2평)의 <b>약 1.8배</b>를 깔고 있습니다. 재건축 사업성은 결국 "내 땅이 얼마나 되느냐"에서 나오고, 용적률 297%인 동천 두 단지는 구조적으로 재건축·리모델링 실익이 없습니다. 반대로 분당 두 곳은 <b>용적률 160% → 365%</b>로 두 배 넘게 올릴 여지를 갖고 있습니다.
+  </div>
+</section>
+
+<section id="commute">
+  <h2><span class="no">03 / COMMUTE</span>통근 · 등하원</h2>
+  <p class="lead">회사는 NAVER 1784(분당 정자일로 95), 어린이집은 푸르니수지(용인 수지 고기로 176)입니다. 두 지점이 <b>서로 반대편</b>에 있다는 점이 이 분석 전체를 지배합니다.</p>
+
+  <div class="facts" style="margin-bottom:14px">
+    <div class="fact"><div class="k">현재 (안양 동안구)</div><div class="v">95분</div><div class="n">등하원 포함 일일 왕복</div></div>
+    <div class="fact"><div class="k">동천자이</div><div class="v" style="color:var(--ok)">25분</div><div class="n">하루 70분 절약</div></div>
+    <div class="fact"><div class="k">동천센트럴자이</div><div class="v" style="color:var(--ok)">32분</div><div class="n">하루 63분 절약</div></div>
+    <div class="fact"><div class="k">분당 2곳</div><div class="v" style="color:var(--warn)">60~65분</div><div class="n">하루 30~35분 절약</div></div>
+  </div>
+
+  <div class="chartbox">
+    <h4>등원 후 출근 + 퇴근 후 하원·귀가 (분)</h4>
+    <div class="cs">카카오모빌리티 미래운행 API · 평일 08:00 출발 / 18:30 퇴근 기준</div>
+    <div class="cwrap"><canvas id="chCommute"></canvas></div>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>구간</th><th>현재<br>(안양)</th><th>동천자이</th><th>동천<br>센트럴자이</th><th>장안타운<br>건영2차</th><th>효자촌<br>그린타운</th></tr></thead>
+    <tbody>
+      <tr><td>어린이집 직선거리</td><td class="mono">19.1km</td><td class="mono best">0.65km</td><td class="mono">1.21km</td><td class="mono">5.31km</td><td class="mono">5.03km</td></tr>
+      <tr><td>집 → 어린이집 (차)</td><td class="mono">35분</td><td class="mono best">2분</td><td class="mono">5분</td><td class="mono worst">25분</td><td class="mono">21분</td></tr>
+      <tr><td>집 → 회사 직행</td><td class="mono">37분</td><td class="mono">9분</td><td class="mono best">9분</td><td class="mono">16분</td><td class="mono">13분</td></tr>
+      <tr><td><b>등원 후 출근</b></td><td class="mono">43분</td><td class="mono best">10분</td><td class="mono">13분</td><td class="mono worst">32분</td><td class="mono">28분</td></tr>
+      <tr><td><b>퇴근 → 하원 → 귀가</b></td><td class="mono">52분</td><td class="mono best">15분</td><td class="mono">19분</td><td class="mono worst">33분</td><td class="mono">32분</td></tr>
+      <tr><td>일일 왕복 합계</td><td class="mono">95분</td><td class="mono best">25분</td><td class="mono">32분</td><td class="mono worst">65분</td><td class="mono">60분</td></tr>
+      <tr><td>연간 환산 (250일)</td><td class="mono">396시간</td><td class="mono best">104시간</td><td class="mono">133시간</td><td class="mono worst">271시간</td><td class="mono">250시간</td></tr>
+      <tr><td>어린이집 도보</td><td>불가</td><td class="best">646m<br>약 9분</td><td>약 1.4km<br>약 20분</td><td>불가</td><td>불가</td></tr>
+      <tr><td>강남역 (차)</td><td class="mono">47분</td><td class="mono">46분</td><td class="mono">50분</td><td class="mono">51분</td><td class="mono">47분</td></tr>
+      <tr><td>판교역 (차)</td><td class="mono">30분</td><td class="mono">21분</td><td class="mono">22분</td><td class="mono">18분</td><td class="mono best">15분</td></tr>
+    </tbody>
+    <caption>출처 — 카카오모빌리티 길찾기 API (2026-09-09 조회, 평일 08:00/18:30 미래운행 예측). 실제 소요시간은 교통 상황에 따라 변동합니다.</caption>
+  </table></div>
+
+  <div class="note bad">
+    <b>분당을 택하면 하루 60분 이상을 아이와 차 안에서 보냅니다.</b> 왕복 22~27km를 매일 운행해야 하고, 2027년 1월 둘째가 태어나면 카시트 두 개를 태우고 같은 거리를 오가게 됩니다. 등하원 편도 21~25분은 아이가 어릴수록 체감 부담이 급격히 커지는 구간입니다. 이것이 분당 두 단지의 가장 큰 실질 비용이며, 가격표에는 나타나지 않습니다.
+  </div>
+  <div class="note ok">
+    <b>동천자이는 사실상 "어린이집 품은 단지"에 가깝습니다.</b> 푸르니수지어린이집까지 646m(도보 9분), 차로 2분. 여기에 단지 내 시립동천자이어린이집 87m, 시립동천자이2차어린이집 653m가 별도로 있고 동천초등학교는 306m입니다. 아이 둘을 키우는 향후 5년 동안 이 동선이 만드는 여유는 금액으로 환산하기 어렵습니다.
+  </div>
+</section>
+
+<section id="price">
+  <h2><span class="no">04 / PRICE</span>시세 · 실거래</h2>
+  <p class="lead">국토교통부 실거래가 원본에서 전용 84~85㎡만 추출해 반기 중앙값으로 정리했습니다. 네 단지 모두 지금이 <b>역사적 최고가</b>입니다.</p>
+
+  <div class="chartbox">
+    <h4>전용 84~85㎡ 실거래 반기 중앙값 (억원)</h4>
+    <div class="cs">국토부 실거래가 · 해제(취소) 거래 제외 · 동천 2곳은 입주 시점부터</div>
+    <div class="cwrap"><canvas id="chPrice"></canvas></div>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>지표 (전용 84~85㎡)</th><th>동천자이</th><th>동천<br>센트럴자이</th><th>장안타운<br>건영2차</th><th>효자촌<br>그린타운</th></tr></thead>
+    <tbody>
+      <tr><td>2026 하반기 중앙값</td><td class="mono">11.80억</td><td class="mono">14.25억</td><td class="mono">14.25억</td><td class="mono">17.00억</td></tr>
+      <tr><td>2026 최고 실거래</td><td class="mono">13.40억<br><span style="color:var(--muted);font-size:11px">8월·22층</span></td><td class="mono">14.35억<br><span style="color:var(--muted);font-size:11px">7월·12층</span></td><td class="mono">14.75억<br><span style="color:var(--muted);font-size:11px">4월·12층</span></td><td class="mono">17.00억<br><span style="color:var(--muted);font-size:11px">7월·14층</span></td></tr>
+      <tr><td>2021~22 전고점</td><td class="mono">12.70억</td><td class="mono">13.45억</td><td class="mono">11.50억</td><td class="mono">12.45억</td></tr>
+      <tr><td><b>전고점 대비</b></td><td class="mono">+5.5%</td><td class="mono">+6.7%</td><td class="mono best">+28.3%</td><td class="mono best">+36.5%</td></tr>
+      <tr><td>2023 저점</td><td class="mono">8.40억</td><td class="mono">9.15억</td><td class="mono">6.60억</td><td class="mono">6.45억</td></tr>
+      <tr><td>최근 12개월 평균</td><td class="mono">10.83억</td><td class="mono">13.03억</td><td class="mono">13.57억</td><td class="mono">15.50억</td></tr>
+      <tr><td>최근 12개월 거래</td><td class="mono best">44건</td><td class="mono">25건</td><td class="mono">13건</td><td class="mono worst">8건</td></tr>
+      <tr><td><b>현재 호가 중앙</b></td><td class="mono">13.0억</td><td class="mono">15.5억</td><td class="mono">14.8억</td><td class="mono">17.3억</td></tr>
+      <tr><td>호가 범위</td><td class="mono">12.5~15.0</td><td class="mono">15.0~15.7</td><td class="mono">14.8~16.2</td><td class="mono">16.2~18.5</td></tr>
+      <tr><td>호가 – 최근실거래 갭</td><td class="mono worst">+10%</td><td class="mono">+9%</td><td class="mono">+4%</td><td class="mono best">+2%</td></tr>
+      <tr><td>공급 평당가 (호가)</td><td class="mono">3,752<br>~4,330만</td><td class="mono">4,512<br>~4,723만</td><td class="mono">4,505<br>~4,931만</td><td class="mono">5,101<br>~5,826만</td></tr>
+      <tr><td>전세 호가</td><td class="mono">6.8~7.8억</td><td class="mono">8.2~8.3억</td><td class="mono">7.0억</td><td class="mono">7.3억</td></tr>
+      <tr><td>전세가율</td><td class="mono best">약 58%</td><td class="mono">약 54%</td><td class="mono">약 47%</td><td class="mono worst">약 42%</td></tr>
+      <tr><td>매매 매물 수</td><td class="mono">53건</td><td class="mono">19건</td><td class="mono">19건</td><td class="mono">26건</td></tr>
+      <tr><td>세대 대비 매물비율</td><td class="mono worst">3.69%</td><td class="mono">1.80%</td><td class="mono best">1.13%</td><td class="mono">1.47%</td></tr>
+    </tbody>
+    <caption>출처 — 매매·전세 호가와 매물 수는 네이버부동산 2026-09-09 라이브. 실거래는 국토교통부 원본(2013-01~2026-09) 중 해제 건 제외. 분당 두 곳의 전세 호가는 표본이 1건뿐이라 참고용입니다.</caption>
+  </table></div>
+
+  <h3>여기서 읽어야 할 세 가지</h3>
+  <ul class="bul">
+    <li><b>분당 재건축이 동천 신축을 압도적으로 이겼습니다.</b> 2021~22년 전고점 대비 동천 두 곳은 +5~7% 오르는 데 그쳤지만, 장안타운은 +28%, 효자촌그린타운은 +36% 올랐습니다. 특히 2025년 하반기 → 2026년 상반기 반년 만에 장안타운 11.0→14.25억(+29%), 효자촌 13.98→16.65억(+19%)으로 급등했습니다. 재건축 기대감이 이미 가격에 상당 부분 반영됐다는 뜻이기도 합니다.</li>
+    <li><b>동천자이만 매물이 쌓여 있습니다.</b> 세대 대비 매물 비율 3.69%로 나머지(1.1~1.8%)의 2~3배입니다. 전용 84㎡만 30건, 호가가 12.5~15.0억으로 넓게 퍼져 있고 실거래보다 10% 높습니다. 매수자 입장에서는 <b>협상 여지가 가장 큰 단지</b>입니다. 동시에 "왜 이렇게 팔려고 하는가"를 현장에서 확인할 필요도 있습니다.</li>
+    <li><b>분당 두 곳은 거래 자체가 희소합니다.</b> 1년에 8~13건, 전용 85㎡ 매물이 3건(장안타운)뿐입니다. 원하는 층·향을 고르기 어렵고, 반대로 팔 때도 매수자를 기다려야 합니다. 유동성 프리미엄은 동천 쪽에 있습니다.</li>
+  </ul>
+
+  <div class="note">
+    <b>전세가율이 낮다는 것의 의미</b> — 효자촌그린타운 42%, 장안타운 47%. 재건축 기대가 매매가에만 반영되고 전세가는 따라오지 않은 전형적인 모습입니다. 문제는 <b>토지거래허가구역</b>이라 전세를 끼고 사는 것 자체가 불가능하다는 점입니다. 낮은 전세가율은 곧 "현금을 그만큼 더 넣어야 한다"로 직결됩니다.
+  </div>
+</section>
+
+<section id="money">
+  <h2><span class="no">05 / MONEY</span>자금 시뮬레이션</h2>
+  <p class="lead">2025년 10·15 대책으로 <b>성남 분당구와 용인 수지구가 모두</b> 조정대상지역 · 투기과열지구 · 토지거래허가구역으로 동시 지정됐습니다. 네 단지 모두 같은 규제를 받지만, <b>15억이라는 선</b>이 실질 부담을 완전히 갈라놓습니다.</p>
+
+  <div class="note bad">
+    <b>주담대 한도 절벽</b> — 규제지역 주담대는 주택 시가에 따라 <b>15억 이하 6억 / 15~25억 4억 / 25억 초과 2억</b>으로 차등 적용됩니다. 여기에 무주택자 LTV 40%가 겹쳐 <b>둘 중 작은 값</b>이 한도가 됩니다. 그 결과 15.5억인 동천센트럴자이와 17.3억인 효자촌그린타운은 LTV로는 6.2억·6.9억까지 가능한데도 <b>4억에서 잘립니다</b>.
+  </div>
+
+  <div class="chartbox">
+    <h4>필요 자기자본 구성 (억원)</h4>
+    <div class="cs">호가 중앙값 매수 가정 · 취득세 3.3% · 중개보수 상한 · 규제지역 무주택 기준</div>
+    <div class="cwrap"><canvas id="chMoney"></canvas></div>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>동천자이</th><th>동천<br>센트럴자이</th><th>장안타운<br>건영2차</th><th>효자촌<br>그린타운</th></tr></thead>
+    <tbody>
+      <tr><td>매수가 (호가 중앙)</td><td class="mono">13.0억</td><td class="mono">15.5억</td><td class="mono">14.8억</td><td class="mono">17.3억</td></tr>
+      <tr><td>LTV 40% 산식</td><td class="mono">5.20억</td><td class="mono">6.20억</td><td class="mono">5.92억</td><td class="mono">6.92억</td></tr>
+      <tr><td>가액별 한도 캡</td><td class="mono">6.0억</td><td class="mono worst">4.0억</td><td class="mono">6.0억</td><td class="mono worst">4.0억</td></tr>
+      <tr><td><b>실제 대출 가능</b></td><td class="mono">5.20억</td><td class="mono worst">4.00억</td><td class="mono best">5.92억</td><td class="mono worst">4.00억</td></tr>
+      <tr><td>취득세 (3.3%)</td><td class="mono">4,290만</td><td class="mono">5,115만</td><td class="mono">4,884만</td><td class="mono">5,709만</td></tr>
+      <tr><td>중개보수 (상한)</td><td class="mono">650만<br><span style="color:var(--muted);font-size:11px">0.5%</span></td><td class="mono">1,085만<br><span style="color:var(--muted);font-size:11px">0.7%</span></td><td class="mono">740만<br><span style="color:var(--muted);font-size:11px">0.5%</span></td><td class="mono">1,211만<br><span style="color:var(--muted);font-size:11px">0.7%</span></td></tr>
+      <tr><td><b>필요 자기자본</b></td><td class="mono best">8.29억</td><td class="mono">12.12억</td><td class="mono">9.44억</td><td class="mono worst">13.99억</td></tr>
+      <tr><td>동천자이 대비</td><td class="mono">–</td><td class="mono">+3.83억</td><td class="mono">+1.15억</td><td class="mono">+5.70억</td></tr>
+      <tr><td>월 원리금<br><span style="color:var(--muted);font-size:11px">4.5%·30년 원리금균등</span></td><td class="mono">263만</td><td class="mono">203만</td><td class="mono worst">300만</td><td class="mono">203만</td></tr>
+      <tr><td>월 관리비 (연평균)</td><td class="mono">30.4만</td><td class="mono">34.1만</td><td class="mono best">26.8만</td><td class="mono">32.2만</td></tr>
+      <tr><td>월 관리비 (겨울)</td><td class="mono">35.6만</td><td class="mono">40.3만</td><td class="mono">36.0만</td><td class="mono worst">43.2만</td></tr>
+      <tr><td>재산세 (연)</td><td class="mono best">94만</td><td class="mono">128만</td><td class="mono">120만</td><td class="mono worst">201만</td></tr>
+      <tr><td>공시가격 (2026)</td><td class="mono">5.87~6.75억</td><td class="mono">7.01~8.06억</td><td class="mono">6.85~7.76억</td><td class="mono">8.18~9.94억</td></tr>
+      <tr><td>종부세 (1주택)</td><td>비대상</td><td>비대상</td><td>비대상</td><td>비대상</td></tr>
+      <tr><td><b>월 고정비 합계</b></td><td class="mono">301만</td><td class="mono best">248만</td><td class="mono worst">337만</td><td class="mono">252만</td></tr>
+    </tbody>
+    <caption>취득세는 9억 초과 3.0% + 지방교육세 0.3%. 전용 85㎡ 이하라 농어촌특별세는 없습니다. 재산세·공시가격은 네이버부동산이 제공하는 해당 평형 기준값입니다. 실제 대출 한도는 스트레스 DSR(스트레스 금리 3.0%p 적용) 및 소득에 따라 표의 값보다 낮아질 수 있습니다.</caption>
+  </table></div>
+
+  <div class="note">
+    <b>역설 하나</b> — 월 고정비만 보면 효자촌그린타운(252만)과 동천센트럴자이(248만)가 오히려 저렴합니다. 대출이 4억으로 막혀 원리금이 작기 때문입니다. 하지만 그 대가로 자기자본을 12~14억 넣어야 하고, 그 돈의 <b>기회비용</b>은 월 고정비에 잡히지 않습니다. 자기자본 5.7억 차이(동천자이 vs 효자촌그린타운)를 연 4% 안전자산에만 굴려도 연 2,280만원, 월 190만원입니다. 이 관점에서 보면 효자촌그린타운의 실질 월 부담은 <b>440만원대</b>입니다.
+  </div>
+
+  <h3>규제 요약 (네 단지 공통)</h3>
+  <ul class="bul">
+    <li><b>토지거래허가구역</b> — 2025-10-20 발효, 2026-12-31까지 지정(연장 가능). 매수 시 관할 구청 허가 필요, <b>실거주 목적만 허가</b>되며 2년 실거주 의무. 전세 끼고 매수(갭투자) 불가.</li>
+    <li><b>조정대상지역 · 투기과열지구</b> — 2025-10-16 발효. 무주택자 LTV 40%, 1주택 이상 LTV 0%. 전세대출 한도 2억. 수도권 전매제한 3년.</li>
+    <li><b>전입 의무</b> — 주담대를 받아 수도권 주택을 사면 <b>6개월 이내 전입</b> 의무.</li>
+    <li><b>스트레스 DSR</b> — 스트레스 금리가 1.5%p → 3.0%p로 상향돼 소득 대비 한도가 크게 줄었습니다. 위 표의 한도는 규정상 상한이며, 실제 승인액은 은행에서 별도 확인이 필요합니다.</li>
+    <li><b>투기과열지구 조합원 지위 양도 제한</b> — 재건축은 <b>조합설립인가 이후</b> 조합원 지위 양도가 원칙적으로 금지됩니다. 분당 두 단지는 아직 조합 설립 전이라 지금은 매수 가능하지만, 이 시점을 넘기면 매수해도 <b>현금청산 대상</b>이 될 수 있습니다. 진입 타이밍이 곧 리스크입니다.</li>
+  </ul>
+</section>
+
+<section id="rebuild">
+  <h2><span class="no">06 / REBUILD</span>재건축 · 재개발</h2>
+  <p class="lead">이 항목에서는 승부가 이미 갈려 있습니다. 동천 두 단지는 용적률 297%로 <b>재건축 대상이 아니고</b>, 분당 두 단지는 각각 다른 방식으로 2차 특별정비구역을 노리고 있습니다.</p>
+
+  <h3>제도 현황 — 분당은 지금 2차 레이스 중</h3>
+  <ul class="bul">
+    <li><b>1차 선도지구 (2024-11-27 선정)</b> — 분당 4개 구역 12,055세대. 샛별마을(2,843) · 양지마을(4,392) · 시범단지 우성·현대(3,713) · 목련마을 연립(1,107).</li>
+    <li><b>결합 특별정비구역 고시 (2026-04-30)</b> — 23구역(시범단지2)+S6(장안타운4), 31구역(샛별마을)+S4(분당동5), 6구역(목련마을1)+S3(목련마을5)이 각각 하나로 묶여 고시됐습니다.</li>
+    <li><b>2차 특별정비구역</b> — 지정 물량 1만 2,000호. 특별정비계획서 초안 접수 2026-07-01~10, <b>본안 접수 9월</b>, 도시계획위원회 <b>12월 확정</b>. 약 35개 구역·5만 세대가 경쟁해 <b>경쟁률 4:1</b> 수준으로 예상됩니다. 1차와 달리 공모가 아니라 토지등소유자 과반 동의 + <b>각 단지별 과반 동의</b>를 받아 직접 제안하는 방식입니다.</li>
+  </ul>
+
+  <div class="note bad">
+    <b>흔히 하는 오해 하나 짚고 갑니다.</b> 1차 선도지구 목록에 나오는 "장안타운4(S6구역)"는 <b>장안타운건영2차가 아닙니다.</b> S6구역은 분당동 113번지 일원 <b>13,323㎡·현재 144세대</b>의 소규모 단지로, 용적률 325%·최고 33층·379세대로 재건축됩니다. 1,688세대의 장안타운건영2차는 1차 선도지구에 포함되지 않았고, 지금 <b>2차 특별정비구역에 별도로 도전</b>하는 중입니다.
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>구분</th><th>장안타운건영2차</th><th>효자촌그린타운</th><th>동천자이 / 동천센트럴자이</th></tr></thead>
+    <tbody>
+      <tr><td>현재 용적률</td><td class="mono">162%</td><td class="mono">159%</td><td class="mono">297%</td></tr>
+      <tr><td>계획 용적률</td><td class="mono">365% 목표</td><td class="mono">365%</td><td>해당 없음</td></tr>
+      <tr><td>전용84 대지지분</td><td class="mono">20.3평</td><td class="mono">20.0평</td><td class="mono">11.7 / 11.2평</td></tr>
+      <tr><td>추진 형태</td><td>단독<br>(1,688세대)</td><td>그린타운+미래타운<br>통합 (1,934세대)</td><td>없음</td></tr>
+      <tr><td>계획 규모</td><td>미공개</td><td class="mono">최고 49층<br>3,500세대</td><td>—</td></tr>
+      <tr><td>부지 면적</td><td>미공개</td><td class="mono">126,027㎡</td><td>—</td></tr>
+      <tr><td>추정 비례율</td><td class="mono">약 142%<br><span style="color:var(--muted);font-size:11px">예비위 설명회</span></td><td>정비계획안<br>마련 완료</td><td>—</td></tr>
+      <tr><td>진행 상태</td><td>예비위원회<br>동의서 징구 중</td><td class="best">주민설명회 완료<br>2차 신청</td><td>—</td></tr>
+      <tr><td>조합원 지위 양도</td><td>현재 가능<br><span style="color:var(--warn);font-size:11px">조합설립 전</span></td><td>현재 가능<br><span style="color:var(--warn);font-size:11px">조합설립 전</span></td><td>해당 없음</td></tr>
+    </tbody>
+    <caption>2026-09-09 기준 공개 보도 종합. 실제 동의율·사업성은 각 추진위원회 공식 자료로 확인이 필요합니다.</caption>
+  </table></div>
+
+  <h3>단지별 진단</h3>
+  <ul class="bul">
+    <li><b>효자촌그린타운 — 준비 상태가 가장 앞섭니다.</b> 인접 단지 효자촌1(현대·동아·임광·삼환, 2,722세대)이 한국투자부동산신탁을 통해 <b>2026-09-01 본안 접수를 완료</b>했고, 최고 49층 5,035세대 계획으로 10월 수용 여부·12월 지정 확정을 앞두고 있습니다. 그린타운도 미래타운과 묶어 2026년 2월 정비계획안과 사업성 평가를 주민설명회에서 공개했습니다. <b>서현동 효자촌 일대 전체가 재건축 축으로 움직인다</b>는 점이 개별 단지 사업성보다 중요한 신호입니다.</li>
+    <li><b>장안타운건영2차 — 규모는 충분하지만 단독 추진이 변수입니다.</b> 1,688세대는 그 자체로 독립 사업이 가능한 규모이고 대지지분 20.3평·용적률 162%로 사업성 기반은 좋습니다. 예비위원회가 제시한 추정 비례율 142%는 상당히 우호적인 수치입니다. 다만 성남시가 2차 선정에서 <b>"통합재건축에 따른 갈등 최소화"</b>를 승부처로 보고 있어, 인근 단지와 묶이지 않은 단독 신청은 평가에서 불리할 수 있습니다. 동의율이 유일한 무기입니다.</li>
+    <li><b>동천자이 · 동천센트럴자이 — 재건축은 논외입니다.</b> 용적률 297%에 2018·2019년 준공으로, 이 단지들의 가치는 재건축이 아니라 <b>지금 신축이라는 사실 자체</b>에서 나옵니다. 뒤집어 말하면 시간이 지나며 신축 프리미엄이 소모되는 구조이고, 이 점이 2021년 전고점 대비 +5~7%에 그친 이유이기도 합니다.</li>
+  </ul>
+
+  <h3>교통 호재</h3>
+  <ul class="bul">
+    <li><b>지하철 8호선 모란~판교 연장 + 판교~오포선</b> — 제2차 경기도 도시철도망 구축계획(2026~2035)에 반영돼 2025-12-12 국토부 승인·고시, 2026-01-23 국토부 투자심사를 통과했습니다. 예상 정차역이 판교~<b>서현</b>~율동공원~오포 방면으로 거론돼 <b>효자촌 일대가 잠재 수혜</b>입니다. 다만 아직 예비타당성조사 단계로, 개통까지는 10년 이상을 봐야 합니다.</li>
+    <li><b>동천 스마트 첨단산업단지</b> — 신분당선 동천역 맞은편 287,783㎡ 유통업무단지 부지에 지식산업센터·업무·상업시설 복합단지 조성이 추진 중입니다. 동천역에서 판교역 2정거장, 강남역 6정거장이라는 위치가 이 사업의 근거입니다.</li>
+  </ul>
+</section>
+
+<section id="live">
+  <h2><span class="no">07 / LIVING</span>실거주</h2>
+  <p class="lead">아이가 만 2세, 둘째가 2027년 1월 예정입니다. 향후 5~7년은 <b>영유아 두 명을 키우는 기간</b>이고, 이 기간의 생활 품질은 학군보다 주차·동선·소음이 좌우합니다.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>동천자이</th><th>동천<br>센트럴자이</th><th>장안타운<br>건영2차</th><th>효자촌<br>그린타운</th></tr></thead>
+    <tbody>
+      <tr><td>배정 초등학교</td><td>동천초<br><span class="mono">306m·도보8분</span></td><td>동천초<br><span class="mono">335m·도보7분</span></td><td>성남장안초<br><span class="mono">356m·도보7분</span></td><td>양영초·서당초<br><span class="mono">419·423m</span></td></tr>
+      <tr><td>초등 학생수</td><td class="mono">1,084명</td><td class="mono">1,084명</td><td class="mono">440명</td><td class="mono">146명<br><span style="color:var(--muted);font-size:11px">양영초</span></td></tr>
+      <tr><td>학급당 인원</td><td class="mono">22.6명</td><td class="mono">22.6명</td><td class="mono">21.0명</td><td class="mono best">16.2명</td></tr>
+      <tr><td>도보권 중학교</td><td>용인한빛중 1.07km<br>손곡중 1.26km</td><td class="best">손곡중 738m<br>수지중 969m</td><td class="best">장안중 506m</td><td class="best">양영중 574m</td></tr>
+      <tr><td>고등학교</td><td class="mono">1.5km+</td><td class="mono">1.5km+</td><td class="best">분당대진고 270m<br>양영디지털고 359m</td><td class="best">분당대진고 254m<br>양영디지털고 414m</td></tr>
+      <tr><td>단지 내·인접 어린이집</td><td class="best">시립 87m<br>시립2차 653m</td><td class="best">시립2차 88m<br>삐아제 195m</td><td>건영앙팡 76m<br>키움 160m</td><td>예쁜아이 139m<br>꿈담 161m</td></tr>
+      <tr><td><b>푸르니수지어린이집</b></td><td class="mono best">646m</td><td class="mono">약 1.4km</td><td class="mono worst">8.9km</td><td class="mono worst">8.0km</td></tr>
+      <tr><td>대형마트·슈퍼</td><td>하나로마트 372m<br>노브랜드 961m</td><td class="best">롯데프레시 275m<br>하나로마트 371m</td><td>GS더프레시 193m<br>홈플익스 220m</td><td>GS더프레시 218m<br>홈플익스 298m</td></tr>
+      <tr><td>병·의원</td><td>소아과·산부인과<br>374m 메디컬</td><td class="best">소아과 205m<br>내과 214m</td><td>소아치과 139m<br>이비인후과 172m</td><td>내과 223m<br>치과 238m</td></tr>
+      <tr><td>주차 (세대당)</td><td class="mono">1.29대</td><td class="mono best">1.34대</td><td class="mono">1.11대</td><td class="mono worst">0.96대</td></tr>
+      <tr><td>지하주차 연결</td><td class="best">전 동 연결</td><td class="best">100% 지하</td><td>부분·지상 위주</td><td>부분·지상 위주</td></tr>
+      <tr><td>월 관리비 (겨울)</td><td class="mono">35.6만</td><td class="mono">40.3만</td><td class="mono best">36.0만</td><td class="mono worst">43.2만</td></tr>
+    </tbody>
+    <caption>학교 정보는 네이버부동산 학군 데이터(2025-05-31 기준 학생 통계), 생활 인프라는 카카오 로컬 API 반경 1.5km 최근접 검색 결과입니다. 효자촌그린타운은 동별로 양영초·서당초에 나뉘어 배정되며, 매물 설명에는 서당초 학군 표기가 더 많이 등장합니다.</caption>
+  </table></div>
+
+  <h3>읽을 점</h3>
+  <ul class="bul">
+    <li><b>학군은 분당이 확실히 낫습니다.</b> 장안타운은 장안중 506m·분당대진고 270m, 효자촌그린타운은 양영중 574m·분당대진고 254m로 초·중·고가 모두 도보권입니다. 동천은 중학교가 1km를 넘고, 고등학교는 통학이 필요합니다. 다만 <b>이 차이가 실현되는 시점은 8~12년 뒤</b>입니다. 지금 만 2세 아이 기준으로는 그 사이에 이사할 기회가 한 번 이상 더 옵니다.</li>
+    <li><b>주차 0.96대는 실제로 매일 겪는 문제입니다.</b> 효자촌그린타운은 1,774세대에 주차 1,706면. 아이 둘을 태우는 가정에서 차량 2대를 두거나 늦은 귀가 시 주차 자리를 찾는 상황은 삶의 질을 직접 깎습니다. 장안타운도 1.11대로 여유롭지 않습니다. 동천 두 곳(1.29·1.34대)과의 격차가 큽니다.</li>
+    <li><b>양영초의 학생 수 146명은 양날의 검입니다.</b> 학급당 16.2명으로 밀도는 매우 쾌적하지만, 절대 규모가 작아 학년당 1~2학급 수준입니다. 또래 폭이 좁고 향후 통폐합 논의 가능성도 배제할 수 없습니다. 효자촌그린타운은 동에 따라 서당초로 배정되는 경우가 많아, <b>매물의 동번호별 배정 학교를 반드시 확인</b>해야 합니다.</li>
+    <li><b>30년 구축의 숨은 비용</b> — 장안타운(2012년)·효자촌그린타운(2014년)은 공용 수도배관 교체를 마쳤지만, 세대 내 배관·난방·창호·엘리베이터는 별개입니다. 실제로 분당 두 단지 매물의 절대다수가 "샷시포함 확장 특올수리"를 내세우고 있는데, 이는 뒤집으면 <b>수리 안 된 집은 대규모 인테리어 비용(30평대 기준 통상 5,000만~1억)이 추가된다</b>는 뜻입니다.</li>
+  </ul>
+</section>
+
+<section id="invest">
+  <h2><span class="no">08 / INVEST</span>투자 관점</h2>
+  <p class="lead">분당·수지는 지금 <b>공급이 사실상 0인 지역</b>입니다. 이 구조적 조건은 네 단지 모두에게 유리하게 작동합니다.</p>
+
+  <div class="facts" style="margin-bottom:16px">
+    <div class="fact"><div class="k">2026~2028 신규 입주</div><div class="v">873가구</div><div class="n">분당+수지 3년 합계</div></div>
+    <div class="fact"><div class="k">경기도 내 공급 비중</div><div class="v">0.41%</div><div class="n">인구 비중은 16.26%</div></div>
+    <div class="fact"><div class="k">2025년 분당 상승률</div><div class="v" style="color:var(--up)">+17.4%</div><div class="n">1~11월 누적</div></div>
+    <div class="fact"><div class="k">2025년 수지 상승률</div><div class="v" style="color:var(--up)">+7.3%</div><div class="n">1~11월 누적</div></div>
+  </div>
+
+  <ul class="bul">
+    <li><b>공급 절벽이 바닥을 받쳐 줍니다.</b> 2026~2028년 분당구와 수지구를 통틀어 새로 입주하는 아파트는 2027년 더샵 분당티에르원 873가구가 전부입니다. 같은 기간 경기도 전체 입주 예정 물량이 21만 3,520가구인데, 인구의 16%를 담당하는 두 지역의 공급 비중이 0.41%입니다. 가용 부지가 없고 정비사업은 아직 착공 전이라는 구조적 이유입니다.</li>
+    <li><b>다만 상승분은 이미 상당 부분 반영됐습니다.</b> 2025년 한 해에만 분당이 17.4% 올랐고, 효자촌그린타운은 2025년 하반기 13.98억 → 2026년 상반기 16.65억으로 반년 만에 19% 뛰었습니다. 지금 진입하는 것은 <b>바닥이 아니라 상승 중턱</b>입니다.</li>
+    <li><b>재건축 프리미엄의 정체를 구분해야 합니다.</b> 장안타운·효자촌그린타운의 최근 급등은 실물 가치가 아니라 "2차 특별정비구역에 선정될 것"이라는 기대의 값입니다. 12월 지정 결과에 따라 <b>양방향으로 크게 움직일 수 있는 이벤트 리스크</b>를 안고 사는 셈입니다. 경쟁률이 4:1이라는 점을 잊으면 안 됩니다.</li>
+    <li><b>유동성은 동천이 우위입니다.</b> 최근 12개월 거래가 동천자이 44건·동천센트럴자이 25건인 반면 장안타운 13건·효자촌그린타운 8건입니다. 필요할 때 원하는 가격에 팔 수 있는 능력도 자산의 일부입니다.</li>
+    <li><b>토지거래허가구역이 투자 선택지를 지웠습니다.</b> 실거주 의무 2년이 붙기 때문에 이 네 단지는 모두 "투자용"으로는 살 수 없습니다. 결국 <b>실거주 만족도가 낮은 선택은 투자로도 정당화되지 않습니다.</b></li>
+  </ul>
+</section>
+
+<section id="risk">
+  <h2><span class="no">09 / RISK</span>리스크 체크리스트</h2>
+  <p class="lead">기대만 정리하면 반쪽입니다. 각 선택지가 실제로 어긋났을 때 무엇을 잃는지 정리했습니다.</p>
+
+  <h3>분당 재건축 두 곳의 리스크</h3>
+  <ul class="bul">
+    <li><b>재건축초과이익환수제가 아직 살아 있습니다.</b> 2024년 6월 발의된 재초환 폐지법은 2026년 9월 현재까지 상임위에 계류 중이고, 폐지·면제·감경으로 방향이 갈린 법안들이 진전 없이 쌓여 있습니다. 1기 신도시 단지들은 수천만 원에서 수억 원의 부담금이 예상되며, 보도된 시뮬레이션에서는 전용 84㎡ 소유자의 초과이익 4억 7,100만 원에 부과율 50%가 적용돼 <b>부담금 2억 3,550만 원</b>이 추정된 사례가 있습니다. 비례율 142%라는 숫자에는 이 부담금이 반영돼 있지 않을 가능성이 큽니다.</li>
+    <li><b>이주대책이 비어 있습니다.</b> 국토부 추정 기준 2028~2029년 분당 이주 수요는 1만 2,700가구인데 가용 물량은 8,600가구입니다. 4,000가구 이상이 갈 곳이 없다는 뜻이고, 이는 <b>전세난 → 사업 지연 → 일정 재조정</b>의 연쇄로 이어집니다. 이주대책이 백지화됐다는 보도가 반복되고 있습니다.</li>
+    <li><b>12월 지정 탈락 시나리오.</b> 약 35개 구역 5만 세대가 1만 2,000호를 놓고 경쟁합니다. 탈락하면 다음 회차를 기다려야 하고, 그동안 반영됐던 기대 프리미엄은 되돌아갈 수 있습니다. 특히 장안타운건영2차는 <b>단독 신청</b>이라 "통합 시너지" 배점에서 불리할 가능성이 있습니다.</li>
+    <li><b>조합설립인가 이후에는 못 삽니다.</b> 투기과열지구에서는 조합설립인가 후 조합원 지위 양도가 금지됩니다. 사업이 순조롭게 진행될수록 진입 창구가 닫히고, 그 시점 이후 매수하면 현금청산 대상이 될 수 있습니다.</li>
+    <li><b>기간이 깁니다.</b> 첫 착공 목표가 2027년, 첫 입주 목표가 2030년인데 이는 1차 선도지구 기준입니다. 2차 구역은 그보다 최소 2~3년 뒤이고, 지연 가능성까지 감안하면 <b>2035년 전후 입주</b>를 현실적인 기대치로 보는 편이 안전합니다. 그때 다은이는 만 11세, 둘째는 만 8세입니다. 재건축의 과실을 누리는 시점이 아이들의 유년기 전체를 지나서 온다는 뜻입니다.</li>
+  </ul>
+
+  <h3>동천 신축 두 곳의 리스크</h3>
+  <ul class="bul">
+    <li><b>가격 탄력이 약합니다.</b> 2021년 전고점 대비 +5~7%로, 같은 기간 분당 구축의 +28~36%에 크게 못 미쳤습니다. 재건축 재료가 없고 신축 프리미엄은 시간이 갈수록 줄어듭니다.</li>
+    <li><b>동천자이의 매물 적체.</b> 세대 대비 3.69%는 이 네 단지 중 유일하게 눈에 띄는 수치입니다. 호가가 실거래보다 10% 높게 걸려 있는 점까지 합치면 <b>매도 압력이 존재</b>한다고 봐야 합니다. 매수자에게는 협상 기회지만, 향후 되팔 때도 같은 조건에 놓입니다.</li>
+    <li><b>비역세권.</b> 동천자이는 동천역까지 1,426m로 도보 20분 이상, 마을버스가 필요합니다. 동천센트럴자이는 904m로 도보권이지만 언덕 구간을 감안해야 합니다.</li>
+    <li><b>행정구역 프리미엄 차이.</b> 용인 수지는 분당의 배후 주거지 성격이 강해, 상승기에는 분당을 후행하고 하락기에는 먼저 조정받는 패턴이 반복돼 왔습니다. 2025년 상승률(분당 17.4% vs 수지 7.3%)이 그 예입니다.</li>
+  </ul>
+
+  <h3>네 곳 공통</h3>
+  <ul class="bul">
+    <li><b>토지거래허가구역 지정 기간은 2026-12-31까지</b>입니다. 연장될 가능성이 높지만 해제될 경우 시장 조건이 크게 바뀝니다. 반대로 규제가 더 강화될 여지도 있습니다.</li>
+    <li><b>지금은 전 단지가 역사적 고점입니다.</b> 네 곳 모두 2026년에 역대 최고 실거래가를 경신했습니다. 어떤 선택을 하든 <b>고점 매수 리스크</b>를 안고 들어갑니다. 실거주 기간이 길수록 이 리스크는 희석됩니다.</li>
+  </ul>
+</section>
+
+<section id="timing">
+  <h2><span class="no">10 / TIMING</span>타이밍 · 세금 구조</h2>
+  <p class="lead">기존 「광교 이사 옵션 분석」(2026-05-25)에서 정리된 제약이 여전히 유효하고, 여기에 10·15 대책이 새 변수를 얹었습니다.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>시점</th><th>사건</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">2025.08</td><td>현 거주지(안양 동안구) 증여 취득</td><td>보유 2년 카운트 시작 · 증여 이월과세 10년 시작</td></tr>
+      <tr><td class="mono">2025.10</td><td>10·15 대책 — 분당·수지·안양 동안구 규제지역 편입</td><td>토허구역 실거주 의무 · LTV 40% · 대출 한도 캡</td></tr>
+      <tr><td class="mono">2026.08</td><td>종전주택 취득 후 1년 경과</td><td class="best">일시적 2주택 요건 충족 — <b>지금부터 신규 취득 가능</b></td></tr>
+      <tr><td class="mono">2026.09</td><td class="best">현재</td><td>분당 2차 특별정비구역 본안 접수 진행 중</td></tr>
+      <tr><td class="mono">2026.12</td><td>분당 2차 특별정비구역 지정 확정</td><td>장안타운·효자촌그린타운 운명 결정</td></tr>
+      <tr><td class="mono">2027.01</td><td>둘째 출산 예정</td><td class="worst">전후 3~4개월 이사 비권장</td></tr>
+      <tr><td class="mono">2027.08</td><td>현 거주지 보유 2년 충족</td><td class="best">1세대 1주택 비과세 매도 가능 시점</td></tr>
+      <tr><td class="mono">2029~30</td><td>신규 취득일 + 3년</td><td>일시적 2주택 종전주택 처분 기한</td></tr>
+      <tr><td class="mono">2035.08</td><td>증여 이월과세 종료</td><td>이후 양도 시 본인 취득가 기준</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note ok">
+    <b>세제상으로는 지금 사도 됩니다.</b> 종전주택 취득(2025-08) 후 1년이 지난 2026년 8월부터 <b>일시적 2주택 요건이 충족</b>됐습니다. 지금 분당·수지 주택을 취득하면 ① 취득세는 일시적 2주택 특례로 1~3% 일반세율 적용(3년 내 종전주택 처분 조건), ② 종전주택은 2027년 8월 이후 매도하면 보유 2년을 채워 1세대 1주택 비과세(12억 이하분) 가능, ③ 처분 기한도 2029~2030년까지로 여유가 있습니다. 취득 당시 안양 집이 비조정지역이었으므로 <b>2년 거주 요건은 붙지 않습니다.</b>
+  </div>
+  <div class="note bad">
+    <b>반드시 챙겨야 할 두 가지 함정</b><br>
+    ① <b>대출</b> — 규제지역에서 1주택자는 LTV 0%입니다. 다만 <b>처분조건부 1주택은 무주택자와 동일하게</b> LTV 40%가 적용됩니다. 즉 종전주택 처분 약정을 반드시 체결해야 5.2억~5.92억 대출이 나오고, 약정 없이 그냥 2주택이 되면 <b>주담대가 0원</b>입니다.<br>
+    ② <b>취득세 중과 추징</b> — 3년 내 종전주택을 처분하지 못하면 조정대상지역 2주택 세율 8%가 소급 적용됩니다. 17.3억 기준 3.3%(5,709만) → 8.4%(1억 4,532만)로 <b>약 8,800만 원이 추가</b>됩니다.
+  </div>
+
+  <h3>현실적인 실행안</h3>
+  <ul class="bul">
+    <li><b>출산 전(2026년 4분기) 매수 + 입주</b> — 등하원 부담을 가장 빨리 해소하고, 둘째를 새 집에서 맞을 수 있습니다. 토허 허가·대출·이사를 11~12월에 마쳐야 해 일정이 빡빡합니다. 처분조건부 약정 필수.</li>
+    <li><b>출산 후(2027년 2분기 이후) 매수 + 입주</b> — 산모·신생아 이동 부담을 피할 수 있고, 12월 2차 특별정비구역 지정 결과를 확인한 뒤 결정할 수 있다는 큰 이점이 있습니다. 대신 그 사이 가격 상승분을 감수해야 합니다.</li>
+    <li><b>분당 두 곳을 검토한다면 12월 결과를 보고 판단하는 편이 합리적입니다.</b> 지정되면 프리미엄이 한 번 더 붙지만 불확실성이 사라지고, 탈락하면 훨씬 좋은 가격에 들어갈 수 있습니다. 지금 미리 사는 것은 <b>4:1 경쟁에 베팅</b>하는 것과 같습니다.</li>
+    <li><b>동천 두 곳은 12월 이벤트와 무관합니다.</b> 재건축 재료가 없으므로 타이밍 리스크가 낮고, 출산 일정에 맞춰 자유롭게 정할 수 있습니다.</li>
+  </ul>
+  <p style="font-size:12.5px;color:var(--muted)">※ 세금 부분은 공개 자료에 근거한 정리이며, 증여 취득·이월과세·일시적 2주택이 얽힌 구조입니다. 실행 전 세무사 확인을 권합니다.</p>
+</section>
+
+<section id="listing">
+  <h2><span class="no">11 / LISTINGS</span>실전 매물 현황</h2>
+  <p class="lead">2026-09-09 기준 네이버부동산 라이브 매물 중 전용 84~85㎡만 추렸습니다. 같은 단지 안에서도 층·향·수리 상태에 따라 <b>2억 이상</b> 벌어집니다.</p>
+  <div id="listWrap"></div>
+  <div class="note">
+    <b>매물 설명에서 읽히는 것들</b> — 효자촌그린타운 매물 15건 중 13건이 "샷시포함 확장 특올수리"를 앞세우고 있고 상당수가 "서당초학군"을 명시합니다. 즉 <b>수리된 집이 시세를 만들고</b> 있으며, 미수리 매물을 싸게 잡을 경우 인테리어 비용을 별도로 계산해야 합니다. 장안타운건영2차는 전용 85㎡ 매물이 3건뿐이라 사실상 선택지가 없고, 그중 16.2억 매물만 "특올수리 + 양영중 복수학군"을 내세웁니다.<br><br>
+    동천자이는 30건 중 21건이 13.0억 이하에 몰려 있어 <b>실질 시세 밴드가 12.5~13.5억</b>으로 보입니다. 판상형·정문 인접동·에어컨 풀옵션이 반복 언급되는데, 이는 동별 편차가 크다는 신호이므로 임장에서 동 위치를 반드시 확인해야 합니다.
+  </div>
+</section>
+
+<section id="method">
+  <h2><span class="no">12 / METHOD</span>데이터 · 출처</h2>
+  <ul class="bul">
+    <li><b>실거래가</b> — 국토교통부 아파트 매매 실거래가 상세자료 OpenAPI. 용인 수지구(41465)·성남 분당구(41135)의 2013-01~2026-09 전 기간을 직접 수집(총 8,363건), 해제(취소) 거래를 제외하고 단지별로 매핑했습니다. 효자촌그린타운은 국토부에 <b>효자촌(대우)·(대창)·(화성)·(럭키)</b> 4개 명칭으로 분리 등록돼 있어 전용면적(53.82·70.69·84.70)과 준공연도(1994)로 병합했습니다. 장안타운건영2차는 <b>장안타운(건영)</b> 중 준공 1993년 건으로 특정했습니다.</li>
+    <li><b>단지 정보·매물·호가</b> — 네이버부동산 2026-09-09 라이브 조회. 단지 개요, 평형별 세대수·관리비·재산세·공시가격, 학군, 매매/전세 매물 전량을 수집한 뒤 중개사 중복 등록을 제거했습니다.</li>
+    <li><b>통근 시간</b> — 카카오모빌리티 길찾기 API의 미래운행 예측. 평일 08:00 출발(등원·출근), 18:30 퇴근 기준으로 경유지를 포함해 실측했습니다.</li>
+    <li><b>생활 인프라</b> — 카카오 로컬 API 카테고리 검색(반경 1.5km, 거리순).</li>
+    <li><b>대지지분</b> — 평형별 공급면적 × 세대수의 합을 용적률로 나눠 대지면적을 역산하고, 평형별 공급면적 비율로 안분한 추정치입니다. 등기부상 대지권 면적과는 차이가 있을 수 있습니다.</li>
+    <li><b>제도·재건축 현황</b> — 성남시 고시·비전성남 및 경인일보·파이낸셜뉴스·위클리한국주택경제신문 등 2026년 보도 기준.</li>
+  </ul>
+  <div class="note">
+    <b>이 리포트가 답하지 못하는 것</b> — 각 재건축 추진위의 실제 동의율(공개 자료 없음), 12월 2차 특별정비구역 지정 결과, 개별 매물의 실제 컨디션, 그리고 귀하의 소득 기준 DSR 한도입니다. 이 넷은 현장·은행·추진위에서 직접 확인해야 합니다.
+  </div>
+</section>
+
+<footer>
+  <b>동천 vs 분당 4개 단지 심층 분석</b> · 작성 2026-09-09<br>
+  기준 회사 NAVER 1784(성남 분당구 정자일로 95) · 기준 어린이집 푸르니수지어린이집(용인 수지구 고기로 176)<br>
+  본 문서는 공개 데이터와 보도자료를 종합한 참고 자료이며, 투자 권유가 아닙니다. 세금·대출은 실행 전 세무사·금융기관 확인이 필요합니다.
+  <div class="srcs">
+    주요 출처 —
+    <a href="https://www.data.go.kr/">국토교통부 실거래가 OpenAPI</a> ·
+    <a href="https://new.land.naver.com/">네이버부동산</a> ·
+    <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148950973">10·15 주택시장 안정화 대책(정책브리핑)</a> ·
+    <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148950959">규제지역 주담대 한도(정책브리핑)</a> ·
+    <a href="https://www.fsc.go.kr/po020201/85466">금융위 10.15 대책 FAQ</a> ·
+    <a href="https://www.arunews.com/news/articleView.html?idxno=62294">분당 결합 특별정비구역 고시</a> ·
+    <a href="https://www.kyeongin.com/article/1758500">효자촌 그린·미래타운 주민설명회</a> ·
+    <a href="https://www.arunews.com/news/articleView.html?idxno=66977">효자촌1 특별정비계획 본안 접수</a> ·
+    <a href="https://www.fnnews.com/news/202607081816242804">분당 2차 선도지구 30곳 경쟁</a> ·
+    <a href="https://www.kyeongin.com/article/1762302">2차 정비구역 선정 기준</a> ·
+    <a href="https://www.mt.co.kr/politics/2026/09/09/2026090914174219476">재초환 폐지법 국회 계류</a> ·
+    <a href="https://www.econovill.com/news/articleView.html?idxno=677629">분당 이주대책·전월세 공급 불안</a> ·
+    <a href="https://www.smartfn.co.kr/news/articleView.html?idxno=129824">분당·수지 공급 절벽</a> ·
+    <a href="https://www.korearailroad.kr/news/articleView.html?idxno=92142">8호선 판교 연장 확정</a>
+  </div>
+</footer>
+</div>
+
+<style>
+.lgrp{margin:16px 0 18px}
+.lgrp h4{font-size:14.5px;font-weight:800;margin:0 0 3px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.lgrp h4 .cnt{font-size:11.5px;font-weight:600;color:var(--muted)}
+.lgrp .band{font-size:12px;color:var(--muted);margin-bottom:9px}
+.lcards{display:grid;gap:7px}
+@media(min-width:760px){.lcards{grid-template-columns:1fr 1fr}}
+.lc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;gap:11px;align-items:flex-start}
+.lc .p{font-size:15px;font-weight:800;white-space:nowrap;min-width:74px;font-variant-numeric:tabular-nums}
+.lc .d{font-size:12.3px;color:var(--ink2);line-height:1.5;min-width:0}
+.lc .m{font-size:11px;color:var(--muted);margin-bottom:2px}
+.lc .f{overflow-wrap:anywhere}
+</style>
+<script>
+const DATA = {"동천자이":{"spec":{"주소":"경기도 용인시 수지구 동천동 동천2지구도시개발구역A-1블록","도로명":"경기도 용인시 수지구 고기로 89","세대수":1437,"동수":10,"준공":"20180830","층":"23~36","용적률":297,"건폐율":16,"주차":1.29,"주차대수":1854,"시공사":"지에스건설(주)","배관":null,"관리실":"031-896-9340","매물매매":53,"매물전세":9,"매물월세":0,"대지추정":55413,"세대당대지":38.6},"pyeongs":[{"name":"101C","supply":101.28,"ex":74.89,"hc":130,"mgmt":{"avg":267832,"summer":248360,"winter":313428},"tax":835650,"gongsi":{"min":531000000,"max":615000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"12","dealStr":"12억~12억 5,000","perPy":"(3,917~4,080만원/3.3㎡)","lease":""}},{"name":"101B","supply":101.92,"ex":74.93,"hc":54,"mgmt":{"avg":267958,"summer":248476,"winter":313575},"tax":835650,"gongsi":{"min":531000000,"max":615000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"17","dealStr":"12억~13억","perPy":"(3,892~4,217만원/3.3㎡)","lease":""}},{"name":"101D","supply":101.46,"ex":74.94,"hc":48,"mgmt":{"avg":268011,"summer":248526,"winter":313638},"tax":832230,"gongsi":{"min":528000000,"max":613000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"9","dealStr":"12억 5,000~13억","perPy":"(4,073~4,236만원/3.3㎡)","lease":""}},{"name":"102A","supply":102.17,"ex":74.97,"hc":190,"mgmt":{"avg":268093,"summer":248602,"winter":313734},"tax":835650,"gongsi":{"min":531000000,"max":615000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"25","dealStr":"12억~13억 5,000","perPy":"(3,883~4,368만원/3.3㎡)","lease":"7억"}},{"name":"114B","supply":114.53,"ex":84.95,"hc":217,"mgmt":{"avg":303791,"summer":281705,"winter":355509},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"51","dealStr":"13억~15억","perPy":"(3,752~4,330만원/3.3㎡)","lease":"6억 8,000~7억 5,000"}},{"name":"114A","supply":114.31,"ex":84.94,"hc":155,"mgmt":{"avg":303768,"summer":281683,"winter":355482},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"26","dealStr":"13억~15억","perPy":"(3,760~4,338만원/3.3㎡)","lease":""}},{"name":"115E","supply":115.54,"ex":84.94,"hc":170,"mgmt":{"avg":303771,"summer":281686,"winter":355485},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"41","dealStr":"12억 5,000~13억","perPy":"(3,576~3,720만원/3.3㎡)","lease":"7억 5,000"}},{"name":"115D","supply":115.49,"ex":84.8,"hc":96,"mgmt":{"avg":303253,"summer":281206,"winter":354879},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"36","dealStr":"13억~13억 9,000","perPy":"(3,721~3,979만원/3.3㎡)","lease":"7억 4,000~7억 5,000"}},{"name":"115C","supply":115.12,"ex":84.91,"hc":70,"mgmt":{"avg":303650,"summer":281574,"winter":355343},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"8","dealStr":"13억 5,000~14억","perPy":"(3,877~4,020만원/3.3㎡)","lease":"7억 8,000"}},{"name":"115D1","supply":115.49,"ex":84.95,"hc":35,"mgmt":{"avg":303799,"summer":281712,"winter":355517},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":null},{"name":"115F","supply":115.48,"ex":84.76,"hc":35,"mgmt":{"avg":303109,"summer":281072,"winter":354710},"tax":944990,"gongsi":{"min":587000000,"max":675000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"28","dealStr":"13억","perPy":"(3,721만원/3.3㎡)","lease":"7억 7,000"}},{"name":"135A","supply":135.62,"ex":100.9,"hc":119,"mgmt":{"avg":360814,"summer":334582,"winter":422239},"tax":1086110,"gongsi":{"min":680000000,"max":731000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"9","dealStr":"15억~15억 5,000","perPy":"(3,656~3,778만원/3.3㎡)","lease":""}},{"name":"135B","supply":135.96,"ex":100.24,"hc":118,"mgmt":{"avg":358447,"summer":332387,"winter":419469},"tax":1086110,"gongsi":{"min":680000000,"max":731000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"47","dealStr":"13억 5,000~15억","perPy":"(3,282~3,647만원/3.3㎡)","lease":""}}],"chart":{"series":[{"ym":"2018-10","med":70070,"n":1},{"ym":"2019-10","med":78000,"n":1},{"ym":"2020-01","med":79000,"n":2},{"ym":"2020-06","med":94500,"n":1},{"ym":"2020-07","med":93000,"n":1},{"ym":"2020-09","med":97000,"n":4},{"ym":"2020-11","med":97700,"n":7},{"ym":"2020-12","med":99000,"n":10},{"ym":"2021-01","med":100000,"n":4},{"ym":"2021-02","med":106000,"n":6},{"ym":"2021-03","med":104500,"n":3},{"ym":"2021-04","med":106000,"n":5},{"ym":"2021-05","med":116000,"n":2},{"ym":"2021-06","med":123000,"n":1},{"ym":"2021-07","med":114500,"n":4},{"ym":"2021-08","med":114000,"n":4},{"ym":"2021-09","med":124000,"n":1},{"ym":"2021-11","med":127000,"n":1},{"ym":"2021-12","med":112800,"n":1},{"ym":"2022-04","med":119000,"n":1},{"ym":"2022-08","med":102000,"n":2},{"ym":"2023-03","med":90000,"n":4},{"ym":"2023-04","med":88000,"n":3},{"ym":"2023-05","med":94700,"n":2},{"ym":"2023-08","med":95000,"n":2},{"ym":"2023-09","med":94000,"n":2},{"ym":"2023-12","med":92200,"n":1},{"ym":"2024-01","med":65000,"n":1},{"ym":"2024-02","med":87500,"n":1},{"ym":"2024-03","med":90000,"n":4},{"ym":"2024-04","med":90000,"n":2},{"ym":"2024-05","med":86000,"n":5},{"ym":"2024-06","med":88800,"n":5},{"ym":"2024-07","med":88500,"n":5},{"ym":"2024-08","med":92000,"n":7},{"ym":"2024-09","med":89000,"n":2},{"ym":"2024-10","med":91000,"n":5},{"ym":"2024-11","med":92500,"n":3},{"ym":"2024-12","med":97800,"n":1},{"ym":"2025-01","med":90000,"n":1},{"ym":"2025-02","med":93000,"n":9},{"ym":"2025-03","med":96000,"n":2},{"ym":"2025-04","med":98000,"n":5},{"ym":"2025-05","med":98500,"n":7},{"ym":"2025-06","med":99500,"n":4},{"ym":"2025-07","med":98000,"n":1},{"ym":"2025-08","med":98500,"n":7},{"ym":"2025-09","med":104000,"n":2},{"ym":"2025-10","med":101800,"n":7},{"ym":"2025-11","med":105000,"n":2},{"ym":"2025-12","med":106700,"n":2},{"ym":"2026-01","med":105000,"n":5},{"ym":"2026-02","med":115000,"n":6},{"ym":"2026-03","med":105000,"n":3},{"ym":"2026-04","med":105000,"n":4},{"ym":"2026-05","med":112000,"n":4},{"ym":"2026-06","med":115500,"n":5},{"ym":"2026-07","med":113500,"n":3},{"ym":"2026-08","med":119500,"n":3}],"half":[{"k":"2018-H2","med":70070,"n":1},{"k":"2019-H2","med":78000,"n":1},{"k":"2020-H1","med":79000,"n":3},{"k":"2020-H2","med":98000,"n":22},{"k":"2021-H1","med":104500,"n":21},{"k":"2021-H2","med":114000,"n":11},{"k":"2022-H1","med":119000,"n":1},{"k":"2022-H2","med":102000,"n":2},{"k":"2023-H1","med":90000,"n":9},{"k":"2023-H2","med":93800,"n":5},{"k":"2024-H1","med":88500,"n":18},{"k":"2024-H2","med":90000,"n":23},{"k":"2025-H1","med":97000,"n":28},{"k":"2025-H2","med":100500,"n":21},{"k":"2026-H1","med":110000,"n":27},{"k":"2026-H2","med":118000,"n":6}],"yearly":[{"y":2018,"n":1,"avg":7.01,"max":7.01,"min":7.01},{"y":2019,"n":1,"avg":7.8,"max":7.8,"min":7.8},{"y":2020,"n":25,"avg":9.73,"max":10.92,"min":7.5},{"y":2021,"n":32,"avg":10.93,"max":12.7,"min":9.45},{"y":2022,"n":3,"avg":10.75,"max":11.9,"min":10.15},{"y":2023,"n":14,"avg":9.09,"max":9.5,"min":8.4},{"y":2024,"n":41,"avg":8.94,"max":10,"min":6.5},{"y":2025,"n":49,"avg":9.83,"max":10.67,"min":9},{"y":2026,"n":33,"avg":11.01,"max":13.4,"min":7.6}],"peak":{"amt":13.4,"y":2026,"m":8,"floor":22,"area":84.949},"recent":[{"d":"2026.06.20","amt":11.7,"floor":34},{"d":"2026.06.26","amt":11.55,"floor":22},{"d":"2026.07.02","amt":11.8,"floor":31},{"d":"2026.07.04","amt":10.8,"floor":2},{"d":"2026.07.24","amt":11.35,"floor":2},{"d":"2026.08.08","amt":11.8,"floor":4},{"d":"2026.08.09","amt":11.95,"floor":18},{"d":"2026.08.28","amt":13.4,"floor":22}],"total":385},"commute":{"name":"동천자이","직선_어린이집":0.65,"직선_회사":1.95,"차_집회사_출근":{"km":4.5,"min":9,"taxi":9400,"toll":0},"차_집회사_평시":{"km":3.2,"min":10,"taxi":8800,"toll":0},"차_집어린이집":{"km":0.7,"min":2,"taxi":4800,"toll":0},"차_등원후출근":{"km":4.5,"min":10,"taxi":9600,"toll":0},"차_퇴근후하원귀가":{"km":6.2,"min":15,"taxi":10400,"toll":0},"차_강남역":{"km":22.2,"min":46,"taxi":39200,"toll":800},"차_판교역":{"km":9.4,"min":21,"taxi":16500,"toll":0},"차_서울역":{"km":31.6,"min":66,"taxi":51800,"toll":3100}},"listings84":[{"price":125000,"priceStr":"12억 5,000","floor":"25/36","dir":"남향","feat":"1등아파트, 방4  , 주인거주  , 깔끔  , 입주물","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":125000,"priceStr":"12억 5,000","floor":"25/36","dir":"남서향","feat":"남향,채광좋아 밝고 환한집,주인거주,관리잘된 집","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":125000,"priceStr":"12억 5,000","floor":"저/36","dir":"남향","feat":"o성실o조용한정원뷰.남향해잘들어밝아요.방4에어컨.상태깨끗.입주일협의","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"18/36","dir":"남향","feat":"oACEo 소유주직접의뢰,시스템에어컨4대,새집같은깨끗함,탁트인뷰,조망최고","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"13/36","dir":"남향","feat":"o성실o 선호초입동.깔끔.남향뷰예뻐요.초등학교하나로마트근접.에어컨.중문","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"20/34","dir":"남향","feat":"o성실o귀한판상형.올수리.중문.조명교체.정문초등학교근접동편리.주인관리깨끗","conf":"20260909","area":84,"tags":["10년이내","올수리","대단지","방네개이상"]},{"price":130000,"priceStr":"13억","floor":"14/36","dir":"남향","feat":"입주협의  I 앞동 I  방4 I  에어컨3  I 로얄라인 엘베2","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"27/34","dir":"남향","feat":"o성실o정문근접동.고층앞트인시원뷰.방4에어컨5대풀.엘베2편리.입주일협의가","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"27/34","dir":"남서향","feat":"정문가까운동,풀에어컨,남향,엘베2대라인,조망채광좋아 밝고환한집","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"6/36","dir":"남향","feat":"소유주직접소통,입주가능,탁트인뷰,시스템에어컨3대,중문","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"6/36","dir":"남동향","feat":"집주인의뢰,시에어컨3개,동천초품아,입구동,중문,주인거주","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"14/36","dir":"남동향","feat":"소유주직접소통,탁트인산뷰,엘베2대,새집같은깨끗함.귀한판상형,입주일협의가능","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"25/36","dir":"남향","feat":"남향 전망굿 채광굿 주인거주 입주협의 시스템에어컨","conf":"20260907","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"저/34","dir":"남향","feat":"o성실o입주.남향.예쁜가든뷰.방4에어컨3엘베2대라인편리.입주일협의가능","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"중/36","dir":"남향","feat":"해잘들고 관리잘된 남향집, 에어컨풀, 엘베2, 방4, 입주협의","conf":"20260908","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"저/36","dir":"남향","feat":"방4 I  풀에어컨5 I 맞통풍구조 I 알파룸드레스 룸 I 인덕션","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"고/36","dir":"남향","feat":"주출입구동,탁트인뷰,남향,에3,중문,초등학교인접,정상입주","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"저/36","dir":"남향","feat":"남향. 에어컨3. 주인거주 관리깨끗","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"저/36","dir":"남향","feat":"에어컨2대,산뷰나오는 저층,채광우수,새집같은깨끗함,입주일협의가능","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":130000,"priceStr":"13억","floor":"저/36","dir":"남향","feat":"남향 트인뷰 초입동 시스템에어컨 방4화2 예쁜집","conf":"20260909","area":84,"tags":["10년이내","대단지","화장실두개","방네개이상"]},{"price":130000,"priceStr":"13억","floor":"고/34","dir":"남향","feat":"o성실o성실단독.학교동천역가까운동.귀한A판상형.채광굿.입주일협의가능","conf":"20260908","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":132000,"priceStr":"13억 2,000","floor":"저/34","dir":"남향","feat":"세안고 I 에어컨 I 방4 I  조용한 단지뷰 I 엘베2 진출입용이","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":135000,"priceStr":"13억 5,000","floor":"27/36","dir":"남동향","feat":"1등 , 판상형 , 탁트인 고층뷰 , 주인거주, 관리최상","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":135000,"priceStr":"13억 5,000","floor":"27/36","dir":"남향","feat":"귀한 판상형. 확장으로 개방감있는집. 알파룸. 화이트톤 인테리어 대리석.","conf":"20260905","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":135000,"priceStr":"13억 5,000","floor":"고/34","dir":"남향","feat":"o성실o뻥뷰추천.입주.A판상형.방4에어컨식세기인덕션미세방충망LED.입구동","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":135000,"priceStr":"13억 5,000","floor":"중/34","dir":"남향","feat":"동천초 인접동,남향판상형,방4,에어컨풀,현관중문,컨디션최상","conf":"20260908","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":139000,"priceStr":"13억 9,000","floor":"32/34","dir":"남향","feat":"집주인의뢰,남향,시에어컨4개,중문,주인거주,깨끗,조망최고","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":140000,"priceStr":"14억","floor":"고/36","dir":"남동향","feat":"o원o가림없이 탁트인뷰, 안방넓은타입, 선호판상, 중문, 엘베2대라인굿","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":150000,"priceStr":"15억","floor":"17/34","dir":"남향","feat":"소유주의뢰매물.세안고.판상형.숲세권 라이프와 초품아의 만남","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":150000,"priceStr":"15억","floor":"고/27","dir":"남향","feat":"동천초 인접동,남향산조망, 선호판상형,방3팬트리,에3,늦은입주","conf":"20260908","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]}],"호가":{"74":{"n":14,"min":12,"max":13,"med":12.4},"84":{"n":27,"min":12.5,"max":15,"med":13},"100":{"n":17,"min":13.5,"max":15.5,"med":13.7}},"전세호가":{"74":{"n":1,"min":7,"max":7,"med":7},"84":{"n":12,"min":6.8,"max":7.8,"med":7.5}},"학교":[{"이름":"동천초등학교","도보":8,"배정":"전체동","학생수":1084,"학급당":22.6,"교사당":14.2}]},"동천센트럴자이":{"spec":{"주소":"경기도 용인시 수지구 동천동 동천2지구도시개발구역에이-2블럭","도로명":"경기도 용인시 수지구 고기로45번길 40-18","세대수":1057,"동수":8,"준공":"20190530","층":"28~36","용적률":297,"건폐율":15,"주차":1.34,"주차대수":1417,"시공사":"지에스건설(주)","배관":null,"관리실":"031-548-2055","매물매매":19,"매물전세":5,"매물월세":4,"대지추정":39011,"세대당대지":36.9},"pyeongs":[{"name":"79A","supply":79.05,"ex":59.97,"hc":71,"mgmt":{"avg":241225,"summer":221884,"winter":285251},"tax":916020,"gongsi":{"min":559000000,"max":662000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"11","dealStr":"13억~13억 5,000","perPy":"(5,436~5,646만원/3.3㎡)","lease":""}},{"name":"79B","supply":79.49,"ex":59.87,"hc":32,"mgmt":{"avg":240807,"summer":221499,"winter":284756},"tax":916020,"gongsi":{"min":578000000,"max":662000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"2","dealStr":"13억~13억 5,000","perPy":"(5,406~5,614만원/3.3㎡)","lease":""}},{"name":"101A","supply":101.4,"ex":77.72,"hc":123,"mgmt":{"avg":312609,"summer":287545,"winter":369664},"tax":1184400,"gongsi":{"min":649000000,"max":770000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"1","dealStr":"14억 7,000","perPy":"(4,792만원/3.3㎡)","lease":"8억 3,000~8억 5,000"}},{"name":"102B","supply":102.21,"ex":77.83,"hc":68,"mgmt":{"avg":313037,"summer":287938,"winter":370170},"tax":1131470,"gongsi":{"min":615000000,"max":749000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"2","dealStr":"14억 7,000","perPy":"(4,754만원/3.3㎡)","lease":""}},{"name":"102C","supply":102.13,"ex":77.73,"hc":35,"mgmt":{"avg":312639,"summer":287572,"winter":369699},"tax":1131470,"gongsi":{"min":661000000,"max":749000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":null},{"name":"109A","supply":109.89,"ex":84.81,"hc":328,"mgmt":{"avg":341122,"summer":313771,"winter":403380},"tax":1275120,"gongsi":{"min":701000000,"max":806000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"23","dealStr":"15억~15억 7,000","perPy":"(4,512~4,723만원/3.3㎡)","lease":"8억 3,000"}},{"name":"110C","supply":110.99,"ex":84.93,"hc":99,"mgmt":{"avg":341608,"summer":314218,"winter":403955},"tax":1275120,"gongsi":{"min":727000000,"max":806000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"3","dealStr":"15억 5,000","perPy":"(4,617만원/3.3㎡)","lease":"8억 2,000"}},{"name":"110B","supply":110.18,"ex":84.94,"hc":27,"mgmt":{"avg":341638,"summer":314245,"winter":403990},"tax":1275120,"gongsi":{"min":727000000,"max":806000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"2","dealStr":"15억 5,000","perPy":"(4,651만원/3.3㎡)","lease":""}},{"name":"111D","supply":111.14,"ex":84.96,"hc":67,"mgmt":{"avg":341742,"summer":314342,"winter":404113},"tax":1275120,"gongsi":{"min":701000000,"max":806000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"4","dealStr":"15억 5,000","perPy":"(4,610만원/3.3㎡)","lease":""}},{"name":"111E","supply":111.12,"ex":84.93,"hc":28,"mgmt":{"avg":341608,"summer":314218,"winter":403955},"tax":1275120,"gongsi":{"min":727000000,"max":806000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":null},{"name":"134","supply":134.88,"ex":104.49,"hc":179,"mgmt":{"avg":420256,"summer":386561,"winter":496957},"tax":1777320,"gongsi":{"min":807000000,"max":908000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"34","dealStr":"16억 5,000~17억","perPy":"(4,044~4,167만원/3.3㎡)","lease":"9억 9,000"}}],"chart":{"series":[{"ym":"2019-06","med":71000,"n":1},{"ym":"2019-10","med":78500,"n":1},{"ym":"2019-12","med":83000,"n":1},{"ym":"2020-01","med":99000,"n":2},{"ym":"2020-02","med":104500,"n":1},{"ym":"2020-12","med":112000,"n":1},{"ym":"2021-01","med":116000,"n":1},{"ym":"2021-03","med":127500,"n":1},{"ym":"2021-04","med":129500,"n":1},{"ym":"2021-06","med":124000,"n":1},{"ym":"2021-07","med":127500,"n":1},{"ym":"2021-08","med":134500,"n":1},{"ym":"2021-12","med":125000,"n":3},{"ym":"2022-08","med":111000,"n":1},{"ym":"2023-02","med":91500,"n":1},{"ym":"2023-03","med":98500,"n":3},{"ym":"2023-05","med":98000,"n":2},{"ym":"2023-06","med":99900,"n":3},{"ym":"2023-07","med":99500,"n":1},{"ym":"2023-08","med":98500,"n":1},{"ym":"2023-09","med":104500,"n":2},{"ym":"2023-10","med":103000,"n":2},{"ym":"2023-11","med":98000,"n":3},{"ym":"2024-01","med":98000,"n":2},{"ym":"2024-02","med":97500,"n":2},{"ym":"2024-03","med":99000,"n":4},{"ym":"2024-05","med":100500,"n":1},{"ym":"2024-06","med":101000,"n":3},{"ym":"2024-07","med":102500,"n":9},{"ym":"2024-08","med":105500,"n":2},{"ym":"2024-09","med":109000,"n":2},{"ym":"2024-10","med":109000,"n":4},{"ym":"2024-11","med":108000,"n":5},{"ym":"2024-12","med":108000,"n":5},{"ym":"2025-02","med":111000,"n":2},{"ym":"2025-03","med":110500,"n":9},{"ym":"2025-04","med":109500,"n":6},{"ym":"2025-05","med":111000,"n":5},{"ym":"2025-06","med":113000,"n":3},{"ym":"2025-07","med":117000,"n":1},{"ym":"2025-09","med":119500,"n":10},{"ym":"2025-10","med":120500,"n":7},{"ym":"2025-12","med":124300,"n":2},{"ym":"2026-01","med":128000,"n":2},{"ym":"2026-02","med":131000,"n":3},{"ym":"2026-03","med":132500,"n":1},{"ym":"2026-04","med":137000,"n":3},{"ym":"2026-05","med":138000,"n":1},{"ym":"2026-06","med":141000,"n":2},{"ym":"2026-07","med":139000,"n":3},{"ym":"2026-08","med":142500,"n":1}],"half":[{"k":"2019-H1","med":71000,"n":1},{"k":"2019-H2","med":83000,"n":2},{"k":"2020-H1","med":99000,"n":3},{"k":"2020-H2","med":112000,"n":1},{"k":"2021-H1","med":127500,"n":4},{"k":"2021-H2","med":127500,"n":5},{"k":"2022-H2","med":111000,"n":1},{"k":"2023-H1","med":98300,"n":9},{"k":"2023-H2","med":100000,"n":9},{"k":"2024-H1","med":99000,"n":12},{"k":"2024-H2","med":106000,"n":27},{"k":"2025-H1","med":110700,"n":25},{"k":"2025-H2","med":120000,"n":20},{"k":"2026-H1","med":134500,"n":12},{"k":"2026-H2","med":142500,"n":4}],"yearly":[{"y":2019,"n":3,"avg":7.75,"max":8.3,"min":7.1},{"y":2020,"n":4,"avg":10.35,"max":11.2,"min":9.85},{"y":2021,"n":9,"avg":12.51,"max":13.45,"min":11.4},{"y":2022,"n":1,"avg":11.1,"max":11.1,"min":11.1},{"y":2023,"n":18,"avg":9.98,"max":10.85,"min":9.15},{"y":2024,"n":39,"avg":10.38,"max":11.07,"min":9.72},{"y":2025,"n":45,"avg":11.48,"max":12.5,"min":9.9},{"y":2026,"n":16,"avg":13.52,"max":14.35,"min":12.4}],"peak":{"amt":14.35,"y":2026,"m":7,"floor":12,"area":84.9694},"recent":[{"d":"2026.04.26","amt":13.7,"floor":19},{"d":"2026.05.26","amt":13.8,"floor":17},{"d":"2026.06.01","amt":13.88,"floor":9},{"d":"2026.06.20","amt":14.1,"floor":20},{"d":"2026.07.12","amt":14.35,"floor":12},{"d":"2026.07.18","amt":13.9,"floor":17},{"d":"2026.07.29","amt":13.8,"floor":22},{"d":"2026.08.07","amt":14.25,"floor":7}],"total":299},"commute":{"name":"동천센트럴자이","직선_어린이집":1.21,"직선_회사":2.16,"차_집회사_출근":{"km":2.8,"min":9,"taxi":6900,"toll":0},"차_집회사_평시":{"km":2.8,"min":8,"taxi":7800,"toll":0},"차_집어린이집":{"km":1.6,"min":5,"taxi":5300,"toll":0},"차_등원후출근":{"km":5.4,"min":13,"taxi":11500,"toll":0},"차_퇴근후하원귀가":{"km":7.1,"min":19,"taxi":11900,"toll":0},"차_강남역":{"km":25.4,"min":50,"taxi":45500,"toll":800},"차_판교역":{"km":7.6,"min":22,"taxi":14300,"toll":0},"차_서울역":{"km":32.5,"min":69,"taxi":53800,"toll":3100}},"listings84":[{"price":150000,"priceStr":"15억","floor":"중/34","dir":"남동향","feat":"풀옵션.확트인뷰.판상형.엘베2대라인.동천역세권.늦은입주환영","conf":"20260908","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":155000,"priceStr":"15억 5,000","floor":"8/33","dir":"남향","feat":"시에5대, 이쁜 정원뷰,선호하는 판상형, 빌트인 냉장고, 상태 최상.","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":155000,"priceStr":"15억 5,000","floor":"저/36","dir":"남향","feat":"o성실o성실단독.정남향.로얄동.방4에어컨5대풀.동천역근접동편리.실입주","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":155000,"priceStr":"15억 5,000","floor":"중/36","dir":"남서향","feat":"소유주직접소통,시스템에어컨5대,방4개,탁트인뷰,귀한판상형,입주가능","conf":"20260909","area":84,"tags":["10년이내","대단지","화장실두개","방네개이상"]},{"price":155000,"priceStr":"15억 5,000","floor":"고/36","dir":"남동향","feat":"시에풀, 출입구 입구동으로 생활편리동, 동천역 도보가능, 상태최상.","conf":"20260830","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":155000,"priceStr":"15억 5,000","floor":"고/34","dir":"남서향","feat":"커뮤니티 편리동, 엘베2대, 식기세척기, 동천역 도보가능.","conf":"20260829","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":157000,"priceStr":"15억 7,000","floor":"13/35","dir":"남동향","feat":"o성실o추천입주.확트인뷰.방4에어컨5대풀.주인관리하신집상태굿","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":157000,"priceStr":"15억 7,000","floor":"13/35","dir":"남향","feat":"o원o가림없이 트인 정원뷰, 에어컨풀, 선호하는 A타입, 동천역이용편리","conf":"20260909","area":84,"tags":["10년이내","대단지","방세개","화장실두개"]},{"price":157000,"priceStr":"15억 7,000","floor":"중/35","dir":"남서향","feat":"영구트인전망.상태신축급.알파룸슬라이딩도어.햇살가득.커뮤니티시설굿.도보권역","conf":"20260909","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]},{"price":157000,"priceStr":"15억 7,000","floor":"중/35","dir":"남동향","feat":"소유주직접소통,로얄동층,시에5대,판상형,예쁜정원조망,커뮤니티이용편리","conf":"20260901","area":84,"tags":["10년이내","마당","대단지","방네개이상"]},{"price":157000,"priceStr":"15억 7,000","floor":"저/35","dir":"남동향","feat":"o단독o초록 단지조경뷰,에어컨풀,방3팬트리,컨디션최상,입주정상","conf":"20260822","area":84,"tags":["10년이내","대단지","방네개이상","화장실두개"]}],"호가":{"59":{"n":5,"min":13,"max":13.5,"med":13.5},"77":{"n":2,"min":14.7,"max":14.7,"med":14.7},"84":{"n":11,"min":15,"max":15.7,"med":15.5},"104":{"n":6,"min":16.5,"max":17,"med":16.7}},"전세호가":{"77":{"n":5,"min":8.3,"max":8.5,"med":8.3},"84":{"n":2,"min":8.2,"max":8.3,"med":8.3},"104":{"n":1,"min":9.9,"max":9.9,"med":9.9}},"학교":[{"이름":"동천초등학교","도보":7,"배정":"전체동","학생수":1084,"학급당":22.6,"교사당":14.2}]},"장안타운건영2차":{"spec":{"주소":"경기도 성남시 분당구 분당동 68","도로명":"경기도 성남시 분당구 장안로51번길 31","세대수":1688,"동수":27,"준공":"19931227","층":"11~20","용적률":162,"건폐율":13,"주차":1.11,"주차대수":1882,"시공사":"주식회사 건영","배관":"수도배관(공용배관) 교체완료(2012년)","관리실":"031-702-4017","매물매매":19,"매물전세":7,"매물월세":5,"대지추정":122962,"세대당대지":72.8},"pyeongs":[{"name":"68","supply":68.24,"ex":53.72,"hc":208,"mgmt":{"avg":169223,"summer":136471,"winter":227208},"tax":680180,"gongsi":{"min":483000000,"max":536000000,"yr":2026},"room":"2","bath":"1","entrance":"복도식","ask":{"deal":"1","dealStr":"11억 5,000","perPy":"(5,571만원/3.3㎡)","lease":""}},{"name":"86","supply":86.04,"ex":67.73,"hc":104,"mgmt":{"avg":213356,"summer":172062,"winter":286463},"tax":863010,"gongsi":{"min":566000000,"max":631000000,"yr":2026},"room":"3","bath":"1","entrance":"계단식","ask":null},{"name":"90","supply":90.79,"ex":70.68,"hc":318,"mgmt":{"avg":222649,"summer":179556,"winter":298940},"tax":916020,"gongsi":{"min":608000000,"max":662000000,"yr":2026},"room":"3","bath":"1","entrance":"계단식","ask":{"deal":"22","dealStr":"13억 5,000~14억 7,000","perPy":"(4,916~5,352만원/3.3㎡)","lease":"6억 2,000~6억 8,000"}},{"name":"108","supply":108.6,"ex":85,"hc":424,"mgmt":{"avg":267759,"summer":215935,"winter":359507},"tax":1199520,"gongsi":{"min":685000000,"max":776000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"12","dealStr":"14억 8,000~16억 2,000","perPy":"(4,505~4,931만원/3.3㎡)","lease":"7억"}},{"name":"124","supply":124.5,"ex":101.82,"hc":88,"mgmt":{"avg":320743,"summer":258665,"winter":430647},"tax":1302830,"gongsi":{"min":742000000,"max":817000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"2","dealStr":"17억~17억 5,000","perPy":"(4,514~4,647만원/3.3㎡)","lease":""}},{"name":"157A","supply":157.91,"ex":131.55,"hc":396,"mgmt":{"avg":414396,"summer":334191,"winter":556389},"tax":1858230,"gongsi":{"min":851000000,"max":937000000,"yr":2026},"room":"4","bath":"2","entrance":"계단식","ask":{"deal":"15","dealStr":"16억 5,000~17억 3,000","perPy":"(3,454~3,622만원/3.3㎡)","lease":"8억 3,000"}},{"name":"159","supply":159.27,"ex":131.76,"hc":38,"mgmt":{"avg":415057,"summer":334724,"winter":557277},"tax":1827540,"gongsi":{"min":851000000,"max":926000000,"yr":2026},"room":"5","bath":"2","entrance":"계단식","ask":{"deal":"9","dealStr":"16억 5,000~23억","perPy":"(3,425~4,774만원/3.3㎡)","lease":"8억~8억 2,000"}},{"name":"192B","supply":192.84,"ex":162.85,"hc":112,"mgmt":{"avg":512994,"summer":413706,"winter":688772},"tax":1941930,"gongsi":{"min":886000000,"max":967000000,"yr":2026},"room":"5","bath":"2","entrance":"계단식","ask":{"deal":"4","dealStr":"17억 2,000~20억","perPy":"(2,949~3,429만원/3.3㎡)","lease":"8억"}}],"chart":{"series":[{"ym":"2013-02","med":39700,"n":2},{"ym":"2013-03","med":42000,"n":3},{"ym":"2013-04","med":43000,"n":3},{"ym":"2013-06","med":41300,"n":1},{"ym":"2013-07","med":42000,"n":1},{"ym":"2013-08","med":39900,"n":3},{"ym":"2013-09","med":41700,"n":4},{"ym":"2013-10","med":39500,"n":1},{"ym":"2013-11","med":45800,"n":2},{"ym":"2013-12","med":43500,"n":2},{"ym":"2014-01","med":44800,"n":4},{"ym":"2014-02","med":45000,"n":3},{"ym":"2014-04","med":43700,"n":1},{"ym":"2014-07","med":45000,"n":6},{"ym":"2014-08","med":46500,"n":2},{"ym":"2014-10","med":45000,"n":3},{"ym":"2014-11","med":43400,"n":5},{"ym":"2014-12","med":47000,"n":2},{"ym":"2015-01","med":47300,"n":1},{"ym":"2015-02","med":51500,"n":1},{"ym":"2015-03","med":49200,"n":1},{"ym":"2015-04","med":50000,"n":1},{"ym":"2015-05","med":46500,"n":3},{"ym":"2015-06","med":48000,"n":1},{"ym":"2015-07","med":50100,"n":2},{"ym":"2015-08","med":49000,"n":2},{"ym":"2015-09","med":50700,"n":3},{"ym":"2015-10","med":49000,"n":2},{"ym":"2015-11","med":48000,"n":3},{"ym":"2015-12","med":49700,"n":1},{"ym":"2016-01","med":48700,"n":1},{"ym":"2016-02","med":47000,"n":1},{"ym":"2016-03","med":48900,"n":1},{"ym":"2016-04","med":48200,"n":2},{"ym":"2016-05","med":47500,"n":2},{"ym":"2016-06","med":51800,"n":2},{"ym":"2016-07","med":47800,"n":3},{"ym":"2016-08","med":48500,"n":6},{"ym":"2016-09","med":49000,"n":5},{"ym":"2016-10","med":50000,"n":6},{"ym":"2016-11","med":51500,"n":2},{"ym":"2016-12","med":48600,"n":5},{"ym":"2017-01","med":50400,"n":1},{"ym":"2017-02","med":46000,"n":1},{"ym":"2017-03","med":51000,"n":3},{"ym":"2017-04","med":50000,"n":2},{"ym":"2017-05","med":48000,"n":3},{"ym":"2017-06","med":49000,"n":3},{"ym":"2017-07","med":50000,"n":4},{"ym":"2017-08","med":50300,"n":1},{"ym":"2017-09","med":55200,"n":7},{"ym":"2017-10","med":59000,"n":2},{"ym":"2017-11","med":52500,"n":1},{"ym":"2017-12","med":57500,"n":3},{"ym":"2018-01","med":58000,"n":6},{"ym":"2018-02","med":58000,"n":1},{"ym":"2018-03","med":58000,"n":1},{"ym":"2018-06","med":56000,"n":1},{"ym":"2018-07","med":63500,"n":2},{"ym":"2018-08","med":65000,"n":9},{"ym":"2018-09","med":67000,"n":2},{"ym":"2019-05","med":65000,"n":1},{"ym":"2019-07","med":65000,"n":1},{"ym":"2019-08","med":68000,"n":3},{"ym":"2019-10","med":68000,"n":6},{"ym":"2019-11","med":70000,"n":8},{"ym":"2019-12","med":73000,"n":6},{"ym":"2020-01","med":68000,"n":1},{"ym":"2020-02","med":75500,"n":4},{"ym":"2020-05","med":77500,"n":1},{"ym":"2020-06","med":74000,"n":6},{"ym":"2020-07","med":80000,"n":3},{"ym":"2020-08","med":83000,"n":1},{"ym":"2020-10","med":84000,"n":3},{"ym":"2020-11","med":97000,"n":2},{"ym":"2020-12","med":98500,"n":2},{"ym":"2021-06","med":106000,"n":4},{"ym":"2021-07","med":107500,"n":1},{"ym":"2021-08","med":108000,"n":1},{"ym":"2021-09","med":112800,"n":1},{"ym":"2022-01","med":110500,"n":1},{"ym":"2022-03","med":114500,"n":1},{"ym":"2022-04","med":115000,"n":1},{"ym":"2023-04","med":93000,"n":1},{"ym":"2023-05","med":66000,"n":1},{"ym":"2023-07","med":103000,"n":1},{"ym":"2023-09","med":100000,"n":3},{"ym":"2023-10","med":105500,"n":1},{"ym":"2024-04","med":92000,"n":1},{"ym":"2024-06","med":98000,"n":4},{"ym":"2024-07","med":104500,"n":5},{"ym":"2024-08","med":104500,"n":3},{"ym":"2024-10","med":110000,"n":1},{"ym":"2025-01","med":109500,"n":2},{"ym":"2025-02","med":104500,"n":2},{"ym":"2025-03","med":108000,"n":2},{"ym":"2025-04","med":110800,"n":1},{"ym":"2025-05","med":103000,"n":1},{"ym":"2025-06","med":105000,"n":10},{"ym":"2025-07","med":110000,"n":2},{"ym":"2025-08","med":109500,"n":2},{"ym":"2025-09","med":123000,"n":2},{"ym":"2025-10","med":120000,"n":1},{"ym":"2025-11","med":128000,"n":1},{"ym":"2026-01","med":135000,"n":3},{"ym":"2026-03","med":144800,"n":1},{"ym":"2026-04","med":144800,"n":3},{"ym":"2026-05","med":110000,"n":1},{"ym":"2026-06","med":142500,"n":2},{"ym":"2026-07","med":142500,"n":1}],"half":[{"k":"2013-H1","med":41300,"n":9},{"k":"2013-H2","med":41700,"n":13},{"k":"2014-H1","med":44800,"n":8},{"k":"2014-H2","med":45000,"n":18},{"k":"2015-H1","med":48000,"n":8},{"k":"2015-H2","med":49000,"n":13},{"k":"2016-H1","med":47500,"n":9},{"k":"2016-H2","med":48800,"n":27},{"k":"2017-H1","med":49750,"n":13},{"k":"2017-H2","med":55200,"n":18},{"k":"2018-H1","med":58000,"n":9},{"k":"2018-H2","med":65000,"n":13},{"k":"2019-H1","med":65000,"n":1},{"k":"2019-H2","med":69800,"n":24},{"k":"2020-H1","med":74000,"n":12},{"k":"2020-H2","med":85000,"n":11},{"k":"2021-H1","med":106000,"n":4},{"k":"2021-H2","med":108000,"n":3},{"k":"2022-H1","med":114500,"n":3},{"k":"2023-H1","med":93000,"n":2},{"k":"2023-H2","med":103000,"n":5},{"k":"2024-H1","med":98000,"n":5},{"k":"2024-H2","med":104500,"n":9},{"k":"2025-H1","med":105000,"n":18},{"k":"2025-H2","med":110000,"n":8},{"k":"2026-H1","med":142500,"n":10},{"k":"2026-H2","med":142500,"n":1}],"yearly":[{"y":2013,"n":22,"avg":4.13,"max":4.58,"min":3.68},{"y":2014,"n":26,"avg":4.48,"max":4.95,"min":4},{"y":2015,"n":21,"avg":4.86,"max":5.3,"min":4.4},{"y":2016,"n":36,"avg":4.88,"max":5.25,"min":4.53},{"y":2017,"n":31,"avg":5.22,"max":5.9,"min":4.6},{"y":2018,"n":22,"avg":6.16,"max":6.85,"min":5.36},{"y":2019,"n":25,"avg":6.95,"max":7.6,"min":6.5},{"y":2020,"n":23,"avg":7.99,"max":9.85,"min":6.8},{"y":2021,"n":7,"avg":10.68,"max":11.28,"min":10},{"y":2022,"n":3,"avg":11.33,"max":11.5,"min":11.05},{"y":2023,"n":7,"avg":9.66,"max":11,"min":6.6},{"y":2024,"n":14,"avg":10.21,"max":11,"min":9.2},{"y":2025,"n":26,"avg":10.71,"max":12.8,"min":9},{"y":2026,"n":11,"avg":13.78,"max":14.75,"min":11}],"peak":{"amt":14.75,"y":2026,"m":4,"floor":12,"area":85},"recent":[{"d":"2026.03.03","amt":14.48,"floor":7},{"d":"2026.04.15","amt":13.9,"floor":5},{"d":"2026.04.16","amt":14.48,"floor":6},{"d":"2026.04.16","amt":14.75,"floor":12},{"d":"2026.05.27","amt":11,"floor":11},{"d":"2026.06.11","amt":14.25,"floor":4},{"d":"2026.06.22","amt":13.5,"floor":9},{"d":"2026.07.01","amt":14.25,"floor":11}],"total":1160},"commute":{"name":"장안타운건영2차","직선_어린이집":5.31,"직선_회사":3.43,"차_집회사_출근":{"km":5.4,"min":16,"taxi":9800,"toll":0},"차_집회사_평시":{"km":5.8,"min":15,"taxi":9900,"toll":0},"차_집어린이집":{"km":8.9,"min":25,"taxi":14100,"toll":0},"차_등원후출근":{"km":12.6,"min":32,"taxi":18000,"toll":0},"차_퇴근후하원귀가":{"km":13.6,"min":33,"taxi":18800,"toll":0},"차_강남역":{"km":20.7,"min":51,"taxi":30800,"toll":0},"차_판교역":{"km":4.9,"min":18,"taxi":9900,"toll":0},"차_서울역":{"km":29.5,"min":69,"taxi":40300,"toll":3000}},"listings84":[{"price":148000,"priceStr":"14억 8,000","floor":"12/13","dir":"남향","feat":"33p방3화2, 전망굿, 계약금입금후  인테리어 공사 가능, 빠른입주 가","conf":"20260909","area":85,"tags":["25년이상","대단지","방세개","화장실두개"]},{"price":148000,"priceStr":"14억 8,000","floor":"12/13","dir":"남동향","feat":"기본수리.수리기간 협의.전망","conf":"20260909","area":85,"tags":["25년이상","대단지","방세개","화장실한개"]},{"price":162000,"priceStr":"16억 2,000","floor":"저/11","dir":"남서향","feat":"33p방3화2, 확장샷시포함 특올수리, 양영중 복수학군, 잔디정원뷰 굿","conf":"20260904","area":85,"tags":["25년이상","올수리","대단지","방세개"]}],"호가":{"53":{"n":1,"min":11.5,"max":11.5,"med":11.5},"70":{"n":6,"min":13.5,"max":14.7,"med":14.1},"85":{"n":3,"min":14.8,"max":16.2,"med":14.8},"101":{"n":2,"min":17,"max":17.5,"med":17.5},"131":{"n":9,"min":16.5,"max":23,"med":16.9},"162":{"n":4,"min":17.2,"max":20,"med":17.5}},"전세호가":{"70":{"n":2,"min":6.2,"max":6.8,"med":6.8},"85":{"n":1,"min":7,"max":7,"med":7},"131":{"n":3,"min":8,"max":8.3,"med":8.2},"162":{"n":1,"min":8,"max":8,"med":8}},"학교":[{"이름":"성남장안초등학교","도보":7,"배정":"전체동","학생수":440,"학급당":21,"교사당":12.9}]},"효자촌그린타운":{"spec":{"주소":"경기도 성남시 분당구 서현동 310","도로명":"경기도 성남시 분당구 분당로263번길 13","세대수":1774,"동수":22,"준공":"19940830","층":"10~25","용적률":159,"건폐율":15,"주차":0.96,"주차대수":1706,"시공사":"주식회사 대우.대창기업주식회사,화성산업(주), 럭키개발(주)","배관":"수도배관(공용배관) 교체완료(2014년)","관리실":"031-704-1297","매물매매":26,"매물전세":3,"매물월세":1,"대지추정":98920,"세대당대지":55.8},"pyeongs":[{"name":"73A","supply":73.48,"ex":53.82,"hc":302,"mgmt":{"avg":204588,"summer":163698,"winter":274411},"tax":847620,"gongsi":{"min":503000000,"max":622000000,"yr":2026},"room":"2","bath":"1","entrance":"복도식","ask":{"deal":"8","dealStr":"12억 5,000~13억 5,000","perPy":"(5,624~6,074만원/3.3㎡)","lease":"5억~5억 6,000"}},{"name":"73B","supply":73.48,"ex":53.82,"hc":288,"mgmt":{"avg":204588,"summer":163698,"winter":274411},"tax":847620,"gongsi":{"min":507000000,"max":622000000,"yr":2026},"room":"2","bath":"1","entrance":"계단식","ask":{"deal":"2","dealStr":"13억 5,000","perPy":"(6,074만원/3.3㎡)","lease":""}},{"name":"90A","supply":90,"ex":70.68,"hc":352,"mgmt":{"avg":268702,"summer":214996,"winter":360405},"tax":1328030,"gongsi":{"min":672000000,"max":827000000,"yr":2026},"room":"3","bath":"1","entrance":"계단식","ask":{"deal":"9","dealStr":"15억 5,000~16억 5,000","perPy":"(5,693~6,061만원/3.3㎡)","lease":""}},{"name":"90B","supply":90,"ex":70.68,"hc":340,"mgmt":{"avg":268702,"summer":214996,"winter":360405},"tax":1355760,"gongsi":{"min":680000000,"max":838000000,"yr":2026},"room":"3","bath":"1","entrance":"계단식","ask":{"deal":"3","dealStr":"16억~16억 5,000","perPy":"(5,877~6,061만원/3.3㎡)","lease":""}},{"name":"104A","supply":104.98,"ex":84.69,"hc":248,"mgmt":{"avg":321959,"summer":257609,"winter":431838},"tax":2014470,"gongsi":{"min":818000000,"max":993000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"16","dealStr":"16억 2,000~17억","perPy":"(5,101~5,353만원/3.3㎡)","lease":""}},{"name":"104B","supply":104.98,"ex":84.69,"hc":244,"mgmt":{"avg":321959,"summer":257609,"winter":431838},"tax":2017260,"gongsi":{"min":845000000,"max":994000000,"yr":2026},"room":"3","bath":"2","entrance":"계단식","ask":{"deal":"31","dealStr":"17억~18억 5,000","perPy":"(5,353~5,826만원/3.3㎡)","lease":"7억 3,000"}}],"chart":{"series":[{"ym":"2013-01","med":43000,"n":2},{"ym":"2013-02","med":43200,"n":1},{"ym":"2013-03","med":44000,"n":1},{"ym":"2013-04","med":44900,"n":1},{"ym":"2013-05","med":42000,"n":3},{"ym":"2013-06","med":46200,"n":2},{"ym":"2013-07","med":44500,"n":1},{"ym":"2013-08","med":47000,"n":2},{"ym":"2013-09","med":45500,"n":2},{"ym":"2013-10","med":46000,"n":2},{"ym":"2013-11","med":44500,"n":1},{"ym":"2013-12","med":47000,"n":2},{"ym":"2014-01","med":45000,"n":3},{"ym":"2014-02","med":46470,"n":3},{"ym":"2014-03","med":42600,"n":3},{"ym":"2014-04","med":48000,"n":4},{"ym":"2014-05","med":48000,"n":4},{"ym":"2014-06","med":45200,"n":1},{"ym":"2014-07","med":50000,"n":2},{"ym":"2014-08","med":48000,"n":1},{"ym":"2014-09","med":49000,"n":2},{"ym":"2014-10","med":49800,"n":6},{"ym":"2014-11","med":47000,"n":1},{"ym":"2014-12","med":50000,"n":4},{"ym":"2015-01","med":50000,"n":1},{"ym":"2015-03","med":53500,"n":4},{"ym":"2015-04","med":51000,"n":5},{"ym":"2015-05","med":51500,"n":2},{"ym":"2015-06","med":50000,"n":3},{"ym":"2015-07","med":50000,"n":7},{"ym":"2015-08","med":50600,"n":3},{"ym":"2015-09","med":50000,"n":5},{"ym":"2015-10","med":47000,"n":1},{"ym":"2015-11","med":51800,"n":2},{"ym":"2016-01","med":47700,"n":3},{"ym":"2016-02","med":49000,"n":3},{"ym":"2016-03","med":50300,"n":1},{"ym":"2016-04","med":48000,"n":2},{"ym":"2016-05","med":50900,"n":1},{"ym":"2016-06","med":49300,"n":5},{"ym":"2016-07","med":48800,"n":5},{"ym":"2016-08","med":51000,"n":6},{"ym":"2016-09","med":52700,"n":6},{"ym":"2016-10","med":52500,"n":4},{"ym":"2016-12","med":47000,"n":1},{"ym":"2017-02","med":46000,"n":3},{"ym":"2017-03","med":50000,"n":3},{"ym":"2017-04","med":52000,"n":5},{"ym":"2017-05","med":54800,"n":2},{"ym":"2017-06","med":52000,"n":5},{"ym":"2017-07","med":55800,"n":4},{"ym":"2017-08","med":61000,"n":1},{"ym":"2017-11","med":60000,"n":1},{"ym":"2018-01","med":59000,"n":3},{"ym":"2018-02","med":70500,"n":2},{"ym":"2018-03","med":69700,"n":1},{"ym":"2018-06","med":65700,"n":1},{"ym":"2018-08","med":70500,"n":5},{"ym":"2018-09","med":74500,"n":3},{"ym":"2019-01","med":70000,"n":1},{"ym":"2019-04","med":71000,"n":1},{"ym":"2019-06","med":71000,"n":2},{"ym":"2019-07","med":72000,"n":2},{"ym":"2019-08","med":71000,"n":1},{"ym":"2019-09","med":70000,"n":4},{"ym":"2019-10","med":73000,"n":7},{"ym":"2019-11","med":77000,"n":5},{"ym":"2019-12","med":78000,"n":5},{"ym":"2020-01","med":76000,"n":5},{"ym":"2020-02","med":78500,"n":1},{"ym":"2020-03","med":77700,"n":1},{"ym":"2020-06","med":82500,"n":11},{"ym":"2020-07","med":88000,"n":1},{"ym":"2020-08","med":92500,"n":2},{"ym":"2020-10","med":94000,"n":1},{"ym":"2020-11","med":99000,"n":3},{"ym":"2020-12","med":108500,"n":2},{"ym":"2021-01","med":119000,"n":1},{"ym":"2021-02","med":118000,"n":3},{"ym":"2021-03","med":115000,"n":1},{"ym":"2021-04","med":114500,"n":1},{"ym":"2021-05","med":120000,"n":2},{"ym":"2021-10","med":120000,"n":1},{"ym":"2021-11","med":119500,"n":1},{"ym":"2021-12","med":124500,"n":1},{"ym":"2022-03","med":116000,"n":1},{"ym":"2022-05","med":120000,"n":2},{"ym":"2022-06","med":119500,"n":1},{"ym":"2023-02","med":89000,"n":1},{"ym":"2023-03","med":94000,"n":3},{"ym":"2023-05","med":105000,"n":2},{"ym":"2023-06","med":107000,"n":2},{"ym":"2023-07","med":110000,"n":2},{"ym":"2023-08","med":113000,"n":4},{"ym":"2023-10","med":110000,"n":1},{"ym":"2023-12","med":104800,"n":1},{"ym":"2024-01","med":100000,"n":1},{"ym":"2024-02","med":109000,"n":2},{"ym":"2024-03","med":107000,"n":2},{"ym":"2024-05","med":108000,"n":2},{"ym":"2024-06","med":119000,"n":1},{"ym":"2024-07","med":109500,"n":1},{"ym":"2024-08","med":118000,"n":3},{"ym":"2024-12","med":109000,"n":1},{"ym":"2025-01","med":117000,"n":1},{"ym":"2025-02","med":109000,"n":1},{"ym":"2025-03","med":119500,"n":2},{"ym":"2025-04","med":120000,"n":2},{"ym":"2025-05","med":117500,"n":1},{"ym":"2025-06","med":110500,"n":1},{"ym":"2025-07","med":122500,"n":1},{"ym":"2025-08","med":139800,"n":2},{"ym":"2025-09","med":140000,"n":1},{"ym":"2025-10","med":130000,"n":1},{"ym":"2025-12","med":159000,"n":2},{"ym":"2026-02","med":169800,"n":2},{"ym":"2026-05","med":149400,"n":1},{"ym":"2026-07","med":170000,"n":2}],"half":[{"k":"2013-H1","med":43200,"n":10},{"k":"2013-H2","med":45500,"n":10},{"k":"2014-H1","med":46470,"n":18},{"k":"2014-H2","med":49500,"n":16},{"k":"2015-H1","med":51000,"n":15},{"k":"2015-H2","med":50000,"n":18},{"k":"2016-H1","med":49300,"n":15},{"k":"2016-H2","med":51500,"n":22},{"k":"2017-H1","med":52000,"n":18},{"k":"2017-H2","med":60000,"n":6},{"k":"2018-H1","med":65700,"n":7},{"k":"2018-H2","med":71000,"n":8},{"k":"2019-H1","med":71000,"n":4},{"k":"2019-H2","med":73000,"n":24},{"k":"2020-H1","med":79000,"n":18},{"k":"2020-H2","med":97500,"n":9},{"k":"2021-H1","med":118000,"n":8},{"k":"2021-H2","med":120000,"n":3},{"k":"2022-H1","med":120000,"n":4},{"k":"2023-H1","med":98500,"n":8},{"k":"2023-H2","med":110000,"n":8},{"k":"2024-H1","med":107000,"n":8},{"k":"2024-H2","med":113000,"n":5},{"k":"2025-H1","med":117500,"n":8},{"k":"2025-H2","med":139800,"n":7},{"k":"2026-H1","med":166500,"n":3},{"k":"2026-H2","med":170000,"n":2}],"yearly":[{"y":2013,"n":20,"avg":4.42,"max":4.8,"min":4},{"y":2014,"n":34,"avg":4.73,"max":5.1,"min":4.05},{"y":2015,"n":33,"avg":5.06,"max":5.4,"min":4.7},{"y":2016,"n":37,"avg":5.02,"max":5.3,"min":4.5},{"y":2017,"n":24,"avg":5.26,"max":6.1,"min":4.2},{"y":2018,"n":15,"avg":6.85,"max":7.6,"min":5.9},{"y":2019,"n":28,"avg":7.31,"max":8,"min":6.6},{"y":2020,"n":27,"avg":8.51,"max":10.85,"min":7.35},{"y":2021,"n":11,"avg":11.84,"max":12.45,"min":11.45},{"y":2022,"n":4,"avg":11.89,"max":12,"min":11.6},{"y":2023,"n":16,"avg":10.15,"max":11.3,"min":6.45},{"y":2024,"n":13,"avg":10.73,"max":12,"min":7.1},{"y":2025,"n":15,"avg":12.49,"max":15.9,"min":10.7},{"y":2026,"n":5,"avg":16.19,"max":17,"min":14.94}],"peak":{"amt":17,"y":2026,"m":7,"floor":14,"area":84.696},"recent":[{"d":"2025.10.01","amt":13,"floor":17},{"d":"2025.12.06","amt":15.9,"floor":14},{"d":"2025.12.22","amt":14.1,"floor":2},{"d":"2026.02.12","amt":16.65,"floor":13},{"d":"2026.02.27","amt":16.98,"floor":7},{"d":"2026.05.01","amt":14.94,"floor":13},{"d":"2026.07.07","amt":15.4,"floor":2},{"d":"2026.07.17","amt":17,"floor":14}],"total":1310},"commute":{"name":"효자촌그린타운","직선_어린이집":5.03,"직선_회사":3.14,"차_집회사_출근":{"km":4.5,"min":13,"taxi":8500,"toll":0},"차_집회사_평시":{"km":5,"min":12,"taxi":8700,"toll":0},"차_집어린이집":{"km":8,"min":21,"taxi":12700,"toll":0},"차_등원후출근":{"km":11.8,"min":28,"taxi":16600,"toll":0},"차_퇴근후하원귀가":{"km":13.1,"min":32,"taxi":18300,"toll":0},"차_강남역":{"km":19.8,"min":47,"taxi":29400,"toll":0},"차_판교역":{"km":4.1,"min":15,"taxi":8800,"toll":0},"차_서울역":{"km":28.7,"min":66,"taxi":39100,"toll":3000}},"listings84":[{"price":162000,"priceStr":"16억 2,000","floor":"1/21","dir":"남서향","feat":"비확장올수리 밝은1층으로 아이키우기좋음.","conf":"20260909","area":84,"tags":["25년이상","올수리","대단지","1층"]},{"price":165000,"priceStr":"16억 5,000","floor":"2/21","dir":"남동향","feat":"정상 따뜻한중간집으로 방,거실확장수리함.","conf":"20260908","area":84,"tags":["25년이상","대단지","방세개","화장실두개"]},{"price":170000,"priceStr":"17억","floor":"10/22","dir":"남서향","feat":"서당초학군 로얄동 로얄층 입주협의가능 대단지아파트 편리한 주거환경단지","conf":"20260909","area":84,"tags":["25년이상","대단지","방세개","화장실두개"]},{"price":170000,"priceStr":"17억","floor":"20/20","dir":"남서향","feat":"전망최고, 샷시포함확장올수리 정상입주","conf":"20260908","area":84,"tags":["25년이상","올수리","대단지","탑층"]},{"price":170000,"priceStr":"17억","floor":"17/20","dir":"남서향","feat":"올수리깨끗 전망 정상","conf":"20260901","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":170000,"priceStr":"17억","floor":"15/21","dir":"남동향","feat":"세안고매매 최근확장전체특올수리","conf":"20260828","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":172000,"priceStr":"17억 2,000","floor":"8/19","dir":"남동향","feat":"전체특올수리 샤시까지 주거주 로얄동 로얄층 서당초학군 남동향 입주협의","conf":"20260909","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":173000,"priceStr":"17억 3,000","floor":"20/20","dir":"남서향","feat":"전체올수리 샤시교체 거실 작은방확장 전망굿 서당초학군 입주협의가능함.","conf":"20260908","area":84,"tags":["25년이상","올수리","대단지","탑층"]},{"price":175000,"priceStr":"17억 5,000","floor":"14/20","dir":"남서향","feat":"33p방3화2, 샷시 확장포함 특올수리, 로얄층, 전망굿, 정상입주","conf":"20260903","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":175000,"priceStr":"17억 5,000","floor":"2/20","dir":"남서향","feat":"최근확장특올수리 정상 전망나옴 서당초학군","conf":"20260901","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":175000,"priceStr":"17억 5,000","floor":"18/20","dir":"남서향","feat":"샷시포함 올수리,거실,작은방 확장,서당초학군","conf":"20260824","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":180000,"priceStr":"18억","floor":"고/22","dir":"남서향","feat":"33p방3화2, 확장포함 특올수리, 로얄층 전망굿, 정상입주","conf":"20260901","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":180000,"priceStr":"18억","floor":"20/22","dir":"남서향","feat":"정상,샷시포함확장특수리,전망","conf":"20260902","area":84,"tags":["25년이상","대단지","방세개","화장실두개"]},{"price":182000,"priceStr":"18억 2,000","floor":"10/20","dir":"남서향","feat":"최근완벽확장특올수리 시스템에어컨4대  트인전망 서당초 정상입주 ","conf":"20260908","area":84,"tags":["25년이상","올수리","대단지","방세개"]},{"price":185000,"priceStr":"18억 5,000","floor":"10/20","dir":"남서향","feat":"샷시포함확장특올수리, 정상, 전망","conf":"20260901","area":84,"tags":["25년이상","올수리","대단지","방세개"]}],"호가":{"53":{"n":8,"min":12.5,"max":13.5,"med":13.5},"70":{"n":5,"min":15.5,"max":16.5,"med":16},"84":{"n":15,"min":16.2,"max":18.5,"med":17.3}},"전세호가":{"53":{"n":2,"min":5,"max":5.6,"med":5.6},"84":{"n":1,"min":7.3,"max":7.3,"med":7.3}},"학교":[{"이름":"양영초등학교","도보":6,"배정":"610~620","학생수":146,"학급당":16.2,"교사당":8.6}]}};
+const NAMES = ['동천자이','동천센트럴자이','장안타운건영2차','효자촌그린타운'];
+const COL = {'동천자이':'#2563EB','동천센트럴자이':'#0891B2','장안타운건영2차':'#D97706','효자촌그린타운':'#DC2626'};
+const isNarrow = window.matchMedia('(max-width:640px)').matches;
+Chart.defaults.font.family = "'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif";
+Chart.defaults.font.size = isNarrow ? 10 : 11.5;
+Chart.defaults.color = '#767D89';
+const baseOpts = {
+  responsive:true, maintainAspectRatio:false,
+  interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:9,boxHeight:9,usePointStyle:true,pointStyle:'circle',padding:12}}},
+  scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:8}},
+          y:{grid:{color:'#F0EEE8'},border:{display:false}}}
+};
+
+/* 1. 통근 */
+new Chart(document.getElementById('chCommute'), {
+  type:'bar',
+  data:{ labels:['현재\n(안양)','동천자이','동천\n센트럴자이','장안타운\n건영2차','효자촌\n그린타운'].map(s=>s.split('\n')),
+    datasets:[
+      {label:'등원 후 출근', data:[43,10,13,32,28], backgroundColor:'#2563EB', borderRadius:3},
+      {label:'퇴근 후 하원·귀가', data:[52,15,19,33,32], backgroundColor:'#93C5FD', borderRadius:3}]},
+  options:{...baseOpts, scales:{...baseOpts.scales,
+    x:{...baseOpts.scales.x, stacked:true},
+    y:{...baseOpts.scales.y, stacked:true, ticks:{callback:v=>v+'분'}}},
+    plugins:{...baseOpts.plugins, tooltip:{callbacks:{label:c=>c.dataset.label+' '+c.parsed.y+'분'}}}}
+});
+
+/* 2. 시세 */
+(function(){
+  const set = new Set();
+  NAMES.forEach(n => DATA[n].chart.half.forEach(h => set.add(h.k)));
+  const labels = [...set].sort();
+  const ds = NAMES.map(n => {
+    const m = Object.fromEntries(DATA[n].chart.half.map(h => [h.k, +(h.med/10000).toFixed(2)]));
+    return { label:n, data:labels.map(k => m[k] ?? null), borderColor:COL[n], backgroundColor:COL[n],
+      spanGaps:true, tension:.25, pointRadius:isNarrow?1.5:2.5, pointHoverRadius:5, borderWidth:2 };
+  });
+  new Chart(document.getElementById('chPrice'), { type:'line', data:{labels,datasets:ds},
+    options:{...baseOpts,
+      scales:{...baseOpts.scales,
+        x:{...baseOpts.scales.x, ticks:{...baseOpts.scales.x.ticks, callback:function(v){
+          const l = this.getLabelForValue(v); return l.endsWith('H1') ? l.slice(2,4)+'상' : l.slice(2,4)+'하'; }}},
+        y:{...baseOpts.scales.y, ticks:{callback:v=>v+'억'}}},
+      plugins:{...baseOpts.plugins, tooltip:{callbacks:{label:c=>c.dataset.label+' '+c.parsed.y+'억'}}}}
+  });
+})();
+
+/* 3. 자금 */
+new Chart(document.getElementById('chMoney'), {
+  type:'bar',
+  data:{ labels:['동천자이','동천\n센트럴자이','장안타운\n건영2차','효자촌\n그린타운'].map(s=>s.split('\n')),
+    datasets:[
+      {label:'주담대', data:[5.20,4.00,5.92,4.00], backgroundColor:'#CBD5E1', borderRadius:3},
+      {label:'자기자본(매수대금)', data:[7.80,11.50,8.88,13.30], backgroundColor:'#2563EB', borderRadius:3},
+      {label:'취득세+중개보수', data:[0.49,0.62,0.56,0.69], backgroundColor:'#D97706', borderRadius:3}]},
+  options:{...baseOpts, scales:{...baseOpts.scales,
+    x:{...baseOpts.scales.x, stacked:true},
+    y:{...baseOpts.scales.y, stacked:true, ticks:{callback:v=>v+'억'}}},
+    plugins:{...baseOpts.plugins, tooltip:{callbacks:{label:c=>c.dataset.label+' '+c.parsed.y.toFixed(2)+'억'}}}}
+});
+
+/* 4. 매물 카드 */
+(function(){
+  const wrap = document.getElementById('listWrap');
+  NAMES.forEach(n => {
+    const arr = DATA[n].listings84 || [];
+    if (!arr.length) return;
+    const lo = (arr[0].price/10000).toFixed(2), hi = (arr[arr.length-1].price/10000).toFixed(2);
+    const el = document.createElement('div'); el.className = 'lgrp';
+    el.innerHTML = '<h4><span style="color:'+COL[n]+'">■</span>'+n+
+      ' <span class="cnt">전용 84~85㎡ · '+arr.length+'건</span></h4>'+
+      '<div class="band">'+lo+'억 ~ '+hi+'억</div>'+
+      '<div class="lcards">'+arr.map(a=>
+        '<div class="lc"><div class="p">'+a.priceStr+'</div><div class="d">'+
+        '<div class="m">'+(a.floor||'-')+'층 · '+(a.dir||'-')+' · 전용 '+a.area+'㎡</div>'+
+        '<div class="f">'+((a.feat||'').replace(/[<>]/g,'')||'—')+'</div></div></div>').join('')+'</div>';
+    wrap.appendChild(el);
+  });
+})();
+</script>
+</body>
+</html>
