@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BTC 선물 RSI 전략 — 최종안</title>
+<style>
+  :root{
+    --bg:#fafafa; --card:#fff; --ink:#18181b; --dim:#71717a; --line:#e4e4e7;
+    --pos:#15803d; --neg:#b91c1c; --warn:#b45309; --accent:#0f766e;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0b0b0d; --card:#141417; --ink:#f4f4f5; --dim:#a1a1aa; --line:#27272a;
+      --pos:#4ade80; --neg:#f87171; --warn:#fbbf24; --accent:#2dd4bf; color-scheme:dark;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;
+    padding:0 16px env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
+  .wrap{max-width:960px;margin:0 auto;padding-block:32px 64px}
+  h1{font-size:24px;line-height:1.3;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:18px;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--line);letter-spacing:-.01em}
+  h3{font-size:15px;margin:26px 0 8px;color:var(--accent)}
+  p{margin:10px 0}
+  .sub{color:var(--dim);font-size:13px;margin:0 0 4px}
+  .hint{font-size:12.5px;color:var(--dim);margin:6px 0 0}
+  ul,ol{margin:8px 0;padding-left:18px}
+  li{margin:5px 0}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .pos{color:var(--pos)} .neg{color:var(--neg)} .warn{color:var(--warn)}
+  b{font-weight:650}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:16px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .k{font-size:12px;color:var(--dim);margin-bottom:4px}
+  .kpi .v{font-size:19px;font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+  .box.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}
+  .box.ok{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+    border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:color-mix(in srgb,var(--ink) 4%,var(--card));font-weight:600;font-size:12.5px;color:var(--dim)}
+  tbody tr:last-child td{border-bottom:0}
+  td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  tfoot td{font-weight:650;background:color-mix(in srgb,var(--ink) 3%,var(--card))}
+  td.cell{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);
+    text-decoration-thickness:1px;text-underline-offset:3px}
+  td.cell:hover,td.cell:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
+  td.cell.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
+  #detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
+  #detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
+  #detail .dh b{font-size:16px}
+  #detail .dh span{font-size:13px;color:var(--dim)}
+  #detail .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);
+    font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
+  #detail .empty{color:var(--dim);font-size:13.5px}
+  #detail .bridge{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+    border-radius:8px;padding:10px 13px;margin:0 0 4px;font-size:13.5px;line-height:1.95}
+  #detail .bridge .op{color:var(--dim);font-family:var(--mono);margin:0 4px}
+  #detail .bridge b.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  #detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
+  .strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px;margin:14px 0}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;display:flex;flex-direction:column}
+  .sc .hd{padding:12px 14px 10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(0deg,color-mix(in srgb,var(--accent) 5%,transparent),transparent)}
+  .sc .hd .tag{font-size:11.5px;color:var(--accent);font-weight:650;letter-spacing:.04em}
+  .sc .hd .nm{font-size:15.5px;font-weight:650;margin-top:2px;letter-spacing:-.01em}
+  .sc .hd .sz{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px}
+  .sc .hd .sz span{font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--ink) 6%,transparent);
+    border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .sc dl{margin:0;padding:10px 14px 13px;display:grid;grid-template-columns:62px 1fr;gap:7px 10px;font-size:13.5px;align-items:baseline}
+  .sc dt{color:var(--dim);font-size:12px;line-height:1.5}
+  .sc dd{margin:0;line-height:1.55}
+  .sc dd .v{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .code{display:inline-block;min-width:22px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:650;
+    padding:1px 6px;border-radius:5px;margin-right:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+  .code.b{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--dim)}
+  table.txt td,table.txt th{white-space:normal}
+  table.txt td:first-child{white-space:nowrap}
+  .rule{display:grid;grid-template-columns:130px 1fr;gap:4px 14px;margin:10px 0;font-size:14px}
+  .rule dt{color:var(--dim);font-size:13px}
+  .rule dd{margin:0}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+  @media (max-width:600px){
+    .rule{grid-template-columns:1fr;gap:2px}
+    .rule dt{margin-top:8px}
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-bottom:1px solid var(--line);padding:10px 12px}
+    table.stack tr:last-child{border-bottom:0}
+    table.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal;text-align:right}
+    table.stack td::before{content:attr(data-label);color:var(--dim);font-size:12.5px;text-align:left}
+    table.stack td:first-child{font-weight:650;padding-bottom:6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="sub">2026-09-20 · 바이낸스 USDⓈ-M 무기한선물 BTCUSDT · 시드 1억</p>
+<h1>BTC 선물 RSI 전략 — 최종안</h1>
+<p class="sub"><a href="index.html" style="color:var(--accent)">기존 4전략 · 3·9·27 · 2·4·8 비교 보고서 →</a></p>
+<p class="sub">시장 상태에 따라 두 갈래로 나눠 타는 5전략 구조 · 규모 ×2.7 · 1분봉 백테스트 2017-09 ~ 2026-09</p>
+
+<div class="cards">
+  <div class="kpi"><div class="k">2024년</div><div class="v pos">+5,995만</div></div>
+  <div class="kpi"><div class="k">2025년</div><div class="v pos">+7,200만</div></div>
+  <div class="kpi"><div class="k">2026년 (9월까지)</div><div class="v pos">+6,032만</div></div>
+  <div class="kpi"><div class="k">가상 경로 청산</div><div class="v pos">0 / 300</div></div>
+  <div class="kpi"><div class="k">전 기간 최대 낙폭</div><div class="v">8,100만</div></div>
+  <div class="kpi"><div class="k">월 거래</div><div class="v">42.9건</div></div>
+</div>
+
+<div class="box ok">
+<b>핵심</b> — 시장이 <b>격렬</b>할 때는 물타기형 세 전략만, <b>조용</b>할 때는 추세·보유 두 전략만 새로 진입한다.
+두 계열이 동시에 물리는 상황이 구조적으로 차단되므로, 별도 방어 장치 없이도 9년 전 구간과 가상 경로 300개에서 청산이 없었다.
+</div>
+
+<h2>1. 매매 규칙</h2>
+
+<h3>모드 판정 — 매일 UTC 00:00</h3>
+<dl class="rule">
+  <dt>상태값 계산</dt>
+  <dd>지난 <b>20일</b> 각각에 대해, 그날 안에서 "어느 시점 종가 → 그날 남은 시간의 최저가"의 최대 하락폭을 구한다.
+      그 값이 <b>−2% 이상인 날의 비율</b>이 상태값이다. 하루가 끝나면 확정되므로 미래 정보가 섞이지 않는다.</dd>
+  <dt>모드</dt>
+  <dd>상태값 <b>≥ 0.35 → 격렬 모드</b>(A1·A2·A3만 신규 진입) · <b>&lt; 0.35 → 조용 모드</b>(B1·B2만 신규 진입).
+      이미 보유한 포지션은 모드가 바뀌어도 원래 규칙대로 청산한다.</dd>
+  <dt>붕괴 차단</dt>
+  <dd>현재가가 <b>최근 7일 최고가보다 22% 이상 낮으면</b> 격렬 모드 전략(A1·A2·A3)은 신규 진입하지 않는다.</dd>
+</dl>
+
+<h3>격렬 모드 — 물타기형 세 전략 (상태값 ≥ 0.35)</h3>
+<div class="strat">
+
+  <div class="sc">
+    <div class="hd"><div class="tag">A1</div><div class="nm">적응형 RSI</div>
+      <div class="sz"><span>첫 진입 607만 = 6,070 USDT</span><span>가득 2.43억 = 242,800 USDT</span></div></div>
+    <dl>
+      <dt>진입</dt><dd>5분 RSI(14)가 <b>최근 30일 5분 RSI 분포의 하위 1%</b> 아래로 갔다가 그 위로 회복한 봉 마감 → 시장가</dd>
+      <dt>필터</dt><dd>7일 고점에서 <span class="v">4.6%</span> 이상 하락 · 전날 일봉 종가가 EMA50의 <span class="v">+10.75%</span> 이내</dd>
+      <dt>물타기</dt><dd><span class="v">−0.75% · −1.5% · −2.25%</span>에 <span class="v">3 · 9 · 27배</span> 지정가</dd>
+      <dt>손절</dt><dd>첫 진입가 <span class="v">−5.25%</span></dd>
+      <dt>청산</dt><dd>5분 RSI <span class="v">≥ 45</span> 마감 시 전량</dd>
+    </dl>
+  </div>
+
+  <div class="sc">
+    <div class="hd"><div class="tag">A2</div><div class="nm">15분 RSI 20</div>
+      <div class="sz"><span>첫 진입 2,759만 = 27,590 USDT</span><span>가득 11.04억 = 1,103,600 USDT</span></div></div>
+    <dl>
+      <dt>진입</dt><dd>15분 RSI(14)가 <span class="v">20 위로</span> 올라온 봉 마감 → 시장가</dd>
+      <dt>필터</dt><dd>A1과 같음</dd>
+      <dt>물타기</dt><dd><span class="v">−1.5% · −3% · −4.5%</span>에 <span class="v">3 · 9 · 27배</span> 지정가</dd>
+      <dt>손절</dt><dd>첫 진입가 <span class="v">−6%</span></dd>
+      <dt>청산</dt><dd><b>평단 <span class="v">+0.5%</span> 지정가</b> (이 조합에서 유일하게 지정가로 익절)</dd>
+    </dl>
+  </div>
+
+  <div class="sc">
+    <div class="hd"><div class="tag">A3</div><div class="nm">동시 과매도</div>
+      <div class="sz"><span>첫 진입 695만 = 6,950 USDT</span><span>가득 2.78억 = 278,000 USDT</span></div></div>
+    <dl>
+      <dt>진입</dt><dd>5분 RSI <span class="v">25 위로</span> 회복 <b>+</b> 직전 15분 RSI <span class="v">≤ 35</span> <b>+</b> 직전 1시간 RSI <span class="v">≤ 40</span></dd>
+      <dt>필터</dt><dd>7일 고점에서 <span class="v">3%</span> 이상 하락</dd>
+      <dt>물타기</dt><dd><span class="v">−0.75% · −1.5% · −2.25%</span>에 <span class="v">3 · 9 · 27배</span> 지정가</dd>
+      <dt>손절</dt><dd>첫 진입가 <span class="v">−5.25%</span></dd>
+      <dt>청산</dt><dd>5분 RSI <span class="v">≥ 50</span> 마감 시 전량</dd>
+    </dl>
+  </div>
+
+</div>
+<p class="hint">진입 즉시 물타기 지정가 3개와 손절 1개를 한꺼번에 등록한다. 물타기분만 따로 되파는 순환매매는 하지 않는다. 금액은 규모 ×2.7 기준.</p>
+
+<h3>조용 모드 — 추세·보유 두 전략 (상태값 &lt; 0.35)</h3>
+<div class="strat">
+
+  <div class="sc">
+    <div class="hd"><div class="tag">B1</div><div class="nm">4시간 추세 추종</div>
+      <div class="sz"><span>진입 1.91억 = 191,180 USDT</span><span>물타기 없음</span></div></div>
+    <dl>
+      <dt>판단</dt><dd>4시간봉이 닫힐 때마다(하루 6번: 09 · 13 · 17 · 21 · 01 · 05시 KST)</dd>
+      <dt>진입</dt><dd>4시간 RSI(21)가 <span class="v">70 위로</span> 올라온 봉 마감 → 다음 1분 시가에 시장가 매수</dd>
+      <dt>청산</dt><dd>4시간 RSI(21)가 <span class="v">50 아래로</span> 마감 → 다음 1분 시가에 시장가</dd>
+      <dt>손절</dt><dd>진입가 <span class="v">−5%</span> · 이후 새로 70을 뚫을 때까지 대기</dd>
+      <dt>빈도</dt><dd>9년 12건 · 보유 중앙 7.3일 · 이긴 거래 중앙 <span class="v">+1,376만</span></dd>
+    </dl>
+  </div>
+
+  <div class="sc">
+    <div class="hd"><div class="tag">B2</div><div class="nm">순환 보유</div>
+      <div class="sz"><span>기본 62,870 USDT</span><span>추가 62,870 USDT</span></div></div>
+    <dl>
+      <dt>판단</dt><dd>매일 <b>한국시간 09:00</b>(일봉 마감 직후) 한 번. 어제 일봉 RSI(14)만 본다</dd>
+      <dt>진입</dt><dd>일봉 RSI가 <span class="v">55 미만 → 55 이상</span>으로 바뀐 날 아침에 <b>기본 1 + 추가 1</b> 시장가 매수<br>
+        (그 시점 15분 RSI가 이미 <span class="v">≥ 80</span>이면 기본 1만 사고, 추가분은 아래 규칙으로 나중에)</dd>
+      <dt>순환</dt><dd>보유 중 15분봉이 RSI <span class="v">≥ 80</span>으로 마감 → <b>추가분만</b> 매도 ·
+        그 뒤 <span class="v">≤ 35</span>로 마감 → 추가분 다시 매수 (기본분은 계속 보유)</dd>
+      <dt>청산</dt><dd>일봉 RSI가 <span class="v">&lt; 55</span>로 마감한 다음 날 아침에 전량 시장가</dd>
+      <dt>손절</dt><dd>평단 <span class="v">−8%</span> 스톱마켓 · 걸리면 <b>장세가 꺼졌다 다시 켜질 때까지 쉼</b></dd>
+      <dt>빈도</dt><dd>9년 18건 · 보유 중앙 6.5일 · 승률 39%인데 이긴 평균 <span class="v">+2,850만</span> · 진 평균 <span class="v">−284만</span></dd>
+    </dl>
+  </div>
+
+</div>
+
+<h3>B2 순환 보유 — 실제 진입·청산 기록 (9년 18건)</h3>
+<div class="scroll"><table>
+<thead><tr><th>진입</th><th>청산</th><th>보유</th><th>사유</th><th>손익</th></tr></thead>
+<tbody>
+<tr><td class="n">2018-10-16</td><td class="n">2018-10-19</td><td class="n">3.0일</td><td>장세 종료</td><td class="n neg">−275만</td></tr>
+<tr><td class="n">2018-11-08</td><td class="n">2018-11-09</td><td class="n">1.0일</td><td>장세 종료</td><td class="n neg">−207만</td></tr>
+<tr><td class="n">2019-03-20</td><td class="n">2019-03-26</td><td class="n">6.0일</td><td>장세 종료</td><td class="n neg">−294만</td></tr>
+<tr><td class="n">2019-03-28</td><td class="n">2019-06-05</td><td class="n">68.6일</td><td>장세 종료</td><td class="n pos">+7,633만</td></tr>
+<tr><td class="n">2020-07-22</td><td class="n">2020-08-22</td><td class="n">31.0일</td><td>장세 종료</td><td class="n pos">+2,499만</td></tr>
+<tr><td class="n">2020-10-11</td><td class="n">2020-12-09</td><td class="n">59.0일</td><td>장세 종료</td><td class="n pos">+4,895만</td></tr>
+<tr><td class="n">2022-12-14</td><td class="n">2022-12-16</td><td class="n">2.0일</td><td>장세 종료</td><td class="n neg">−323만</td></tr>
+<tr><td class="n">2023-01-09</td><td class="n">2023-02-10</td><td class="n">32.0일</td><td>장세 종료</td><td class="n pos">+2,288만</td></tr>
+<tr><td class="n">2024-10-29</td><td class="n">2024-11-04</td><td class="n">6.0일</td><td>장세 종료</td><td class="n neg">−294만</td></tr>
+<tr><td class="n">2025-05-07</td><td class="n">2025-05-30</td><td class="n">23.0일</td><td>장세 종료</td><td class="n pos">+843만</td></tr>
+<tr><td class="n">2025-06-11</td><td class="n">2025-06-13</td><td class="n">2.0일</td><td>장세 종료</td><td class="n neg">−545만</td></tr>
+<tr><td class="n">2025-07-09</td><td class="n">2025-08-01</td><td class="n">23.0일</td><td>장세 종료</td><td class="n pos">+484만</td></tr>
+<tr><td class="n">2025-08-11</td><td class="n">2025-08-15</td><td class="n">4.0일</td><td>장세 종료</td><td class="n neg">−101만</td></tr>
+<tr><td class="n">2025-09-15</td><td class="n">2025-09-22</td><td class="n">7.0일</td><td>장세 종료</td><td class="n neg">−29만</td></tr>
+<tr><td class="n">2025-10-02</td><td class="n">2025-10-10 21:13</td><td class="n">8.9일</td><td class="warn">손절</td><td class="n neg">−690만</td></tr>
+<tr><td class="n">2026-07-21</td><td class="n">2026-07-24</td><td class="n">3.0일</td><td>장세 종료</td><td class="n neg">−27만</td></tr>
+<tr><td class="n">2026-07-27</td><td class="n">2026-07-28</td><td class="n">1.0일</td><td>장세 종료</td><td class="n neg">−336만</td></tr>
+<tr><td class="n">2026-08-19</td><td class="n">2026-09-11</td><td class="n">23.0일</td><td>장세 종료</td><td class="n pos">+1,307만</td></tr>
+</tbody>
+<tfoot><tr><td>18건</td><td>이익 7 · 손실 11</td><td class="n">중앙 6.5일</td><td>손절 1</td><td class="n pos">+16,826만</td></tr></tfoot>
+</table></div>
+<p class="hint">진입·청산 시각이 모두 00:00(UTC)인 이유는 <b>일봉이 닫힌 직후에만 판단</b>하기 때문이다(한국시간 09:00). 손절만 장중에 발생한다.
+짧게 끝난 거래는 일봉 RSI가 55를 넘었다가 바로 내려온 경우로 대부분 소액 손실이고, 크게 버는 것은 장세가 길게 이어질 때(68일 · 59일 · 32일)다.</p>
+
+<h3>주문 방식 — 무엇을 시장가로, 무엇을 지정가로 내는가</h3>
+<div class="scroll"><table class="stack txt">
+<thead><tr><th>동작</th><th>주문 종류</th><th>시점</th><th>수수료·미끄러짐</th></tr></thead>
+<tbody>
+<tr><td>첫 진입</td><td data-label="주문">시장가</td><td data-label="시점">신호 봉이 <b>닫힌 직후</b>(다음 1분 시가)</td><td data-label="비용" class="n">0.05% + 0.01%</td></tr>
+<tr><td>물타기 3개</td><td data-label="주문"><b>지정가</b></td><td data-label="시점">첫 진입 직후 세 개를 한꺼번에 등록</td><td data-label="비용" class="n">0.02%</td></tr>
+<tr><td>손절</td><td data-label="주문"><b>스톱마켓</b></td><td data-label="시점">첫 진입 직후 등록 · 전량</td><td data-label="비용" class="n">0.05% + 0.06%</td></tr>
+<tr><td>RSI 청산 (A1 · A3 · B1 · B2)</td><td data-label="주문">시장가</td><td data-label="시점">조건을 만족한 봉이 <b>닫힌 직후</b>(다음 1분 시가)</td><td data-label="비용" class="n">0.05% + 0.01%</td></tr>
+<tr><td>A2 익절</td><td data-label="주문"><b>지정가</b></td><td data-label="시점">평단 +0.5%에 미리 등록(물타기 체결 때마다 갱신)</td><td data-label="비용" class="n">0.02%</td></tr>
+</tbody></table></div>
+<p class="hint"><b>RSI는 해당 봉의 종가로만 계산한다.</b> 봉 중간에 기준값을 스쳐도 청산하지 않고, 봉이 닫힌 값이 기준을 넘어야 청산한다.
+백테스트도 같은 가정이며, 2025년 이후를 1초 체결 데이터로 대조해 결과가 일치함을 확인했다.</p>
+
+<h3>100,000 USDT 계좌 기준 금액</h3>
+<div class="scroll"><table>
+<thead><tr><th>전략</th><th>계좌 대비</th><th>첫 진입</th><th>물타기 1차</th><th>2차</th><th>3차</th><th>가득</th></tr></thead>
+<tbody>
+<tr><td>A1 적응형 RSI</td><td class="n">6.07%</td><td class="n">6,070</td><td class="n">18,210</td><td class="n">54,630</td><td class="n">163,890</td><td class="n">242,800</td></tr>
+<tr><td>A2 15분 RSI20</td><td class="n">27.59%</td><td class="n">27,590</td><td class="n">82,770</td><td class="n">248,310</td><td class="n">744,930</td><td class="n">1,103,600</td></tr>
+<tr><td>A3 동시 과매도</td><td class="n">6.95%</td><td class="n">6,950</td><td class="n">20,850</td><td class="n">62,550</td><td class="n">187,650</td><td class="n">278,000</td></tr>
+<tr><td>B1 4시간 추세</td><td class="n">191.18%</td><td class="n">191,180</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">191,180</td></tr>
+<tr><td>B2 순환 보유</td><td class="n">62.87% ×2</td><td class="n">62,870</td><td class="n">+62,870(추가분)</td><td class="n">—</td><td class="n">—</td><td class="n">125,740</td></tr>
+</tbody>
+<tfoot><tr><td>동시 최대</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">1,631,000</td></tr></tfoot>
+</table></div>
+<p class="hint">단위 USDT. 개별 다리의 최대치를 단순히 더하면 1,941,000 USDT 이지만, 라우팅 때문에 A 계열과 B 계열이 함께 차지 않아
+<b>실제 동시 최대는 1,631,000 USDT</b>(계좌의 16.3배)였다.</p>
+
+<h3>실행 예시 — A1, BTC 100,000달러에서 신호가 났다면</h3>
+<div class="scroll"><table>
+<thead><tr><th>단계</th><th>주문</th><th>가격(달러)</th><th>금액(USDT)</th><th>수량(BTC)</th></tr></thead>
+<tbody>
+<tr><td>첫 진입</td><td>시장가</td><td class="n">100,000</td><td class="n">6,070</td><td class="n">0.0607</td></tr>
+<tr><td>물타기 1차</td><td>지정가</td><td class="n">99,250</td><td class="n">18,210</td><td class="n">0.1835</td></tr>
+<tr><td>물타기 2차</td><td>지정가</td><td class="n">98,500</td><td class="n">54,630</td><td class="n">0.5546</td></tr>
+<tr><td>물타기 3차</td><td>지정가</td><td class="n">97,750</td><td class="n">163,890</td><td class="n">1.6766</td></tr>
+<tr><td>손절</td><td>스톱마켓</td><td class="n">94,750</td><td class="n">전량</td><td class="n">2.4754</td></tr>
+<tr><td>청산</td><td>시장가</td><td class="n">5분 RSI ≥ 45 마감 → 다음 1분 시가</td><td class="n">전량</td><td class="n">—</td></tr>
+</tbody></table></div>
+
+<h3>규모와 계좌 운용</h3>
+<ul>
+  <li>합산 최대 명목가 <b>16.31억</b>(시드의 16.3배) → 거래소 <b>레버리지를 20배로 설정</b>해야 물타기가 다 채워질 때 주문이 거부되지 않는다. 레버리지 숫자는 손익에 영향이 없고 한도만 정한다.</li>
+  <li>교차 마진. 매달 1일에 <b>배율 = 계좌 ÷ 처음 시드</b>로 모든 금액을 다시 계산한다(<b>상한 3배</b>).</li>
+  <li>절반 규모로 시작하려면 모든 금액을 반으로 하면 된다.</li>
+</ul>
+
+<h2>2. 성적</h2>
+
+<div class="scroll"><table>
+<thead><tr><th>해</th><th>2017(9~12)</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026(9월)</th></tr></thead>
+<tbody><tr><td>손익</td>
+<td class="n pos">+4,318</td><td class="n pos">+7,104</td><td class="n pos">+22,422</td><td class="n pos">+14,880</td><td class="n pos">+3,714</td>
+<td class="n pos">+2,437</td><td class="n pos">+9,296</td><td class="n pos">+5,995</td><td class="n pos">+7,200</td><td class="n pos">+6,032</td></tr></tbody>
+</table></div>
+<p class="hint">단위 만원 · 고정 수량 ×2.7 · <b>9개 연도 모두 이익</b>. 가장 낮은 해는 2022년 +2,437만.</p>
+
+<h3>월별 (고정 수량 ×2.7)</h3>
+<p class="hint">각 월 숫자를 누르면 그 달에 진입한 거래 내역이 아래에 펼쳐진다.</p>
+<div class="scroll"><table>
+<thead><tr><th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th></tr></thead>
+<tbody>
+<tr><td>2017</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n neg cell" data-ym="2017-09">−482</td><td class="n pos cell" data-ym="2017-10">+835</td><td class="n pos cell" data-ym="2017-11">+630</td><td class="n pos cell" data-ym="2017-12">+3,335</td><td class="n pos">+4,318</td></tr>
+<tr><td>2018</td><td class="n neg cell" data-ym="2018-01">−3,180</td><td class="n pos cell" data-ym="2018-02">+1,064</td><td class="n pos cell" data-ym="2018-03">+2,416</td><td class="n pos cell" data-ym="2018-04">+646</td><td class="n pos cell" data-ym="2018-05">+630</td><td class="n pos cell" data-ym="2018-06">+1,425</td><td class="n pos cell" data-ym="2018-07">+336</td><td class="n pos cell" data-ym="2018-08">+2,277</td><td class="n pos cell" data-ym="2018-09">+440</td><td class="n neg cell" data-ym="2018-10">−736</td><td class="n pos cell" data-ym="2018-11">+337</td><td class="n pos cell" data-ym="2018-12">+1,449</td><td class="n pos">+7,104</td></tr>
+<tr><td>2019</td><td class="n pos cell" data-ym="2019-01">+912</td><td class="n pos cell" data-ym="2019-02">+602</td><td class="n neg cell" data-ym="2019-03">−77</td><td class="n pos cell" data-ym="2019-04">+4,527</td><td class="n pos cell" data-ym="2019-05">+7,733</td><td class="n neg cell" data-ym="2019-06">−191</td><td class="n pos cell" data-ym="2019-07">+2,653</td><td class="n pos cell" data-ym="2019-08">+1,186</td><td class="n pos cell" data-ym="2019-09">+1,109</td><td class="n pos cell" data-ym="2019-10">+1,475</td><td class="n pos cell" data-ym="2019-11">+1,736</td><td class="n pos cell" data-ym="2019-12">+758</td><td class="n pos">+22,422</td></tr>
+<tr><td>2020</td><td class="n pos cell" data-ym="2020-01">+97</td><td class="n neg cell" data-ym="2020-02">−441</td><td class="n neg cell" data-ym="2020-03">−1,294</td><td class="n pos cell" data-ym="2020-04">+1,036</td><td class="n pos cell" data-ym="2020-05">+1,547</td><td class="n neg cell" data-ym="2020-06">−648</td><td class="n pos cell" data-ym="2020-07">+5,617</td><td class="n pos cell" data-ym="2020-08">+1,026</td><td class="n pos cell" data-ym="2020-09">+1,323</td><td class="n pos cell" data-ym="2020-10">+2,105</td><td class="n pos cell" data-ym="2020-11">+3,554</td><td class="n pos cell" data-ym="2020-12">+958</td><td class="n pos">+14,880</td></tr>
+<tr><td>2021</td><td class="n pos cell" data-ym="2021-01">+2,255</td><td class="n neg cell" data-ym="2021-02">−893</td><td class="n neg cell" data-ym="2021-03">−1,046</td><td class="n pos cell" data-ym="2021-04">+3,318</td><td class="n pos cell" data-ym="2021-05">+1,755</td><td class="n pos cell" data-ym="2021-06">+2,782</td><td class="n neg cell" data-ym="2021-07">−61</td><td class="n pos cell" data-ym="2021-08">+286</td><td class="n pos cell" data-ym="2021-09">+1,015</td><td class="n pos cell" data-ym="2021-10">+544</td><td class="n neg cell" data-ym="2021-11">−2,569</td><td class="n neg cell" data-ym="2021-12">−3,673</td><td class="n pos">+3,714</td></tr>
+<tr><td>2022</td><td class="n pos cell" data-ym="2022-01">+3,219</td><td class="n pos cell" data-ym="2022-02">+1,922</td><td class="n neg cell" data-ym="2022-03">−492</td><td class="n pos cell" data-ym="2022-04">+629</td><td class="n pos cell" data-ym="2022-05">+1,157</td><td class="n pos cell" data-ym="2022-06">+324</td><td class="n neg cell" data-ym="2022-07">−61</td><td class="n neg cell" data-ym="2022-08">−2,503</td><td class="n pos cell" data-ym="2022-09">+489</td><td class="n pos cell" data-ym="2022-10">+141</td><td class="n neg cell" data-ym="2022-11">−1,679</td><td class="n neg cell" data-ym="2022-12">−709</td><td class="n pos">+2,437</td></tr>
+<tr><td>2023</td><td class="n pos cell" data-ym="2023-01">+9,241</td><td class="n neg cell" data-ym="2023-02">−253</td><td class="n neg cell" data-ym="2023-03">−302</td><td class="n pos cell" data-ym="2023-04">+255</td><td class="n pos cell" data-ym="2023-05">+474</td><td class="n neg cell" data-ym="2023-06">−199</td><td class="n pos cell" data-ym="2023-07">+102</td><td class="n neg cell" data-ym="2023-08">−751</td><td class="n pos cell" data-ym="2023-09">+76</td><td class="n pos cell" data-ym="2023-10">+14</td><td class="n pos cell" data-ym="2023-11">+234</td><td class="n pos cell" data-ym="2023-12">+405</td><td class="n pos">+9,296</td></tr>
+<tr><td>2024</td><td class="n pos cell" data-ym="2024-01">+1,181</td><td class="n pos cell" data-ym="2024-02">+12</td><td class="n neg cell" data-ym="2024-03">−690</td><td class="n pos cell" data-ym="2024-04">+2,683</td><td class="n pos cell" data-ym="2024-05">+324</td><td class="n pos cell" data-ym="2024-06">+429</td><td class="n pos cell" data-ym="2024-07">+688</td><td class="n pos cell" data-ym="2024-08">+1,297</td><td class="n pos cell" data-ym="2024-09">+114</td><td class="n pos cell" data-ym="2024-10">+101</td><td class="n neg cell" data-ym="2024-11">−522</td><td class="n pos cell" data-ym="2024-12">+380</td><td class="n pos">+5,995</td></tr>
+<tr><td>2025</td><td class="n pos cell" data-ym="2025-01">+1,018</td><td class="n pos cell" data-ym="2025-02">+3,386</td><td class="n pos cell" data-ym="2025-03">+868</td><td class="n neg cell" data-ym="2025-04">−61</td><td class="n pos cell" data-ym="2025-05">+1,002</td><td class="n neg cell" data-ym="2025-06">−435</td><td class="n pos cell" data-ym="2025-07">+1,107</td><td class="n neg cell" data-ym="2025-08">−542</td><td class="n neg cell" data-ym="2025-09">−26</td><td class="n pos cell" data-ym="2025-10">+222</td><td class="n pos cell" data-ym="2025-11">+642</td><td class="n pos cell" data-ym="2025-12">+19</td><td class="n pos">+7,200</td></tr>
+<tr><td>2026</td><td class="n pos cell" data-ym="2026-01">+1,360</td><td class="n pos cell" data-ym="2026-02">+425</td><td class="n pos cell" data-ym="2026-03">+182</td><td class="n neg cell" data-ym="2026-04">−7</td><td class="n pos cell" data-ym="2026-05">+194</td><td class="n pos cell" data-ym="2026-06">+419</td><td class="n neg cell" data-ym="2026-07">−344</td><td class="n pos cell" data-ym="2026-08">+4,132</td><td class="n neg cell" data-ym="2026-09">−329</td><td class="n">-</td><td class="n">-</td><td class="n">-</td><td class="n pos">+6,032</td></tr>
+</tbody></table></div>
+
+<div id="detail" hidden>
+  <div class="dh"><b id="dTitle"></b><span id="dSum"></span><button class="close" id="dClose">닫기</button></div>
+  <div id="dWrap"></div>
+  <p class="hint">연 합계·전체 수익은 표(평가 기준)가 맞다. 전 기간을 다 더하면 두 방식의 합계는 같아진다 — 어느 달에 넣느냐만 다르다. 손익은 고정 수량 ×2.7 기준.</p>
+</div>
+
+<p class="hint">월별 값은 만원 단위 반올림이라 12개월 합과 연 합계가 1~2만원 차이 날 수 있다. · 109개월 중 이익 78 · 손실 31(28%) · 한 달 평균 +765만 · 중앙값 +429만 · 최고 2023-01 +9,241만 · 최악 2021-12 −3,673만 · 연속 손실 최장 2개월</p>
+
+<h3>계좌 비례(상한 3배)로 굴렸을 때 연말 계좌</h3>
+<div class="scroll"><table>
+<thead><tr><th>해</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+<tbody><tr><td>연말 계좌</td><td class="n">1.46억</td><td class="n">2.57억</td><td class="n">9.21억</td><td class="n">13.67억</td><td class="n">14.79억</td><td class="n">15.52억</td><td class="n">18.31억</td><td class="n">20.10억</td><td class="n">22.27억</td><td class="n">24.08억</td></tr></tbody>
+</table></div>
+<p class="hint">계좌 최저 0.81억 · 최종 24.08억</p>
+
+<h2>3. 거래 통계</h2>
+<div class="scroll"><table>
+<thead><tr><th>전략</th><th>첫 진입</th><th>9년 거래</th><th>월(2024~26)</th><th>승률</th><th>이긴 중앙</th><th>이긴 평균</th><th>진 평균</th><th>최대 이익</th><th>최대 손실</th><th>손절</th><th>보유 중앙</th><th>9년 합계</th></tr></thead>
+<tbody>
+<tr><td>A1 적응형 RSI</td><td class="n">607만</td><td class="n">1,234</td><td class="n">11.9건</td><td class="n">82%</td><td class="n pos">+3만</td><td class="n pos">+32만</td><td class="n neg">−85만</td><td class="n pos">+1,239만</td><td class="n neg">−867만</td><td class="n">16</td><td class="n">1.0시간</td><td class="n pos">+13,523만</td></tr>
+<tr><td>A2 15분 RSI20</td><td class="n">2,759만</td><td class="n">333</td><td class="n">2.8건</td><td class="n">99%</td><td class="n pos">+12만</td><td class="n pos">+52만</td><td class="n neg">−2,623만</td><td class="n pos">+933만</td><td class="n neg">−2,623만</td><td class="n">2</td><td class="n">1.2시간</td><td class="n pos">+11,815만</td></tr>
+<tr><td>A3 동시 과매도</td><td class="n">695만</td><td class="n">1,260</td><td class="n">11.6건</td><td class="n">84%</td><td class="n pos">+6만</td><td class="n pos">+60만</td><td class="n neg">−165만</td><td class="n pos">+1,525만</td><td class="n neg">−992만</td><td class="n">27</td><td class="n">1.5시간</td><td class="n pos">+29,714만</td></tr>
+<tr><td>B1 4시간 추세</td><td class="n">1.91억</td><td class="n">12</td><td class="n">0.2건</td><td class="n">58%</td><td class="n pos">+1,376만</td><td class="n pos">+2,097만</td><td class="n neg">−632만</td><td class="n pos">+6,045만</td><td class="n neg">−992만</td><td class="n">1</td><td class="n">7.3일</td><td class="n pos">+11,519만</td></tr>
+<tr><td>B2 순환 보유</td><td class="n">6,287만</td><td class="n">18</td><td class="n">0.3건</td><td class="n">39%</td><td class="n pos">+2,288만</td><td class="n pos">+2,850만</td><td class="n neg">−284만</td><td class="n pos">+7,633만</td><td class="n neg">−690만</td><td class="n">1</td><td class="n">6.5일</td><td class="n pos">+16,826만</td></tr>
+</tbody>
+<tfoot><tr><td>합계</td><td class="n">—</td><td class="n">2,857</td><td class="n">42.9건</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">47</td><td class="n">—</td><td class="n pos">+83,397만</td></tr></tfoot>
+</table></div>
+<ul>
+  <li>거래의 <b>93%는 물타기형 세 전략</b>이 만든다. 한 번에 수만~수십만 원, 보유 1~1.5시간이다.</li>
+  <li>추세·순환 보유는 9년간 <b>30건</b>뿐이지만 한 번에 <b>1,400~2,300만원</b>을 벌어 전체 수익의 34%를 담당한다.</li>
+  <li>손절은 9년간 47건이다. A2는 단 2건인데 그 한 번이 −2,623만으로, 손익 구조상 가장 위험한 다리다.</li>
+</ul>
+
+<h2>4. 위험 — 붕괴 구간 검증</h2>
+
+<h3>붕괴 직전에 시드 1억으로 새로 시작했다면</h3>
+<div class="scroll"><table class="stack txt">
+<thead><tr><th>시작</th><th>상황</th><th>3개월 뒤</th><th>6개월 뒤</th><th>계좌 최저</th><th>청산</th></tr></thead>
+<tbody>
+<tr><td>2017-11</td><td data-label="상황">2017-12 계단식 −38%</td><td data-label="3개월" class="n">0.97억</td><td data-label="6개월" class="n">1.42억</td><td data-label="최저" class="n">0.79억</td><td data-label="청산" class="pos">없음</td></tr>
+<tr><td>2018-01</td><td data-label="상황">2018 대하락 시작</td><td data-label="3개월" class="n">0.94억</td><td data-label="6개월" class="n">1.21억</td><td data-label="최저" class="n">0.55억</td><td data-label="청산" class="pos">없음</td></tr>
+<tr><td>2020-02</td><td data-label="상황">2020-03 수직 −54%</td><td data-label="3개월" class="n">0.92억</td><td data-label="6개월" class="n">1.65억</td><td data-label="최저" class="n">0.67억</td><td data-label="청산" class="pos">없음</td></tr>
+<tr><td>2021-11</td><td data-label="상황">2021-11 고점 뒤 하락</td><td data-label="3개월" class="n">0.62억</td><td data-label="6개월" class="n">0.75억</td><td data-label="최저" class="n warn">0.40억</td><td data-label="청산" class="pos">없음</td></tr>
+<tr><td>2022-04</td><td data-label="상황">루나 사태 · 6월 급락</td><td data-label="3개월" class="n">1.22억</td><td data-label="6개월" class="n">0.96억</td><td data-label="최저" class="n">0.59억</td><td data-label="청산" class="pos">없음</td></tr>
+<tr><td>2022-10</td><td data-label="상황">FTX 파산</td><td data-label="3개월" class="n">0.78억</td><td data-label="6개월" class="n">1.43억</td><td data-label="최저" class="n">0.62억</td><td data-label="청산" class="pos">없음</td></tr>
+</tbody></table></div>
+<p class="hint">가장 가혹한 경우는 2021-11 시작으로, 계좌가 <b>0.40억(−60%)</b>까지 내려갔다가 살아남았다. 이 낙폭을 견디고 규칙대로 계속 매매할 수 있어야 결과가 재현된다.</p>
+
+<h3>이어서 굴렸을 때 각 붕괴의 낙폭</h3>
+<div class="scroll"><table class="stack">
+<thead><tr><th>구간</th><th>구간 시작 계좌</th><th>1분 단위 최저</th><th>낙폭</th></tr></thead>
+<tbody>
+<tr><td>2017-12 붕괴</td><td data-label="시작" class="n">1.10억</td><td data-label="최저" class="n">0.81억</td><td data-label="낙폭" class="n neg">−2,856만</td></tr>
+<tr><td>2020-03 붕괴</td><td data-label="시작" class="n">9.24억</td><td data-label="최저" class="n">8.22억</td><td data-label="낙폭" class="n neg">−10,245만</td></tr>
+<tr><td>2021-11~12</td><td data-label="시작" class="n">16.66억</td><td data-label="최저" class="n">14.37억</td><td data-label="낙폭" class="n neg">−22,933만</td></tr>
+<tr><td>2022-05 루나</td><td data-label="시작" class="n">16.37억</td><td data-label="최저" class="n">16.03억</td><td data-label="낙폭" class="n neg">−3,363만</td></tr>
+<tr><td>2022-11 FTX</td><td data-label="시작" class="n">16.24억</td><td data-label="최저" class="n">15.06억</td><td data-label="낙폭" class="n neg">−11,792만</td></tr>
+</tbody></table></div>
+
+<h3>가상 경로 — 순서를 섞은 5년 역사 300개</h3>
+<p>실제 역사는 한 번뿐이라 운을 구분할 수 없다. 그래서 2017-09 이후의 실제 1분봉을 <b>30일 덩어리</b>로 잘라 무작위 순서로 다시 이어 붙인
+가상의 5년 역사를 만든다. 덩어리 안의 움직임(2017-12 계단식 붕괴, 2020-03 수직 −54%, 2022 하락장)은 그대로이고 순서만 바뀐다.</p>
+<div class="cards">
+  <div class="kpi"><div class="k">경로 수</div><div class="v">300</div></div>
+  <div class="kpi"><div class="k">청산된 경로</div><div class="v pos">0</div></div>
+  <div class="kpi"><div class="k">통계적 상한(95%)</div><div class="v">&lt; 1%</div></div>
+</div>
+<p class="hint">300개에서 0건이면 "청산 확률 1% 미만"까지 말할 수 있다. 진짜 0은 증명할 수 없고, 2020-03보다 심한 붕괴는 표본에 없다.</p>
+
+<h2>5. 왜 이 구조인가</h2>
+
+<div class="box">
+<h3 style="margin-top:0">라우팅 자체가 방어 장치다</h3>
+<p>초기안(모든 전략을 항상 운용)은 2017-12와 2020-03에 청산됐다. 원인은 <b>여러 물타기 전략이 동시에 가득 찬 것</b>이었다.
+2017-12-28 기준으로 명목가 16.21억 / 계좌 1.47억 = 11배였다. 라우팅을 넣으면 격렬 구간과 조용 구간의 전략이 섞이지 않아 이 조합이 나오지 않는다.</p>
+<p><b>추가 방어 장치는 오히려 해로웠다.</b> "평균회귀 한 자리만" 규칙을 넣으면 각 다리의 개별 낙폭이 작아지고, 같은 위험에 맞추는 계산이
+수량을 키워 명목가가 16.3억 → 35.2억이 되면서 <b>청산 확률이 0% → 18.8%로 올랐다.</b> 변동성 비례 축소도 같은 이유로 10.8% → 35.8%가 됐다.
+계좌 서킷브레이커(−20%, 30일 중단)도 단독으로는 도움이 되지 않았다.</p>
+</div>
+
+<div class="scroll"><table class="stack txt">
+<thead><tr><th>검증</th><th>내용</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>계산 정확도</td><td data-label="내용">1분봉 계산 vs 선물 체결(aggTrades) 1초봉, 2025-01 이후</td><td data-label="결과" class="pos">소수 셋째 자리까지 동일</td></tr>
+<tr><td>봉 안 순서</td><td data-label="내용">불리한 쪽 먼저 / 유리한 쪽 먼저</td><td data-label="결과" class="pos">RSI 청산 전략은 동일 · A2만 차이 큼</td></tr>
+<tr><td>데이터 출처</td><td data-label="내용">2020-01 이후 선물 원본과 대조</td><td data-label="결과" class="pos">종가·저가 100% 일치</td></tr>
+<tr><td>나쁜 체결</td><td data-label="내용">지정가 0.1% 뚫어야 체결 · 손절 미끄러짐 0.2%</td><td data-label="결과" class="warn">이익 24~40% 감소하나 모두 플러스</td></tr>
+<tr><td>비용</td><td data-label="내용">시장가 0.05% · 지정가 0.02% · 펀딩 실제 기록</td><td data-label="결과">총이익의 17%가 비용으로 차감됨</td></tr>
+<tr><td>모드 경계</td><td data-label="내용">0.3 · 0.35 · 0.4 · 0.45 비교</td><td data-label="결과" class="pos">0.35가 최적, 주변 값도 개선</td></tr>
+<tr><td>세 갈래 라우팅</td><td data-label="내용">격렬 / 보통 / 조용 3분할</td><td data-label="결과" class="warn">두 갈래보다 나쁨(+2,017 vs +2,220만)</td></tr>
+<tr><td>다른 코인</td><td data-label="내용">ETH · SOL · XRP · BNB · DOGE 선물</td><td data-label="결과" class="warn">추세·순환 1.28~3.64 강함 · A2는 3종에서 1 미만</td></tr>
+</tbody></table></div>
+
+<h2>6. 한계 — 반드시 알고 시작할 것</h2>
+<ul>
+  <li><b>2024~2026년을 보고 고른 구조다.</b> "가장 약한 해를 최대화"하는 방식으로 편중을 줄였지만, 앞날이 이 세 해와 다르면 성적도 달라진다.</li>
+  <li><b>청산을 피한 것도 부분적으로 만들어진 결과다.</b> −22% 차단선과 라우팅은 2017-12와 2020-03을 보고 나서 만든 규칙이다. 가상 경로 300개가 그 보완이지만, 표본 밖의 더 큰 붕괴는 다루지 못한다.</li>
+  <li><b>A2(15분 RSI20)가 가장 약한 고리다.</b> 다른 코인 5종 중 3종에서 PF 1 미만(ETH 0.52 · XRP 0.67 · BNB 0.68)이고 9년간 손절이 2건뿐이라 표본이 얇은데, 이 조합에서 가장 큰 명목가(11.04억)를 차지한다.</li>
+  <li><b>−60% 낙폭을 견뎌야 한다.</b> 2021-11 같은 시점에 시작하면 1억이 4,000만까지 줄어든다. 그 상태에서 규칙대로 계속해야 결과가 재현된다.</li>
+  <li><b>BTC 전용이다.</b> 모드 판정 규칙이 다른 코인에서는 반대로 작동했다.</li>
+  <li><b>실행에는 프로그램이 필요하다.</b> 다섯 전략이 한 계좌에서 하나의 포지션으로 합쳐지므로, 전략별 손절·물타기를 구분해 관리해야 한다. 물타기형 세 전략은 월 26건, 보유 1~1.5시간이라 손으로는 어렵다.</li>
+</ul>
+
+<h2>7. 다음 단계</h2>
+<ol>
+  <li><b>모의 운영</b> — 실시간 데이터에 붙여 주문 없이 신호만 기록하고, 백테스트가 만드는 신호와 같은지 대조한다.</li>
+  <li><b>소액 실거래</b> — ×0.25~0.5 규모로 시작해 체결 가격과 계산의 차이를 측정한다.</li>
+  <li><b>규모 상향</b> — 실제 체결이 계산과 맞으면 ×2.7까지 올린다. 계좌 비례(상한 3배)는 처음부터 적용한다.</li>
+</ol>
+
+<footer>
+계산 코드 <span class="num">context/btc-futures-strategy/bt/</span> · 상세 기록 <span class="num">docs/strategy-search_20260920_long_history.md</span><br>
+데이터: 바이낸스 USDⓈ-M 선물 BTCUSDT 1분봉(2020-01~) · 현물(2017-09~2019) · 선물 aggTrades 1초봉(2024-10~) · 2026-09-20 작성
+</footer>
+
+</div>
+<script src="btc-strategy-trades.js"></script>
+<script>
+const CODE = {'적응형30':'A1','15분RSI20':'A2','동시과매도':'A3','추세 4시간':'B1','순환 보유':'B2'};
+const FULL = {'적응형30':'적응형 RSI','15분RSI20':'15분 RSI20','동시과매도':'동시 과매도','추세 4시간':'4시간 추세','순환 보유':'순환 보유'};
+const byYm = {};
+for (const r of TRADES) { const ym = r.t0.slice(0,7); (byYm[ym] ||= []).push(r); }
+const won = v => (v>=0?'+':'−') + Math.abs(Math.round(v/1e4)).toLocaleString('ko-KR') + '만';
+const hold = m => m < 120 ? m + '분' : (m < 2880 ? (m/60).toFixed(1) + '시간' : (m/1440).toFixed(1) + '일');
+const cellWon = td => { const v = parseFloat(td.textContent.trim().replace(/,/g,'').replace('−','-').replace('+','')); return isFinite(v) ? v * 1e4 : null; };
+const detail = document.getElementById('detail');
+const dTitle = document.getElementById('dTitle'), dSum = document.getElementById('dSum'), dWrap = document.getElementById('dWrap');
+let cur = null;
+function show(ym, cell) {
+  document.querySelectorAll('td.cell.on').forEach(e => e.classList.remove('on'));
+  if (cur === ym) { detail.hidden = true; cur = null; return; }
+  cur = ym; cell.classList.add('on');
+  const list = (byYm[ym] || []).slice().sort((a,b) => a.t0 < b.t0 ? -1 : 1);
+  const sum = list.reduce((s,r) => s + r.p, 0);
+  const win = list.filter(r => r.p > 0).length;
+  const cellV = cellWon(cell), carry = cellV === null ? null : cellV - sum;
+  const carryIn = TRADES.filter(r => r.t0.slice(0,7) < ym && r.t1.slice(0,7) >= ym);
+  const carryOut = list.filter(r => r.t1.slice(0,7) > ym);
+  dTitle.textContent = ym.replace('-','년 ') + '월';
+  dSum.innerHTML = list.length ? `${list.length}건 · 이익 ${win} · 손실 ${list.length-win}` : '이 달에 새로 진입한 거래는 없다';
+  const rows = (arr, mark) => {
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
+    for (const r of arr) {
+      h += `<tr><td class="n">${r.t0}</td><td><span class="code${CODE[r.s][0] === 'B' ? ' b' : ''}">${CODE[r.s]}</span>${FULL[r.s]}</td><td class="n">${r.e.toLocaleString('ko-KR')}</td>` +
+           `<td class="n">${r.d ? r.d + '단계' : '없음'}</td><td>${r.r}</td><td class="n">${hold(r.h)}</td>` +
+           `<td class="n">${r.x.toLocaleString('ko-KR')}</td><td class="n">${r.mu.toFixed(2)}억</td>` +
+           `<td class="n ${r.p >= 0 ? 'pos' : 'neg'}">${won(r.p)}${mark ? ' <span style="color:var(--dim);font-size:11px">전체</span>' : ''}</td></tr>`;
+    }
+    return h + '</tbody></table></div>';
+  };
+  const cs = v => v >= 0 ? 'pos' : 'neg';
+  let h = '';
+  if (cellV !== null) {
+    h += `<div class="bridge">이 달 평가 손익 <b class="n ${cs(cellV)}">${won(cellV)}</b><span class="op">=</span>` +
+         `이 달 진입 거래의 전체 손익 <b class="n ${cs(sum)}">${won(sum)}</b><span class="op">+</span>` +
+         `달을 걸친 포지션 조정 <b class="n ${cs(carry)}">${won(carry)}</b></div>` +
+         `<p class="hint">표의 월 손익은 <b>그 달 말 평가 − 달 초 평가</b>라 <b>이 달에 움직인 만큼만</b> 잡히고, 아래 목록의 손익은 <b>그 거래의 전체 생애</b>다. 달을 걸쳐 들고 있던 포지션이 있으면 두 숫자가 어긋난다.</p>`;
+  }
+  if (carryIn.length) {
+    h += `<p class="ct">① 이월 포지션 — 지난달에 진입해 이 달까지 들고 있던 ${carryIn.length}건</p>`
+       + `<p class="hint">전체 손익은 <b>진입한 달</b> 목록에 적혀 있다. 이 달 셀에는 <b>이 달 안에서 움직인 만큼만</b> 더해진다.</p>`
+       + rows(carryIn, true);
+  }
+  if (carryOut.length) {
+    h += `<p class="ct">${carryIn.length ? '②' : '①'} 다음 달로 넘긴 포지션 — 이 달에 진입해 다음 달에 청산된 ${carryOut.length}건</p>`
+       + `<p class="hint">아래 목록에는 전체 손익이 적혀 있지만, 그중 <b>다음 달에 움직인 부분은 이 달 셀에서 빠진다</b>.</p>`
+       + rows(carryOut, true);
+  }
+  h += `<p class="ct">${(carryIn.length || carryOut.length) ? (carryIn.length && carryOut.length ? '③' : '②') + ' ' : ''}이 달에 진입한 거래 ${list.length}건</p>`;
+  h += list.length ? rows(list, false) : '<p class="empty">없다.</p>';
+  dWrap.innerHTML = h;
+  detail.hidden = false;
+  detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+document.addEventListener('click', e => { const td = e.target.closest('td.cell'); if (td) show(td.dataset.ym, td); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { detail.hidden = true; cur = null; document.querySelectorAll('td.cell.on').forEach(x => x.classList.remove('on')); }
+  const td = document.activeElement;
+  if ((e.key === 'Enter' || e.key === ' ') && td && td.matches('td.cell')) { e.preventDefault(); show(td.dataset.ym, td); }
+});
+document.getElementById('dClose').addEventListener('click', () => {
+  detail.hidden = true; cur = null; document.querySelectorAll('td.cell.on').forEach(x => x.classList.remove('on'));
+});
+document.querySelectorAll('td.cell').forEach(td => td.setAttribute('tabindex','0'));
+</script>
+</body>
+</html>

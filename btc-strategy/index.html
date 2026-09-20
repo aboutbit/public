@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>전략 비교 — 기존 4전략 vs 3·9·27 vs 2·4·8</title>
+<style>
+  :root{--bg:#fafafa;--card:#fff;--ink:#18181b;--dim:#71717a;--line:#e4e4e7;
+    --pos:#15803d;--neg:#b91c1c;--warn:#b45309;--accent:#0f766e;--accent2:#7c3aed;--accent3:#b45309;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;color-scheme:light}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b0b0d;--card:#141417;--ink:#f4f4f5;--dim:#a1a1aa;--line:#27272a;
+    --pos:#4ade80;--neg:#f87171;--warn:#fbbf24;--accent:#2dd4bf;--accent2:#a78bfa;--accent3:#fbbf24;color-scheme:dark}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;
+    padding:0 16px env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
+  .wrap{max-width:1000px;margin:0 auto;padding-block:32px 64px}
+  h1{font-size:23px;line-height:1.3;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:18px;margin:42px 0 12px;padding-top:20px;border-top:1px solid var(--line)}
+  p{margin:10px 0}
+  .sub{color:var(--dim);font-size:13px;margin:0 0 4px}
+  .hint{font-size:12.5px;color:var(--dim);margin:6px 0 0}
+  ul{margin:8px 0;padding-left:18px} li{margin:5px 0}
+  b{font-weight:650}
+  .pos{color:var(--pos)} .neg{color:var(--neg)} .warn{color:var(--warn)}
+  .n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+  .box.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}
+  .three{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin:16px 0}
+  .pane{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .pane .hd{padding:11px 14px;border-bottom:1px solid var(--line);font-weight:650;display:flex;gap:8px;align-items:baseline}
+  .pane .hd .tag{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .pane.p0 .hd .tag{background:color-mix(in srgb,var(--accent3) 18%,transparent);color:var(--accent3)}
+  .pane.p1 .hd .tag{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+  .pane.p2 .hd .tag{background:color-mix(in srgb,var(--accent2) 16%,transparent);color:var(--accent2)}
+  .pane dl{margin:0;padding:10px 14px 13px;display:grid;grid-template-columns:86px 1fr;gap:6px 10px;font-size:13px}
+  .pane dt{color:var(--dim);font-size:12px}
+  .pane dd{margin:0}
+  .pane dd.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:color-mix(in srgb,var(--ink) 4%,var(--card));font-weight:600;font-size:12.5px;color:var(--dim)}
+  tbody tr:last-child td{border-bottom:0}
+  td.cell{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);
+    text-decoration-thickness:1px;text-underline-offset:3px}
+  td.cell:hover,td.cell:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
+  td.cell.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
+  .tabs{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:6px 0 2px}
+  .tabs button{font:inherit;font-size:13.5px;padding:7px 14px;border:0;background:var(--card);color:var(--dim);cursor:pointer}
+  .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
+  .tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);
+    padding:10px 0 8px;margin:22px 0 0;border-bottom:1px solid var(--line)}
+  .tabbar .lb{font-size:12.5px;color:var(--dim);margin:0 0 6px}
+  .tabbar .tabs{margin:0}
+  .strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px;margin:14px 0}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .sc .hd{padding:12px 14px 10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(0deg,color-mix(in srgb,var(--accent) 5%,transparent),transparent)}
+  .sc.b .hd{background:linear-gradient(0deg,color-mix(in srgb,var(--accent2) 6%,transparent),transparent)}
+  .sc .hd .tag{font-size:11.5px;color:var(--accent);font-weight:650;letter-spacing:.04em}
+  .sc.b .hd .tag{color:var(--accent2)}
+  .sc .hd .nm{font-size:15.5px;font-weight:650;margin-top:2px;letter-spacing:-.01em}
+  .sc .hd .sz{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px}
+  .sc .hd .sz span{font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--ink) 6%,transparent);
+    border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .sc dl{margin:0;padding:10px 14px 13px;display:grid;grid-template-columns:62px 1fr;gap:7px 10px;font-size:13.5px;align-items:baseline}
+  .sc dt{color:var(--dim);font-size:12px;line-height:1.5}
+  .sc dd{margin:0;line-height:1.55}
+  .sc dd .v{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rule{display:grid;grid-template-columns:132px 1fr;gap:6px 14px;margin:10px 0;font-size:14px}
+  .rule dt{color:var(--dim);font-size:13px}
+  .rule dd{margin:0}
+  h3{font-size:15.5px;margin:26px 0 6px}
+  table.txt td,table.txt th{white-space:normal}
+  table.txt td:first-child{white-space:nowrap}
+  @media (max-width:600px){ .rule{grid-template-columns:1fr;gap:2px} .rule dt{margin-top:8px} }
+  .code{display:inline-block;min-width:22px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:650;
+    padding:1px 6px;border-radius:5px;margin-right:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+  .code.b{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--dim)}
+  #detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
+  #detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
+  #detail .dh b{font-size:16px}
+  #detail .dh span{font-size:13px;color:var(--dim)}
+  #detail .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
+  #detail .bridge{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+    border-radius:8px;padding:10px 13px;margin:0 0 4px;font-size:13.5px;line-height:1.95}
+  #detail .bridge .op{color:var(--dim);font-family:var(--mono);margin:0 4px}
+  #detail .bridge b.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  #detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+  a{color:var(--accent)}
+  @media (max-width:600px){
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-bottom:1px solid var(--line);padding:10px 12px}
+    table.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal;text-align:right}
+    table.stack td::before{content:attr(data-label);color:var(--dim);font-size:12.5px;text-align:left}
+    table.stack td:first-child{font-weight:650;padding-bottom:6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="sub">2026-09-20 · 바이낸스 USDⓈ-M 선물 BTCUSDT · 시드 1억</p>
+<h1>전략 비교 — 기존 4전략 vs 3·9·27 vs 2·4·8</h1>
+<p class="sub">기존안은 <b>원래 규모 그대로</b>, 새 두 사다리는 <b>2024년 = 6,000만</b>이 되도록 맞춘 뒤 비교 · <a href="final.html">최종안 보고서 →</a></p>
+
+<div class="three" id="panes"></div>
+
+<div class="box warn">
+<b>한눈에</b> — 기존 4전략은 2024~2026년이 연 3,500~4,600만이고 청산 확률 2.7%다.
+라우팅을 넣은 3·9·27은 같은 세 해를 6,000~7,200만으로 올리면서 <b>청산 0%</b>(전 구간 경로 300개)를 지킨다.
+2·4·8은 첫 진입이 4.4배 커서 잔 거래가 줄고 2025~2026년이 1.5배지만, <b>청산 13.3%</b>를 감수해야 한다.
+</div>
+
+<h2>1. 연도별 손익</h2>
+<div class="scroll"><table><thead><tr><th>구조</th>
+<th>2017(9~12)</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026(9월)</th></tr></thead>
+<tbody id="yearRows"></tbody></table></div>
+<p class="hint">단위 만원. 규모가 서로 다르므로 절대 금액이 아니라 <b>연도별 균형</b>과 아래 위험 지표를 함께 봐야 한다.</p>
+
+<div class="tabbar">
+  <p class="lb">아래 <b>2 · 3 · 4 · 5장</b>은 여기서 고른 구조 기준으로 바뀐다</p>
+  <div class="tabs" id="tabs">
+    <button data-k="OLD4">기존 4전략</button>
+    <button data-k="L3927" class="on">라우팅 3·9·27</button>
+    <button data-k="L248">라우팅 2·4·8</button>
+  </div>
+</div>
+
+<h2 id="specTitle">2. 매매 규칙 — 자세히</h2>
+<div id="spec"></div>
+
+<h2 id="liqTitle">3. 동시 보유와 청산 여유</h2>
+<div id="liq"></div>
+
+<h2>4. 월별 손익 · 거래 내역</h2>
+<p class="hint">각 월 숫자를 누르면 그 달에 진입한 거래가 아래에 펼쳐진다. 탭을 바꿔 같은 달을 세 구조로 비교할 수 있다.</p>
+<div class="scroll"><table><thead><tr>
+  <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th><th>거래</th>
+</tr></thead><tbody id="mrows"></tbody></table></div>
+
+<div id="detail" hidden>
+  <div class="dh"><b id="dTitle"></b><span id="dSum"></span><button class="close" id="dClose">닫기</button></div>
+  <div id="dWrap"></div>
+  <p class="hint">연 합계·전체 수익은 표(평가 기준)가 맞다. 전 기간을 다 더하면 두 방식의 합계는 같아진다 — 어느 달에 넣느냐만 다르다.</p>
+</div>
+
+<h2>5. 전략별 거래 통계</h2>
+<div id="statBlocks"></div>
+<p class="hint">기존안은 4전략(적응형 RSI · 15분 RSI20 없음), 라우팅안은 5전략이다. 같은 코드라도 구조에 따라 다른 전략일 수 있어 이름을 함께 표기했다.</p>
+
+<h2>6. 위험 비교</h2>
+<div class="scroll"><table class="stack">
+<thead><tr><th>항목</th><th>기존 4전략</th><th>라우팅 3·9·27</th><th>라우팅 2·4·8</th></tr></thead>
+<tbody>
+<tr><td>규모</td><td data-label="기존">×1 (원래 규모)</td><td data-label="3·9·27">×2.7</td><td data-label="2·4·8">×4.6</td></tr>
+<tr><td>최대 명목가</td><td data-label="기존" class="n">11.90억</td><td data-label="3·9·27" class="n">16.33억</td><td data-label="2·4·8" class="n">15.57억</td></tr>
+<tr><td>전 기간 최대 낙폭</td><td data-label="기존" class="n">13,602만</td><td data-label="3·9·27" class="n pos">8,106만</td><td data-label="2·4·8" class="n warn">13,708만</td></tr>
+<tr><td>2017-09 시작</td><td data-label="기존" class="n">26.7억 (최저 0.65)</td><td data-label="3·9·27" class="n">24.1억 (최저 0.81)</td><td data-label="2·4·8" class="n">34.6억 (최저 0.31)</td></tr>
+<tr><td>2020-01 시작</td><td data-label="기존" class="n">15.2억 (최저 0.59)</td><td data-label="3·9·27" class="n">13.9억 (최저 0.68)</td><td data-label="2·4·8" class="n">20.7억 (최저 0.45)</td></tr>
+<tr><td>2021-11 시작 (최악)</td><td data-label="기존" class="n warn">4.9억 (최저 0.25)</td><td data-label="3·9·27" class="n">5.2억 (최저 0.40)</td><td data-label="2·4·8" class="n warn">6.3억 (최저 0.17)</td></tr>
+<tr><td>2024-01 시작</td><td data-label="기존" class="n">3.0억 (최저 0.73)</td><td data-label="3·9·27" class="n">5.1억 (최저 0.83)</td><td data-label="2·4·8" class="n">6.7억 (최저 0.63)</td></tr>
+<tr><td><b>가상 경로 청산 확률</b></td><td data-label="기존" class="warn">2.7%<br><span class="hint">최근 구간 경로</span></td><td data-label="3·9·27" class="pos"><b>0.0%</b><br><span class="hint">전 구간 경로 300개</span></td><td data-label="2·4·8" class="neg"><b>13.3%</b><br><span class="hint">전 구간 경로 150개</span></td></tr>
+</tbody></table></div>
+
+<h2>7. 세 구조의 차이</h2>
+<ul>
+  <li><b>기존 4전략 → 라우팅 3·9·27</b>: 적응형 RSI와 15분 RSI20을 추가하고, 모드 판정을 "격렬이면 물타기형 / 조용이면 추세·보유"로 완전히 갈랐다.
+      그 결과 <b>2024~2026년이 4,248 · 4,606 · 3,502만 → 6,000 · 7,205 · 6,037만</b>으로 올라가면서 전 기간 낙폭은 1.36억 → 8,106만으로 줄었다.
+      두 계열이 동시에 물리지 않게 되어 위험이 낮아진 것이 핵심이다.</li>
+  <li><b>3·9·27 → 2·4·8</b>: 물타기 배수만 낮추고 첫 진입을 4.4배로 키웠다. 잔 거래(10만 미만)가 A1 70% → 41%, A3 59% → 23%로 줄고
+      2025~2026년 수익이 1.5배다. 대신 같은 목표를 맞추려면 규모가 ×2.7 → ×4.6이 되어 낙폭이 8,106만 → 1.37억, 청산 확률이 0% → 13.3%가 된다.</li>
+  <li><b>선택 기준</b> — "청산은 절대 안 된다"면 <b>라우팅 3·9·27</b>이 유일하다. 잔 거래가 많은 것은 부작용이 아니라 안전을 만드는 구조의 이면이다.
+      한 번의 금액을 키우고 싶다면 2·4·8을 ×3 내외로 낮춰 쓰는 절충이 가능하다(연 4,000만대).</li>
+</ul>
+
+<footer>
+데이터 <span class="n">btc-compare3-data.js</span> (거래 8,202건) · 계산 코드 <span class="n">context/btc-futures-strategy/bt/</span> · 2026-09-20
+</footer>
+
+</div>
+<script src="btc-compare3-data.js"></script>
+<script src="btc-compare3-liq.js"></script>
+<script>
+const ORDER = ['OLD4','L3927','L248'];
+const FULLNM = {A1:'', A2:'', A3:'', B1:'', B2:''};
+const won = v => (v>=0?'+':'−') + Math.abs(Math.round(v/1e4)).toLocaleString('ko-KR') + '만';
+const hold = m => m < 120 ? m + '분' : (m < 2880 ? (m/60).toFixed(1) + '시간' : (m/1440).toFixed(1) + '일');
+const cls = v => v >= 0 ? 'pos' : 'neg';
+let KEY = 'L3927';
+
+// ── 전략 상세 규칙 ────────────────────────────────────────────
+const money = v => v >= 1e8 ? (v/1e8).toFixed(2) + '억' : Math.round(v/1e4).toLocaleString('ko-KR') + '만';
+const usd = v => Math.round(v/1000).toLocaleString('ko-KR');
+const pct = x => (x*100).toFixed(x*100 % 1 ? 2 : 0).replace(/\.?0+$/,'') + '%';
+
+const F1 = '7일 최고가 대비 <b>3% 이상</b> 떨어져 있을 것';
+const F12 = '① 7일 최고가 대비 <b>4.6% 이상</b> 떨어져 있을 것 <b>그리고</b> ② 어제 일봉 종가가 <b>EMA50의 +10.75% 이내</b>일 것(너무 과열된 자리에서는 안 산다)';
+
+const LEG = {
+  'OLD4:A1': {nm:'5분 RSI 20', kind:'mr', step:[.01,.02,.03], stop:.05,
+    entry:'5분봉 RSI(14)가 <b>20 아래</b>에 있다가 <b>20 위로 올라온 채로 봉이 닫히면</b> → 다음 1분 시가에 시장가 매수',
+    filter:'<b>없다.</b> 신호만 나면 어떤 자리에서든 들어간다',
+    exit:'5분 RSI가 <span class="v">40 이상</span>으로 마감 → 전량 시장가'},
+  'OLD4:A3': {nm:'동시 과매도', kind:'mr', step:[.0075,.015,.0225], stop:.0525,
+    entry:'5분 RSI가 <span class="v">25 위로</span> 회복 <b>+</b> 직전 15분 RSI <span class="v">≤ 35</span> <b>+</b> 직전 1시간 RSI <span class="v">≤ 40</span> → 시장가',
+    filter:F1, exit:'5분 RSI가 <span class="v">50 이상</span>으로 마감 → 전량 시장가'},
+  'A1': {nm:'적응형 RSI', kind:'mr', step:[.0075,.015,.0225], stop:.0525,
+    entry:'5분 RSI가 <b>최근 30일 5분 RSI 분포의 하위 1%</b>보다 아래로 내려갔다가 그 위로 회복한 채 마감 → 시장가.<br><span class="hint">고정된 20·25 대신 <b>요즘 이 시장에서 얼마나 드문 과매도인가</b>로 판단한다. 조용한 장에서는 기준이 높아지고, 변동성이 큰 장에서는 기준이 낮아진다.</span>',
+    filter:F12, exit:'5분 RSI가 <span class="v">45 이상</span>으로 마감 → 전량 시장가'},
+  'A2': {nm:'15분 RSI 20', kind:'mr', step:[.015,.03,.045], stop:.06,
+    entry:'15분봉 RSI(14)가 <b>20 위로</b> 올라온 채로 마감 → 다음 1분 시가에 시장가 매수',
+    filter:F12, exit:'<b>평단 <span class="v">+0.5%</span> 지정가 익절</b> — 이 구조에서 유일하게 목표가를 걸어두고 기다린다. 물타기가 체결될 때마다 평단이 내려가므로 익절가도 같이 내린다'},
+  'A3': {nm:'동시 과매도', kind:'mr', step:[.0075,.015,.0225], stop:.0525,
+    entry:'5분 RSI가 <span class="v">25 위로</span> 회복 <b>+</b> 직전 15분 RSI <span class="v">≤ 35</span> <b>+</b> 직전 1시간 RSI <span class="v">≤ 40</span> → 시장가.<br><span class="hint">짧은 봉·중간 봉·긴 봉이 <b>동시에</b> 눌려 있을 때만 들어간다.</span>',
+    filter:F1, exit:'5분 RSI가 <span class="v">50 이상</span>으로 마감 → 전량 시장가'},
+  'B1': {nm:'4시간 추세 추종', kind:'trend',
+    entry:'<b>4시간봉 RSI(21)가 70 위로</b> 올라온 채 마감 → 다음 1분 시가에 시장가 매수<br><span class="hint">판단은 4시간봉이 닫힐 때만, 하루 6번(KST 01 · 05 · 09 · 13 · 17 · 21시).</span>',
+    exit:'4시간 RSI(21)가 <span class="v">50 아래로</span> 마감 → 다음 1분 시가에 전량 시장가',
+    stopTxt:'진입가 <span class="v">−5%</span> 스톱마켓. 손절되면 <b>RSI가 다시 70을 새로 뚫을 때까지</b> 쉰다'},
+  'B2': {nm:'순환 보유', kind:'band',
+    entry:'매일 <b>KST 09:00</b>(일봉 마감 직후) 한 번만 판단한다. <b>어제 일봉 RSI(14)가 55 미만 → 55 이상</b>으로 바뀐 날 아침에 <b>기본 1 + 추가 1</b>을 시장가 매수<br><span class="hint">그 시점 15분 RSI가 이미 ≥ 80이면 기본 1만 사고 추가분은 아래 순환 규칙으로 나중에 산다.</span>',
+    cyc:'들고 있는 동안 <b>15분봉이 RSI ≥ 80</b>으로 마감 → <b>추가분만</b> 매도 · 그 뒤 <b>RSI ≤ 35</b>로 마감 → 추가분 다시 매수. 기본분은 계속 들고 간다<br><span class="hint">오를 때 절반 덜어 팔고, 눌리면 다시 담는 식으로 같은 상승장을 여러 번 우려먹는다.</span>',
+    exit:'일봉 RSI가 <span class="v">55 아래로</span> 마감한 <b>다음 날 아침</b>에 전량 시장가',
+    stopTxt:'평단 <span class="v">−8%</span> 스톱마켓. 걸리면 <b>장세가 한 번 꺼졌다 다시 켜질 때까지</b> 쉰다'},
+};
+
+const SPEC = {
+  OLD4: {codes:['A1','A3','B1','B2'], keys:['OLD4:A1','OLD4:A3','B1','B2'], p:0.40, dd:25,
+    intro:'처음 만든 구조다. 물타기형 두 전략(A1 · A3)과 추세·보유 두 전략(B1 · B2)을 시장 상태로 갈라 쓴다. ' +
+          'A1이 <b>고정 RSI 20</b>이고 <b>필터가 없어</b> 신호만 나면 무조건 들어가는 것이 특징이자 약점이다. ' +
+          '물타기 사다리는 3·9·27이고, 규모는 원래대로 ×1이다.'},
+  L3927: {codes:['A1','A2','A3','B1','B2'], keys:['A1','A2','A3','B1','B2'], p:0.35, dd:22,
+    intro:'지금 <b>1순위</b>로 보는 구조다. 세 가지가 달라졌다. ' +
+          '① A1의 기준을 고정 20에서 <b>최근 30일 분포의 하위 1%</b>라는 적응형으로 바꿨다. ' +
+          '② 15분봉에서 도는 <b>A2</b>를 새로 넣어 물타기형을 세 개로 늘렸다. ' +
+          '③ 모든 물타기형에 <b>F1 · F2 두 필터</b>를 붙여, 이미 폭락한 자리와 과열된 자리를 피한다. ' +
+          '모드 경계도 0.4 → <b>0.35</b>로 낮춰 조용한 장에 추세·보유를 더 오래 태운다.'},
+  L248: {codes:['A1','A2','A3','B1','B2'], keys:['A1','A2','A3','B1','B2'], p:0.35, dd:22,
+    intro:'전략 구성·필터·청산 규칙은 <b>3·9·27과 완전히 같고</b>, 물타기 배수만 <b>2·4·8</b>로 낮췄다. ' +
+          '끝까지 물렸을 때 첫 진입의 40배가 아니라 <b>15배</b>만 쌓이므로, 같은 위험 예산으로 <b>첫 진입을 4.4배 크게</b> 잡을 수 있다. ' +
+          '잔돈 거래가 줄어 이긴 거래 한 건이 커지는 대신, 평소에도 큰 물량을 들고 있어 낙폭과 청산 위험이 올라간다.'},
+};
+
+function ladderRows(first, sizes, step) {
+  const tot = first * (1 + sizes.reduce((a,b)=>a+b,0));
+  return {tot, txt: sizes.map((s,i) => `<span class="v">−${pct(step[i])}</span>에 <span class="v">${s}배</span>(${money(first*s)})`).join(' · ')};
+}
+
+function renderSpec() {
+  const d = D3[KEY], sp = SPEC[KEY], m = d.meta;
+  const size = {}; sp.codes.forEach((c,i) => size[c] = d.first[i]);
+  const L = c => LEG[sp.keys[sp.codes.indexOf(c)]];
+  const mr = sp.codes.filter(c => c[0] === 'A'), ca = sp.codes.filter(c => c[0] === 'B');
+
+  const card = c => {
+    const g = L(c), f = size[c];
+    const lad = g.kind === 'mr' ? ladderRows(f, d.sizes, g.step) : null;
+    const full = g.kind === 'mr' ? lad.tot : (g.kind === 'band' ? f*2 : f);
+    let dl = '';
+    dl += `<dt>진입</dt><dd>${g.entry}</dd>`;
+    if (g.filter) dl += `<dt>필터</dt><dd>${g.filter}</dd>`;
+    if (lad) dl += `<dt>물타기</dt><dd>${lad.txt} <span class="hint">— 진입 즉시 지정가 3개를 한꺼번에 걸어둔다</span></dd>`;
+    if (g.cyc) dl += `<dt>순환</dt><dd>${g.cyc}</dd>`;
+    dl += `<dt>청산</dt><dd>${g.exit}</dd>`;
+    dl += `<dt>손절</dt><dd>${g.stopTxt || `첫 진입가 <span class="v">−${pct(g.stop)}</span> 스톱마켓 · 전량`}</dd>`;
+    return `<div class="sc${c[0]==='B'?' b':''}"><div class="hd"><div class="tag">${c}</div><div class="nm">${g.nm}</div>
+      <div class="sz"><span>첫 진입 ${money(f)} = ${usd(f)} USDT</span><span>가득 ${money(full)} = ${usd(full)} USDT</span></div></div>
+      <dl>${dl}</dl></div>`;
+  };
+
+  // 금액 표
+  let amt = '<div class="scroll"><table><thead><tr><th>전략</th><th>계좌 대비</th><th>첫 진입</th>'
+          + d.sizes.map((s,i) => `<th>물타기 ${i+1}차</th>`).join('') + '<th>가득</th></tr></thead><tbody>';
+  let sumFull = 0;
+  for (const c of sp.codes) {
+    const g = L(c), f = size[c];
+    const full = g.kind === 'mr' ? f*(1+d.sizes.reduce((a,b)=>a+b,0)) : (g.kind === 'band' ? f*2 : f);
+    sumFull += full;
+    const cells = g.kind === 'mr'
+      ? d.sizes.map(s => `<td class="n">${usd(f*s)}</td>`).join('')
+      : (g.kind === 'band' ? `<td class="n">+${usd(f)}<span class="hint"> 추가분</span></td>` + '<td class="n">—</td>'.repeat(d.sizes.length-1)
+                           : '<td class="n">—</td>'.repeat(d.sizes.length));
+    amt += `<tr><td>${c} ${g.nm}</td><td class="n">${(f/1e6).toFixed(2)}%</td><td class="n">${usd(f)}</td>${cells}<td class="n">${usd(full)}</td></tr>`;
+  }
+  amt += `</tbody><tfoot><tr><td>단순 합</td><td class="n">—</td>${'<td class="n">—</td>'.repeat(d.sizes.length+1)}<td class="n">${usd(sumFull)}</td></tr>`
+       + `<tr><td><b>실제 동시 최대</b></td><td class="n">—</td>${'<td class="n">—</td>'.repeat(d.sizes.length+1)}<td class="n"><b>${usd(d.full*1e8)}</b></td></tr></tfoot></table></div>`;
+
+  // 실행 예시 — A1
+  const g1 = L('A1'), f1 = size['A1'], P0 = 100000;
+  let ex = '<div class="scroll"><table><thead><tr><th>단계</th><th>주문</th><th>가격(달러)</th><th>금액(USDT)</th><th>수량(BTC)</th><th>누적 수량</th></tr></thead><tbody>';
+  let q = f1/P0/1000, tot = f1/1000;
+  ex += `<tr><td>첫 진입</td><td>시장가</td><td class="n">${P0.toLocaleString()}</td><td class="n">${usd(f1)}</td><td class="n">${q.toFixed(4)}</td><td class="n">${q.toFixed(4)}</td></tr>`;
+  d.sizes.forEach((s,i) => {
+    const px = Math.round(P0*(1-g1.step[i])), amtU = f1*s/1000, dq = amtU/px;
+    q += dq; tot += amtU;
+    ex += `<tr><td>물타기 ${i+1}차</td><td><b>지정가</b></td><td class="n">${px.toLocaleString()}</td><td class="n">${Math.round(amtU).toLocaleString()}</td><td class="n">${dq.toFixed(4)}</td><td class="n">${q.toFixed(4)}</td></tr>`;
+  });
+  const avg = tot/q, stopPx = Math.round(P0*(1-g1.stop));
+  ex += `<tr><td>이때 평단</td><td>—</td><td class="n">${Math.round(avg).toLocaleString()}</td><td class="n">${Math.round(tot).toLocaleString()}</td><td class="n">—</td><td class="n">${q.toFixed(4)}</td></tr>`
+     + `<tr><td>손절</td><td><b>스톱마켓</b></td><td class="n">${stopPx.toLocaleString()}</td><td class="n">전량</td><td class="n">—</td><td class="n">${q.toFixed(4)}</td></tr>`
+     + `<tr><td>청산</td><td>시장가</td><td colspan="4">${g1.exit.replace(/<br>[\s\S]*/,'')}</td></tr>`
+     + '</tbody></table></div>';
+
+  document.getElementById('specTitle').textContent = `2. 매매 규칙 — ${m.label}`;
+  document.getElementById('spec').innerHTML = `
+<div class="box"><b>어떤 구조인가</b><p style="margin:6px 0 0">${sp.intro}</p></div>
+
+<h3>가장 먼저 — 오늘은 어느 모드인가 (매일 UTC 00:00 = KST 09:00 판정)</h3>
+<dl class="rule">
+  <dt>상태값 계산</dt>
+  <dd>지난 <b>20일</b> 하루하루에 대해 "그날 어느 시점의 종가에서 그날 남은 시간 최저가까지" 가장 크게 빠진 폭을 구한다.
+      그 값이 <b>2% 이상인 날이 20일 중 몇 %인가</b>가 상태값이다.
+      <span class="hint">예: 20일 중 9일이 하루 안에 2% 넘게 출렁였다면 상태값 0.45.
+      하루가 끝난 뒤 계산하므로 미래 정보가 섞이지 않는다.</span></dd>
+  <dt>모드 갈림</dt>
+  <dd>상태값 <b>≥ ${sp.p} → 격렬 모드</b> (${mr.join(' · ')}만 신규 진입) ·
+      <b>&lt; ${sp.p} → 조용 모드</b> (${ca.join(' · ')}만 신규 진입)<br>
+      <span class="hint">이미 들고 있는 포지션은 모드가 바뀌어도 <b>원래 규칙대로</b> 끝까지 관리한다. 모드는 "새로 들어갈 자격"만 정한다.</span></dd>
+  <dt>붕괴 차단</dt>
+  <dd>현재가가 <b>최근 7일 최고가보다 ${sp.dd}% 이상 낮으면</b> 격렬 모드 전략(${mr.join(' · ')})은 신규 진입을 아예 하지 않는다.
+      <span class="hint">폭락 한가운데서 물타기를 시작하면 사다리가 다 차버리기 때문이다.</span></dd>
+</dl>
+<p class="hint">왜 이렇게 나누나 — 되돌림이 잦은 장에서는 <b>떨어지면 되사는</b> 물타기형이 잘 맞고, 한 방향으로 미는 장에서는 <b>타고 가는</b> 추세·보유형이 잘 맞는다.
+둘을 같이 돌리면 폭락장에서 <b>양쪽이 동시에 물려</b> 계좌가 위험해진다. 그래서 어느 한쪽만 켠다.</p>
+
+<h3>격렬 모드 — 물타기형 ${mr.length}전략 (상태값 ≥ ${sp.p})</h3>
+<div class="strat">${mr.map(card).join('')}</div>
+<p class="hint">모두 <b>롱(매수)</b>만 한다. 진입 즉시 물타기 지정가 ${d.sizes.length}개와 손절 스톱 1개를 한꺼번에 등록하고, 조건이 오면 자동으로 체결된다.
+물타기분만 따로 되파는 순환매매는 하지 않는다.</p>
+
+<h3>조용 모드 — 추세·보유 ${ca.length}전략 (상태값 &lt; ${sp.p})</h3>
+<div class="strat">${ca.map(card).join('')}</div>
+
+<h3>물타기 ${d.sizes.join('·')} 이 뭔가 — BTC가 10만 달러일 때 ${L('A1').nm}(A1) 실제 주문</h3>
+${ex}
+<p class="hint"><b>${d.sizes.join(' · ')}은 첫 진입의 몇 배인가</b>를 뜻한다. 다 채워지면 첫 진입의 <b>${1+d.sizes.reduce((a,b)=>a+b,0)}배</b>가 쌓인다.
+배수가 클수록 첫 진입을 작게 잡아야 해서 <b>평소 물량이 작고</b>(대부분 거래는 물타기 없이 첫 진입만으로 끝난다),
+배수가 작을수록 첫 진입을 크게 잡을 수 있어 <b>평소 물량이 크다</b>. 최대 명목가는 비슷해도 <b>평균 노출</b>이 달라지는 것이 세 구조의 핵심 차이다.</p>
+
+<h3>주문은 무엇을 시장가로, 무엇을 지정가로 내는가</h3>
+<div class="scroll"><table class="stack txt">
+<thead><tr><th>동작</th><th>주문 종류</th><th>시점</th><th>수수료 + 미끄러짐</th></tr></thead>
+<tbody>
+<tr><td>첫 진입</td><td data-label="주문">시장가</td><td data-label="시점">신호 봉이 <b>닫힌 직후</b>(다음 1분 시가)</td><td data-label="비용" class="n">0.05% + 0.01%</td></tr>
+<tr><td>물타기</td><td data-label="주문"><b>지정가</b></td><td data-label="시점">첫 진입 직후 ${d.sizes.length}개를 한꺼번에 등록</td><td data-label="비용" class="n">0.02%</td></tr>
+<tr><td>손절</td><td data-label="주문"><b>스톱마켓</b></td><td data-label="시점">첫 진입 직후 등록 · 전량</td><td data-label="비용" class="n">0.05% + 0.06%</td></tr>
+<tr><td>RSI 청산</td><td data-label="주문">시장가</td><td data-label="시점">조건을 만족한 봉이 <b>닫힌 직후</b>(다음 1분 시가)</td><td data-label="비용" class="n">0.05% + 0.01%</td></tr>
+${sp.codes.includes('A2') ? '<tr><td>A2 익절</td><td data-label="주문"><b>지정가</b></td><td data-label="시점">평단 +0.5%에 미리 등록(물타기 체결 때마다 갱신)</td><td data-label="비용" class="n">0.02%</td></tr>' : ''}
+</tbody></table></div>
+<p class="hint"><b>RSI는 그 봉의 종가로만 계산한다.</b> 봉 중간에 기준을 스쳐도 청산하지 않고, 봉이 닫힌 값이 기준을 넘어야 움직인다.
+백테스트도 같은 가정이며 2025년 이후를 1초 체결 데이터로 대조해 결과가 일치함을 확인했다. <b>진입 지연은 없다고 가정</b>한다(봉 마감 후 1분 이내 체결).</p>
+
+<h3>계좌 100,000 USDT(시드 1억) 기준 주문 금액</h3>
+${amt}
+<p class="hint">단위 USDT. 개별 전략의 최대치를 그냥 더하면 ${usd(sumFull)} USDT지만,
+모드 라우팅 때문에 A 계열과 B 계열이 함께 차는 일이 없어 <b>실제 동시 최대는 ${usd(d.full*1e8)} USDT</b>(계좌의 ${d.full.toFixed(1)}배)였다.</p>
+
+<h3>계좌 운용</h3>
+<ul>
+  <li>합산 최대 명목가가 <b>${d.full.toFixed(2)}억</b>(시드의 ${d.full.toFixed(1)}배)이므로 거래소 <b>레버리지를 20배</b>로 설정해야 물타기가 다 채워질 때 주문이 거부되지 않는다. 레버리지 숫자 자체는 손익에 영향이 없고 <b>주문 한도만</b> 정한다.</li>
+  <li><b>교차 마진(cross)</b>. 청산은 계좌 전체 기준으로 판정된다.</li>
+  <li>매달 1일에 <b>배율 = 현재 계좌 ÷ 처음 시드</b>로 모든 금액을 다시 계산한다(<b>상한 3배</b>). 위 표의 손익은 배율 없이 <b>고정 수량</b>으로 계산한 값이다.</li>
+  <li>절반 규모로 시작하려면 모든 금액을 그대로 반으로 나누면 된다. 수익도 낙폭도 정확히 절반이 된다.</li>
+  <li>바이낸스는 <b>한 심볼에 한 포지션</b>이므로, 전략별 장부를 봇이 따로 들고 있다가 순 수량만 주문으로 내보내야 한다. 손익은 장부로 나눠 계산해도 합계가 같다.</li>
+</ul>`;
+}
+
+// ── 동시 보유와 청산 여유 ──────────────────────────────────────
+function renderLiq() {
+  const d = D3[KEY], q = LIQ[KEY], yh = {}; q.years.forEach(r => yh[r.y] = r);
+  const rm = v => v == null ? '—' : `<b class="${v < 12 ? 'warn' : (v < 25 ? '' : 'pos')}">${v.toFixed(1)}%</b>`;
+
+  let dist = '<div class="scroll"><table><thead><tr><th>동시에 열린 전략</th><th>전체 시간 중</th><th>그때 명목가 중앙</th><th>그때 최대 명목가</th><th>그 구간 최저 여유</th></tr></thead><tbody>'
+    + q.dist.map(r => `<tr><td>${r.n === 0 ? '없음 (전부 청산 상태)' : r.n + '개'}</td><td class="n">${r.share.toFixed(1)}%</td>`
+      + `<td class="n">${r.n === 0 ? '—' : r.med.toFixed(2) + '억'}</td><td class="n">${r.n === 0 ? '—' : r.mx.toFixed(2) + '억'}</td>`
+      + `<td class="n">${rm(r.room)}</td></tr>`).join('') + '</tbody></table></div>';
+
+  let worst = '<div class="scroll"><table><thead><tr><th>시각(UTC)</th><th>그때 열려 있던 전략</th><th>1분 저가</th><th>계산된 청산가</th><th>추가 여유</th><th>명목가</th><th>자산</th></tr></thead><tbody>'
+    + q.worst.map(r => `<tr><td class="n">${r.t}</td><td>${r.legs.split(' ').map(c => `<span class="code${c[0]==='B'?' b':''}">${c}</span>`).join('')}</td>`
+      + `<td class="n">${r.lo}</td><td class="n">${r.liq}</td><td class="n">${rm(r.room)}</td><td class="n">${r.no}</td><td class="n">${r.eq}</td></tr>`).join('')
+    + '</tbody></table></div>';
+
+  let yrs = '<div class="scroll"><table><thead><tr><th>해</th><th>그 해 최저 여유</th><th>가장 아슬아슬했던 순간</th><th>그때 열린 전략</th><th>명목가</th><th>자산</th></tr></thead><tbody>';
+  for (let y = 2017; y <= 2026; y++) {
+    const r = yh[y];
+    yrs += r ? `<tr><td>${y}</td><td class="n">${rm(r.room)}</td><td class="n">${r.t}</td>`
+             + `<td>${r.legs.split(' ').map(c => `<span class="code${c[0]==='B'?' b':''}">${c}</span>`).join('')}</td><td class="n">${r.no}</td><td class="n">${r.eq}</td></tr>`
+             : `<tr><td>${y}</td><td class="pos"><b>청산 불가</b></td><td colspan="4" class="hint">계좌가 커져 청산가가 0 아래 — 가격이 0이 되어도 청산되지 않는 상태</td></tr>`;
+  }
+  yrs += '</tbody></table></div>';
+
+  document.getElementById('liqTitle').textContent = `3. 동시 보유와 청산 여유 — ${d.meta.label}`;
+  document.getElementById('liq').innerHTML = `
+<div class="box"><b>무엇을 쟀나</b>
+<p style="margin:6px 0 0">교차 마진이라 청산은 <b>전략별이 아니라 계좌 전체</b>로 판정된다. 그래서 9년치 <b>1분마다</b> 그 순간의 실제 청산가를 계산했다.</p>
+<p class="n" style="margin:8px 0 0;font-size:13px">청산가 = −(시드 + 현금) ÷ (보유수량 × 0.99) &nbsp;·&nbsp; 여유 = (그 분의 저가 − 청산가) ÷ 저가</p>
+<p class="hint">여유 = <b>거기서 몇 % 더 빠져야 청산인가</b>. 유지증거금률은 바이낸스 실제 구간표 대신 <b>1% 고정</b>으로 잡았다(실제보다 빡빡한 가정).
+자산은 1분 <b>저가</b>로, 명목가는 종가로 평가해 불리한 쪽으로 계산했다.</p></div>
+
+<h3>걱정하신 상황 — A 계열과 B 계열이 동시에 열리는 경우</h3>
+<dl class="rule">
+  <dt>실제 빈도</dt>
+  <dd>9년 전체 시간 중 <b>${q.both.share.toFixed(1)}%</b>. (A 계열만 ${q.both.a.toFixed(1)}% · B 계열만 ${q.both.bb.toFixed(1)}% · 아무것도 없음 ${q.both.none.toFixed(1)}%)</dd>
+  <dt>그때 위험했나</dt>
+  <dd>겹친 구간의 <b>최저 여유 ${q.both.room.toFixed(1)}%</b> · 그때 최대 명목가 ${q.both.mx.toFixed(2)}억.
+      <b>전 구간 최저(${q.minroom.toFixed(1)}%)보다 훨씬 여유롭다.</b></dd>
+  <dt>왜 그런가</dt>
+  <dd>모드 라우팅 때문에 <b>A와 B가 같은 날 새로 들어가는 일이 없다</b>. 겹치려면 한쪽이 <b>이미 남아 있는 상태</b>에서 모드가 뒤집혀야 하는데,
+      그러려면 시장이 조용해져야 하고 — 조용한 시장에서는 A의 물타기가 깊이 채워지지 않는다.
+      즉 <b>겹칠 때는 A가 가볍고, A가 무거울 때는 겹치지 않는다</b>.</dd>
+  <dt>진짜 위험한 곳</dt>
+  <dd>겹침이 아니라 <b>A 계열 셋이 동시에 사다리를 다 채우는 순간</b>이다. 아래 표에서 여유가 가장 적었던 날들은 모두 그 경우다.</dd>
+</dl>
+
+<h3>동시에 몇 개나 열려 있었나 (9년, 1분 단위)</h3>
+${dist}
+<p class="hint">전 구간 최대 명목가 <b>${q.maxnot.toFixed(2)}억</b>(그때 ${q.maxnot_legs}개 열림) · 계좌 최저 <b>${q.mineq.toFixed(2)}억</b>.
+전체 시간의 <b>${q.dist[0].share.toFixed(1)}%</b>는 아예 포지션이 없다.</p>
+
+<h3>청산까지 여유가 가장 적었던 순간 10개 (하루 1건)</h3>
+${worst}
+<p class="hint">단위 달러 · 억원. 전 구간 최저 여유 <b>${q.minroom.toFixed(1)}%</b> — 그 1분의 저가에서 <b>추가로 ${q.minroom.toFixed(1)}% 더</b> 빠져야 청산이다.</p>
+<div class="box${q.minroom < 9.3 ? ' warn' : ''}"><b>이 숫자를 과신하면 안 되는 이유</b>
+<p style="margin:6px 0 0">이 데이터에서 BTC의 실제 낙폭 기록은 <b>1분 −9.3%</b>(2020-03-13) · <b>5분 −17.5%</b> · <b>15분 −26.6%</b>(둘 다 2020-03-12)다.
+즉 <b>몇 분에 걸친 낙폭이라면 ${q.minroom.toFixed(0)}%는 충분히 넘을 수 있다.</b></p>
+<p style="margin:6px 0 0">그럼에도 청산이 나지 않은 이유는, 그 몇 분 사이에 각 전략의 <b>손절(A1 −5.25% · A2 −6% · A3 −5.25% · B1 −5% · B2 −8%)이 먼저 체결되어 명목가가 사라지기</b> 때문이다.
+위 여유 수치는 <b>손절이 정상 체결된다는 전제</b>의 결과다. 거래소 장애나 극단적 갭으로 스톱이 한참 밀려 체결되면 이 방어선이 무너진다 —
+그것이 이 전략에 남아 있는 가장 큰 실제 위험이고, 백테스트로는 끝까지 검증할 수 없는 부분이다.</p></div>
+
+<h3>해마다 가장 아슬아슬했던 순간</h3>
+${yrs}
+<p class="hint">2020년 이후로는 여유가 크게 벌어진다. 위험 구간은 <b>계좌가 아직 작고 변동성이 극심했던 2017~2019년</b>에 몰려 있다.
+</p>
+
+<div class="box${q.minroom < 10 ? ' warn' : ''}"><b>결론</b>
+<p style="margin:6px 0 0">${q.minroom >= 10
+  ? `9년 내내 청산까지 최소 <b>${q.minroom.toFixed(1)}%</b>의 여유가 있었다. 동시 보유 자체는 문제가 아니었고, 걱정하신 A+B 겹침 구간은 오히려 가장 안전한 축(최저 ${q.both.room.toFixed(1)}%)이었다. 다만 이것은 <b>과거 경로 1개</b>의 결과이므로, 가상 경로 ${d.meta.ruin_note}에서 청산 <b>${d.meta.ruin}</b>라는 숫자와 함께 봐야 한다.`
+  : `9년 중 최저 여유가 <b>${q.minroom.toFixed(1)}%</b>까지 좁혀진 적이 있다. 1분 안에 그만큼 더 빠지는 일은 드물지만 불가능하지 않다. 가상 경로에서 청산 확률이 <b>${d.meta.ruin}</b>로 나오는 이유가 여기에 있다.`}</p></div>`;
+}
+
+// 카드
+document.getElementById('panes').innerHTML = ORDER.map((k,i) => {
+  const d = D3[k], m = d.meta;
+  return `<div class="pane p${i}"><div class="hd"><span class="tag">${m.label}</span></div><dl>
+    <dt>구성</dt><dd>${m.legs}</dd>
+    <dt>모드</dt><dd>${m.mode}</dd>
+    <dt>물타기</dt><dd class="n">${d.sizes.join(' · ')}</dd>
+    <dt>규모</dt><dd class="n">${m.scale}</dd>
+    <dt>첫 진입</dt><dd class="n">${d.first.map(x => won(x).replace('+','')).join(' · ')}</dd>
+    <dt>최대 명목</dt><dd class="n">${d.full.toFixed(2)}억</dd>
+    <dt>전 기간 낙폭</dt><dd class="n">${won(d.mdd).replace('+','')}</dd>
+    <dt>가상 청산</dt><dd class="n ${m.ruin === '0.0%' ? 'pos' : 'warn'}"><b>${m.ruin}</b></dd>
+  </dl></div>`;
+}).join('');
+
+// 연도별
+document.getElementById('yearRows').innerHTML = ORDER.map(k => {
+  let h = `<tr><td>${D3[k].meta.label}</td>`;
+  for (let y = 2017; y <= 2026; y++) { const v = D3[k].years[String(y)]; h += `<td class="n ${cls(v)}">${won(v)}</td>`; }
+  return h + '</tr>';
+}).join('');
+
+// 전략별 통계
+document.getElementById('statBlocks').innerHTML = ORDER.map(k => {
+  const d = D3[k];
+  const rows = d.stats.map(s => `<tr><td><span class="code${s.code[0]==='B'?' b':''}">${s.code}</span>${s.nm}</td>
+    <td class="n">${won(s.first).replace('+','')}</td><td class="n">${s.pm24.toFixed(1)}건</td><td class="n">${(s.win*100).toFixed(0)}%</td>
+    <td class="n pos">${won(s.med)}</td><td class="n pos">${won(s.avg)}</td><td class="n">${(s.small*100).toFixed(0)}%</td>
+    <td class="n neg">${won(s.al)}</td><td class="n neg">${won(s.mn)}</td><td class="n">${s.stops}</td>
+    <td class="n ${cls(s.tot)}">${won(s.tot)}</td></tr>`).join('');
+  return `<h3 style="margin:22px 0 6px;font-size:14.5px;color:var(--dim)">${d.meta.label}</h3>
+    <div class="scroll"><table><thead><tr><th>전략</th><th>첫 진입</th><th>월 거래(2024~26)</th><th>승률</th><th>이긴 중앙</th><th>이긴 평균</th>
+    <th>10만 미만</th><th>진 평균</th><th>최대 손실</th><th>손절</th><th>9년 합계</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}).join('');
+
+// 월별
+function renderMonths() {
+  const d = D3[KEY], cnt = {};
+  for (const r of d.trades) { const ym = r.t0.slice(0,7); cnt[ym] = (cnt[ym]||0) + 1; }
+  let h = '';
+  for (let y = 2017; y <= 2026; y++) {
+    let row = `<tr><td>${y}</td>`, tot = 0, n = 0;
+    for (let m = 1; m <= 12; m++) {
+      const ym = `${y}-${String(m).padStart(2,'0')}`;
+      if (!(ym in d.months)) { row += '<td class="n">-</td>'; continue; }
+      const v = d.months[ym]; tot += v; n += cnt[ym] || 0;
+      row += `<td class="n ${cls(v)} cell" data-ym="${ym}" tabindex="0">${won(v)}</td>`;
+    }
+    h += row + `<td class="n ${cls(tot)}"><b>${won(tot)}</b></td><td class="n">${n}건</td></tr>`;
+  }
+  document.getElementById('mrows').innerHTML = h;
+  detail.hidden = true; cur = null;
+}
+
+const detail = document.getElementById('detail');
+const dTitle = document.getElementById('dTitle'), dSum = document.getElementById('dSum'), dWrap = document.getElementById('dWrap');
+let cur = null;
+function show(ym, cell) {
+  document.querySelectorAll('td.cell.on').forEach(e => e.classList.remove('on'));
+  if (cur === ym) { detail.hidden = true; cur = null; return; }
+  cur = ym; cell.classList.add('on');
+  const d = D3[KEY], list = d.trades.filter(r => r.t0.slice(0,7) === ym);
+  const nm = {}; d.stats.forEach(s => nm[s.code] = s.nm);
+  const sum = list.reduce((s,r) => s + r.p, 0), win = list.filter(r => r.p > 0).length;
+  const cellV = d.months[ym] || 0, carry = cellV - sum;
+  const carryIn = d.trades.filter(r => r.t0.slice(0,7) < ym && r.t1.slice(0,7) >= ym);
+  const carryOut = list.filter(r => r.t1.slice(0,7) > ym);
+  dTitle.textContent = `${ym.replace('-','년 ')}월 · ${d.meta.label}`;
+  dSum.innerHTML = list.length
+    ? `${list.length}건 · 이익 ${win} · 손실 ${list.length-win}`
+    : `이 달에 새로 진입한 거래는 없다`;
+  const rows = (arr, mark) => {
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
+    for (const r of arr) {
+      h += `<tr><td class="n">${r.t0}</td><td><span class="code${r.s[0]==='B'?' b':''}">${r.s}</span>${nm[r.s]||''}</td>
+        <td class="n">${r.e.toLocaleString('ko-KR')}</td><td class="n">${r.d ? r.d+'단계' : '없음'}</td><td>${r.r}</td>
+        <td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString('ko-KR')}</td><td class="n">${r.mu.toFixed(2)}억</td>
+        <td class="n ${cls(r.p)}">${won(r.p)}${mark ? ' <span style="color:var(--dim);font-size:11px">전체</span>' : ''}</td></tr>`;
+    }
+    return h + '</tbody></table></div>';
+  };
+  let h = `<div class="bridge">이 달 평가 손익 <b class="n ${cls(cellV)}">${won(cellV)}</b><span class="op">=</span>` +
+          `이 달 진입 거래의 전체 손익 <b class="n ${cls(sum)}">${won(sum)}</b><span class="op">+</span>` +
+          `달을 걸친 포지션 조정 <b class="n ${cls(carry)}">${won(carry)}</b></div>` +
+          `<p class="hint">표의 월 손익은 <b>그 달 말 평가 − 달 초 평가</b>라 <b>이 달에 움직인 만큼만</b> 잡히고, 아래 목록의 손익은 <b>그 거래의 전체 생애</b>다. 달을 걸쳐 들고 있던 포지션이 있으면 두 숫자가 어긋난다.</p>`;
+  if (carryIn.length) {
+    h += `<p class="ct">① 이월 포지션 — 지난달에 진입해 이 달까지 들고 있던 ${carryIn.length}건</p>`
+       + `<p class="hint">전체 손익은 <b>진입한 달</b> 목록에 적혀 있다. 이 달 셀에는 <b>이 달 안에서 움직인 만큼만</b> 더해진다.</p>`
+       + rows(carryIn, true);
+  }
+  if (carryOut.length) {
+    h += `<p class="ct">${carryIn.length ? '②' : '①'} 다음 달로 넘긴 포지션 — 이 달에 진입해 다음 달에 청산된 ${carryOut.length}건</p>`
+       + `<p class="hint">아래 목록에는 전체 손익이 적혀 있지만, 그중 <b>다음 달에 움직인 부분은 이 달 셀에서 빠진다</b>.</p>`
+       + rows(carryOut, true);
+  }
+  h += `<p class="ct">${(carryIn.length || carryOut.length) ? (carryIn.length && carryOut.length ? '③' : '②') + ' ' : ''}이 달에 진입한 거래 ${list.length}건</p>`;
+  h += list.length ? rows(list, false) : '<p class="hint">없다.</p>';
+  dWrap.innerHTML = h;
+  detail.hidden = false;
+  detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+document.addEventListener('click', e => {
+  const td = e.target.closest('td.cell'); if (td) show(td.dataset.ym, td);
+  const tb = e.target.closest('#tabs button');
+  if (tb) { document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b === tb)); KEY = tb.dataset.k; renderSpec(); renderLiq(); renderMonths(); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { detail.hidden = true; cur = null; document.querySelectorAll('td.cell.on').forEach(x => x.classList.remove('on')); }
+  const td = document.activeElement;
+  if ((e.key === 'Enter' || e.key === ' ') && td && td.matches('td.cell')) { e.preventDefault(); show(td.dataset.ym, td); }
+});
+document.getElementById('dClose').addEventListener('click', () => {
+  detail.hidden = true; cur = null; document.querySelectorAll('td.cell.on').forEach(x => x.classList.remove('on'));
+});
+renderSpec();
+renderLiq();
+renderMonths();
+</script>
+</body>
+</html>
