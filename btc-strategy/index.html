@@ -166,7 +166,100 @@
 <tr><td><b>가상 경로 청산 확률</b></td><td data-label="기존" class="warn">2.7%<br><span class="hint">최근 구간 경로</span></td><td data-label="3·9·27" class="pos"><b>0.0%</b><br><span class="hint">전 구간 경로 300개</span></td><td data-label="2·4·8" class="neg"><b>13.3%</b><br><span class="hint">전 구간 경로 150개</span></td></tr>
 </tbody></table></div>
 
-<h2>7. 세 구조의 차이</h2>
+
+<h2 id="a2sec">7. A2 사다리 변경 — 3/9/27 → 3/9/9 · 40% <span style="font-size:13px;color:var(--dim);font-weight:400">(2026-09-21 채택)</span></h2>
+
+<div class="box warn">
+<b>왜 바꿨나</b> — 다섯 다리 중 <b>A2 만 강제청산이 가까웠다.</b> A2 는 첫 진입이 27.612% 로 커서
+같은 3·9·27 사다리에서도 명목가가 <b>11.04배</b>까지 간다(A1·A3 는 2.4~2.8배).
+그래서 손절(−6%)과 강제청산(−11.78%) 사이 여유가 <b>5.78%p</b> 밖에 없었다.
+</div>
+
+<h3>바꾼 내용 — 꼬리를 자르고 머리를 키운다</h3>
+<div class="scroll"><table>
+<thead><tr><th>단계</th><th>가격</th><th>지금 3/9/27 · 27.6%</th><th>바꾼 뒤 3/9/9 · 40%</th></tr></thead>
+<tbody>
+<tr><td>첫 진입</td><td class="n">80,000</td><td class="n">27,612 USDT</td><td class="n pos">40,000 USDT (+45%)</td></tr>
+<tr><td>물타기 1차</td><td class="n">78,800 (−1.5%)</td><td class="n">×3 &nbsp; 82,836</td><td class="n">×3 &nbsp; 120,000</td></tr>
+<tr><td>물타기 2차</td><td class="n">77,600 (−3%)</td><td class="n">×9 &nbsp; 248,508</td><td class="n">×9 &nbsp; 360,000</td></tr>
+<tr><td>물타기 3차</td><td class="n">76,400 (−4.5%)</td><td class="n">×27 &nbsp; 745,524</td><td class="n neg">×9 &nbsp; 360,000</td></tr>
+<tr><td><b>가득</b></td><td class="n">—</td><td class="n"><b>1,104,480 = 11.04배</b></td><td class="n pos"><b>880,000 = 8.80배</b></td></tr>
+</tbody></table></div>
+<p class="hint">계좌 100,000 USDT · BTC 8만 달러 기준.</p>
+
+<h3>왜 수익이 거의 안 줄어드나 — 3차는 거의 안 쓰인다</h3>
+<div class="scroll"><table class="stack">
+<thead><tr><th>A2 333건이 어디까지 갔나</th><th>건수</th><th>비율</th></tr></thead>
+<tbody>
+<tr><td>물타기 없이 끝</td><td data-label="건수" class="n">215건</td><td data-label="비율" class="n"><b>64.6%</b></td></tr>
+<tr><td>1차까지</td><td data-label="건수" class="n">82건</td><td data-label="비율" class="n">24.6%</td></tr>
+<tr><td>2차까지</td><td data-label="건수" class="n">21건</td><td data-label="비율" class="n">6.3%</td></tr>
+<tr><td><b>3차까지</b></td><td data-label="건수" class="n">15건</td><td data-label="비율" class="n"><b>4.5%</b></td></tr>
+</tbody></table></div>
+<p class="hint"><b>첫 진입은 333건 전부에, 3차는 15건에만 작용한다.</b> 머리를 45% 키우고 꼬리를 3분의 1로 줄이면
+95.5% 의 거래가 더 벌고 4.5% 만 덜 번다. 최악의 순간(가득 찬 상태)의 명목가는 20% 줄어든다.</p>
+
+<h3>위험이 얼마나 줄었나</h3>
+<div class="scroll"><table class="stack">
+<thead><tr><th>항목</th><th>3/9/27 (지금)</th><th>3/9/9 · 40%</th><th>변화</th></tr></thead>
+<tbody>
+<tr><td>A2 최대 명목가</td><td data-label="지금" class="n">11.04배</td><td data-label="바꾼 뒤" class="n pos">8.80배</td><td data-label="변화" class="n pos">−20%</td></tr>
+<tr><td>A2 강제청산</td><td data-label="지금" class="n">−11.78%</td><td data-label="바꾼 뒤" class="n pos">−13.56%</td><td data-label="변화" class="n pos">+1.78%p</td></tr>
+<tr><td><b>A2 손절~청산 여유</b></td><td data-label="지금" class="n">5.78%p</td><td data-label="바꾼 뒤" class="n pos"><b>7.56%p</b></td><td data-label="변화" class="n pos"><b>+31%</b></td></tr>
+<tr><td>A1+A2+A3 만충 명목</td><td data-label="지금" class="n">16.25배</td><td data-label="바꾼 뒤" class="n pos">14.01배</td><td data-label="변화" class="n pos">−14%</td></tr>
+<tr><td><b>A1+A2+A3 만충 여유</b></td><td data-label="지금" class="n">3.09%p</td><td data-label="바꾼 뒤" class="n pos"><b>3.65%p</b></td><td data-label="변화" class="n pos"><b>+18%</b></td></tr>
+<tr><td>5다리 최대 명목가</td><td data-label="지금" class="n">16.33억</td><td data-label="바꾼 뒤" class="n pos">14.03억</td><td data-label="변화" class="n pos">−14%</td></tr>
+<tr><td>전 기간 낙폭</td><td data-label="지금" class="n">8,106만</td><td data-label="바꾼 뒤" class="n pos">7,922만</td><td data-label="변화" class="n pos">−2%</td></tr>
+</tbody></table></div>
+
+<h3>가격이 내려가며 벌어지는 일 (A1·A2·A3 가 같은 가격에 동시 진입한 최악 가정)</h3>
+<div class="scroll"><table>
+<thead><tr><th>하락률</th><th>무슨 일</th><th>명목 (지금)</th><th>청산까지 (지금)</th><th>명목 (바꾼 뒤)</th><th>청산까지 (바꾼 뒤)</th></tr></thead>
+<tbody>
+<tr><td class="n">−0.75%</td><td>A1·A3 1차</td><td class="n">0.79배</td><td class="n">7.59%</td><td class="n">0.92배</td><td class="n pos">8.15%</td></tr>
+<tr><td class="n">−1.50%</td><td>A1·A3 2차 + A2 1차</td><td class="n">2.79배</td><td class="n">6.84%</td><td class="n">3.28배</td><td class="n pos">7.40%</td></tr>
+<tr><td class="n">−2.25%</td><td>A1·A3 가득</td><td class="n">6.28배</td><td class="n">6.09%</td><td class="n">6.77배</td><td class="n pos">6.65%</td></tr>
+<tr><td class="n">−3.00%</td><td>A2 2차</td><td class="n">8.72배</td><td class="n">5.34%</td><td class="n">10.32배</td><td class="n pos">5.90%</td></tr>
+<tr><td class="n"><b>−4.50%</b></td><td><b>A2 가득 — 셋 다 만충</b></td><td class="n">16.04배</td><td class="n">3.84%</td><td class="n pos">13.76배</td><td class="n pos"><b>4.40%</b></td></tr>
+<tr><td class="n">−5.25%</td><td>A1·A3 손절선</td><td class="n">15.92배</td><td class="n">3.09%</td><td class="n">13.65배</td><td class="n pos">3.65%</td></tr>
+<tr><td class="n">−6.00%</td><td>A2 손절선</td><td class="n">15.79배</td><td class="n">2.34%</td><td class="n">13.55배</td><td class="n pos">2.90%</td></tr>
+<tr><td class="n neg"><b>강제청산</b></td><td>—</td><td class="n neg"><b>−8.34%</b></td><td class="n">—</td><td class="n neg"><b>−8.90%</b></td><td class="n">—</td></tr>
+</tbody></table></div>
+<p class="hint">손절이 <b>하나도 체결되지 않는다</b>는 최악 가정이다. 실제로는 −5.25% 에서 A1·A3 가 먼저 빠져
+A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물러난다.</p>
+
+<h3>실제로 셋 다 가득 찬 적은 9년에 3회뿐이었다</h3>
+<div class="scroll"><table>
+<thead><tr><th>시각 (KST)</th><th>지속</th><th>가격</th><th>직전 24시간</th><th>그때 계좌</th><th>명목</th><th>실제 청산 여유</th></tr></thead>
+<tbody>
+<tr><td class="n">2022-01-21 11:21</td><td class="n">1분</td><td class="n">39,458</td><td class="n neg">−5.67%</td><td class="n">6.44억</td><td class="n">16.33억 (2.5배)</td><td class="n pos"><b>97.6%</b></td></tr>
+<tr><td class="n">2022-01-21 12:33</td><td class="n">13분</td><td class="n">38,391</td><td class="n neg">−8.38%</td><td class="n">6.25억</td><td class="n">16.09억 (2.6배)</td><td class="n pos"><b>97.6%</b></td></tr>
+<tr><td class="n">2024-04-13 03:35</td><td class="n">1분</td><td class="n">65,575</td><td class="n neg">−6.47%</td><td class="n">7.39억</td><td class="n">16.15억 (2.2배)</td><td class="n pos"><b>98.0%</b></td></tr>
+</tbody></table></div>
+<p class="hint">셋 다 <b>계좌가 이미 6~7억으로 불어난 뒤</b>라 명목/계좌가 2.2~2.6배에 불과했다.
+위 표의 "−8.34% 청산" 은 <b>계좌가 정확히 시드 크기(1억)일 때</b> 계산이라 시작 직후에만 해당한다.</p>
+
+<h3>월별 비교</h3>
+<div class="tabs" id="a2tabs">
+  <button data-k="s27" class="on">3/9/27 (지금)</button>
+  <button data-k="s09">3/9/9 · 40%</button>
+  <button data-k="diff">차이</button>
+</div>
+<div class="scroll"><table><thead><tr>
+  <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
+</tr></thead><tbody id="a2rows"></tbody></table></div>
+<p class="hint" id="a2note"></p>
+
+<div class="box">
+<b>결론</b>
+<p style="margin:6px 0 0">9년 손익 <b>8.35 → 8.31억 (−0.4%)</b> 에 A2 명목가가 <b>20% 줄고</b> 손절~청산 여유가 <b>31% 늘었다.</b>
+109개월 중 <b>78개월이 좋아지고 8개월이 나빠졌다.</b> 순손실은 사실상 <b>2019-11 한 거래(−3,053만)</b> 뿐이고,
+그 거래는 3/9/27 에서만 평단이 충분히 내려가 익절선에 닿았던 건이다 — 구조적 우위가 아니라 운에 가깝다.</p>
+<p style="margin:6px 0 0">반대로 얻는 것은 구조적이다. 명목가가 실제로 줄고, 폭락장에서 매번 덜 맞는다
+(2021-12 −3,676 → −3,570만 · 2022-08 −2,505 → −2,359만).</p>
+</div>
+
+<h2>8. 세 구조의 차이</h2>
 <ul>
   <li><b>기존 4전략 → 라우팅 3·9·27</b>: 적응형 RSI와 15분 RSI20을 추가하고, 모드 판정을 "격렬이면 물타기형 / 조용이면 추세·보유"로 완전히 갈랐다.
       그 결과 <b>2024~2026년이 4,248 · 4,606 · 3,502만 → 6,000 · 7,205 · 6,037만</b>으로 올라가면서 전 기간 낙폭은 1.36억 → 8,106만으로 줄었다.
@@ -184,6 +277,7 @@
 </div>
 <script src="btc-compare3-data.js"></script>
 <script src="btc-compare3-liq.js"></script>
+<script src="btc-a2-data.js"></script>
 <script>
 const ORDER = ['OLD4','L3927','L248'];
 const FULLNM = {A1:'', A2:'', A3:'', B1:'', B2:''};
@@ -559,6 +653,39 @@ document.getElementById('dClose').addEventListener('click', () => {
 renderSpec();
 renderLiq();
 renderMonths();
+
+// ── A2 사다리 비교 월별 표 ────────────────────────────────────
+(function () {
+  const rowsEl = document.getElementById("a2rows"), note = document.getElementById("a2note");
+  if (!rowsEl || typeof A2D === "undefined") return;
+  let key = "s27";
+  const cell = (v) => v == null ? '<td class="n">-</td>' : `<td class="n ${v >= 0 ? "pos" : "neg"}">${v >= 0 ? "+" : "−"}${Math.abs(v).toLocaleString("ko-KR")}</td>`;
+  function draw() {
+    let h = "";
+    for (let y = 2017; y <= 2026; y++) {
+      const a = A2D.s27.rows[y], b = A2D.s09.rows[y];
+      let tot = 0, cells = "";
+      for (let m = 0; m < 12; m++) {
+        let v = key === "s27" ? a[m] : key === "s09" ? b[m] : (a[m] == null ? null : b[m] - a[m]);
+        if (key === "diff" && v != null && Math.abs(v) < 1) v = 0;
+        if (v != null) tot += v;
+        cells += a[m] == null ? '<td class="n">-</td>' : (key === "diff" && v === 0 ? '<td class="n" style="opacity:.35">0</td>' : cell(v));
+      }
+      h += `<tr><td>${y}</td>${cells}<td class="n ${tot >= 0 ? "pos" : "neg"}"><b>${tot >= 0 ? "+" : "−"}${Math.abs(tot).toLocaleString("ko-KR")}</b></td></tr>`;
+    }
+    rowsEl.innerHTML = h;
+    note.innerHTML = key === "diff"
+      ? "단위 만원. <b>109개월 중 78개월 개선 · 8개월 악화 · 23개월 동일.</b> 가장 나빠진 달 2019-11 −3,053만 · 가장 좋아진 달 2022-02 +208만."
+      : `단위 만원 · 시드 1억 · 규모 ×2.7 고정 수량. 9년 합계 <b>${(A2D[key].tot / 1e8).toFixed(2)}억</b> · 낙폭 ${Math.round(A2D[key].mdd / 1e4).toLocaleString("ko-KR")}만 · A2 최대명목 ${A2D[key].a2max.toFixed(2)}배`;
+  }
+  document.getElementById("a2tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    document.querySelectorAll("#a2tabs button").forEach((x) => x.classList.toggle("on", x === b));
+    key = b.dataset.k; draw();
+  });
+  draw();
+})();
+
 </script>
 </body>
 </html>
