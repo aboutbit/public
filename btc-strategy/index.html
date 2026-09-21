@@ -43,10 +43,10 @@
   th:first-child,td:first-child{text-align:left}
   thead th{background:color-mix(in srgb,var(--ink) 4%,var(--card));font-weight:600;font-size:12.5px;color:var(--dim)}
   tbody tr:last-child td{border-bottom:0}
-  td.cell{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);
+  td.cell,td.cell2{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);
     text-decoration-thickness:1px;text-underline-offset:3px}
-  td.cell:hover,td.cell:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
-  td.cell.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
+  td.cell:hover,td.cell:focus,td.cell2:hover,td.cell2:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
+  td.cell.on,td.cell2.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
   .tabs{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:6px 0 2px}
   .tabs button{font:inherit;font-size:13.5px;padding:7px 14px;border:0;background:var(--card);color:var(--dim);cursor:pointer}
   .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
@@ -79,16 +79,18 @@
   .code{display:inline-block;min-width:22px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:650;
     padding:1px 6px;border-radius:5px;margin-right:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
   .code.b{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--dim)}
-  #detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
-  #detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
-  #detail .dh b{font-size:16px}
-  #detail .dh span{font-size:13px;color:var(--dim)}
-  #detail .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
-  #detail .bridge{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+  #detail,#a2detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
+  #detail .dh,#a2detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
+  #detail .dh b,#a2detail .dh b{font-size:16px}
+  #detail .dh span,#a2detail .dh span{font-size:13px;color:var(--dim)}
+  #detail .close,#a2detail .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
+  #detail .bridge,#a2detail .bridge{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
     border-radius:8px;padding:10px 13px;margin:0 0 4px;font-size:13.5px;line-height:1.95}
-  #detail .bridge .op{color:var(--dim);font-family:var(--mono);margin:0 4px}
-  #detail .bridge b.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
-  #detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
+  #detail .bridge .op,#a2detail .bridge .op{color:var(--dim);font-family:var(--mono);margin:0 4px}
+  #detail .bridge b.n,#a2detail .bridge b.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  #detail .ct,#a2detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
+  #a2detail .gone{opacity:.5}
+  #a2detail td.same{color:var(--dim)}
   footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
   a{color:var(--accent)}
   @media (max-width:600px){
@@ -97,6 +99,11 @@
     table.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal;text-align:right}
     table.stack td::before{content:attr(data-label);color:var(--dim);font-size:12.5px;text-align:left}
     table.stack td:first-child{font-weight:650;padding-bottom:6px}
+    #detail table:not(.stack) th:first-child,#a2detail table:not(.stack) th:first-child,
+    #detail table:not(.stack) td:first-child,#a2detail table:not(.stack) td:first-child{
+      position:sticky;left:0;z-index:1;background:var(--card)}
+    #detail table:not(.stack) thead th:first-child,#a2detail table:not(.stack) thead th:first-child{
+      background:color-mix(in srgb,var(--ink) 4%,var(--card))}
   }
 </style>
 </head>
@@ -105,7 +112,7 @@
 
 <p class="sub">2026-09-20 · 바이낸스 USDⓈ-M 선물 BTCUSDT · 시드 1억</p>
 <h1>전략 비교 — 기존 4전략 vs 3·9·27 vs 2·4·8</h1>
-<p class="sub">기존안은 <b>원래 규모 그대로</b>, 새 두 사다리는 <b>2024년 = 6,000만</b>이 되도록 맞춘 뒤 비교 · <a href="final.html">최종안 보고서 →</a></p>
+<p class="sub">기존안은 <b>원래 규모 그대로</b>, 새 두 사다리는 <b>2024년 = 6,000만</b>이 되도록 맞춘 뒤 비교 · <a href="btc-strategy-report.html">최종안 보고서 →</a></p>
 
 <div class="three" id="panes"></div>
 
@@ -240,6 +247,7 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 위 표의 "−8.34% 청산" 은 <b>계좌가 정확히 시드 크기(1억)일 때</b> 계산이라 시작 직후에만 해당한다.</p>
 
 <h3>월별 비교</h3>
+<p class="hint">각 월 숫자를 누르면 그 달 매매 기록이 아래에 펼쳐진다. <b>차이</b> 탭에서는 두 사다리의 A2 거래를 나란히 놓고 어느 거래가 달라졌는지 볼 수 있다.</p>
 <div class="tabs" id="a2tabs">
   <button data-k="s27" class="on">3/9/27 (지금)</button>
   <button data-k="s09">3/9/9 · 40%</button>
@@ -249,6 +257,11 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
   <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
 </tr></thead><tbody id="a2rows"></tbody></table></div>
 <p class="hint" id="a2note"></p>
+
+<div id="a2detail" hidden>
+  <div class="dh"><b id="a2dTitle"></b><span id="a2dSum"></span><button class="close" id="a2dClose">닫기</button></div>
+  <div id="a2dWrap"></div>
+</div>
 
 <div class="box">
 <b>결론</b>
@@ -271,13 +284,15 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 </ul>
 
 <footer>
-데이터 <span class="n">btc-compare3-data.js</span> (거래 8,202건) · 계산 코드 <span class="n">context/btc-futures-strategy/bt/</span> · 2026-09-20
+데이터 <span class="n">btc-compare3-data.js</span> (거래 8,202건) · 7장 <span class="n">btc-a2-data.js</span> · <span class="n">btc-a2-trades.js</span> (A2 333 + 330건)
+· 계산 코드 <span class="n">context/btc-futures-strategy/bt/</span> · 2026-09-22
 </footer>
 
 </div>
 <script src="btc-compare3-data.js"></script>
 <script src="btc-compare3-liq.js"></script>
 <script src="btc-a2-data.js"></script>
+<script src="btc-a2-trades.js"></script>
 <script>
 const ORDER = ['OLD4','L3927','L248'];
 const FULLNM = {A1:'', A2:'', A3:'', B1:'', B2:''};
@@ -654,12 +669,20 @@ renderSpec();
 renderLiq();
 renderMonths();
 
-// ── A2 사다리 비교 월별 표 ────────────────────────────────────
+// ── A2 사다리 비교 월별 표 + 월 클릭 → 매매 기록 ──────────────
 (function () {
   const rowsEl = document.getElementById("a2rows"), note = document.getElementById("a2note");
   if (!rowsEl || typeof A2D === "undefined") return;
-  let key = "s27";
+  const HAS = typeof A2T !== "undefined";
+  const OTHER = HAS ? D3.L3927.trades.filter(t => t.s !== "A2") : [];   // A2 를 뺀 네 다리 — 두 안이 완전히 같다
+  const NM = {}; D3.L3927.stats.forEach(x => NM[x.code] = x.nm);
+  const LBL = {s27: "3/9/27 (지금)", s09: "3/9/9 · 40%", diff: "차이"};
+  const dt = document.getElementById("a2dTitle"), ds = document.getElementById("a2dSum"),
+        dw = document.getElementById("a2dWrap"), dp = document.getElementById("a2detail");
+  let key = "s27", cur = null;
+
   const cell = (v) => v == null ? '<td class="n">-</td>' : `<td class="n ${v >= 0 ? "pos" : "neg"}">${v >= 0 ? "+" : "−"}${Math.abs(v).toLocaleString("ko-KR")}</td>`;
+
   function draw() {
     let h = "";
     for (let y = 2017; y <= 2026; y++) {
@@ -669,7 +692,11 @@ renderMonths();
         let v = key === "s27" ? a[m] : key === "s09" ? b[m] : (a[m] == null ? null : b[m] - a[m]);
         if (key === "diff" && v != null && Math.abs(v) < 1) v = 0;
         if (v != null) tot += v;
-        cells += a[m] == null ? '<td class="n">-</td>' : (key === "diff" && v === 0 ? '<td class="n" style="opacity:.35">0</td>' : cell(v));
+        const ym = `${y}-${String(m + 1).padStart(2, "0")}`;
+        if (a[m] == null) { cells += '<td class="n">-</td>'; continue; }
+        let td = (key === "diff" && v === 0) ? '<td class="n" style="opacity:.35">0</td>' : cell(v);
+        if (HAS) td = td.replace('class="n', `class="cell2 n`).replace("<td ", `<td data-ym="${ym}" tabindex="0" `);
+        cells += td;
       }
       h += `<tr><td>${y}</td>${cells}<td class="n ${tot >= 0 ? "pos" : "neg"}"><b>${tot >= 0 ? "+" : "−"}${Math.abs(tot).toLocaleString("ko-KR")}</b></td></tr>`;
     }
@@ -677,12 +704,112 @@ renderMonths();
     note.innerHTML = key === "diff"
       ? "단위 만원. <b>109개월 중 78개월 개선 · 8개월 악화 · 23개월 동일.</b> 가장 나빠진 달 2019-11 −3,053만 · 가장 좋아진 달 2022-02 +208만."
       : `단위 만원 · 시드 1억 · 규모 ×2.7 고정 수량. 9년 합계 <b>${(A2D[key].tot / 1e8).toFixed(2)}억</b> · 낙폭 ${Math.round(A2D[key].mdd / 1e4).toLocaleString("ko-KR")}만 · A2 최대명목 ${A2D[key].a2max.toFixed(2)}배`;
+    close();
   }
+
+  function close() { dp.hidden = true; cur = null; rowsEl.querySelectorAll("td.on").forEach(x => x.classList.remove("on")); }
+
+  const inMonth = (arr, ym) => arr.filter(r => r.t0.slice(0, 7) === ym);
+  const cellWon = (k, ym) => {
+    const [y, m] = ym.split("-").map(Number);
+    const a = A2D.s27.rows[y][m - 1], b = A2D.s09.rows[y][m - 1];
+    return (k === "s27" ? a : k === "s09" ? b : b - a) * 1e4;
+  };
+
+  // 거래 목록 표 — 4장과 같은 형식
+  function table(arr, mark) {
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
+    for (const r of arr) {
+      h += `<tr><td class="n">${r.t0}</td><td><span class="code${r.s[0] === "B" ? " b" : ""}">${r.s}</span>${NM[r.s] || ""}</td>
+        <td class="n">${r.e.toLocaleString("ko-KR")}</td><td class="n">${r.d ? r.d + "단계" : "없음"}</td><td>${r.r}</td>
+        <td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td><td class="n">${r.mu.toFixed(2)}억</td>
+        <td class="n ${cls(r.p)}">${won(r.p)}${mark ? ' <span style="color:var(--dim);font-size:11px">전체</span>' : ""}</td></tr>`;
+    }
+    return h + "</tbody></table></div>";
+  }
+
+  // 차이 탭 — 두 사다리의 A2 거래를 진입 시각으로 맞춰 나란히
+  //   모바일에서 카드로 접히도록 열을 5개로 줄이고 colspan 을 쓰지 않는다
+  function sideBySide(ym) {
+    const a = inMonth(A2T.s27, ym), b = inMonth(A2T.s09, ym);
+    const ka = new Map(a.map(r => [r.t0, r])), kb = new Map(b.map(r => [r.t0, r]));
+    const keys = [...new Set([...ka.keys(), ...kb.keys()])].sort();
+    const L1 = "3/9/27 (지금)", L2 = "3/9/9 · 40%";
+    let h = '<div class="scroll"><table class="stack"><thead><tr><th>진입 시각</th><th>진입가</th>' +
+            `<th>${L1}</th><th>${L2}</th><th>차이</th></tr></thead><tbody>`;
+    let s27 = 0, s09 = 0;
+    // flex 로 접히는 칸이라 한 덩어리로 감싼다 — 안 감싸면 "·" 가 따로 떨어진다
+    const one = (r) => r
+      ? `<span>${r.d ? r.d + "단계" : "물타기 없음"} · ${r.r} · <b class="n ${cls(r.p)}">${won(r.p)}</b></span>`
+      : '<span class="gone">이 안에는 없는 거래</span>';
+    for (const k of keys) {
+      const x = ka.get(k), y = kb.get(k);
+      s27 += x ? x.p : 0; s09 += y ? y.p : 0;
+      const d = (y ? y.p : 0) - (x ? x.p : 0), same = Math.abs(d) < 1e4;
+      h += `<tr><td class="n" data-label="진입 시각">${k}</td><td class="n" data-label="진입가">${(x || y).e.toLocaleString("ko-KR")}</td>` +
+           `<td data-label="${L1}">${one(x)}</td><td data-label="${L2}">${one(y)}</td>` +
+           `<td class="n ${same ? "same" : cls(d)}" data-label="차이">${same ? "동일" : won(d)}</td></tr>`;
+    }
+    h += `<tr style="font-weight:650"><td data-label="">A2 합계</td><td data-label="">${keys.length}건</td>` +
+         `<td class="n ${cls(s27)}" data-label="${L1}">${won(s27)}</td><td class="n ${cls(s09)}" data-label="${L2}">${won(s09)}</td>` +
+         `<td class="n ${cls(s09 - s27)}" data-label="차이">${won(s09 - s27)}</td></tr>`;
+    return h + "</tbody></table></div>";
+  }
+
+  function show(ym, td) {
+    rowsEl.querySelectorAll("td.on").forEach(x => x.classList.remove("on"));
+    if (cur === ym + key) { close(); return; }
+    cur = ym + key; td.classList.add("on");
+    const cv = cellWon(key, ym);
+    dt.textContent = `${ym.replace("-", "년 ")}월 · ${LBL[key]}`;
+    let h = "";
+
+    if (key === "diff") {
+      const a = inMonth(A2T.s27, ym), b = inMonth(A2T.s09, ym);
+      const sa = a.reduce((s, r) => s + r.p, 0), sb = b.reduce((s, r) => s + r.p, 0);
+      ds.innerHTML = `A2 거래 ${a.length}건 → ${b.length}건 · 나머지 네 다리는 두 안이 완전히 같다`;
+      h += `<div class="bridge">이 달 차이 <b class="n ${cls(cv)}">${won(cv)}</b><span class="op">=</span>` +
+           `3/9/9 의 A2 <b class="n ${cls(sb)}">${won(sb)}</b><span class="op">−</span>` +
+           `3/9/27 의 A2 <b class="n ${cls(sa)}">${won(sa)}</b><span class="op">+</span>` +
+           `달을 걸친 포지션 조정 <b class="n ${cls(cv - (sb - sa))}">${won(cv - (sb - sa))}</b></div>` +
+           `<p class="hint">A2 를 뺀 네 다리(A1·A3·B1·B2)는 두 안이 <b>한 건도 다르지 않다</b>. 그래서 이 달의 차이는 <b>전부 A2 에서 나온다</b>.</p>`;
+      h += (a.length || b.length)
+        ? `<p class="ct">A2 거래 나란히 보기</p>` + sideBySide(ym)
+        : '<p class="hint">이 달에 새로 진입한 A2 거래가 없다.</p>';
+      dw.innerHTML = h; dp.hidden = false; dp.scrollIntoView({behavior: "smooth", block: "nearest"}); return;
+    }
+
+    const a2 = inMonth(A2T[key], ym), oth = inMonth(OTHER, ym), all = [...a2, ...oth].sort((p, q) => p.t0 < q.t0 ? -1 : 1);
+    const sum = all.reduce((s, r) => s + r.p, 0), win = all.filter(r => r.p > 0).length;
+    const pool = [...A2T[key], ...OTHER];
+    const carryIn = pool.filter(r => r.t0.slice(0, 7) < ym && r.t1.slice(0, 7) >= ym).sort((p, q) => p.t0 < q.t0 ? -1 : 1);
+    const carryOut = all.filter(r => r.t1.slice(0, 7) > ym);
+    ds.innerHTML = all.length ? `${all.length}건 (A2 ${a2.length} · 나머지 ${oth.length}) · 이익 ${win} · 손실 ${all.length - win}`
+                              : "이 달에 새로 진입한 거래는 없다";
+    h += `<div class="bridge">이 달 평가 손익 <b class="n ${cls(cv)}">${won(cv)}</b><span class="op">=</span>` +
+         `이 달 진입 거래의 전체 손익 <b class="n ${cls(sum)}">${won(sum)}</b><span class="op">+</span>` +
+         `달을 걸친 포지션 조정 <b class="n ${cls(cv - sum)}">${won(cv - sum)}</b></div>` +
+         `<p class="hint">표의 월 손익은 <b>그 달 말 평가 − 달 초 평가</b>라 <b>이 달에 움직인 만큼만</b> 잡히고, 아래 목록의 손익은 <b>그 거래의 전체 생애</b>다. 달을 걸쳐 들고 있던 포지션이 있으면 두 숫자가 어긋난다.</p>`;
+    let no = 0;
+    if (carryIn.length) h += `<p class="ct">${"①②③"[no++]} 이월 포지션 — 지난달에 진입해 이 달까지 들고 있던 ${carryIn.length}건</p>` + table(carryIn, true);
+    if (carryOut.length) h += `<p class="ct">${"①②③"[no++]} 다음 달로 넘긴 포지션 — 이 달에 진입해 다음 달에 청산된 ${carryOut.length}건</p>` + table(carryOut, true);
+    h += `<p class="ct">${no ? "①②③"[no] + " " : ""}이 달에 진입한 거래 ${all.length}건</p>`;
+    h += all.length ? table(all, false) : '<p class="hint">없다.</p>';
+    dw.innerHTML = h; dp.hidden = false; dp.scrollIntoView({behavior: "smooth", block: "nearest"});
+  }
+
   document.getElementById("a2tabs").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
     document.querySelectorAll("#a2tabs button").forEach((x) => x.classList.toggle("on", x === b));
     key = b.dataset.k; draw();
   });
+  rowsEl.addEventListener("click", (e) => { const td = e.target.closest("td.cell2"); if (td) show(td.dataset.ym, td); });
+  rowsEl.addEventListener("keydown", (e) => {
+    const td = e.target.closest("td.cell2");
+    if (td && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); show(td.dataset.ym, td); }
+  });
+  document.getElementById("a2dClose").addEventListener("click", close);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   draw();
 })();
 
