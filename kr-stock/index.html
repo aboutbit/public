@@ -134,7 +134,8 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
     <span>날짜로 정해집니다. 슬롯 번호 = (오늘 − 시작일) ÷ 20의 나머지.</span></div></div>
   <div class="step"><div class="k">4</div><div class="b"><b>그 슬롯만 오늘의 TOP15로 재배치</b>
     <span>슬롯이 든 종목 중 오늘 TOP15에 <b>없는 것 → 그 슬롯 몫만 매도</b>.
-    오늘 TOP15인데 슬롯에 <b>없는 것 → 33만원어치 매수</b>. 둘 다 있으면 손 안 댐.</span></div></div>
+    오늘 TOP15인데 슬롯에 <b>없는 것 → 33만원어치 매수</b>. 둘 다 있으면 목표 33만원에 맞춰 미세 조정만.<br>
+    단 <b>상하한가 붙박이·거래없음이면 못 판다</b> — 그 슬롯의 다음 차례까지 기다린다.</span></div></div>
 </div>
 
 <h2><span class="n">4</span>실제 하루 — 2024년 9월 2일</h2>
@@ -215,9 +216,20 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
 </div>
 
 <div class="case b">
-  <h4>케이스 7 · 거래정지 · 상하한가 붙박이</h4>
-  <p style="margin:0"><b>못 팝니다. 다음 날로 미룹니다.</b> 그날 고가 = 저가면 체결이 안 된 것으로 봅니다.
-  하한가에 물량을 못 던지는 게 현실입니다.</p>
+  <h4>케이스 7 · 팔고 싶은데 못 파는 날 <span class="tag">실제로 자주 있음</span></h4>
+  <p>그날 <b>고가 = 저가</b>면 단 하나의 가격에서만 거래된 것입니다 — 상한가에 매수 잔량이 쌓였거나
+  하한가에 매도 잔량이 쌓여 <b>물량을 던져도 체결이 안 되는 상태</b>입니다.
+  아예 거래가 없었던 날도 마찬가지입니다. 이런 날은 매매하지 않습니다.</p>
+  <p><b>그리고 다음 날 재시도하지 않습니다.</b> 그 슬롯의 <b>다음 차례(20거래일 뒤)</b>에 다시 판정합니다.
+  슬롯 차례가 아닌 날은 건드리지 않는다는 원칙이 여기에도 적용됩니다.</p>
+  <div class="ord">2024-09-03  슬롯 8이 팔려 했지만 못 판 3종목
+
+  이큐셀            시가 3,100 · 고가 <b>3,100</b> · 저가 <b>3,100</b>   → 붙박이
+  한국제11호스팩     시가 3,375 · 고가 <b>3,375</b> · 저가 <b>3,375</b>   → 붙박이
+  하나금융24호스팩   <b>그날 거래 자체가 없음</b>
+
+  → 슬롯 8에 그대로 남음. 2024-09-30(다음 차례)에 다시 판정</div>
+  <p class="note">이걸 넣지 않으면 <b>하한가에도 전량 탈출할 수 있다고 가정</b>하는 거짓말이 됩니다.</p>
 </div>
 
 <div class="case b">
@@ -345,8 +357,18 @@ h += `<h3>② 슬롯 8에서 빼는 종목 — ${out.length}건 <span style="fon
 <div class="scroll"><table><thead><tr><th>종목</th><th>매도금액</th><th>계좌에 남는 슬롯</th></tr></thead><tbody>`;
 for (const e of out) h += `<tr><td>${e.n}</td><td class="num">${won(e.amt)}만</td>`
   + `<td class="num ${e.left?'':'up'}">${e.left ? e.left+'개 남음' : '<b>완전 퇴출</b>'}</td></tr>`;
-h += `</tbody></table></div><p class="note">12건 중 <b>11건은 다른 슬롯이 그대로 들고 있습니다.</b>
-  계좌에서 완전히 사라진 건 비비안 하나뿐입니다.</p>`;
+h += `</tbody></table></div>
+<div class="card warn" style="margin-top:12px"><h4>왜 14건이 아니라 12건인가</h4>
+<p style="margin:0 0 8px">슬롯 8이 든 15종목 중 오늘도 TOP15인 건 <b>이루온 하나뿐</b>이니
+14종목을 빼야 맞습니다. 실제 매도는 12건이었습니다.</p>
+<table style="margin:8px 0"><tbody>
+<tr><td><b>11건</b></td><td style="text-align:left">TOP15에서 빠짐 → 전량 매도</td></tr>
+<tr><td><b>1건</b></td><td style="text-align:left">이루온 — 오늘도 14위라 유지. 목표 33만원보다 <b>2,702원</b> 많아 그만큼만 정리</td></tr>
+<tr><td><b>3건</b></td><td style="text-align:left"><b>팔고 싶었지만 못 팜</b> — 이큐셀·한국제11호스팩은 상하한가 붙박이(고가=저가),
+  하나금융24호스팩은 그날 거래 자체가 없었음 → <b>케이스 7</b></td></tr>
+</tbody></table>
+<p style="margin:0">매도된 12건 중 <b>11건은 다른 슬롯이 그대로 들고 있습니다.</b>
+계좌에서 완전히 사라진 건 비비안 하나뿐입니다.</p></div>`;
 
 h += `<h3>③ 슬롯 8에 넣는 종목 — ${inn.length}건</h3>
 <div class="scroll"><table><thead><tr><th>종목</th><th>순위</th><th>매수금액</th><th>이미 보유 중인 슬롯</th></tr></thead><tbody>`;
