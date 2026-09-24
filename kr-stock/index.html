@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>매매 방법 — 한국주식 시스템트레이딩</title>
+<style>
+:root{--bg:#fafafa;--card:#fff;--ink:#18181b;--dim:#71717a;--line:#e4e4e7;
+  --up:#d92d20;--dn:#1570ef;--accent:#18181b;--hi:#f4f4f5;--warn:#b45309;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;
+  -webkit-text-size-adjust:100%}
+.num{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.wrap{max-width:860px;margin:0 auto;padding:36px 18px 100px}
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:10px}
+h1{font-size:25px;font-weight:650;letter-spacing:-.02em;margin:0 0 8px}
+.sub{color:var(--dim);font-size:14px}
+h2{font-size:19px;font-weight:650;letter-spacing:-.02em;margin:46px 0 14px;
+  padding-top:14px;border-top:1px solid var(--line)}
+h2 .n{color:var(--dim);font-weight:500;margin-right:8px}
+h3{font-size:15px;font-weight:650;margin:26px 0 8px}
+p{margin:0 0 12px}
+.lead{font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+.card.warn{border-color:#fde68a;background:#fffbeb}
+.card.ok{border-color:#bbf7d0;background:#f0fdf4}
+.card h4{margin:0 0 8px;font-size:14px;font-weight:650}
+.big{font-size:17px;font-weight:650}
+table{width:100%;border-collapse:collapse;background:var(--card);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px;margin:12px 0}
+th,td{padding:8px 11px;text-align:right;border-bottom:1px solid var(--line)}
+th{background:#f7f7f8;font-weight:600;color:var(--dim);font-size:12px}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+.up{color:var(--up)}.dn{color:var(--dn)}.zero{color:var(--dim)}
+.scroll{overflow-x:auto;border-radius:10px}
+.scroll table{min-width:560px}
+.slots{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:14px 0}
+.slot{aspect-ratio:1;border:1px solid var(--line);border-radius:7px;background:var(--card);
+  display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--dim);
+  font-variant-numeric:tabular-nums}
+.slot.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:650}
+.flow{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .k{flex:0 0 30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:650}
+.step .b{flex:1}
+.step .b b{display:block;margin-bottom:2px}
+.step .b span{color:var(--dim);font-size:13.5px}
+.case{border-left:3px solid var(--line);padding:2px 0 2px 16px;margin:18px 0}
+.case.a{border-color:var(--dim)}
+.case.b{border-color:var(--dn)}
+.case.c{border-color:var(--up)}
+.case h4{font-size:15px;margin:0 0 4px}
+.case .tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:5px;
+  background:var(--hi);color:var(--dim);margin-left:7px;vertical-align:middle;font-weight:500}
+.ord{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#fafafa;
+  border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;
+  white-space:pre;overflow-x:auto;line-height:1.7}
+.qa{margin:18px 0}
+.qa .q{font-weight:650;margin-bottom:5px}
+.qa .a{color:#3f3f46}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.kpi div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.kpi .k{font-size:11px;color:var(--dim)}
+.kpi .v{font-size:21px;font-weight:650;margin-top:3px;letter-spacing:-.02em}
+.kpi .n{font-size:11px;color:var(--dim)}
+.x{color:var(--up);font-weight:650}
+.o{color:#16a34a;font-weight:650}
+.note{color:var(--dim);font-size:13px;margin-top:8px}
+nav{display:flex;gap:6px;margin:0 0 20px}
+nav a{text-decoration:none;font-size:13px;padding:7px 14px;border-radius:8px;
+  border:1px solid var(--line);background:var(--card);color:var(--dim)}
+nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+@media(max-width:700px){
+  .kpi{grid-template-columns:repeat(2,1fr)}
+  .slots{grid-template-columns:repeat(5,1fr)}
+  .wrap{padding:24px 14px 80px}
+  h1{font-size:21px}h2{font-size:17px}
+}
+[hidden]{display:none!important}
+</style></head>
+<body><div class="wrap">
+
+<nav><a href="./" aria-current="page">매매 방법</a><a href="./report.html">성과 리포트</a></nav>
+<header>
+  <h1>매매 방법 — 하나씩 따라가기</h1>
+  <div class="sub">소형주 TOP15 전략 · 시드 1억 기준 · 모든 예시는 실제 백테스트 기록</div>
+</header>
+
+<p class="lead" style="margin-top:22px">먼저 <b>가장 헷갈리는 두 가지</b>부터 바로잡고 시작합니다.</p>
+
+<div class="card warn">
+  <h4>❌ 흔한 오해</h4>
+  <p style="margin-bottom:6px">"TOP15 15종목만 들고 있다가, 명단이 바뀌면 바뀐 만큼 갈아탄다"</p>
+  <h4 style="margin-top:14px">⭕ 실제</h4>
+  <p style="margin:0">계좌는 <b>평균 32~40종목</b>을 들고 있습니다. TOP15에서 빠져도 <b>그날 바로 팔지 않습니다</b>.
+  오늘의 TOP15는 <b>오늘 손댈 1/20에게만</b> 해당하는 명단입니다.</p>
+</div>
+
+<h2><span class="n">1</span>왜 이렇게 복잡한가</h2>
+<p>이유는 하나입니다 — <b>한 번에 큰 주문을 내면 수익이 사라지기 때문</b>입니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>방식</th><th>한 번에 내는 주문</th><th>슬리피지율</th><th>실현 연평균</th></tr></thead>
+<tbody>
+<tr><td>장부 전체를 20일마다 한 번에 교체</td><td class="num">667만원</td><td class="num">1.94%</td><td class="num dn">+16.8%</td></tr>
+<tr><td><b>20등분해 매일 1/20씩</b></td><td class="num">33만원</td><td class="num">0.33%</td><td class="num up"><b>+28.7%</b></td></tr>
+</tbody></table></div>
+<p>주문을 20분의 1로 쪼개면 호가를 긁지 않아 <b>슬리피지가 6배 줄고</b>, 그 차이가 연 <b>+11.8%p</b>입니다.
+16년 중 16년 전부 이 방향이었습니다. 복잡함의 대가로 얻는 게 이것입니다.</p>
+
+<h2><span class="n">2</span>슬롯 구조</h2>
+<p>시드 1억을 <b>20개 슬롯</b>으로 나눕니다. 슬롯 하나는 <b>500만원</b>, 그 안에 <b>15종목</b>을 각 <b>33만원</b>씩 담습니다.</p>
+<div class="ord">시드 1억
+  └ 슬롯 20개 × 500만원
+      └ 슬롯마다 15종목 × 33만원
+
+한 슬롯의 차례는 <b>20거래일(약 한 달)에 한 번</b> 온다
+오늘 차례인 슬롯만 건드린다 → 하루에 움직이는 돈은 최대 500만원(5%)</div>
+<p>슬롯마다 <b>담은 날짜가 다르니 명단도 다릅니다.</b> 슬롯 3은 3주 전 TOP15를, 슬롯 8은 2주 전 TOP15를 담고 있습니다.
+합치면 중복을 빼고 <b>32~40종목</b>이 됩니다.</p>
+<div class="slots" id="slots"></div>
+<p class="note">오늘 차례는 슬롯 8. 나머지 19개는 오늘 쳐다보지도 않습니다.</p>
+
+<h2><span class="n">3</span>하루에 하는 일 — 네 단계</h2>
+<div class="flow">
+  <div class="step"><div class="k">1</div><div class="b"><b>상장폐지 확인</b>
+    <span>폐지 예정 종목이 있으면 마지막 거래일에 전량 정리. 슬롯 상관없음.</span></div></div>
+  <div class="step"><div class="k">2</div><div class="b"><b>익절 확인 — 슬롯 상관없이 전량</b>
+    <span>보유 종목 중 <b>계좌 평단 대비 +100%</b>를 넘은 게 있나? 있으면 그 종목을
+    <b>모든 슬롯에서 한꺼번에</b> 매도. 평단은 증권계좌에 뜨는 그 값 하나입니다.</span></div></div>
+  <div class="step"><div class="k">3</div><div class="b"><b>오늘의 슬롯 확인</b>
+    <span>날짜로 정해집니다. 슬롯 번호 = (오늘 − 시작일) ÷ 20의 나머지.</span></div></div>
+  <div class="step"><div class="k">4</div><div class="b"><b>그 슬롯만 오늘의 TOP15로 재배치</b>
+    <span>슬롯이 든 종목 중 오늘 TOP15에 <b>없는 것 → 그 슬롯 몫만 매도</b>.
+    오늘 TOP15인데 슬롯에 <b>없는 것 → 33만원어치 매수</b>. 둘 다 있으면 손 안 댐.</span></div></div>
+</div>
+
+<h2><span class="n">4</span>실제 하루 — 2024년 9월 2일</h2>
+<p>백테스트가 그날 실제로 낸 주문 전부입니다. 슬롯 8의 차례였습니다.</p>
+<div id="dayblock"></div>
+
+<h2><span class="n">5</span>여기서 꼭 보셔야 할 것</h2>
+<div class="card ok">
+  <h4>슬롯 회전은 "종목 교체"가 아니라 "비중 조절"에 가깝습니다</h4>
+  <div class="kpi" style="margin-top:12px">
+    <div><div class="k">매수 중</div><div class="v">93%</div>
+      <div class="n">이미 다른 슬롯이 들고 있던 종목</div></div>
+    <div><div class="k">완전히 새 종목</div><div class="v">7%</div>
+      <div class="n">계좌에 처음 들어오는 경우</div></div>
+    <div><div class="k">매도 중</div><div class="v">93%</div>
+      <div class="n">다른 슬롯이 아직 남아 있음</div></div>
+    <div><div class="k">계좌에서 완전 퇴출</div><div class="v">7%</div>
+      <div class="n">마지막 슬롯까지 정리된 경우</div></div>
+  </div>
+  <p style="margin:10px 0 0">위 9월 2일 기록에서 <b>교보16호스팩을 33만원어치 샀는데, 이미 8개 슬롯이 들고 있었습니다.</b>
+  새로 편입한 게 아니라 비중을 267만 → 300만원으로 늘린 것입니다.
+  <b>신라섬유를 26만원어치 팔았지만 12개 슬롯이 그대로 남아 있습니다.</b></p>
+</div>
+
+<h2><span class="n">6</span>모든 경우 — 하나씩</h2>
+
+<div class="case a">
+  <h4>케이스 1 · 내 슬롯 차례 + 그 종목이 아직 TOP15 <span class="tag">가장 흔함</span></h4>
+  <p style="margin:0"><b>아무것도 안 합니다.</b> 팔았다가 다시 사면 수수료·세금·슬리피지를 공짜로 버립니다.
+  그대로 두고 다음 차례(20거래일 뒤)에 다시 판단합니다.</p>
+</div>
+
+<div class="case b">
+  <h4>케이스 2 · 내 슬롯 차례 + 그 종목이 TOP15에서 빠짐</h4>
+  <p style="margin:0"><b>그 슬롯 몫만 매도합니다.</b> 다른 슬롯이 든 몫은 건드리지 않습니다.
+  9월 2일 신라섬유가 그 경우입니다 — 26만원 팔고 <b>12개 슬롯 분량은 그대로</b> 남았습니다.</p>
+</div>
+
+<div class="case c">
+  <h4>케이스 3 · 오늘 TOP15인데 내 슬롯에 없음</h4>
+  <p style="margin:0"><b>33만원어치 매수합니다.</b> 다른 슬롯이 이미 들고 있어도 상관없습니다 —
+  그 슬롯 몫을 따로 채우는 것이니 계좌 평단만 섞일 뿐입니다.
+  한도(그 종목 일평균거래대금의 10%)에 걸리면 걸리는 만큼만 삽니다.</p>
+</div>
+
+<div class="case a">
+  <h4>케이스 4 · 내 슬롯 차례가 아닌데 TOP15에서 빠짐 <span class="tag">중요</span></h4>
+  <p style="margin:0"><b>아무것도 안 합니다. 기다립니다.</b> 그 종목을 담은 슬롯의 차례가 와야 팝니다.
+  한 종목을 여러 슬롯이 나눠 들고 있으면 <b>20거래일에 걸쳐 조금씩</b> 빠져나갑니다.</p>
+  <div class="scroll"><table>
+  <thead><tr><th>TOP15에서 빠진 날로부터</th><th>남은 수량</th></tr></thead><tbody>
+  <tr><td>당일</td><td class="num"><b>100%</b></td></tr>
+  <tr><td>+5거래일</td><td class="num">101%</td></tr>
+  <tr><td>+10거래일</td><td class="num">95%</td></tr>
+  <tr><td>+15거래일</td><td class="num">83%</td></tr>
+  <tr><td>+20거래일</td><td class="num">43%</td></tr>
+  <tr><td>+40거래일</td><td class="num">24%</td></tr>
+  </tbody></table></div>
+  <p class="note">빠진 당일에 전량 정리되는 경우는 <b>0.0%</b>입니다. 그 사이 다시 TOP15로 돌아오면 그대로 유지됩니다.</p>
+</div>
+
+<div class="case c">
+  <h4>케이스 5 · 평단 대비 +100% 돌파 <span class="tag">익절</span></h4>
+  <p style="margin:0"><b>슬롯 상관없이 그 종목 전량을 매도합니다.</b> 유일하게 슬롯을 무시하는 규칙입니다.
+  증권계좌 평단이 하나이므로 이렇게밖에 할 수 없고, 실제로 이게 가장 낫습니다.</p>
+  <div class="ord">2024-09-02  제닉
+  평단 3,431원 → 종가 7,290원  (+112%)
+  20개 슬롯이 나눠 든 <b>1,044만원 전량 매도</b>
+  실현손익 <b>+550만원</b></div>
+  <p class="note">16년간 익절은 <b>122건</b>뿐입니다. 매일 조금씩 더 사면서 평단이 올라가
+  2배 선이 계속 도망가기 때문입니다. 나머지는 전부 슬롯 만기로 정리됩니다.</p>
+</div>
+
+<div class="case a">
+  <h4>케이스 6 · 상장폐지</h4>
+  <p style="margin:0"><b>마지막 거래일 종가로 전량 정리합니다.</b> 정리매매 폭락을 그대로 맞습니다.
+  16년간 55건 있었습니다. 이걸 빼면 백테스트가 거짓말이 됩니다.</p>
+</div>
+
+<div class="case b">
+  <h4>케이스 7 · 거래정지 · 상하한가 붙박이</h4>
+  <p style="margin:0"><b>못 팝니다. 다음 날로 미룹니다.</b> 그날 고가 = 저가면 체결이 안 된 것으로 봅니다.
+  하한가에 물량을 못 던지는 게 현실입니다.</p>
+</div>
+
+<div class="case b">
+  <h4>케이스 8 · 한도 초과 — 그 종목이 너무 작음</h4>
+  <p style="margin:0">한 종목 보유액은 <b>그 종목 20일 평균거래대금의 10%</b>를 못 넘습니다.
+  이미 다른 슬롯들이 한도까지 채웠으면 <b>오늘 슬롯은 못 삽니다.</b>
+  그 돈은 현금으로 남아 다음 기회에 쓰입니다.</p>
+</div>
+
+<div class="case b">
+  <h4>케이스 9 · 현금 부족</h4>
+  <p style="margin:0"><b>살 수 있는 만큼만 비례해서 삽니다.</b> 매도를 먼저 체결해 현금을 만든 뒤 매수합니다.
+  슬리피지를 최악(10%)으로 가정해 여유를 둡니다. <b>16년간 현금이 0 밑으로 내려간 적이 한 번도 없습니다</b>
+  (최저 +124만원, 2011년 9월).</p>
+</div>
+
+<h2><span class="n">7</span>한 종목의 일생 — 제닉</h2>
+<p>14위로 간신히 들어온 종목이 어떻게 +112%에 정리되는지 끝까지 따라가 봅니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>날짜</th><th>일</th><th>종가</th><th>매수가 대비</th><th>그날 일어난 일</th></tr></thead>
+<tbody>
+<tr><td class="num">2024-08-02</td><td class="num">—</td><td class="num">3,325</td><td>—</td><td>신호 발생 · 점수 +6.12 · <b>14위</b> · RSI 49</td></tr>
+<tr><td class="num">2024-08-05</td><td class="num">0</td><td class="num">3,190</td><td class="dn">−4.1%</td><td>어느 슬롯이 33만원어치 매수(시가 3,325원)</td></tr>
+<tr><td class="num">2024-08-06</td><td class="num">1</td><td class="num">3,185</td><td class="dn">−4.2%</td><td>계속 빠짐 — <b>손절 없으니 그냥 둔다</b></td></tr>
+<tr><td class="num">2024-08-12</td><td class="num">5</td><td class="num">3,510</td><td class="up">+5.6%</td><td>다른 슬롯들도 차례차례 담음</td></tr>
+<tr><td class="num">2024-08-20</td><td class="num">10</td><td class="num">3,635</td><td class="up">+9.3%</td><td>계좌 평단은 매수가 쌓이며 3,431원까지 상승</td></tr>
+<tr><td class="num">2024-08-27</td><td class="num">15</td><td class="num">5,390</td><td class="up">+62.1%</td><td>급등 시작</td></tr>
+<tr><td class="num">2024-08-30</td><td class="num">18</td><td class="num">6,570</td><td class="up">+97.6%</td><td>익절선 6,862원에 <b>292원 모자람</b></td></tr>
+<tr><td class="num">2024-09-02</td><td class="num">19</td><td class="num up"><b>7,290</b></td><td class="up"><b>+119.2%</b></td><td><b>익절선 돌파 → 20개 슬롯 전량 매도 · 실현 +550만원</b></td></tr>
+</tbody></table></div>
+<p>그 달 실현손익 <b>+484만원</b> 중 제닉 하나가 <b>+456만원</b>입니다. 나머지 42종목이 합쳐서 +28만원입니다.
+<b>소수의 큰 승리가 다수의 작은 패배를 덮는 구조</b>입니다.</p>
+
+<h2><span class="n">8</span>숫자로 보는 실제 운용</h2>
+<div class="kpi">
+  <div><div class="k">계좌 보유 종목</div><div class="v">32~40</div><div class="n">TOP15 전략인데</div></div>
+  <div><div class="k">하루 주문 건수</div><div class="v">27건</div><div class="n">매도 13 · 매수 14</div></div>
+  <div><div class="k">하루 거래금액</div><div class="v">968만</div><div class="n">투자금 1억의 9.7%</div></div>
+  <div><div class="k">주문 하나 크기</div><div class="v">33만</div><div class="n">호가를 안 긁는 크기</div></div>
+</div>
+<div class="scroll"><table>
+<thead><tr><th></th><th>실측</th><th>뜻</th></tr></thead><tbody>
+<tr><td>오늘 TOP15 중 계좌가 이미 보유</td><td class="num"><b>13.2 / 15</b></td><td>점수가 천천히 변해 명단이 이어진다</td></tr>
+<tr><td>오늘 TOP5 중 이미 보유</td><td class="num"><b>4.5 / 5</b></td><td>상위권은 거의 다 담고 있다</td></tr>
+<tr><td>오늘 TOP15가 계좌에서 차지하는 비중</td><td class="num"><b>51%</b></td><td>나머지 49%는 과거 TOP의 잔재</td></tr>
+<tr><td>오늘 슬롯이 든 15종목 중 오늘도 TOP15</td><td class="num"><b>1~4종목</b></td><td>20일 전 명단이라 많이 바뀌어 있다</td></tr>
+<tr><td>종목이 계좌에 머무는 기간</td><td class="num"><b>중앙 32거래일</b></td><td>"20일 보유"는 슬롯 하나 기준</td></tr>
+</tbody></table></div>
+
+<h2><span class="n">9</span>자주 헷갈리는 것</h2>
+
+<div class="qa"><div class="q">Q. 슬롯이 꽉 차면 좋은 종목을 못 사는 건가요?</div>
+<div class="a">아닙니다. 슬롯 차례가 오면 <b>그 슬롯의 기존 종목을 팔아서 산 돈으로</b> 오늘의 TOP15를 삽니다.
+돈이 없어서 못 사는 게 아니라 자기 몫을 재배치하는 것입니다.
+다만 <b>하루에 5%만</b> 방향을 틀 수 있습니다 — 완전히 갈아타려면 20거래일이 걸립니다.</div></div>
+
+<div class="qa"><div class="q">Q. 그럼 오늘 1위 종목을 못 담고 넘어가나요?</div>
+<div class="a">오늘 슬롯이 담습니다. 그리고 내일·모레 슬롯도 그 종목이 여전히 TOP15면 또 담습니다.
+좋은 종목은 <b>여러 슬롯이 겹쳐 담아 비중이 자연스럽게 커집니다.</b>
+실측으로 오늘의 TOP5 중 <b>90%</b>를 이미 보유 중입니다.</div></div>
+
+<div class="qa"><div class="q">Q. 왜 20일인가요? 10일이나 40일은요?</div>
+<div class="a">보유 기간 20거래일, 슬롯 20개는 <b>같은 숫자여야</b> 장부가 정확히 한 바퀴 돕니다.
+슬롯 수는 보유 기간의 약수여야 달력을 고르게 덮습니다(8개·12개는 편향됩니다).</div></div>
+
+<div class="qa"><div class="q">Q. 손절을 정말 안 하나요?</div>
+<div class="a">안 합니다. 어떤 손절폭을 넣어도 성과가 나빠졌습니다.
+제닉도 매수 다음 날 −4.2%였는데, 손절이 있었으면 +112%를 놓쳤을 겁니다.
+대신 <b>20거래일 만기에 TOP15에서 밀려나면 자동으로 정리</b>되므로 무한정 물려 있지는 않습니다.</div></div>
+
+<div class="qa"><div class="q">Q. 증권계좌만 보면 슬롯을 알 수 없을 텐데요?</div>
+<div class="a">맞습니다. 증권계좌는 종목별 평단·수량만 보여줍니다.
+<b>"어느 슬롯이 무엇을 언제부터 들고 있나"는 따로 기록해야 합니다.</b>
+앱이 이 장부를 관리합니다 — 슬롯번호 · 종목 · 수량 · 편입일 · 다음 차례.</div></div>
+
+<div class="qa"><div class="q">Q. 처음 시작할 땐 어떻게 하나요?</div>
+<div class="a">첫 20거래일 동안 슬롯을 하나씩 채웁니다. 첫날 슬롯 0에 500만원(15종목 × 33만원),
+다음 날 슬롯 1에 500만원… 20일째에 1억이 다 들어갑니다.
+그 다음 날부터 슬롯 0의 차례가 다시 돌아옵니다. <b>처음 한 달은 현금 비중이 높습니다.</b></div></div>
+
+<div class="qa"><div class="q">Q. 하루 27건이면 너무 많지 않나요?</div>
+<div class="a">건당 33만원짜리 소액 주문입니다. 자동주문이 없으면 부담스러운 양이 맞습니다.
+다만 이 잦은 소액 주문이 <b>슬리피지를 1.94% → 0.33%로 낮추는 장치</b>이고,
+그게 연 +11.8%p의 원천입니다. 줄이면 수익도 같이 줄어듭니다.</div></div>
+
+<div class="card" style="margin-top:36px">
+  <h4>성과는 따로 보십시오</h4>
+  <p style="margin:0"><a href="./report.html" style="color:var(--dn)">성과 리포트 →</a>
+  연도별·월별 손익, 월을 누르면 그달 매수·매도한 종목 전부,
+  자금 규모별 배분, 대형주 전략까지 들어 있습니다.</p>
+</div>
+
+<div class="card warn" style="margin-top:14px">
+  <h4>마지막으로 — 이 전략의 한계</h4>
+  <p style="margin:0">투자금이 <b>2~3억을 넘으면</b> 주문 하나가 커져 이 구조가 무너집니다.
+  소형주라 받아줄 물량이 없기 때문입니다. 그 이상은 <b>대형주 전략을 따로</b> 써야 합니다.</p>
+</div>
+
+</div>
+<script type="application/json" id="DAY">{"date":20240902,"slot":8,"events":[{"t":"take","n":"제닉","c":"123330","amt":10443835.872845218,"pnl":5499627.464928305,"px":7290.0,"avg":3430.7367995161803,"slots":15},{"t":"out","n":"신라섬유","c":"001000","amt":261393.3536071943,"pnl":-48273.080042804446,"px":5010.0,"left":12},{"t":"out","n":"비비안","c":"002070","amt":376470.936657054,"pnl":35532.61374299618,"px":18124.0,"left":0},{"t":"out","n":"파루","c":"043200","amt":303190.85495210945,"pnl":-9406.67900207173,"px":1146.0,"left":17},{"t":"out","n":"비트플래닛","c":"049470","amt":370170.0181231506,"pnl":36297.17142259318,"px":2005.0,"left":7},{"t":"out","n":"이루온","c":"065440","amt":2702.022307406366,"pnl":-43.988682808186695,"px":1364.0,"left":7},{"t":"out","n":"이씨에스","c":"067010","amt":323750.9930507996,"pnl":-15740.468355091522,"px":2975.0,"left":15},{"t":"out","n":"다산솔루에타","c":"154040","amt":318356.8963288996,"pnl":8796.78543210763,"px":1443.0,"left":4},{"t":"blocked","n":"이큐셀","c":"160600"},{"t":"out","n":"웹스","c":"196700","amt":293986.0432604022,"pnl":-21080.79318518855,"px":1378.0,"left":15},{"t":"out","n":"파라택시스이더리움","c":"290560","amt":418638.79656025127,"pnl":88086.31686177204,"px":1600.0,"left":9},{"t":"out","n":"교보12호스팩","c":"421800","amt":303449.05224465916,"pnl":-36456.80389314308,"px":2220.0,"left":8},{"t":"blocked","n":"한국제11호스팩","c":"436610"},{"t":"out","n":"대신밸런스제13호스팩","c":"438220","amt":338978.3251967334,"pnl":7690.093028309522,"px":2215.0,"left":6},{"t":"out","n":"이베스트스팩6호","c":"478110","amt":325815.4340339695,"pnl":-6207.24455472338,"px":2030.0,"left":4},{"t":"in","n":"교보16호스팩","c":"482520","amt":333719.739594687,"px":2020.0,"capped":false,"rank":1,"already":8},{"t":"in","n":"대신밸런스제18호스팩","c":"478780","amt":333720.0473914391,"px":2035.0,"capped":false,"rank":2,"already":5},{"t":"in","n":"투비소프트","c":"079970","amt":333827.8563969227,"px":1446.0,"capped":false,"rank":3,"already":8},{"t":"in","n":"주연테크","c":"044380","amt":333815.6843842919,"px":2015.0,"capped":false,"rank":4,"already":10},{"t":"in","n":"진바이오텍","c":"086060","amt":333773.54624782095,"px":3695.0,"capped":false,"rank":5,"already":11},{"t":"in","n":"형지엘리트","c":"093240","amt":333867.3332595477,"px":1007.0,"capped":false,"rank":6,"already":7},{"t":"in","n":"지란지교시큐리티","c":"208350","amt":333854.79775734164,"px":3075.0,"capped":false,"rank":7,"already":4},{"t":"in","n":"디에스엠","c":"104040","amt":333791.4259520546,"px":5060.0,"capped":false,"rank":8,"already":8},{"t":"in","n":"비츠로시스","c":"054220","amt":333819.9401990397,"px":2435.0,"capped":false,"rank":9,"already":3},{"t":"in","n":"대한과학","c":"131220","amt":333728.2916239538,"px":4995.0,"capped":false,"rank":10,"already":8},{"t":"in","n":"뉴보텍","c":"060260","amt":333743.78680749855,"px":1676.0,"capped":false,"rank":11,"already":9},{"t":"in","n":"벨로크","c":"424760","amt":333807.3663022358,"px":2424.0,"capped":false,"rank":12,"already":3},{"t":"in","n":"광진실업","c":"026910","amt":333797.92881886894,"px":3005.0,"capped":false,"rank":13,"already":1},{"t":"in","n":"대성미생물","c":"036480","amt":333838.0664672028,"px":10100.0,"capped":false,"rank":15,"already":4}],"hold":[{"n":"한국제11호스팩","c":"436610","amt":6848734.198243883,"slots":20,"mine":true,"intop":false,"avg":3383.021394356996,"px":3375.0},{"n":"파루","c":"043200","amt":5832821.025628318,"slots":18,"mine":true,"intop":false,"avg":1175.9919227356297,"px":1142.0},{"n":"이씨에스","c":"067010","amt":5140281.9275431335,"slots":16,"mine":true,"intop":false,"avg":3106.3468718639037,"px":2975.0},{"n":"웹스","c":"196700","amt":5060923.067275195,"slots":16,"mine":true,"intop":false,"avg":1469.7867920186811,"px":1372.0},{"n":"파라택시스이더리움","c":"290560","amt":4370578.874264251,"slots":10,"mine":true,"intop":false,"avg":1259.404947651206,"px":1594.0},{"n":"엔에이치스팩31호","c":"481890","amt":4312932.449167909,"slots":13,"mine":false,"intop":false,"avg":2036.993603745343,"px":2025.0},{"n":"SK증권제13호스팩","c":"473950","amt":4301262.418623697,"slots":13,"mine":false,"intop":false,"avg":2077.786890416165,"px":2060.0},{"n":"신라섬유","c":"001000","amt":3845510.664244911,"slots":13,"mine":true,"intop":false,"avg":5903.790557537227,"px":5035.0},{"n":"아이컴포넌트","c":"059100","amt":3593901.523548797,"slots":11,"mine":false,"intop":false,"avg":4597.395457159618,"px":4510.0},{"n":"진바이오텍","c":"086060","amt":3534992.3278400605,"slots":11,"mine":false,"intop":true,"avg":3817.240614916104,"px":3675.0},{"n":"주연테크","c":"044380","amt":3393355.318201802,"slots":10,"mine":false,"intop":true,"avg":1983.1123752429635,"px":2015.0},{"n":"교보12호스팩","c":"421800","amt":3071625.0953455055,"slots":9,"mine":true,"intop":false,"avg":2477.913691244579,"px":2220.0},{"n":"비트플래닛","c":"049470","amt":2948136.7348484085,"slots":8,"mine":true,"intop":false,"avg":1802.9133721830106,"px":2000.0},{"n":"뉴보텍","c":"060260","amt":2780437.6378799533,"slots":9,"mine":false,"intop":true,"avg":1810.5617892418104,"px":1676.0},{"n":"디에스엠","c":"104040","amt":2683325.4874904607,"slots":8,"mine":false,"intop":true,"avg":5032.501737046913,"px":5055.0},{"n":"교보16호스팩","c":"482520","amt":2675758.9530665223,"slots":8,"mine":false,"intop":true,"avg":2020.452500994389,"px":2025.0},{"n":"투비소프트","c":"079970","amt":2639450.5906703384,"slots":8,"mine":false,"intop":true,"avg":1426.7110681592299,"px":1410.0},{"n":"대한과학","c":"131220","amt":2515690.6286155256,"slots":8,"mine":false,"intop":true,"avg":5280.973490805178,"px":4975.0},{"n":"싸이버원","c":"356890","amt":2486151.8577736793,"slots":7,"mine":false,"intop":false,"avg":3059.3421963472974,"px":3255.0},{"n":"대신밸런스제13호스팩","c":"438220","amt":2375914.494419907,"slots":7,"mine":true,"intop":false,"avg":2156.6863914164396,"px":2165.0},{"n":"이루온","c":"065440","amt":2353082.0281801214,"slots":7,"mine":true,"intop":true,"avg":1382.1112675508182,"px":1365.0},{"n":"형지엘리트","c":"093240","amt":2325655.3615262154,"slots":7,"mine":false,"intop":true,"avg":1017.0567877690094,"px":1012.0},{"n":"하나금융24호스팩","c":"430230","amt":1867152.7248257974,"slots":6,"mine":true,"intop":false,"avg":2003.9547442936562,"px":1762.0},{"n":"다산솔루에타","c":"154040","amt":1728231.4208098776,"slots":5,"mine":true,"intop":false,"avg":1393.9491793682544,"px":1443.0},{"n":"이큐셀","c":"160600","amt":1722170.7324577349,"slots":11,"mine":true,"intop":false,"avg":6610.049684715173,"px":3100.0},{"n":"대신밸런스제18호스팩","c":"478780","amt":1669950.738916256,"slots":5,"mine":false,"intop":true,"avg":2033.3466060680353,"px":2035.0},{"n":"이베스트스팩6호","c":"478110","amt":1657780.8189965552,"slots":5,"mine":true,"intop":false,"avg":2056.8804938569524,"px":2040.0},{"n":"브이씨","c":"365900","amt":1356073.373418956,"slots":4,"mine":false,"intop":false,"avg":3888.842983829441,"px":3855.0},{"n":"대성미생물","c":"036480","amt":1337932.422503576,"slots":4,"mine":false,"intop":true,"avg":10091.138285055486,"px":10110.0},{"n":"지란지교시큐리티","c":"208350","amt":1335437.7898684687,"slots":4,"mine":false,"intop":true,"avg":3075.649195425515,"px":3070.0},{"n":"비츠로시스","c":"054220","amt":1031347.4209968528,"slots":3,"mine":false,"intop":true,"avg":2390.4371353455917,"px":2435.0},{"n":"벨로크","c":"424760","amt":943373.2633732633,"slots":3,"mine":false,"intop":true,"avg":2574.4399058083354,"px":2424.0},{"n":"우리엔터프라이즈","c":"037400","amt":658749.6923455575,"slots":2,"mine":false,"intop":false,"avg":7166.351667780608,"px":7070.0},{"n":"스튜디오삼익","c":"415380","amt":657558.3493987409,"slots":2,"mine":false,"intop":false,"avg":3148.0161412282387,"px":3101.0},{"n":"플랜티넷","c":"075130","amt":560162.6016260162,"slots":1,"mine":false,"intop":false,"avg":2058.1335023680144,"px":3445.0},{"n":"에스티오","c":"098660","amt":441649.19636617746,"slots":1,"mine":false,"intop":false,"avg":2389.126968568328,"px":3160.0},{"n":"국영지앤엠","c":"006050","amt":407273.60308285174,"slots":1,"mine":false,"intop":false,"avg":13879.405682014607,"px":16910.0},{"n":"GMI벤처","c":"019570","amt":406314.6997929606,"slots":1,"mine":false,"intop":false,"avg":3225.5185559686156,"px":3925.0},{"n":"세니젠","c":"188260","amt":390446.52128764277,"slots":1,"mine":false,"intop":false,"avg":3216.555492333794,"px":3760.0},{"n":"미래아이앤지","c":"007120","amt":378006.87285223365,"slots":1,"mine":false,"intop":false,"avg":1070.3711092398548,"px":1210.0}],"top":[{"n":"교보16호스팩","c":"482520","s":6.685089588165283},{"n":"대신밸런스제18호스팩","c":"478780","s":5.974093914031982},{"n":"투비소프트","c":"079970","s":5.878922939300537},{"n":"주연테크","c":"044380","s":3.708390474319458},{"n":"진바이오텍","c":"086060","s":3.407177209854126},{"n":"형지엘리트","c":"093240","s":3.3225724697113037},{"n":"지란지교시큐리티","c":"208350","s":3.292929172515869},{"n":"디에스엠","c":"104040","s":3.2476401329040527},{"n":"비츠로시스","c":"054220","s":3.14349102973938},{"n":"대한과학","c":"131220","s":3.1383509635925293},{"n":"뉴보텍","c":"060260","s":3.114750862121582},{"n":"벨로크","c":"424760","s":3.030322790145874},{"n":"광진실업","c":"026910","s":2.9144887924194336},{"n":"이루온","c":"065440","s":2.8828866481781006},{"n":"대성미생물","c":"036480","s":2.8779208660125732}],"cash":448682126.8199647,"slotnames":["신라섬유","비비안","파루","비트플래닛","이루온","이씨에스","다산솔루에타","이큐셀","웹스","파라택시스이더리움","교보12호스팩","하나금융24호스팩","한국제11호스팩","대신밸런스제13호스팩","이베스트스팩6호"],"mv":100021896.21845952}</script>
+<script>
+const D = JSON.parse(document.getElementById('DAY').textContent);
+const won = v => Math.round(v/1e4).toLocaleString();
+
+// 슬롯 그리드
+document.getElementById('slots').innerHTML =
+  Array.from({length:20}, (_,i)=>`<div class="slot${i===8?' on':''}">${i}</div>`).join('');
+
+// 그날의 주문
+const ev = D.events;
+const take = ev.filter(e=>e.t==='take'), out = ev.filter(e=>e.t==='out'), inn = ev.filter(e=>e.t==='in');
+let h = `<div class="card"><h4>슬롯 8이 20거래일 전에 담아 둔 15종목</h4>
+  <p style="margin:0;font-size:14px;color:var(--dim)">${D.slotnames.join(' · ')}</p></div>
+  <div class="card"><h4>오늘(2024-09-02)의 TOP15</h4>
+  <p style="margin:0;font-size:14px;color:var(--dim)">${D.top.map((t,i)=>`<b style="color:var(--ink)">${i+1}.</b> ${t.n}`).join('  ')}</p>
+  <p class="note" style="margin-top:8px">겹치는 종목은 <b>이루온 하나뿐</b>입니다. 20거래일 전 명단이라 거의 다 바뀌었습니다.</p></div>`;
+
+h += `<h3>① 익절 — 슬롯 무관, 전량</h3>`;
+h += take.length ? `<div class="ord">${take.map(e=>
+  `<b>${e.n}</b>  평단 ${e.avg.toLocaleString(undefined,{maximumFractionDigits:0})}원 → ${e.px.toLocaleString()}원  (${((e.px/e.avg-1)*100).toFixed(0)}%)
+   20개 슬롯이 나눠 든 <b>${won(e.amt)}만원 전량 매도</b> · 실현 <b class="up">+${won(e.pnl)}만원</b>`).join('\n')}</div>`
+  : `<p style="color:var(--dim)">없음</p>`;
+
+h += `<h3>② 슬롯 8에서 빼는 종목 — ${out.length}건 <span style="font-weight:400;color:var(--dim);font-size:13px">(오늘 TOP15에 없음)</span></h3>
+<div class="scroll"><table><thead><tr><th>종목</th><th>매도금액</th><th>계좌에 남는 슬롯</th></tr></thead><tbody>`;
+for (const e of out) h += `<tr><td>${e.n}</td><td class="num">${won(e.amt)}만</td>`
+  + `<td class="num ${e.left?'':'up'}">${e.left ? e.left+'개 남음' : '<b>완전 퇴출</b>'}</td></tr>`;
+h += `</tbody></table></div><p class="note">12건 중 <b>11건은 다른 슬롯이 그대로 들고 있습니다.</b>
+  계좌에서 완전히 사라진 건 비비안 하나뿐입니다.</p>`;
+
+h += `<h3>③ 슬롯 8에 넣는 종목 — ${inn.length}건</h3>
+<div class="scroll"><table><thead><tr><th>종목</th><th>순위</th><th>매수금액</th><th>이미 보유 중인 슬롯</th></tr></thead><tbody>`;
+for (const e of inn) h += `<tr><td>${e.n}</td><td class="num">${e.rank}위</td><td class="num">${won(e.amt)}만</td>`
+  + `<td class="num ${e.already?'':'up'}">${e.already ? e.already+'개' : '<b>처음 편입</b>'}</td></tr>`;
+h += `</tbody></table></div><p class="note">14건 중 <b>13건은 이미 다른 슬롯이 들고 있는 종목</b>입니다 —
+  새로 편입한 게 아니라 비중을 늘린 것입니다. 처음 들어온 건 광진실업 하나뿐입니다.</p>`;
+
+const tot = ev.reduce((a,e)=>a+(e.amt||0),0);
+h += `<div class="card"><h4>그날 합계</h4>
+  <div class="kpi" style="margin:10px 0 0">
+  <div><div class="k">주문 건수</div><div class="v">${ev.length}건</div><div class="n">익절 ${take.length} · 매도 ${out.length} · 매수 ${inn.length}</div></div>
+  <div><div class="k">거래금액</div><div class="v">${won(tot)}만</div><div class="n">투자금 1억의 ${(tot/1e8*100).toFixed(1)}%</div></div>
+  <div><div class="k">계좌 보유</div><div class="v">${D.hold.length}종목</div><div class="n">손댄 건 그중 26종목</div></div>
+  <div><div class="k">손 안 댄 종목</div><div class="v">${D.hold.length-out.length-take.length}</div><div class="n">다른 슬롯 소관</div></div>
+  </div></div>`;
+document.getElementById('dayblock').innerHTML = h;
+</script>
+</body></html>
