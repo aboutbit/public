@@ -91,6 +91,18 @@
   #detail .ct,#a2detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
   #a2detail .gone{opacity:.5}
   #a2detail td.same{color:var(--dim)}
+  .tlwrap{position:relative;margin:14px 0 0}
+  .tllegend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--dim)}
+  .tllegend b{display:inline-flex;align-items:center;gap:5px;font-weight:500;color:var(--ink)}
+  .tllegend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  #tlSvg{display:block;min-width:560px;width:100%;height:auto}
+  .tltip{position:absolute;z-index:6;pointer-events:none;background:var(--card);border:1px solid var(--line);
+    border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.5;box-shadow:0 4px 14px rgba(0,0,0,.18);white-space:nowrap}
+  .tltip b{font-family:var(--mono)}
+  /* 검증 통과 팔레트 (dataviz validate_palette.js · adjacent, light/dark 모두 PASS).
+     레인마다 이름표가 따로 붙으므로 색이 유일한 식별자가 아니다 — 라이트의 대비 WARN 은 그것으로 해소된다. */
+  :root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4}
+  @media (prefers-color-scheme:dark){:root{--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181}}
   footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
   a{color:var(--accent)}
   @media (max-width:600px){
@@ -129,7 +141,7 @@
 <p class="hint">단위 USDT. 규모가 서로 다르므로 절대 금액이 아니라 <b>연도별 균형</b>과 아래 위험 지표를 함께 봐야 한다.</p>
 
 <div class="tabbar">
-  <p class="lb">아래 <b>2 · 3 · 4 · 5장</b>은 여기서 고른 구조 기준으로 바뀐다</p>
+  <p class="lb">아래 <b>2 · 3 · 4 · 5 · 6장</b>은 여기서 고른 구조 기준으로 바뀐다</p>
   <div class="tabs" id="tabs">
     <button data-k="OLD4">기존 4전략</button>
     <button data-k="L3927" class="on">라우팅 3·9·27</button>
@@ -155,11 +167,28 @@
   <p class="hint">연 합계·전체 수익은 표(평가 기준)가 맞다. 전 기간을 다 더하면 두 방식의 합계는 같아진다 — 어느 달에 넣느냐만 다르다.</p>
 </div>
 
-<h2>5. 전략별 거래 통계</h2>
+
+<h2>5. 거래가 언제 일어났나 — 9년 타임라인</h2>
+<p class="hint">거래 하나가 눈금 하나다. 촘촘한 구간과 텅 빈 구간이 바로 보인다.
+탭을 바꾸면 세 구조를 같은 축에서 비교할 수 있다. 눈금에 손을 올리면 그 거래를 볼 수 있다.</p>
+
+<div class="tlwrap">
+  <div class="tllegend" id="tlLegend"></div>
+  <div class="scroll" style="border:0;background:none;margin:8px 0 0">
+    <svg id="tlSvg" role="img" aria-label="전략별 진입 시각 타임라인"></svg>
+  </div>
+  <div class="tltip" id="tlTip" hidden></div>
+</div>
+
+<div class="three" id="tlStats"></div>
+
+<p class="hint" id="tlNote"></p>
+
+<h2>6. 전략별 거래 통계</h2>
 <div id="statBlocks"></div>
 <p class="hint">기존안은 4전략(적응형 RSI · 15분 RSI20 없음), 라우팅안은 5전략이다. 같은 코드라도 구조에 따라 다른 전략일 수 있어 이름을 함께 표기했다.</p>
 
-<h2>6. 위험 비교</h2>
+<h2>7. 위험 비교</h2>
 <div class="scroll"><table class="stack">
 <thead><tr><th>항목</th><th>기존 4전략</th><th>라우팅 3·9·27</th><th>라우팅 2·4·8</th></tr></thead>
 <tbody>
@@ -174,7 +203,7 @@
 </tbody></table></div>
 
 
-<h2 id="a2sec">7. A2 사다리 변경 — 3/9/27 → 3/9/9 · 40% <span style="font-size:13px;color:var(--dim);font-weight:400">(2026-09-21 채택)</span></h2>
+<h2 id="a2sec">8. A2 사다리 변경 — 3/9/27 → 3/9/9 · 40% <span style="font-size:13px;color:var(--dim);font-weight:400">(2026-09-21 채택)</span></h2>
 
 <div class="box warn">
 <b>왜 바꿨나</b> — 다섯 다리 중 <b>A2 만 강제청산이 가까웠다.</b> A2 는 첫 진입이 27.612% 로 커서
@@ -272,7 +301,7 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 (2021-12 −36,760 → −35,700 · 2022-08 −25,050 → −23,590 USDT).</p>
 </div>
 
-<h2>8. 세 구조의 차이</h2>
+<h2>9. 세 구조의 차이</h2>
 <ul>
   <li><b>기존 4전략 → 라우팅 3·9·27</b>: 적응형 RSI와 15분 RSI20을 추가하고, 모드 판정을 "격렬이면 물타기형 / 조용이면 추세·보유"로 완전히 갈랐다.
       그 결과 <b>2024~2026년이 42,480 · 46,060 · 35,020 → 60,000 · 72,050 · 60,370 USDT</b>으로 올라가면서 전 기간 낙폭은 136,000 → 81,060 USDT 로 줄었다.
@@ -284,7 +313,7 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 </ul>
 
 <footer>
-데이터 <span class="n">btc-compare3-data.js</span> (거래 8,202건) · 7장 <span class="n">btc-a2-data.js</span> · <span class="n">btc-a2-trades.js</span> (A2 333 + 330건)
+데이터 <span class="n">btc-compare3-data.js</span> (거래 8,202건) · 8장 <span class="n">btc-a2-data.js</span> · <span class="n">btc-a2-trades.js</span> (A2 333 + 330건)
 · 계산 코드 <span class="n">context/btc-futures-strategy/bt/</span> · 2026-09-24 (금액 표기 원 → USDT)
 </footer>
 
@@ -304,6 +333,7 @@ const won = v => { const u = v/1000; return (u>=0?'+':'−') + Math.abs(u).toLoc
 const hold = m => m < 120 ? m + '분' : (m < 2880 ? (m/60).toFixed(1) + '시간' : (m/1440).toFixed(1) + '일');
 const cls = v => v >= 0 ? 'pos' : 'neg';
 let KEY = 'L3927';
+let TL_DRAW = null;   // 5장 타임라인 다시 그리기(탭 전환 때)
 
 // ── 전략 상세 규칙 ────────────────────────────────────────────
 const money = v => (v/1000).toLocaleString('ko-KR', F2);
@@ -661,7 +691,7 @@ function show(ym, cell) {
 document.addEventListener('click', e => {
   const td = e.target.closest('td.cell'); if (td) show(td.dataset.ym, td);
   const tb = e.target.closest('#tabs button');
-  if (tb) { document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b === tb)); KEY = tb.dataset.k; renderSpec(); renderLiq(); renderMonths(); }
+  if (tb) { document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b === tb)); KEY = tb.dataset.k; renderSpec(); renderLiq(); renderMonths(); TL_DRAW && TL_DRAW(); }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { detail.hidden = true; cur = null; document.querySelectorAll('td.cell.on').forEach(x => x.classList.remove('on')); }
@@ -674,6 +704,113 @@ document.getElementById('dClose').addEventListener('click', () => {
 renderSpec();
 renderLiq();
 renderMonths();
+
+// ── 5장 · 거래 타임라인 ────────────────────────────────────────
+// 거래 하나 = 눈금 하나. "얼마나 자주 일어나나" 를 숫자가 아니라 밀도로 읽게 한다.
+// 레인을 다리별로 나눠 색이 유일한 식별자가 되지 않게 했다(왼쪽에 이름표가 붙는다).
+(function () {
+  const svg = document.getElementById("tlSvg");
+  if (!svg) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const tip = document.getElementById("tlTip"), wrap = svg.closest(".tlwrap");
+  const COL = ["--s1", "--s2", "--s3", "--s4", "--s5"];
+  const ms = (t) => Date.parse(t.replace(" ", "T") + "Z");
+  const DAY = 864e5;
+  const W = 1000, PADL = 46, PADR = 10, PADT = 16, LANE = 26, GAPL = 5, RATE = 76;
+
+  function draw() {
+    const d = D3[KEY];
+    const legs = d.stats.map((x) => x.code);
+    const nm = {}; d.stats.forEach((x) => nm[x.code] = x.nm);
+    const by = {}; legs.forEach((c) => by[c] = []);
+    for (const t of d.trades) (by[t.s] ||= []).push(t);
+    const all = d.trades.map((t) => ms(t.t0)).sort((a, b) => a - b);
+    const t0 = ms("2017-09-01 00:00"), t1 = ms("2026-09-19 00:00");
+    const x = (v) => PADL + (v - t0) / (t1 - t0) * (W - PADL - PADR);
+    const H = PADT + legs.length * (LANE + GAPL) + 18 + RATE + 24;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.style.height = H + "px";
+    let h = "";
+
+    // 연도 격자 — 눈에 안 띄게
+    for (let y = 2018; y <= 2026; y++) {
+      const px = x(ms(`${y}-01-01 00:00`));
+      h += `<line x1="${px}" y1="${PADT - 6}" x2="${px}" y2="${H - 22}" stroke="var(--line)" stroke-width="1"/>`
+         + `<text x="${px}" y="${H - 8}" fill="var(--dim)" font-size="11" text-anchor="middle">${y}</text>`;
+    }
+
+    // 다리별 레인
+    legs.forEach((code, i) => {
+      const yTop = PADT + i * (LANE + GAPL), c = `var(${COL[i % COL.length]})`;
+      h += `<rect x="${PADL}" y="${yTop}" width="${W - PADL - PADR}" height="${LANE}" fill="var(--ink)" fill-opacity="0.03"/>`
+         + `<text x="${PADL - 8}" y="${yTop + LANE / 2 + 4}" fill="var(--ink)" font-size="12" font-weight="600" text-anchor="end">${code}</text>`;
+      for (const t of by[code] || []) {
+        const px = x(ms(t.t0));
+        h += `<rect class="tk" x="${px - 0.6}" y="${yTop + 3}" width="1.2" height="${LANE - 6}" fill="${c}" data-t="${t.t0}" data-c="${code}" data-p="${t.p}" data-r="${t.r}" data-d="${t.d}"/>`;
+      }
+    });
+
+    // 30일 이동 진입 수 — "요즘 얼마나 자주인가" 를 선으로
+    const yR = PADT + legs.length * (LANE + GAPL) + 18;
+    const step = (t1 - t0) / 360;
+    const pts = [];
+    let mx = 0;
+    for (let v = t0; v <= t1; v += step) {
+      const lo = v - 30 * DAY;
+      let k = 0;
+      for (const a of all) { if (a > v) break; if (a >= lo) k++; }
+      pts.push([v, k]); if (k > mx) mx = k;
+    }
+    mx = Math.max(mx, 1);
+    const yy = (k) => yR + RATE - (k / mx) * RATE;
+    h += `<text x="${PADL - 8}" y="${yR + 10}" fill="var(--dim)" font-size="11" text-anchor="end">${mx}</text>`
+       + `<text x="${PADL - 8}" y="${yR + RATE}" fill="var(--dim)" font-size="11" text-anchor="end">0</text>`
+       + `<line x1="${PADL}" y1="${yR + RATE}" x2="${W - PADR}" y2="${yR + RATE}" stroke="var(--line)"/>`
+       + `<path d="M ${pts.map(([v, k]) => `${x(v).toFixed(1)} ${yy(k).toFixed(1)}`).join(" L ")}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>`
+       + `<text x="${PADL + 4}" y="${yR - 4}" fill="var(--dim)" font-size="11">30일 이동 진입 수</text>`;
+    svg.innerHTML = h;
+
+    document.getElementById("tlLegend").innerHTML = legs.map((c, i) =>
+      `<b><i style="background:var(${COL[i % COL.length]})"></i>${c} ${nm[c] || ""}</b>`).join("");
+
+    // 간격 통계
+    const gaps = [];
+    for (let i = 1; i < all.length; i++) gaps.push((all[i] - all[i - 1]) / DAY);
+    gaps.sort((a, b) => a - b);
+    const q = (p) => gaps[Math.floor(gaps.length * p)];
+    const fd = (v) => v < 1 ? (v * 24).toFixed(1) + "시간" : v.toFixed(1) + "일";
+    const longest = gaps[gaps.length - 1];
+    let li = 0, lt = 0;
+    for (let i = 1; i < all.length; i++) if (all[i] - all[i - 1] > lt) { lt = all[i] - all[i - 1]; li = i; }
+    const fmt = (t) => new Date(t).toISOString().slice(0, 10);
+    document.getElementById("tlStats").innerHTML = [
+      ["진입 사이 중앙", fd(q(0.5)), `${all.length.toLocaleString()}건 · 90% 는 ${fd(q(0.9))} 안에`],
+      ["3일 이상 비는 구간", ((gaps.filter((g) => g >= 3).length / gaps.length) * 100).toFixed(0) + "%", `1일 이상 ${((gaps.filter((g) => g >= 1).length / gaps.length) * 100).toFixed(0)}% · 7일 이상 ${((gaps.filter((g) => g >= 7).length / gaps.length) * 100).toFixed(0)}%`],
+      ["가장 길었던 침묵", fd(longest), `${fmt(all[li - 1])} → ${fmt(all[li])}`],
+    ].map(([t, v, sub]) => `<div class="pane"><div class="hd">${t}</div>
+      <div style="padding:12px 14px 14px"><div class="n" style="font-size:22px;font-weight:650;letter-spacing:-.01em">${v}</div>
+      <div class="hint" style="margin-top:4px">${sub}</div></div></div>`).join("");
+
+    document.getElementById("tlNote").innerHTML =
+      `${d.meta.label} · 진입 ${all.length.toLocaleString()}건 · 2017-09 ~ 2026-09-18. ` +
+      `<b>평균에 속지 말 것</b> — 월 6건인 달과 55건인 달이 같이 있다. 위 선(30일 이동)이 그 진폭이다.`;
+  }
+
+  svg.addEventListener("mousemove", (e) => {
+    const el = e.target.closest(".tk");
+    if (!el) { tip.hidden = true; return; }
+    const p = +el.dataset.p;
+    tip.innerHTML = `<b>${el.dataset.t}</b> · ${el.dataset.c}<br>${el.dataset.r} · 물타기 ${el.dataset.d}단계 · <b class="${cls(p)}">${won(p)}</b>`;
+    tip.hidden = false;
+    const r = wrap.getBoundingClientRect();
+    tip.style.left = Math.min(Math.max(e.clientX - r.left + 12, 0), r.width - tip.offsetWidth - 4) + "px";
+    tip.style.top = (e.clientY - r.top - tip.offsetHeight - 10) + "px";
+  });
+  svg.addEventListener("mouseleave", () => { tip.hidden = true; });
+  TL_DRAW = draw;
+  draw();
+})();
 
 // ── A2 사다리 비교 월별 표 + 월 클릭 → 매매 기록 ──────────────
 (function () {
