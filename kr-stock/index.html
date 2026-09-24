@@ -123,7 +123,76 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
 <div class="slots" id="slots"></div>
 <p class="note">오늘 차례는 슬롯 8. 나머지 19개는 오늘 쳐다보지도 않습니다.</p>
 
-<h2><span class="n">3</span>하루에 하는 일 — 네 단계</h2>
+<h2><span class="n">3</span>소형이냐 대형이냐 — 매일 판단합니다</h2>
+<p>점수를 매기기 전에 <b>오늘이 소형 체제인지 대형 체제인지</b> 먼저 정합니다. 매일 새로 판정합니다.</p>
+<div class="ord">소형주 프리미엄 누적값(오늘)  vs  소형주 프리미엄 누적값(120거래일 전)
+
+  오늘이 더 높다  → <b>소형 체제</b>   작은 종목에 +점수  (3z(−log시총))
+  오늘이 더 낮다  → <b>대형 체제</b>   큰 종목에 +점수   (3z(+log시총))</div>
+<p>이 판정 하나로 <b>점수식이 통째로 뒤집힙니다.</b> 슬롯 차례와 무관하게 매일 계산합니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>16년 실측</th><th></th></tr></thead><tbody>
+<tr><td style="text-align:left">소형 체제 / 대형 체제</td><td class="num"><b>81% / 19%</b></td></tr>
+<tr><td style="text-align:left">체제가 바뀐 횟수</td><td class="num">62회 (연 3.9회)</td></tr>
+<tr><td style="text-align:left">한 체제가 이어진 기간</td><td class="num">평균 61거래일 · <b>중앙 5거래일</b> · 최장 627</td></tr>
+<tr><td style="text-align:left">하루 만에 되돌아간 경우</td><td class="num">13회</td></tr>
+</tbody></table></div>
+<p class="note">평균 61일인데 중앙값이 5일입니다 — 대부분 며칠 만에 오락가락하고,
+가끔 한 번 바뀌면 2~3년씩 이어집니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>연</th><th>2011</th><th>2013</th><th>2015</th><th>2017</th><th>2019</th><th>2021</th><th>2023</th><th>2025</th><th>2026</th></tr></thead>
+<tbody><tr><td>소형 체제 비율</td><td class="num">40%</td><td class="num">72%</td><td class="num">100%</td>
+<td class="num">40%</td><td class="num">100%</td><td class="num">92%</td><td class="num">100%</td>
+<td class="num">72%</td><td class="num up"><b>2%</b></td></tr></tbody></table></div>
+<p class="note"><b>2026년은 98%가 대형 체제</b>입니다 — 지금은 대형주를 사고 있다는 뜻입니다.
+2017년도 대형 체제가 60%였습니다(반도체 대형주 장세).</p>
+
+<h3>체제가 바뀌면 어떻게 되나 — 20거래일에 걸쳐 갈아탄다</h3>
+<p>규칙에 <b>예외가 없습니다.</b> 슬롯 차례가 오면 평소처럼 "내 슬롯 종목 vs 오늘 TOP15"를 비교할 뿐인데,
+체제가 바뀌면 겹치는 게 0개라 그 슬롯이 통째로 갈아타집니다.</p>
+<div class="ord"><b>실제 사례 — 2025-09-26 소형 → 대형 전환</b>
+
+9/25 (소형 체제) TOP5
+  대신밸런스제18호스팩 182억 · 삼성스팩8호 495억 · 스튜디오삼익 137억 · 알톤 213억 · 파버나인 408억
+
+9/26 (대형 체제) TOP5   ← 하루 만에 완전히 뒤집힘, 겹치는 종목 <b>0개</b>
+  삼성전자 493조 · SK하이닉스 245조 · 삼성바이오로직스 71조 · LG에너지솔루션 82조 · 현대자동차 44조</div>
+<div class="scroll"><table>
+<thead><tr><th>날짜</th><th>체제</th><th>보유 종목</th><th>시총 가중평균</th><th>1조 이상 비중</th></tr></thead><tbody>
+<tr><td class="num">9/23</td><td>소형</td><td class="num">49종목</td><td class="num">290억</td><td class="num">0%</td></tr>
+<tr><td class="num"><b>9/26</b></td><td colspan="4"><b>대형 체제로 전환</b></td></tr>
+<tr><td class="num">9/29</td><td>대형</td><td class="num">65종목</td><td class="num">8.6조</td><td class="num">10%</td></tr>
+<tr><td class="num">10/10</td><td>대형</td><td class="num">57종목</td><td class="num">30.6조</td><td class="num">30%</td></tr>
+<tr><td class="num">10/16</td><td>대형</td><td class="num">56종목</td><td class="num">55.5조</td><td class="num">52%</td></tr>
+<tr><td class="num">10/22</td><td>대형</td><td class="num">50종목</td><td class="num">76.9조</td><td class="num">71%</td></tr>
+<tr><td class="num"><b>11/3</b></td><td>대형</td><td class="num"><b>20종목</b></td><td class="num"><b>124조</b></td><td class="num up"><b>97%</b></td></tr>
+</tbody></table></div>
+<p class="note">하루에 1/20씩, 정확히 <b>20거래일 만에 완전히 갈아탔습니다.</b>
+종목 수가 49 → 20으로 준 것은 대형주 TOP15 명단이 잘 안 바뀌어
+20개 슬롯이 같은 종목을 담기 때문입니다(그래서 대형 체제는 더 집중됩니다).</p>
+
+<h3>체제가 하루이틀 튀면 문제가 되나 — 안 됩니다</h3>
+<p>체제 전환 <b>62회 중 46회(73%)는 20거래일도 못 가고 되돌아갔습니다.</b>
+소형→대형→소형 이 실제로 자주 일어납니다. 그런데 피해가 없습니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>전환 인정 조건</th><th>전환 횟수</th><th>실현 연평균</th><th>연회전</th><th>슬리피지율</th><th>낙폭</th></tr></thead><tbody>
+<tr><td><b>없음 (현행)</b></td><td class="num">62회</td><td class="num up"><b>+33.6%</b></td><td class="num">5.1회</td><td class="num">0.133%</td><td class="num dn">−30%</td></tr>
+<tr><td>3일 연속 유지</td><td class="num">26회</td><td class="num">+33.3%</td><td class="num">5.2회</td><td class="num">0.133%</td><td class="num dn">−32%</td></tr>
+<tr><td>10일 연속 유지</td><td class="num">16회</td><td class="num">+33.2%</td><td class="num">5.0회</td><td class="num">0.133%</td><td class="num dn">−32%</td></tr>
+<tr><td>40일 연속 유지</td><td class="num">6회</td><td class="num">+34.4%</td><td class="num">4.9회</td><td class="num">0.134%</td><td class="num dn">−30%</td></tr>
+</tbody></table></div>
+<p>전환을 <b>62회 → 6회로 10분의 1로 줄여도 수익은 0.8%p 차이</b>이고,
+<b>연회전율·슬리피지가 전혀 안 줍니다</b>(5.1→4.9회, 0.133→0.134%).
+휩소로 낭비된 거래가 애초에 없었다는 뜻입니다.</p>
+<div class="card ok">
+  <h4>슬롯 구조 자체가 휩소 방어막입니다</h4>
+  <p style="margin:0">대형 체제가 2일만 지속됐다면 → 그 2일에 차례가 온 <b>슬롯 2개(장부의 10%)</b>만 대형주를 샀습니다.
+  나머지 90%는 소형주 그대로입니다. 체제가 되돌아오면 그 2슬롯도 자기 차례에 복귀합니다.<br>
+  즉시 전환 방식이었다면 <b>2일마다 1억을 통째로 굴리며 왕복 비용을 다 날렸을 것</b>입니다.
+  짧은 체제 구간의 합계는 전체 거래일의 <b>5.8%</b>뿐입니다.</p>
+</div>
+
+<h2><span class="n">4</span>하루에 하는 일 — 네 단계</h2>
 <div class="flow">
   <div class="step"><div class="k">1</div><div class="b"><b>상장폐지 확인</b>
     <span>폐지 예정 종목이 있으면 마지막 거래일에 전량 정리. 슬롯 상관없음.</span></div></div>
@@ -138,11 +207,11 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
     단 <b>상하한가 붙박이·거래없음이면 못 판다</b> — 그 슬롯의 다음 차례까지 기다린다.</span></div></div>
 </div>
 
-<h2><span class="n">4</span>실제 하루 — 2024년 9월 2일</h2>
+<h2><span class="n">5</span>실제 하루 — 2024년 9월 2일</h2>
 <p>백테스트가 그날 실제로 낸 주문 전부입니다. 슬롯 8의 차례였습니다.</p>
 <div id="dayblock"></div>
 
-<h2><span class="n">5</span>여기서 꼭 보셔야 할 것</h2>
+<h2><span class="n">6</span>여기서 꼭 보셔야 할 것</h2>
 <div class="card ok">
   <h4>슬롯 회전은 "종목 교체"가 아니라 "비중 조절"에 가깝습니다</h4>
   <div class="kpi" style="margin-top:12px">
@@ -160,12 +229,65 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
   <b>신라섬유를 26만원어치 팔았지만 12개 슬롯이 그대로 남아 있습니다.</b></p>
 </div>
 
-<h2><span class="n">6</span>모든 경우 — 하나씩</h2>
+<h2><span class="n">7</span>모든 경우 — 하나씩</h2>
 
 <div class="case a">
   <h4>케이스 1 · 내 슬롯 차례 + 그 종목이 아직 TOP15 <span class="tag">가장 흔함</span></h4>
-  <p style="margin:0"><b>아무것도 안 합니다.</b> 팔았다가 다시 사면 수수료·세금·슬리피지를 공짜로 버립니다.
-  그대로 두고 다음 차례(20거래일 뒤)에 다시 판단합니다.</p>
+  <p><b>33만원에 맞춥니다.</b> 슬롯 하나가 한 종목에 담는 목표액은 <b>33만원으로 고정</b>입니다
+  (1억 ÷ 20슬롯 ÷ 15종목). 20거래일 동안 주가가 움직여 33만원에서 벗어났을 테니, 그 차이만 조정합니다.</p>
+  <div class="ord">슬롯 8이 8/5 에 제닉을 33만원어치 샀다 (3,325원 × 100주)
+20거래일 뒤 슬롯 8의 차례. 제닉은 오늘도 TOP15 안에 있다.
+
+<b>경우 A — 주가가 올랐다</b>
+  3,325원 → 3,700원 (+11%)
+  슬롯 8 보유액 = 37만원  (목표보다 <b>4만원 많음</b>)
+  → 11주 매도  <b>초과분 매도</b>
+
+<b>경우 B — 주가가 내렸다</b>
+  3,325원 → 3,000원 (−10%)
+  슬롯 8 보유액 = 30만원  (목표보다 <b>3만원 적음</b>)
+  → 10주 추가 매수  <b>부족분 매수</b>
+
+<b>경우 C — 마침 딱 맞다</b>
+  → 손 안 댐</div>
+  <div class="scroll"><table>
+  <thead><tr><th>실제 동작</th><th>비중</th><th>그때 슬롯 보유액</th><th>조정 금액</th></tr></thead><tbody>
+  <tr><td>초과분 매도</td><td class="num"><b>51.0%</b></td><td class="num">36.7만원</td><td class="num">3.4만원 매도</td></tr>
+  <tr><td>부족분 매수</td><td class="num"><b>48.2%</b></td><td class="num">30.3만원</td><td class="num">3.1만원 매수</td></tr>
+  <tr><td>손 안 댐</td><td class="num">0.8%</td><td class="num">33.3만원</td><td class="num">—</td></tr>
+  </tbody></table></div>
+  <p class="note">관측 18,662건. 조정 금액은 중앙 <b>2.2만원</b>(목표의 7%)으로 아주 작습니다.
+  "그때 슬롯 보유액"은 20거래일 동안 주가가 움직여 33만원에서 벗어난 값입니다.</p>
+
+  <div class="card ok" style="margin-top:14px">
+    <h4>"TOP15에 계속 있으면 비중을 늘려야 하지 않나?" — 늘어납니다. 다만 주체가 다릅니다</h4>
+    <p style="margin:0 0 8px">슬롯 8은 그 종목을 <b>33만원까지만</b> 담당합니다.
+    비중이 늘어나는 건 <b>슬롯 9, 10, 11… 이 자기 차례에 새로 담기</b> 때문입니다.</p>
+    <div class="ord" style="margin:8px 0 0">제닉이 TOP15에 20거래일 연속 머물면
+  슬롯 8   33만원  (8/5 매수)
+  슬롯 9   33만원  (8/6 매수)
+  슬롯 10  33만원  (8/7 매수)
+   …
+  슬롯 7   33만원  (9/2 매수)
+  ──────────────────────
+  합계    667만원 = 계좌의 <b>6.67%</b>  ← 한 종목 상한</div>
+    <p style="margin:8px 0 0">한 종목 최대 비중 = 1억 ÷ 15종목 = <b>6.67%</b>.
+    실측으로 보유 종목의 <b>8.8%가 20슬롯을 꽉 채운 상태</b>이고,
+    그날 최대 비중은 평균 6.6%로 상한에 거의 붙어 있습니다.
+    16년간 20슬롯을 채웠던 종목 상위는 삼성전자(454일) · SK하이닉스(414일) · 삼성생명(398일)로,
+    전부 <b>대형 체제</b> 구간에 들어온 것들입니다.</p>
+  </div>
+</div>
+
+<div class="case a">
+  <h4>케이스 1-2 · 슬롯의 그 종목이 <b>전량</b> 없어지는 경우는 딱 3가지</h4>
+  <div class="scroll"><table>
+  <thead><tr><th></th><th>조건</th><th>범위</th><th>16년 빈도</th></tr></thead><tbody>
+  <tr><td>ⓐ</td><td style="text-align:left">슬롯 차례에 그 종목이 <b>TOP15에 없음</b></td><td>그 슬롯 몫만</td><td class="num">대부분</td></tr>
+  <tr><td>ⓑ</td><td style="text-align:left">계좌 평단 <b>+100% 돌파</b>(익절)</td><td><b>모든 슬롯 한꺼번에</b></td><td class="num">122건</td></tr>
+  <tr><td>ⓒ</td><td style="text-align:left"><b>상장폐지</b></td><td>모든 슬롯</td><td class="num">64건</td></tr>
+  </tbody></table></div>
+  <p class="note">ⓐ 조건이어도 그날 상하한가 붙박이·거래없음이면 못 팝니다 → 케이스 7</p>
 </div>
 
 <div class="case b">
@@ -246,7 +368,129 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
   (최저 +124만원, 2011년 9월).</p>
 </div>
 
-<h2><span class="n">7</span>한 종목의 일생 — 제닉</h2>
+<h2><span class="n">8</span>슬리피지란 무엇인가 <small>이 전략의 가장 큰 비용</small></h2>
+<p>주식은 "현재가 3,481원"이라고 떠 있어도 <b>그 가격에 살 수 없습니다.</b>
+현재가는 <b>마지막으로 체결된 가격</b>일 뿐이고, 지금 사려면 <b>매도 1호가</b>를 쳐야 합니다.</p>
+<div class="ord">현재가 3,481원  (= 마지막 체결가)
+   ↓
+지금 사려면 매도 1호가 <b>3,486원</b>을 쳐야 한다   (호가 단위 5원)
+   ↓
+현재가보다 <b>0.144% 비싸게</b> 산다</div>
+<p>슬리피지는 두 가지로 나뉩니다.</p>
+<div class="scroll"><table>
+<thead><tr><th></th><th>이름</th><th>이 전략에서</th><th>성격</th></tr></thead><tbody>
+<tr><td>①</td><td><b>스프레드</b> (현재가 → 1호가)</td><td class="num up"><b>0.100% (66%)</b></td>
+  <td style="text-align:left">주문이 작아도 <b>항상</b> 낸다</td></tr>
+<tr><td>②</td><td><b>시장충격</b> (1호가 → 2·3호가)</td><td class="num"><b>0.052% (34%)</b></td>
+  <td style="text-align:left">주문이 커서 호가를 <b>긁고 올라가는</b> 비용</td></tr>
+</tbody></table></div>
+<p>흔히 떠올리는 "1만 100원, 1만 200원으로 올라가며 사는" 그림은 ②인데,
+이 전략은 주문이 33만원으로 작아 <b>①이 3분의 2</b>입니다.</p>
+
+<h3>실제 주문 95,383건을 뜯어보면</h3>
+<div class="scroll"><table>
+<thead><tr><th></th><th>평균</th><th>중앙</th><th>상위 10%</th></tr></thead><tbody>
+<tr><td>주문 금액</td><td class="num"><b>28만원</b></td><td class="num">33만원</td><td class="num">35만원</td></tr>
+<tr><td>그 종목 하루 거래대금</td><td class="num">551억</td><td class="num">5.1억</td><td class="num">701억</td></tr>
+<tr><td><b>내 주문 ÷ 하루 거래대금</b></td><td class="num up"><b>0.104%</b></td><td class="num">0.054%</td><td class="num">0.248%</td></tr>
+<tr><td><b>슬리피지율</b></td><td class="num up"><b>0.152%</b></td><td class="num">0.127%</td><td class="num">0.224%</td></tr>
+</tbody></table></div>
+<p class="note">주문이 그 종목 하루 거래대금의 <b>0.1%</b>밖에 안 됩니다.
+주문의 <b>71.8%가 슬리피지 0.10~0.15%</b> 구간에 들어갑니다 — 거의 스프레드만 냅니다.</p>
+<div class="scroll"><table>
+<thead><tr><th></th><th>20분할 (33만원)</th><th>한 번에 (667만원)</th></tr></thead><tbody>
+<tr><td>슬리피지율</td><td class="num up"><b>0.152%</b></td><td class="num dn"><b>1.089%</b> (7.2배)</td></tr>
+<tr><td>연간 비용</td><td class="num up"><b>292만원</b></td><td class="num dn"><b>2,301만원</b></td></tr>
+</tbody></table></div>
+<p><b>연 2,000만원 차이.</b> 투자금 1억 기준 연 2.9% vs 23%. 슬롯 20개로 쪼개는 이유가 이것입니다.</p>
+
+<h3>호가 단위로 검증했습니다</h3>
+<div class="scroll"><table>
+<thead><tr><th>가격대</th><th>호가단위</th><th>거래 비중</th><th>한 틱 = 가격의</th></tr></thead><tbody>
+<tr><td>0~2,000원</td><td class="num">1원</td><td class="num">20.9%</td><td class="num">0.089%</td></tr>
+<tr><td><b>2,000~5,000원</b></td><td class="num">5원</td><td class="num"><b>42.0%</b></td><td class="num">0.174%</td></tr>
+<tr><td>5,000~2만원</td><td class="num">10원</td><td class="num">19.4%</td><td class="num">0.129%</td></tr>
+<tr><td>2만~5만원</td><td class="num">50원</td><td class="num">5.0%</td><td class="num">0.158%</td></tr>
+<tr><td>5만~20만원</td><td class="num">100원</td><td class="num">6.6%</td><td class="num">0.111%</td></tr>
+<tr><td>20만원 이상</td><td class="num">500원</td><td class="num">6.1%</td><td class="num">0.154%</td></tr>
+</tbody></table></div>
+<p>거래 가중 평균 한 틱 = <b>0.121%</b>. 백테스트 가정(0.100%)이 <b>약간 낙관적</b>입니다.
+실측 한 틱을 다 물린다고 가정해도 <b>−0.34%p</b>입니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>스프레드 가정</th><th>실현 연평균</th><th>최악</th><th>마이너스</th><th>기본 대비</th></tr></thead><tbody>
+<tr><td>0.06% (반 틱)</td><td class="num">+34.31%</td><td class="num">−12.2%</td><td class="num">2/16</td><td class="num">—</td></tr>
+<tr><td><b>0.10% (백테스트 기본)</b></td><td class="num up"><b>+33.64%</b></td><td class="num">−12.6%</td><td class="num">2/16</td><td class="num">—</td></tr>
+<tr><td><b>0.12% (실측 한 틱)</b></td><td class="num"><b>+33.30%</b></td><td class="num">−12.9%</td><td class="num">2/16</td><td class="num dn">−0.34%p</td></tr>
+<tr><td>0.15%</td><td class="num">+32.79%</td><td class="num">−13.2%</td><td class="num">2/16</td><td class="num dn">−0.85%p</td></tr>
+<tr><td>0.30% (가혹)</td><td class="num">+30.31%</td><td class="num">−14.9%</td><td class="num">2/16</td><td class="num dn">−3.32%p</td></tr>
+</tbody></table></div>
+
+<h2><span class="n">9</span>주문은 언제, 어떻게 <small>시장가 · 장 시작 동시호가</small></h2>
+<div class="ord">15:30        장 마감
+15:30~16:00  시세·수급 받아 점수 계산 → <b>오늘의 TOP15 확정</b>
+             앱에 "내일 주문 목록" 표시
+
+다음 날
+08:30~09:00  동시호가에 <b>시장가</b> 주문 전부 제출
+09:00        <b>시가로 일괄 체결</b>   ← 백테스트 가정과 일치</div>
+<p>백테스트가 <b>다음 날 시가 체결</b>을 가정하므로 실전도 그렇게 맞춥니다.
+신호는 그날 종가까지만 보고, 체결은 다음 날 아침입니다.</p>
+<div class="card warn">
+  <h4>지정가로 싸게 사려 하면 안 됩니다 — 역선택</h4>
+  <div class="scroll"><table style="margin:8px 0 0">
+  <thead><tr><th>매수 방식</th><th>실현 연평균</th><th>16년 슬리피지</th><th>16년 수익</th></tr></thead><tbody>
+  <tr><td><b>시장가</b></td><td class="num up"><b>+34.4%</b></td><td class="num">4,300만원</td><td>—</td></tr>
+  <tr><td>지정가 −0.5%</td><td class="num">+30.4%</td><td class="num">2,000만원</td><td class="num dn">−0.6억</td></tr>
+  <tr><td>지정가 −1%</td><td class="num">+27.6%</td><td class="num">1,600만원</td><td class="num dn"><b>−1.08억</b></td></tr>
+  <tr><td>지정가 −3%</td><td class="num dn">+14.6%</td><td class="num">600만원</td><td class="num dn">반토막</td></tr>
+  </tbody></table></div>
+  <p style="margin:8px 0 0"><b>−1%에 걸면 슬리피지 2,700만원 아끼고 수익 1.08억을 잃습니다.</b>
+  1% 싸게 사려고 기다리면 <b>내려간 종목만 잡히고 올라간 종목은 놓치기</b> 때문입니다.</p>
+</div>
+
+<h2><span class="n">10</span>비용 전부 <small>키움 실제 요율로 검증</small></h2>
+<div class="scroll"><table>
+<thead><tr><th>항목</th><th>요율</th><th>적용</th><th>연 부담(투자금 1억)</th></tr></thead><tbody>
+<tr><td><b>슬리피지</b></td><td class="num">0.152%</td><td>매수·매도</td><td class="num up"><b>약 2.9%</b></td></tr>
+<tr><td><b>증권거래세</b></td><td class="num">연도별 0.15~0.30%</td><td><b>매도만</b></td><td class="num">약 2.4%</td></tr>
+<tr><td>위탁수수료</td><td class="num">0.015%</td><td>매수·매도</td><td class="num">약 0.4%</td></tr>
+</tbody></table></div>
+<p class="note">증권거래세는 연도별 실제 세율을 씁니다 — 2010~2019 <b>0.30%</b> → 2021 0.23%
+→ 2023 0.20% → 2025 0.15% → <b>2026 0.20%</b>.
+최근 세율로 전 구간을 돌리면 고회전 전략이 과거에서 실제보다 좋게 나옵니다.</p>
+<h3>수수료를 키움 실제 요율로 바꿔도 거의 안 변합니다</h3>
+<div class="scroll"><table>
+<thead><tr><th>수수료 가정</th><th>편도 요율</th><th>실현 연평균</th><th>기본 대비</th></tr></thead><tbody>
+<tr><td>백테스트 기본</td><td class="num">0.0150%</td><td class="num up"><b>+33.64%</b></td><td class="num">—</td></tr>
+<tr><td><b>키움 일반 + 유관기관 제비용</b></td><td class="num">0.0186%</td><td class="num"><b>+33.58%</b></td><td class="num dn">−0.06%p</td></tr>
+<tr><td>수수료 무료 계좌 + 제비용만</td><td class="num">0.0036%</td><td class="num">+33.83%</td><td class="num up">+0.19%p</td></tr>
+<tr><td>가혹 가정</td><td class="num">0.0500%</td><td class="num">+33.04%</td><td class="num dn">−0.59%p</td></tr>
+<tr><td>매우 가혹</td><td class="num">0.1000%</td><td class="num">+32.23%</td><td class="num dn">−1.41%p</td></tr>
+</tbody></table></div>
+<p><b>수수료를 6.7배로 올려도 −1.41%p</b>입니다. 이 전략에서 수수료는 가장 작은 비용입니다.</p>
+
+<h2><span class="n">11</span>상장폐지 <small>거를 필요가 없었습니다</small></h2>
+<p>16년간 상장폐지 강제청산 <b>64건</b>. 총 손익은 <b class="up">+1,373만원, 순이익</b>입니다.</p>
+<div class="scroll"><table>
+<thead><tr><th>폐지 유형</th><th>건수</th><th>투입원가</th><th>손익</th><th>수익률</th></tr></thead><tbody>
+<tr><td><b>합병·지주회사 전환</b></td><td class="num"><b>34건</b></td><td class="num">13,881만</td>
+  <td class="num up"><b>+2,306만</b></td><td class="num up"><b>+17%</b></td></tr>
+<tr><td>스팩 해산</td><td class="num">13건</td><td class="num">3,784만</td><td class="num dn">−75만</td><td class="num">−2%</td></tr>
+<tr><td>부도·파산</td><td class="num">3건</td><td class="num">420만</td><td class="num dn">−160만</td><td class="num dn">−38%</td></tr>
+<tr><td><b>감사의견 거절</b></td><td class="num">7건</td><td class="num">434만</td><td class="num dn"><b>−296만</b></td><td class="num dn"><b>−68%</b></td></tr>
+<tr><td>기타(계속성·미제출)</td><td class="num">7건</td><td class="num">703만</td><td class="num dn">−401만</td><td class="num dn">−57%</td></tr>
+</tbody></table></div>
+<p><b>64건 중 34건이 "합병·지주회사 전환"</b> — 망한 게 아니라 피인수·지주사 편입이라
+보통 프리미엄을 받습니다(평균 <b>+17%</b>). 스팩 해산도 원금(2,000원) 근처를 돌려받습니다.</p>
+<div class="card warn">
+  <h4>완벽한 필터를 만들어도 실익이 2.05%</h4>
+  <p style="margin:0">손실 난 33건을 <b>전부</b> 미리 걸러냈다 해도 16년간 +1,109만원,
+  누적 실현 5.4억의 <b>2.05%</b>(연 +0.13%p)입니다. 게다가 필터를 세게 걸면
+  <b>"합병으로 +17% 버는 34건"도 같이 날아갑니다</b> — 부실해 보이는 소형주가 피인수 대상이 되는 경우가 많습니다.
+  손실 상위 5건이 전체 손실의 50%로 분산도 큽니다.</p>
+</div>
+
+<h2><span class="n">12</span>한 종목의 일생 — 제닉</h2>
 <p>14위로 간신히 들어온 종목이 어떻게 +112%에 정리되는지 끝까지 따라가 봅니다.</p>
 <div class="scroll"><table>
 <thead><tr><th>날짜</th><th>일</th><th>종가</th><th>매수가 대비</th><th>그날 일어난 일</th></tr></thead>
@@ -263,7 +507,7 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
 <p>그 달 실현손익 <b>+484만원</b> 중 제닉 하나가 <b>+456만원</b>입니다. 나머지 42종목이 합쳐서 +28만원입니다.
 <b>소수의 큰 승리가 다수의 작은 패배를 덮는 구조</b>입니다.</p>
 
-<h2><span class="n">8</span>숫자로 보는 실제 운용</h2>
+<h2><span class="n">13</span>숫자로 보는 실제 운용</h2>
 <div class="kpi">
   <div><div class="k">계좌 보유 종목</div><div class="v">32~40</div><div class="n">TOP15 전략인데</div></div>
   <div><div class="k">하루 주문 건수</div><div class="v">27건</div><div class="n">매도 13 · 매수 14</div></div>
@@ -279,7 +523,7 @@ nav a[aria-current]{background:var(--accent);color:#fff;border-color:var(--accen
 <tr><td>종목이 계좌에 머무는 기간</td><td class="num"><b>중앙 32거래일</b></td><td>"20일 보유"는 슬롯 하나 기준</td></tr>
 </tbody></table></div>
 
-<h2><span class="n">9</span>자주 헷갈리는 것</h2>
+<h2><span class="n">14</span>자주 헷갈리는 것</h2>
 
 <div class="qa"><div class="q">Q. 슬롯이 꽉 차면 좋은 종목을 못 사는 건가요?</div>
 <div class="a">아닙니다. 슬롯 차례가 오면 <b>그 슬롯의 기존 종목을 팔아서 산 돈으로</b> 오늘의 TOP15를 삽니다.
