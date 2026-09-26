@@ -352,15 +352,19 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 
 <h3>9년 결과</h3>
 <div class="scroll"><table class="stack">
-<thead><tr><th>설정</th><th>9년 합계</th><th>차이</th><th>최대 낙폭</th><th>낙폭 변화</th><th>최대 명목</th></tr></thead>
+<thead><tr><th>설정</th><th>9년 합계</th><th>연평균</th><th>지금 대비</th><th>최대 낙폭</th><th>낙폭 변화</th><th>최대 명목</th></tr></thead>
 <tbody>
-<tr><td><b>지금 (5다리)</b></td><td data-label="합계" class="n pos">+831,329</td><td data-label="차이" class="n">—</td>
+<tr><td><b>지금 (5다리)</b></td><td data-label="합계" class="n pos">+831,329</td><td data-label="연평균" class="n pos">+91,660</td>
+  <td data-label="지금 대비" class="n">—</td>
   <td data-label="낙폭" class="n">79,222</td><td data-label="낙폭 변화" class="n">—</td><td data-label="명목" class="n">1,402,596</td></tr>
-<tr><td>+ div (롱)</td><td data-label="합계" class="n pos">+937,465</td><td data-label="차이" class="n pos"><b>+106,136 (+12.8%)</b></td>
+<tr><td>+ div (롱)</td><td data-label="합계" class="n pos">+937,465</td><td data-label="연평균" class="n pos">+103,360</td>
+  <td data-label="지금 대비" class="n pos"><b>+12.8%</b><div style="font-size:11px;color:var(--dim)">+11,700 / 년</div></td>
   <td data-label="낙폭" class="n pos">68,387</td><td data-label="낙폭 변화" class="n pos">−13.7%</td><td data-label="명목" class="n">1,402,596</td></tr>
-<tr><td>+ 추세</td><td data-label="합계" class="n pos">+950,145</td><td data-label="차이" class="n pos"><b>+118,816 (+14.3%)</b></td>
+<tr><td>+ 추세</td><td data-label="합계" class="n pos">+950,145</td><td data-label="연평균" class="n pos">+104,758</td>
+  <td data-label="지금 대비" class="n pos"><b>+14.3%</b><div style="font-size:11px;color:var(--dim)">+13,098 / 년</div></td>
   <td data-label="낙폭" class="n pos">74,170</td><td data-label="낙폭 변화" class="n pos">−6.4%</td><td data-label="명목" class="n">1,412,983</td></tr>
-<tr><td><b>+ div + 추세</b></td><td data-label="합계" class="n pos"><b>+1,056,281</b></td><td data-label="차이" class="n pos"><b>+224,952 (+27.1%)</b></td>
+<tr><td><b>+ div + 추세</b></td><td data-label="합계" class="n pos"><b>+1,056,281</b></td><td data-label="연평균" class="n pos"><b>+116,458</b></td>
+  <td data-label="지금 대비" class="n pos"><b>+27.1%</b><div style="font-size:11px;color:var(--dim)">+24,798 / 년</div></td>
   <td data-label="낙폭" class="n pos"><b>68,833</b></td><td data-label="낙폭 변화" class="n pos"><b>−13.1%</b></td><td data-label="명목" class="n">1,412,983</td></tr>
 </tbody></table></div>
 <p class="hint">단위 USDT · 시드 100,000 · <b>규모는 8장과 같은 기준</b>(3·9·27 에서 한 번 정하고 모든 안에 동일 적용).
@@ -369,6 +373,7 @@ A2 만 남고, 그러면 강제청산이 −11.78% → <b>−13.56%</b> 로 물�
 같은 낙폭까지 규모를 키우면 수익 증가는 +21%(추세) · +28%(div) · <b>+44%(둘 다)</b> 가 된다.</p>
 
 <h3>연도별 — 각각 얼마를 보탰나</h3>
+<p class="hint">기여 칸은 <b>금액과, 그 해 &ldquo;지금&rdquo; 수익 대비 몇 %인지</b>를 같이 보여 준다.</p>
 <div class="scroll"><table>
 <thead><tr><th>해</th><th>지금</th><th>+div</th><th>+추세</th><th>+div+추세</th><th>div 기여</th><th>추세 기여</th></tr></thead>
 <tbody id="exyears"></tbody></table></div>
@@ -1145,21 +1150,29 @@ renderMonths();
   const cell = (v) => v == null ? '<td class="n">-</td>'
     : `<td class="n ${v >= 0 ? "pos" : "neg"}">${won(v)}</td>`;
 
+  // 기여 칸은 **금액과 % 를 같이** 보여 준다 — "지금 대비 그 해 수익이 몇 % 늘었나"
+  const pct = (d, base) => base === 0 ? "" :
+    `<div style="font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums">${d / base >= 0 ? "+" : "−"}${Math.abs(d / base * 100).toFixed(1)}%</div>`;
+  const contrib = (d, base) =>
+    `<td class="n ${d >= 0 ? "pos" : "neg"}"><b>${won(d)}</b>${pct(d, base)}</td>`;
+
   function drawYears() {
     let h = "";
+    const G = {}; KEYS.forEach(k => G[k] = 0);
     for (let y = 2017; y <= 2026; y++) {
       const t = {}; KEYS.forEach(k => t[k] = 0);
       let any = false;
       for (let m = 0; m < 12; m++) {
         if (EXD[BASE].rows[y][m] == null) continue;
-        any = true; KEYS.forEach(k => t[k] += EXD[k].rows[y][m]);
+        any = true; KEYS.forEach(k => { t[k] += EXD[k].rows[y][m]; G[k] += EXD[k].rows[y][m]; });
       }
       if (!any) continue;
-      const dd = t.div - t.base, dsh = t.short - t.base;
       h += `<tr><td>${y}</td>` + KEYS.map(k => cell(t[k])).join("")
-         + `<td class="n ${dd >= 0 ? "pos" : "neg"}"><b>${won(dd)}</b></td>`
-         + `<td class="n ${dsh >= 0 ? "pos" : "neg"}"><b>${won(dsh)}</b></td></tr>`;
+         + contrib(t.div - t.base, t.base) + contrib(t.short - t.base, t.base) + "</tr>";
     }
+    h += `<tr style="border-top:2px solid var(--line)"><td><b>9년</b></td>`
+       + KEYS.map(k => `<td class="n ${G[k] >= 0 ? "pos" : "neg"}"><b>${won(G[k])}</b></td>`).join("")
+       + contrib(G.div - G.base, G.base) + contrib(G.short - G.base, G.base) + "</tr>";
     yEl.innerHTML = h;
   }
 
