@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BTC 전략 v2 — 월별 손익</title>
+<style>
+  :root{--bg:#fafafa;--card:#fff;--ink:#18181b;--dim:#71717a;--line:#e4e4e7;
+    --pos:#15803d;--neg:#b91c1c;--warn:#b45309;--accent:#0f766e;--accent2:#7c3aed;--accent3:#b45309;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;color-scheme:light}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b0b0d;--card:#141417;--ink:#f4f4f5;--dim:#a1a1aa;--line:#27272a;
+    --pos:#4ade80;--neg:#f87171;--warn:#fbbf24;--accent:#2dd4bf;--accent2:#a78bfa;--accent3:#fbbf24;color-scheme:dark}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;
+    padding:0 16px env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
+  .wrap{max-width:1000px;margin:0 auto;padding-block:32px 64px}
+  h1{font-size:23px;line-height:1.3;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:18px;margin:42px 0 12px;padding-top:20px;border-top:1px solid var(--line)}
+  p{margin:10px 0}
+  .sub{color:var(--dim);font-size:13px;margin:0 0 4px}
+  .hint{font-size:12.5px;color:var(--dim);margin:6px 0 0}
+  ul{margin:8px 0;padding-left:18px} li{margin:5px 0}
+  b{font-weight:650}
+  .pos{color:var(--pos)} .neg{color:var(--neg)} .warn{color:var(--warn)}
+  .n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+  .box.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}
+  .three{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin:16px 0}
+  .pane{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .pane .hd{padding:11px 14px;border-bottom:1px solid var(--line);font-weight:650;display:flex;gap:8px;align-items:baseline}
+  .pane .hd .tag{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .pane.p0 .hd .tag{background:color-mix(in srgb,var(--accent3) 18%,transparent);color:var(--accent3)}
+  .pane.p1 .hd .tag{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+  .pane.p2 .hd .tag{background:color-mix(in srgb,var(--accent2) 16%,transparent);color:var(--accent2)}
+  .pane dl{margin:0;padding:10px 14px 13px;display:grid;grid-template-columns:86px 1fr;gap:6px 10px;font-size:13px}
+  .pane dt{color:var(--dim);font-size:12px}
+  .pane dd{margin:0}
+  .pane dd.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:color-mix(in srgb,var(--ink) 4%,var(--card));font-weight:600;font-size:12.5px;color:var(--dim)}
+  tbody tr:last-child td{border-bottom:0}
+  td.cell,td.cell2{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);
+    text-decoration-thickness:1px;text-underline-offset:3px}
+  td.cell:hover,td.cell:focus,td.cell2:hover,td.cell2:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
+  td.cell.on,td.cell2.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
+  .tabs{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:6px 0 2px}
+  .tabs button{font:inherit;font-size:13.5px;padding:7px 14px;border:0;background:var(--card);color:var(--dim);cursor:pointer}
+  .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
+  .tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);
+    padding:10px 0 8px;margin:22px 0 0;border-bottom:1px solid var(--line)}
+  .tabbar .lb{font-size:12.5px;color:var(--dim);margin:0 0 6px}
+  .tabbar .tabs{margin:0}
+  .strat{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px;margin:14px 0}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .sc .hd{padding:12px 14px 10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(0deg,color-mix(in srgb,var(--accent) 5%,transparent),transparent)}
+  .sc.b .hd{background:linear-gradient(0deg,color-mix(in srgb,var(--accent2) 6%,transparent),transparent)}
+  .sc .hd .tag{font-size:11.5px;color:var(--accent);font-weight:650;letter-spacing:.04em}
+  .sc.b .hd .tag{color:var(--accent2)}
+  .sc .hd .nm{font-size:15.5px;font-weight:650;margin-top:2px;letter-spacing:-.01em}
+  .sc .hd .sz{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px}
+  .sc .hd .sz span{font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--ink) 6%,transparent);
+    border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .sc dl{margin:0;padding:10px 14px 13px;display:grid;grid-template-columns:62px 1fr;gap:7px 10px;font-size:13.5px;align-items:baseline}
+  .sc dt{color:var(--dim);font-size:12px;line-height:1.5}
+  .sc dd{margin:0;line-height:1.55}
+  .sc dd .v{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rule{display:grid;grid-template-columns:132px 1fr;gap:6px 14px;margin:10px 0;font-size:14px}
+  .rule dt{color:var(--dim);font-size:13px}
+  .rule dd{margin:0}
+  h3{font-size:15.5px;margin:26px 0 6px}
+  table.txt td,table.txt th{white-space:normal}
+  table.txt td:first-child{white-space:nowrap}
+  @media (max-width:600px){ .rule{grid-template-columns:1fr;gap:2px} .rule dt{margin-top:8px} }
+  .code{display:inline-block;min-width:22px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:650;
+    padding:1px 6px;border-radius:5px;margin-right:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+  .code.b{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--dim)}
+  #detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
+  #detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
+  #detail .dh b{font-size:16px}
+  #detail .dh span{font-size:13px;color:var(--dim)}
+  #detail .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
+  #detail .bridge{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+    border-radius:8px;padding:10px 13px;margin:0 0 4px;font-size:13.5px;line-height:1.95}
+  #detail .bridge .op{color:var(--dim);font-family:var(--mono);margin:0 4px}
+  #detail .bridge b.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  #detail .ct{font-size:13.5px;font-weight:650;margin:16px 0 0}
+  
+  #a2detail td.same{color:var(--dim)}
+  .tlpick{margin:12px 0 0;display:flex;flex-direction:column;gap:6px}
+  .tlrow{display:flex;align-items:flex-start;gap:10px}
+  .tlrow > span{flex:0 0 28px;font-size:12px;color:var(--dim);padding-top:6px}
+  .tlrow > div{display:flex;flex-wrap:wrap;gap:4px}
+  .tlrow button{font:inherit;font-size:12.5px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;
+    background:var(--card);color:var(--dim);cursor:pointer;line-height:1.4}
+  .tlrow button:hover:not(:disabled){border-color:color-mix(in srgb,var(--accent) 50%,var(--line));color:var(--ink)}
+  .tlrow button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--ink);font-weight:650}
+  .tlrow button:disabled{opacity:.3;cursor:default}
+  #tlMonthRow.off{opacity:.45;pointer-events:none}
+  .tlempty{padding:26px 10px;text-align:center;color:var(--dim);font-size:13px}
+  .tlwrap{position:relative;margin:14px 0 0}
+  .tllegend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--dim)}
+  .tllegend b{display:inline-flex;align-items:center;gap:5px;font-weight:500;color:var(--ink)}
+  .tllegend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  #tlSvg{display:block;max-width:100%}
+  @media (max-width:600px){ .tlrow > span{flex-basis:22px;font-size:11px} .tlrow button{padding:4px 8px;font-size:12px} }
+  .tltip{position:absolute;z-index:6;pointer-events:none;background:var(--card);border:1px solid var(--line);
+    border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.5;box-shadow:0 4px 14px rgba(0,0,0,.18);white-space:nowrap}
+  .tltip b{font-family:var(--mono)}
+  /* 검증 통과 팔레트 (dataviz validate_palette.js · adjacent, light/dark 모두 PASS).
+     레인마다 이름표가 따로 붙으므로 색이 유일한 식별자가 아니다 — 라이트의 대비 WARN 은 그것으로 해소된다. */
+  :root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4}
+  @media (prefers-color-scheme:dark){:root{--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181}}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+  a{color:var(--accent)}
+  @media (max-width:600px){
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-bottom:1px solid var(--line);padding:10px 12px}
+    table.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal;text-align:right}
+    table.stack td::before{content:attr(data-label);color:var(--dim);font-size:12.5px;text-align:left;flex:0 0 auto}
+    /* flex 안에서는 텍스트 조각과 <b> 가 각각 item 이 되어 제멋대로 벌어진다.
+       내용을 span 하나로 감싸 한 덩어리로 흐르게 한다. */
+    table.stack td>span{flex:1 1 auto;text-align:right;min-width:0}
+    table.stack td:first-child{font-weight:650;padding-bottom:6px}
+    #detail table:not(.stack) th:first-child,
+    #detail table:not(.stack) td:first-child{
+      position:sticky;left:0;z-index:1;background:var(--card)}
+    #detail table:not(.stack) thead th:first-child{
+      background:color-mix(in srgb,var(--ink) 4%,var(--card))}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>BTC 전략 — 월별 손익</h1>
+<p class="sub">라우팅 3·9·27 · <b>A2 만 3/9/9 · 첫 진입 40%</b> (지금 돌고 있는 설정) · 2017-09 ~ 2026-09</p>
+<p class="sub">단위 USDT · 시드 100,000 · 규모 ×2.7 고정 수량</p>
+
+<h2>1. 지금 돌고 있는 것</h2>
+<div class="scroll"><table class="stack">
+<thead><tr><th>다리</th><th>모드</th><th>진입 조건</th><th>사다리</th><th>손절</th><th>첫 진입</th></tr></thead>
+<tbody id="legrows"></tbody></table></div>
+<p class="hint">모드는 <b>신규 진입 자격</b>만 정한다 — 지난 20일 중 &lsquo;하루 안 2% 이상 되돌린 날&rsquo; 비율이 0.35 이상이면 격렬(A 계열), 미만이면 조용(B 계열).
+이미 들고 있는 포지션은 모드가 바뀌어도 원래 규칙대로 끝까지 관리한다.</p>
+
+<h2>2. 월별 손익</h2>
+<p class="hint">각 월 숫자를 누르면 <b>그 달 거래가 전략별로</b> 펼쳐진다 — 어느 다리가 얼마를 벌고 잃었는지.</p>
+<div class="tabs" id="tabs">
+  <button data-k="base" class="on">지금 (5다리)</button>
+  <button data-k="div">+ div (6다리)</button>
+  <button data-k="d">div 기여</button>
+</div>
+<div class="scroll"><table><thead><tr>
+  <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
+</tr></thead><tbody id="rows"></tbody></table></div>
+<p class="hint" id="note"></p>
+
+<div id="detail" hidden>
+  <div class="dh"><b id="dTitle"></b><span id="dSum"></span><button class="close" id="dClose">닫기</button></div>
+  <div id="dWrap"></div>
+</div>
+
+<h2>3. 연도별</h2>
+<div class="scroll"><table><thead><tr>
+  <th>해</th><th>지금 (5다리)</th><th>+ div</th><th>div 기여</th><th>지금 대비</th>
+</tr></thead><tbody id="yrows"></tbody></table></div>
+
+<h2>4. 다리별 9년 성적</h2>
+<div class="scroll"><table class="stack">
+<thead><tr><th>다리</th><th>첫 진입</th><th>거래</th><th>승률</th><th>9년 손익</th><th>거래당</th><th>손절</th></tr></thead>
+<tbody id="strows"></tbody></table></div>
+
+<h2>5. div 는 무엇인가</h2>
+<div class="box">
+<b>15분 RSI 다이버전스</b> — 값이 얼마나 낮은지가 아니라 <b>모양</b>을 본다.
+A1·A2·A3 는 전부 &ldquo;얼마나 깊이 빠졌나&rdquo;를 보는데, div 만 &ldquo;빠지는 힘이 약해졌나&rdquo;를 본다.
+</div>
+<div class="scroll"><table class="stack">
+<thead><tr><th>조건</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><b>① RSI 되돌림</b></td><td data-label="내용"><span>직전 15분봉 RSI &lt; 40 → 이번 봉 RSI ≥ 40 으로 <b>마감</b><br>
+  <span class="hint">A2(RSI 20)의 두 배 수준이라 깊이로는 전혀 극단적이지 않다</span></span></td></tr>
+<tr><td><b>② 다이버전스</b></td><td data-label="내용"><span>
+  <b>최근 6봉</b>(90분)의 가격 바닥 &lt; <b>그 앞 12봉</b>(3시간)의 가격 바닥 &nbsp;→ 가격은 더 내렸다<br>
+  <b>최근 6봉</b>의 RSI 바닥 &gt; <b>그 앞 12봉</b>의 RSI 바닥 <b>+ 8</b> &nbsp;→ 그런데 RSI 는 덜 내렸다</span></td></tr>
+<tr><td>필터</td><td data-label="내용"><span>F1 −3% (7일 고점 대비 3% 이상 하락) · <b>F2 없음</b></span></td></tr>
+<tr><td>사다리</td><td data-label="내용">3·9·27 — 첫 진입가 −0.75% / −1.50% / −2.25%</td></tr>
+<tr><td>손절 · 청산</td><td data-label="내용">첫 진입가 −5.25% 스톱마켓 · 15분 RSI 50 이상 마감 시 청산</td></tr>
+</tbody></table></div>
+
+<div class="box">
+<b>실제 사례 — 2026-06-02</b>
+<pre class="n" style="margin:8px 0 0;font-size:12.5px;line-height:1.7;white-space:pre-wrap">신호 봉 20:14   RSI 39.4 → 41.1   (40 아래→위)  OK
+
+              가격 바닥      RSI 바닥
+앞 3시간      67,077.9        15.4
+최근 90분     66,388.0        27.6
+──────────────────────────────────
+차이           −689.9        +12.2
+              더 내렸다      덜 내렸다  OK
+
+→ 20:15 진입 67,348 → 21:30 청산 67,803</pre>
+<p class="hint" style="margin-top:10px">가격은 690달러 더 빠졌는데 RSI 바닥은 15.4 → 27.6 으로 올라갔다.
+같은 크기로 떨어지는 데 <b>파는 힘이 더 많이 들었다</b>는 뜻이다.</p>
+</div>
+
+<h2>6. 위험 — 무엇을 내주는가</h2>
+<div class="scroll"><table class="stack">
+<thead><tr><th>항목</th><th>지금 (5다리)</th><th>+ div</th><th>변화</th></tr></thead>
+<tbody>
+<tr><td>9년 손익</td><td data-label="지금" class="n">831,329</td><td data-label="+div" class="n pos">937,465</td><td data-label="변화" class="n pos">+12.8%</td></tr>
+<tr><td>전 구간 최대 낙폭</td><td data-label="지금" class="n">79,222</td><td data-label="+div" class="n pos">68,387</td><td data-label="변화" class="n pos">−13.7%</td></tr>
+<tr><td>실측 최대 명목가</td><td data-label="지금" class="n">1,402,596</td><td data-label="+div" class="n">1,402,596</td><td data-label="변화" class="n">동일</td></tr>
+<tr><td><b>A 계열 만충 명목</b></td><td data-label="지금" class="n">14.41배</td><td data-label="+div" class="n neg">20.34배</td><td data-label="변화" class="n neg">+41%</td></tr>
+<tr><td><b>만충 시 강제청산</b></td><td data-label="지금" class="n">−8.90%</td><td data-label="+div" class="n neg">−6.58%</td><td data-label="변화" class="n neg">2.32%p 가까워짐</td></tr>
+<tr><td><b>손절~청산 여유</b></td><td data-label="지금" class="n">2.90%p</td><td data-label="+div" class="n neg">0.58%p</td><td data-label="변화" class="n neg">−80%</td></tr>
+</tbody></table></div>
+<p class="hint"><b>실측 최대 명목가는 그대로</b>다 — 9년 중 가장 크게 물렸던 순간에 div 는 포지션이 없었다.
+아래 &lsquo;만충&rsquo; 값은 <b>A 계열이 같은 가격에 동시 진입하고 손절이 하나도 안 걸리는</b> 이론적 최악이다.</p>
+
+<div class="box warn">
+<b>실제로 동시에 만충된 적은?</b>
+<div class="scroll" style="margin:10px 0 0"><table>
+<thead><tr><th>조합</th><th>9년 발생</th><th>만충 명목</th><th>강제청산</th><th>손절~청산 여유</th></tr></thead>
+<tbody>
+<tr><td>A1·A3</td><td class="n">94건</td><td class="n">5.31배</td><td class="n">−20.19%</td><td class="n pos">14.94%p</td></tr>
+<tr><td><b>A1·A3·div</b></td><td class="n">2건</td><td class="n">11.24배</td><td class="n">−10.03%</td><td class="n">4.78%p</td></tr>
+<tr><td>A1·A2·A3</td><td class="n">4건</td><td class="n">14.41배</td><td class="n">−8.90%</td><td class="n neg">2.90%p</td></tr>
+<tr><td>A1·A2·A3·div</td><td class="n"><b>0건</b></td><td class="n">20.34배</td><td class="n">−6.58%</td><td class="n neg">0.58%p</td></tr>
+</tbody></table></div>
+<p class="hint" style="margin-top:10px">가장 위험한 20.34배는 <b>9년에 한 번도 없었다.</b> div 와 A2 는 진입 조건이 배타적이라 2중 만충조차 0건이다 —
+A2 가 만충되려면 −4.5% 까지 내리꽂아야 하는데, 그런 장세에서 RSI 가 40 위로 회복하며 다이버전스를 만들 여유가 없다.<br>
+다만 <b>이미 지금도 A1·A2·A3 4건이 여유 2.90%p</b> 로 더 위험하다.</p>
+</div>
+
+<h2>7. 아직 채택하지 않은 이유</h2>
+<div class="box warn">
+<ul style="margin:0">
+<li><b>홀드아웃이 한 번뿐이다.</b> 2017~2023 에서 고르고 2024~2026 으로 시험 — 유지율 <b>87%</b>(지금 설정 76%)로 가장 견고했지만,
+    후보 30개 중 1등을 고른 것이라 우연히 좋아 보였을 수 있다.</li>
+<li><b>2024년 집중.</b> 9년 기여 106,136 중 <b>46,209(44%)가 2024년 한 해</b>다.
+    그 해에 거래도 26건으로 가장 많았다.</li>
+<li><b>거래를 늘리는 다리가 아니다.</b> 월 +1.28건(+5%) — 드물게 들어가지만 거래당 763 USDT 로 기존 평균의 2.4배를 번다.</li>
+</ul>
+<p class="hint" style="margin-top:10px">다른 분할(2017~2020 선택 → 2021~2022 하락장 시험)로 한 번 더 확인한 뒤에 봇에 넣는다.</p>
+</div>
+
+<h2>8. 검증</h2>
+<div class="scroll"><table class="stack">
+<thead><tr><th>무엇을</th><th>어떻게</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>div 신호 생성</td><td data-label="어떻게"><span>벡터 기법 없이 정의 그대로 <b>독립 재구현</b> 후 한 건씩 대조</span></td><td data-label="결과" class="pos">337 / 337 일치</td></tr>
+<tr><td>진입 시점</td><td data-label="어떻게">모든 신호가 &lsquo;봉 마감 + 1분&rsquo; 인가</td><td data-label="결과" class="pos">전부 일치</td></tr>
+<tr><td>물타기 자리·수량</td><td data-label="어떻게">체결 기록 134건을 규칙과 직접 검산</td><td data-label="결과" class="pos">132건 정확 · 2건 갭 체결</td></tr>
+<tr><td>손익 합산</td><td data-label="어떻게">다리별 9년 손익 합 = 전체인가</td><td data-label="결과" class="pos">831,328 ≈ 831,329</td></tr>
+<tr><td>계산 엔진</td><td data-label="어떻게"><span>A1·A2·A3 와 <b>같은 simulate_cycle</b> — 라이브 봇 리플레이로 검증된 것</span></td><td data-label="결과" class="pos">23/23 · 29/29</td></tr>
+</tbody></table></div>
+<p class="hint"><b>갭 체결 2건</b> — 가격이 물타기 자리를 뛰어넘어 열리면 시뮬레이터가 그 봉 시가(지정가보다 유리)로 채운다.
+실제 거래소는 지정가에 체결되므로 <b>낙관적인 모델</b>이다. A1·A3 에도 각 3건씩 있어 온 성질이고,
+전체 물타기 4,000여 건 중 8건이라 결과에 미치는 영향은 무시할 수준이다.</p>
+
+<p class="hint" style="margin-top:36px">데이터 <span class="n">btc-div-data.js</span> (6다리 2,994건) ·
+생성 <span class="n">bt/divfull.py</span> · 백테스트 2017-09-01 ~ 2026-09-25 (1분봉 7,743,604개)</p>
+
+</div>
+<script src="btc-div-data.js"></script>
+<script>
+// ── 공통 ──────────────────────────────────────────────────────
+const F2 = {minimumFractionDigits: 2, maximumFractionDigits: 2};
+const won   = (v) => (v >= 0 ? "+" : "−") + Math.abs(v / 1000).toLocaleString("ko-KR", F2);
+const money = (v) => (v / 1000).toLocaleString("ko-KR", F2);
+const oku   = (v) => (v * 1e5).toLocaleString("ko-KR", F2);      // 억(원) → USDT
+const cls   = (v) => v >= 0 ? "pos" : "neg";
+const hold  = (m) => m < 60 ? `${m}분` : m < 1440 ? `${Math.floor(m / 60)}시간 ${m % 60}분`
+                    : `${Math.floor(m / 1440)}일 ${Math.floor(m % 1440 / 60)}시간`;
+
+const LEG = {
+  A1:  {nm: "적응형 RSI",     mode: "격렬", sig: "5분 RSI 가 최근 30일 분포 <b>하위 1%</b> 아래로 갔다가 회복",
+        lad: "3·9·27 (−0.75 / −1.5 / −2.25%)", stop: "−5.25%"},
+  A2:  {nm: "15분 RSI20",     mode: "격렬", sig: "15분 RSI <b>20</b> 아래로 갔다가 회복",
+        lad: "<b>3·9·9</b> (−1.5 / −3 / −4.5%)", stop: "−6.00%"},
+  A3:  {nm: "동시 과매도",     mode: "격렬", sig: "5분 RSI 25 회복 + 15분 ≤35 + 60분 ≤40",
+        lad: "3·9·27 (−0.75 / −1.5 / −2.25%)", stop: "−5.25%"},
+  B1:  {nm: "4시간 추세",      mode: "조용", sig: "4시간 RSI(21) 가 70 위로 올라온 채 마감",
+        lad: "없음", stop: "−5.00%"},
+  B2:  {nm: "순환 보유",       mode: "조용", sig: "일봉 RSI 55 이상으로 바뀐 날 아침",
+        lad: "없음 (추가분 순환)", stop: "−8.00%"},
+  div: {nm: "15분 다이버전스", mode: "격렬", sig: "가격은 앞 저점보다 낮은데 <b>RSI 저점은 8 이상 높을 때</b>",
+        lad: "3·9·27 (−0.75 / −1.5 / −2.25%)", stop: "−5.25%"},
+};
+const ORDER = ["A1", "A2", "A3", "div", "B1", "B2"];
+const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
+
+// ── 1장 · 4장 표 ──────────────────────────────────────────────
+(function () {
+  const ST = {}; DVD.stats.forEach(x => ST[x.code] = x);
+  document.getElementById("legrows").innerHTML = ORDER.map(c => {
+    const l = LEG[c], s = ST[c], isNew = c === "div";
+    return `<tr${isNew ? ' style="background:color-mix(in srgb,var(--accent) 7%,transparent)"' : ""}>`
+      + `<td>${chip(c)} ${l.nm}${isNew ? ' <span class="hint">추가 후보</span>' : ""}</td>`
+      + `<td data-label="모드">${l.mode}</td><td data-label="진입"><span>${l.sig}</span></td>`
+      + `<td data-label="사다리" class="n"><span>${l.lad}</span></td><td data-label="손절" class="n neg">${l.stop}</td>`
+      + `<td data-label="첫 진입" class="n">${money(s.first)}</td></tr>`;
+  }).join("");
+  document.getElementById("strows").innerHTML = ORDER.map(c => {
+    const l = LEG[c], s = ST[c], isNew = c === "div";
+    return `<tr${isNew ? ' style="background:color-mix(in srgb,var(--accent) 7%,transparent)"' : ""}>`
+      + `<td>${chip(c)} ${l.nm}</td><td data-label="첫 진입" class="n">${money(s.first)}</td>`
+      + `<td data-label="거래" class="n">${s.n}건</td><td data-label="승률" class="n">${(s.win * 100).toFixed(0)}%</td>`
+      + `<td data-label="9년 손익" class="n ${cls(s.tot)}"><span><b>${won(s.tot)}</b></span></td>`
+      + `<td data-label="거래당" class="n">${money(s.tot / s.n)}</td>`
+      + `<td data-label="손절" class="n">${s.stop}건</td></tr>`;
+  }).join("");
+})();
+
+// ── 2장 월별 + 월 클릭 ────────────────────────────────────────
+(function () {
+  const rowsEl = document.getElementById("rows"), note = document.getElementById("note");
+  const dt = document.getElementById("dTitle"), ds = document.getElementById("dSum"),
+        dw = document.getElementById("dWrap"), dp = document.getElementById("detail");
+  const LBL = {base: "지금 (5다리)", div: "+ div (6다리)", d: "div 기여"};
+  const SET = {base: ["A1", "A2", "A3", "B1", "B2"], div: ORDER, d: ["div"]};
+  let key = "base", cur = null;
+
+  const val = (k, y, m) => {
+    const b = DVD.base.rows[y][m];
+    if (b == null) return null;
+    return k === "d" ? DVD.div.rows[y][m] - b : DVD[k === "div" ? "div" : "base"].rows[y][m];
+  };
+  const cell = (v) => v == null ? '<td class="n">-</td>' : `<td class="n ${cls(v)}">${won(v)}</td>`;
+
+  function draw() {
+    let h = "";
+    for (let y = 2017; y <= 2026; y++) {
+      let tot = 0, cells = "", any = false;
+      for (let m = 0; m < 12; m++) {
+        const v = val(key, y, m);
+        if (v == null) { cells += '<td class="n">-</td>'; continue; }
+        any = true; tot += v;
+        const ym = `${y}-${String(m + 1).padStart(2, "0")}`;
+        let td = (key === "d" && Math.abs(v) < 5) ? '<td class="n" style="opacity:.35">0</td>' : cell(v);
+        cells += td.replace('class="n', 'class="cell2 n').replace("<td ", `<td data-ym="${ym}" tabindex="0" `);
+      }
+      if (!any) continue;
+      h += `<tr><td>${y}</td>${cells}<td class="n ${cls(tot)}"><b>${won(tot)}</b></td></tr>`;
+    }
+    rowsEl.innerHTML = h;
+    const o = key === "d" ? null : DVD[key === "div" ? "div" : "base"];
+    note.innerHTML = o
+      ? `9년 합계 <b>${money(o.tot)}</b> · 전 구간 최대 낙폭 ${money(o.mdd)} · 실측 최대 명목가 ${money(o.maxnoti)}`
+      : `지금 설정과의 <b>차이</b> — div 가 낸 손익이다. 9년 <b>${won(DVD.div.tot - DVD.base.tot)}</b> (${((DVD.div.tot / DVD.base.tot - 1) * 100).toFixed(1)}%) · 139건`;
+    close();
+  }
+  function close() { dp.hidden = true; cur = null; rowsEl.querySelectorAll("td.on").forEach(x => x.classList.remove("on")); }
+
+  // 그 달에 **열려 있던** 거래 — 진입 달로만 거르면 몇 달씩 들고 있는 B 계열을 놓친다
+  const inMonth = (arr, ym) => arr.filter(r => r.t0.slice(0, 7) <= ym && r.t1.slice(0, 7) >= ym);
+
+  function table(arr) {
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>진입가</th><th>물타기</th><th>청산 사유</th>'
+          + '<th>보유</th><th>청산가</th><th>최대 명목</th><th>손익</th></tr></thead><tbody>';
+    for (const r of arr)
+      h += `<tr><td class="n">${r.t0}</td><td class="n">${r.e.toLocaleString("ko-KR")}</td>`
+        + `<td class="n">${r.d ? r.d + "단계" : "없음"}</td><td>${r.r}</td>`
+        + `<td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td>`
+        + `<td class="n">${oku(r.mu)}</td><td class="n ${cls(r.p)}">${won(r.p)}</td></tr>`;
+    return h + "</tbody></table></div>";
+  }
+
+  function open(ym, td) {
+    const want = SET[key];
+    const groups = [];
+    for (const c of ORDER) {
+      if (!want.includes(c)) continue;
+      const arr = inMonth(DVD.trades.filter(r => r.s === c), ym);
+      if (arr.length) groups.push([c, arr]);
+    }
+    if (!groups.length) { close(); return; }
+    const n = groups.reduce((a, g) => a + g[1].length, 0);
+    const sum = groups.reduce((a, g) => a + g[1].reduce((x, r) => x + r.p, 0), 0);
+    dt.textContent = ym;
+    ds.innerHTML = `${LBL[key]} · 거래 <b>${n}건</b> · 손익 합계 <b class="${cls(sum)}">${won(sum)}</b>`;
+    dw.innerHTML = groups.map(([c, arr]) => {
+      const s = arr.reduce((x, r) => x + r.p, 0);
+      return `<p class="ct">${chip(c)} ${LEG[c].nm} `
+        + `<span style="color:var(--dim);font-weight:400">${arr.length}건 · <b class="${cls(s)}">${won(s)}</b></span></p>`
+        + table(arr);
+    }).join("");
+    rowsEl.querySelectorAll("td.on").forEach(x => x.classList.remove("on"));
+    td.classList.add("on");
+    dp.hidden = false; cur = ym;
+    dp.scrollIntoView({behavior: "smooth", block: "nearest"});
+  }
+
+  rowsEl.addEventListener("click", (e) => {
+    const td = e.target.closest("td[data-ym]"); if (!td) return;
+    cur === td.dataset.ym ? close() : open(td.dataset.ym, td);
+  });
+  rowsEl.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const td = e.target.closest("td[data-ym]"); if (!td) return;
+    e.preventDefault(); cur === td.dataset.ym ? close() : open(td.dataset.ym, td);
+  });
+  document.getElementById("dClose").addEventListener("click", close);
+  document.getElementById("tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-k]"); if (!b) return;
+    key = b.dataset.k;
+    document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
+    draw();
+  });
+  draw();
+})();
+
+// ── 3장 연도별 ────────────────────────────────────────────────
+(function () {
+  let h = "", G = {base: 0, div: 0};
+  for (let y = 2017; y <= 2026; y++) {
+    let b = 0, d = 0, any = false;
+    for (let m = 0; m < 12; m++) {
+      if (DVD.base.rows[y][m] == null) continue;
+      any = true; b += DVD.base.rows[y][m]; d += DVD.div.rows[y][m];
+    }
+    if (!any) continue;
+    G.base += b; G.div += d;
+    h += `<tr><td>${y}</td><td class="n ${cls(b)}">${won(b)}</td><td class="n ${cls(d)}">${won(d)}</td>`
+       + `<td class="n ${cls(d - b)}"><b>${won(d - b)}</b></td>`
+       + `<td class="n ${cls(d - b)}">${(d - b) / b >= 0 ? "+" : "−"}${Math.abs((d - b) / b * 100).toFixed(1)}%</td></tr>`;
+  }
+  h += `<tr style="border-top:2px solid var(--line)"><td><b>9년</b></td>`
+     + `<td class="n pos"><b>${won(G.base)}</b></td><td class="n pos"><b>${won(G.div)}</b></td>`
+     + `<td class="n pos"><b>${won(G.div - G.base)}</b></td>`
+     + `<td class="n pos"><b>+${((G.div - G.base) / G.base * 100).toFixed(1)}%</b></td></tr>`;
+  document.getElementById("yrows").innerHTML = h;
+})();
+</script>
+</body>
+</html>
