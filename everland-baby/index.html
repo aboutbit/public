@@ -433,5 +433,9 @@
 
 <footer>2026-09-27 작성 · 가격·운영시간·키 기준은 바뀔 수 있으니 당일 에버랜드 앱이 최종 기준입니다.</footer>
 </div>
+<script>
+  // 모바일에서 넓은 지도는 경로가 모인 가운데부터 보이게
+  document.querySelectorAll('.mapwrap.scroll').forEach(function(w){ w.scrollLeft=(w.scrollWidth-w.clientWidth)*0.55; });
+</script>
 </body>
 </html>
