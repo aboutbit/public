@@ -137,8 +137,8 @@
 <body>
 <div class="wrap">
 
-<h1>BTC 전략 — 월별 손익</h1>
-<p class="sub">라우팅 3·9·27 · <b>A2 만 3/9/9 · 첫 진입 40%</b> (지금 돌고 있는 설정) · 2017-09 ~ 2026-09</p>
+<h1>BTC 전략 — 동시 보유 제한을 넣으면</h1>
+<p class="sub">지금 돌고 있는 <b>6다리</b>(라우팅 3·9·27 · A2 만 3/9/9 40% · <b>A4 는 2026-09-26 실전 반영</b>) 대비, <b>A 계열이 이미 2개 이상 열려 있으면 새 진입을 65% 크기로</b> 냈을 때 · 2017-09 ~ 2026-09</p>
 <p class="sub">단위 USDT · 시드 100,000 · 규모 ×2.7 고정 수량</p>
 
 <h2>1. 지금 돌고 있는 것</h2>
@@ -151,9 +151,9 @@
 <h2>2. 월별 손익</h2>
 <p class="hint">각 월 숫자를 누르면 <b>그 달 거래가 전략별로</b> 펼쳐진다 — 어느 다리가 얼마를 벌고 잃었는지.</p>
 <div class="tabs" id="tabs">
-  <button data-k="base" class="on">지금 (5다리)</button>
-  <button data-k="div">+ div (6다리)</button>
-  <button data-k="d">div 기여</button>
+  <button data-k="base" class="on">지금 (6다리)</button>
+  <button data-k="div">동시 제한 적용</button>
+  <button data-k="d">차이</button>
 </div>
 <div class="scroll"><table><thead><tr>
   <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
@@ -167,7 +167,7 @@
 
 <h2>3. 연도별</h2>
 <div class="scroll"><table><thead><tr>
-  <th>해</th><th>지금 (5다리)</th><th>+ div</th><th>div 기여</th><th>지금 대비</th>
+  <th>해</th><th>지금 (6다리)</th><th>동시 제한 적용</th><th>차이</th><th>지금 대비</th>
 </tr></thead><tbody id="yrows"></tbody></table></div>
 
 <h2>4. 다리별 9년 성적</h2>
@@ -175,10 +175,10 @@
 <thead><tr><th>다리</th><th>첫 진입</th><th>거래</th><th>승률</th><th>9년 손익</th><th>거래당</th><th>손절</th></tr></thead>
 <tbody id="strows"></tbody></table></div>
 
-<h2>5. div 는 무엇인가</h2>
+<h2>5. A4 는 무엇인가 <span class="hint">(2026-09-26 부터 실전)</span></h2>
 <div class="box">
 <b>15분 RSI 다이버전스</b> — 값이 얼마나 낮은지가 아니라 <b>모양</b>을 본다.
-A1·A2·A3 는 전부 &ldquo;얼마나 깊이 빠졌나&rdquo;를 보는데, div 만 &ldquo;빠지는 힘이 약해졌나&rdquo;를 본다.
+A1·A2·A3 는 전부 &ldquo;얼마나 깊이 빠졌나&rdquo;를 보는데, A4 만 &ldquo;빠지는 힘이 약해졌나&rdquo;를 본다.
 </div>
 <div class="scroll"><table class="stack">
 <thead><tr><th>조건</th><th>내용</th></tr></thead>
@@ -209,66 +209,106 @@ A1·A2·A3 는 전부 &ldquo;얼마나 깊이 빠졌나&rdquo;를 보는데, div
 같은 크기로 떨어지는 데 <b>파는 힘이 더 많이 들었다</b>는 뜻이다.</p>
 </div>
 
-<h2>6. 위험 — 무엇을 내주는가</h2>
+<h2>6. 무엇이 좋아지고 무엇을 내주나</h2>
 <div class="scroll"><table class="stack">
-<thead><tr><th>항목</th><th>지금 (5다리)</th><th>+ div</th><th>변화</th></tr></thead>
-<tbody>
-<tr><td>9년 손익</td><td data-label="지금" class="n">831,329</td><td data-label="+div" class="n pos">937,465</td><td data-label="변화" class="n pos">+12.8%</td></tr>
-<tr><td>전 구간 최대 낙폭</td><td data-label="지금" class="n">79,222</td><td data-label="+div" class="n pos">68,387</td><td data-label="변화" class="n pos">−13.7%</td></tr>
-<tr><td>실측 최대 명목가</td><td data-label="지금" class="n">1,402,596</td><td data-label="+div" class="n">1,402,596</td><td data-label="변화" class="n">동일</td></tr>
-<tr><td><b>A 계열 만충 명목</b></td><td data-label="지금" class="n">14.41배</td><td data-label="+div" class="n neg">20.34배</td><td data-label="변화" class="n neg">+41%</td></tr>
-<tr><td><b>만충 시 강제청산</b></td><td data-label="지금" class="n">−8.90%</td><td data-label="+div" class="n neg">−6.58%</td><td data-label="변화" class="n neg">2.32%p 가까워짐</td></tr>
-<tr><td><b>손절~청산 여유</b></td><td data-label="지금" class="n">2.90%p</td><td data-label="+div" class="n neg">0.58%p</td><td data-label="변화" class="n neg">−80%</td></tr>
-</tbody></table></div>
-<p class="hint"><b>실측 최대 명목가는 그대로</b>다 — 9년 중 가장 크게 물렸던 순간에 div 는 포지션이 없었다.
-아래 &lsquo;만충&rsquo; 값은 <b>A 계열이 같은 가격에 동시 진입하고 손절이 하나도 안 걸리는</b> 이론적 최악이다.</p>
+<thead><tr><th>항목</th><th>지금 (6다리)</th><th>동시 제한 적용</th><th>변화</th></tr></thead>
+<tbody id="riskrows"></tbody></table></div>
+<p class="hint">규칙은 딱 하나다 — <b>새 A 진입 시점에 A 다리가 이미 2개 이상 열려 있으면 그 진입을 65% 크기로 낸다.</b>
+계좌 곡선도, 시장 지표도 보지 않는다. 봇이 이미 아는 &lsquo;지금 몇 개 열려 있나&rsquo; 만 본다.</p>
 
-<div class="box warn">
-<b>실제로 동시에 만충된 적은?</b>
-<div class="scroll" style="margin:10px 0 0"><table>
-<thead><tr><th>조합</th><th>9년 발생</th><th>만충 명목</th><th>강제청산</th><th>손절~청산 여유</th></tr></thead>
-<tbody>
-<tr><td>A1·A3</td><td class="n">94건</td><td class="n">5.31배</td><td class="n">−20.19%</td><td class="n pos">14.94%p</td></tr>
-<tr><td><b>A1·A3·div</b></td><td class="n">2건</td><td class="n">11.24배</td><td class="n">−10.03%</td><td class="n">4.78%p</td></tr>
-<tr><td>A1·A2·A3</td><td class="n">4건</td><td class="n">14.41배</td><td class="n">−8.90%</td><td class="n neg">2.90%p</td></tr>
-<tr><td>A1·A2·A3·div</td><td class="n"><b>0건</b></td><td class="n">20.34배</td><td class="n">−6.58%</td><td class="n neg">0.58%p</td></tr>
-</tbody></table></div>
-<p class="hint" style="margin-top:10px">가장 위험한 20.34배는 <b>9년에 한 번도 없었다.</b> div 와 A2 는 진입 조건이 배타적이라 2중 만충조차 0건이다 —
-A2 가 만충되려면 −4.5% 까지 내리꽂아야 하는데, 그런 장세에서 RSI 가 40 위로 회복하며 다이버전스를 만들 여유가 없다.<br>
-다만 <b>이미 지금도 A1·A2·A3 4건이 여유 2.90%p</b> 로 더 위험하다.</p>
+<div class="box">
+<b>비용은 거의 전부 A2 가 낸다</b>
+<div class="scroll" style="margin:10px 0 0"><table class="stack">
+<thead><tr><th>다리</th><th>축소된 거래</th><th>9년 손익 (지금 → 적용)</th><th>차이</th></tr></thead>
+<tbody id="legcost"></tbody></table></div>
+<p class="hint" style="margin-top:10px">A2 는 첫 진입이 계좌의 40% 로 가장 크고, 15분봉을 보기 때문에 5분봉인 A1·A3 보다 <b>늦게</b> 들어온다.
+그래서 &lsquo;이미 2개가 열려 있는&rsquo; 상황에 가장 자주 걸린다. 사실상 이 규칙은
+<b>&ldquo;A2 가 늦게 들어오면 작게 들어간다&rdquo;</b> 에 가깝다.</p>
 </div>
 
-<h2>7. 아직 채택하지 않은 이유</h2>
+<div class="box">
+<b>같은 낙폭까지 규모를 올린다면</b> — 이 시스템은 낙폭 예산에 맞춰 규모를 정하므로, 낙폭이 줄면 그만큼 크게 굴릴 수 있다.
+<div class="scroll" style="margin:10px 0 0"><table class="stack">
+<thead><tr><th>구간</th><th>지금 (연환산)</th><th>적용 후 (같은 낙폭 환산)</th><th>차이</th></tr></thead>
+<tbody id="winrows"></tbody></table></div>
+<p class="hint" style="margin-top:10px">규모를 안 올리면 그냥 <b>−3.1%</b> 다. 이득은 전부 &lsquo;같은 위험에서 더 크게&rsquo; 에서 온다.</p>
+</div>
+
+<h2>7. 왜 이것만 살아남았나</h2>
+<div class="box">
+<b>먼저 실패한 것들</b> — 손실 월을 직접 겨냥한 규칙은 전부 시험 구간에서 무너졌다.
+<div class="scroll" style="margin:10px 0 0"><table class="stack">
+<thead><tr><th>접근</th><th>시도</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>계좌 낙폭 차단기</td><td data-label="시도">5·8·12% × 5~30일 × 중단/절반</td><td data-label="결과" class="neg">전부 손해. &lsquo;낙폭 회복까지&rsquo; 로 풀면 <b>교착</b> — 막으니 거래가 없어 회복도 없다</td></tr>
+<tr><td>연속 손절 후 휴식</td><td data-label="시도">3·5·8연속 × 3~14일</td><td data-label="결과" class="neg">−1~11%</td></tr>
+<tr><td>월 손실 한도</td><td data-label="시도">3·5·8%</td><td data-label="결과" class="neg">−8~20%, 손실월은 오히려 증가</td></tr>
+<tr><td>일봉 EMA50·EMA200 필터</td><td data-label="시도">이격 ≥+5/0/−5% × 비중 30~70%</td><td data-label="결과" class="neg">선택 구간만 +7~23%, <b>시험 구간 −19~44%</b></td></tr>
+<tr><td>52주 낙폭 · 변동성 · 30일 수익률</td><td data-label="시도">각 3~4단계</td><td data-label="결과" class="neg">전부 시험 구간 악화</td></tr>
+<tr><td>시간 손절</td><td data-label="시도">1·3·7·14일</td><td data-label="결과">변화 없음 — 포지션이 짧아 걸리지 않는다</td></tr>
+<tr><td>사다리 축소 · 간격 확대</td><td data-label="시도">3·9·9 / 2·6·18 / 간격 1~1.5%</td><td data-label="결과" class="neg">−1~7%, 낙폭은 오히려 증가</td></tr>
+<tr><td>손절폭 확대</td><td data-label="시도">A1·A3·A4 5.5~8%</td><td data-label="결과" class="neg">겉보기 +6% 인데 <b>시험 구간 이득이 거래 2건</b>에서 나옴 → 기각</td></tr>
+</tbody></table></div>
+</div>
+
 <div class="box warn">
+<b>전체 낙폭은 한 사건이 정한다</b> — 68,387 은 <b>2021-11-26 ~ 2022-01-05</b> 구간이다.
+상위 5개 낙폭이 2022-01 · 2021-12 · 2020-03 · 2022-11 · 2018-01 로 <b>전부 선택 구간</b>에 있다.
+그래서 &lsquo;낙폭을 줄이는&rsquo; 안은 <b>그 한 사건만 피하면 좋아 보인다.</b>
+시험 구간(2024~2026) 낙폭이 같이 줄어드는지를 봐야 하는데, 위 표의 필터들은 거기가 안 줄었다.
+</div>
+
+<div class="box">
+<b>동시 보유 제한이 다른 이유 넷</b>
 <ul style="margin:0">
-<li><b>홀드아웃이 한 번뿐이다.</b> 2017~2023 에서 고르고 2024~2026 으로 시험 — 유지율 <b>87%</b>(지금 설정 76%)로 가장 견고했지만,
-    후보 30개 중 1등을 고른 것이라 우연히 좋아 보였을 수 있다.</li>
-<li><b>2024년 집중.</b> 9년 기여 106,136 중 <b>46,209(44%)가 2024년 한 해</b>다.
-    그 해에 거래도 26건으로 가장 많았다.</li>
-<li><b>거래를 늘리는 다리가 아니다.</b> 월 +1.28건(+5%) — 드물게 들어가지만 거래당 763 USDT 로 기존 평균의 2.4배를 번다.</li>
+<li><b>표본이 두껍다.</b> 바뀐 거래 <b>320건이 10년에 고루</b> 분포한다 (1 / 60 / 45 / 22 / 23 / 50 / 26 / 32 / 32 / 29).
+    손절폭 안은 시험 구간이 2건이었다.</li>
+<li><b>시험 구간 낙폭도 같이 준다.</b> 32,280 → 26,284 (−19%). 일봉 필터들은 여기가 그대로였다.</li>
+<li><b>플래토가 넓다.</b> 비중 25%~80% 전 구간에서 개선된다 — 칼날 위 최적화가 아니다.</li>
+<li><b>기전이 명확하다.</b> 손실 월은 같은 하락에 여러 다리가 <b>함께</b> 물려서 생긴다. 그걸 직접 줄인다.</li>
 </ul>
-<p class="hint" style="margin-top:10px">다른 분할(2017~2020 선택 → 2021~2022 하락장 시험)로 한 번 더 확인한 뒤에 봇에 넣는다.</p>
+</div>
+
+<div class="box warn">
+<b>한계 — 2개월 연속 손실 &lsquo;횟수&rsquo; 는 안 줄어든다</b>
+<div class="scroll" style="margin:10px 0 0"><table class="stack">
+<thead><tr><th>구간</th><th>지금</th><th>적용 후</th><th>차이</th></tr></thead>
+<tbody>
+<tr><td>2021-11 ~ 12</td><td data-label="지금" class="n neg">−50,337</td><td data-label="적용 후" class="n neg">−42,232</td><td data-label="차이" class="n pos">+8,105</td></tr>
+<tr><td>2022-07 ~ 08</td><td data-label="지금" class="n neg">−23,769</td><td data-label="적용 후" class="n neg">−15,962</td><td data-label="차이" class="n pos">+7,807</td></tr>
+<tr><td>2018-09 ~ 10</td><td data-label="지금" class="n neg">−22,725</td><td data-label="적용 후" class="n neg">−23,485</td><td data-label="차이" class="n neg">−760</td></tr>
+<tr><td>2022-11 ~ 12</td><td data-label="지금" class="n neg">−18,994</td><td data-label="적용 후" class="n neg">−19,090</td><td data-label="차이" class="n neg">−96</td></tr>
+<tr><td>2021-02 ~ 03</td><td data-label="지금" class="n neg">−15,106</td><td data-label="적용 후" class="n neg">−15,358</td><td data-label="차이" class="n neg">−252</td></tr>
+<tr><td>2020-02 ~ 03</td><td data-label="지금" class="n neg">−13,815</td><td data-label="적용 후" class="n neg">−16,486</td><td data-label="차이" class="n neg">−2,671</td></tr>
+<tr><td>2025-08 ~ 09</td><td data-label="지금" class="n neg">−5,341</td><td data-label="적용 후" class="n neg">−5,462</td><td data-label="차이" class="n neg">−120</td></tr>
+<tr><td>2023-02 ~ 03</td><td data-label="지금" class="n neg">−3,063</td><td data-label="적용 후" class="n neg">−3,775</td><td data-label="차이" class="n neg">−712</td></tr>
+<tr style="border-top:2px solid var(--line)"><td><b>합계</b></td><td data-label="지금" class="n neg"><b>−153,151</b></td><td data-label="적용 후" class="n neg"><b>−141,850</b></td><td data-label="차이" class="n pos"><b>+11,301</b></td></tr>
+</tbody></table></div>
+<p class="hint" style="margin-top:10px">8건 중 <b>개선되는 건 2건</b>뿐이고 나머지 6건은 조금씩 나빠진다. 순개선은 7%.
+<b>꼬리를 깎는 것이지 빈도를 줄이는 게 아니다.</b> 참고로 3개월 연속 손실은 9년 동안 <b>0번</b>이다.</p>
 </div>
 
 <h2>8. 검증</h2>
 <div class="scroll"><table class="stack">
 <thead><tr><th>무엇을</th><th>어떻게</th><th>결과</th></tr></thead>
 <tbody>
-<tr><td>div 신호 생성</td><td data-label="어떻게"><span>벡터 기법 없이 정의 그대로 <b>독립 재구현</b> 후 한 건씩 대조</span></td><td data-label="결과" class="pos">337 / 337 일치</td></tr>
-<tr><td>진입 시점</td><td data-label="어떻게">모든 신호가 &lsquo;봉 마감 + 1분&rsquo; 인가</td><td data-label="결과" class="pos">전부 일치</td></tr>
-<tr><td>물타기 자리·수량</td><td data-label="어떻게">체결 기록 134건을 규칙과 직접 검산</td><td data-label="결과" class="pos">132건 정확 · 2건 갭 체결</td></tr>
-<tr><td>손익 합산</td><td data-label="어떻게">다리별 9년 손익 합 = 전체인가</td><td data-label="결과" class="pos">831,328 ≈ 831,329</td></tr>
-<tr><td>계산 엔진</td><td data-label="어떻게"><span>A1·A2·A3 와 <b>같은 simulate_cycle</b> — 라이브 봇 리플레이로 검증된 것</span></td><td data-label="결과" class="pos">23/23 · 29/29</td></tr>
+<tr><td>A4 신호 생성</td><td data-label="어떻게"><span><b>실계좌에서 도는 봇의 판정 함수</b>를 백테스트가 쓴 그 데이터에 직접 돌려 대조</span></td><td data-label="결과" class="pos">337 / 337 일치</td></tr>
+<tr><td>A4 파라미터</td><td data-label="어떻게">봇 <span class="n">config.js</span> 와 백테스트 설정을 항목별 대조 (봉·기준·창·사다리·손절·청산·수수료)</td><td data-label="결과" class="pos">17개 항목 전부 일치</td></tr>
+<tr><td>봇 ↔ 백테스트</td><td data-label="어떻게">서버에서 2026-03 재생 — 진입 시각·다리 대조</td><td data-label="결과" class="pos">41/41 + A4 4건</td></tr>
+<tr><td>동시 제한 시뮬</td><td data-label="어떻게"><span>거래를 시간 순으로 하나씩 받아들이며 <b>받아들인 것만으로 계좌 곡선을 다시 만든다</b> — 막아서 달라진 그 뒤 세계까지 반영</span></td><td data-label="결과" class="pos">기준선 재현 일치</td></tr>
+<tr><td>표본 두께</td><td data-label="어떻게">축소된 거래가 몇 년에 걸쳐 몇 건인가</td><td data-label="결과" class="pos">320건 · 10년 고루</td></tr>
+<tr><td>2차 홀드아웃</td><td data-label="어떻게">2017~2020 으로 고르고 <b>2021~2022 하락장</b>으로 시험</td><td data-label="결과" class="pos">같은 낙폭 환산 +20%</td></tr>
+<tr><td>계산 엔진</td><td data-label="어떻게"><span>A1~A4 가 <b>같은 simulate_cycle</b> — 라이브 봇 리플레이로 검증된 것</span></td><td data-label="결과" class="pos">23/23 · 29/29</td></tr>
 </tbody></table></div>
-<p class="hint"><b>갭 체결 2건</b> — 가격이 물타기 자리를 뛰어넘어 열리면 시뮬레이터가 그 봉 시가(지정가보다 유리)로 채운다.
-실제 거래소는 지정가에 체결되므로 <b>낙관적인 모델</b>이다. A1·A3 에도 각 3건씩 있어 온 성질이고,
-전체 물타기 4,000여 건 중 8건이라 결과에 미치는 영향은 무시할 수준이다.</p>
+<p class="hint"><b>갭 체결</b> — 가격이 물타기 자리를 뛰어넘어 열리면 시뮬레이터가 그 봉 시가(지정가보다 유리)로 채운다.
+실제 거래소는 지정가에 체결되므로 <b>낙관적인 모델</b>이다. 전체 물타기 4,000여 건 중 8건이라 결과에 미치는 영향은 무시할 수준이다.</p>
 
-<p class="hint" style="margin-top:36px">데이터 <span class="n">btc-div-data.js</span> (6다리 2,994건) ·
-생성 <span class="n">bt/divfull.py</span> · 백테스트 2017-09-01 ~ 2026-09-25 (1분봉 7,743,604개)</p>
+<p class="hint" style="margin-top:36px">데이터 <span class="n">btc-conc-data.js</span> (6다리 2,994건 · 축소 320건) ·
+생성 <span class="n">bt/concreport.py</span> · 연구 기록 <span class="n">docs/loss-reduction-study_2026-09-27.md</span><br>
+백테스트 2017-09-01 ~ 2026-09-25 (1분봉 7,743,604개)</p>
 
 </div>
-<script src="btc-div-data.js"></script>
+<script src="btc-conc-data.js"></script>
 <script>
 // ── 공통 ──────────────────────────────────────────────────────
 const F2 = {minimumFractionDigits: 2, maximumFractionDigits: 2};
@@ -290,25 +330,25 @@ const LEG = {
         lad: "없음", stop: "−5.00%"},
   B2:  {nm: "순환 보유",       mode: "조용", sig: "일봉 RSI 55 이상으로 바뀐 날 아침",
         lad: "없음 (추가분 순환)", stop: "−8.00%"},
-  div: {nm: "15분 다이버전스", mode: "격렬", sig: "가격은 앞 저점보다 낮은데 <b>RSI 저점은 8 이상 높을 때</b>",
+  A4:  {nm: "15분 다이버전스", mode: "격렬", sig: "가격은 앞 저점보다 낮은데 <b>RSI 저점은 8 이상 높을 때</b>",
         lad: "3·9·27 (−0.75 / −1.5 / −2.25%)", stop: "−5.25%"},
 };
-const ORDER = ["A1", "A2", "A3", "div", "B1", "B2"];
+const ORDER = ["A1", "A2", "A3", "A4", "B1", "B2"];
 const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
 
 // ── 1장 · 4장 표 ──────────────────────────────────────────────
 (function () {
   const ST = {}; DVD.stats.forEach(x => ST[x.code] = x);
   document.getElementById("legrows").innerHTML = ORDER.map(c => {
-    const l = LEG[c], s = ST[c], isNew = c === "div";
+    const l = LEG[c], s = ST[c], isNew = c === "A4";
     return `<tr${isNew ? ' style="background:color-mix(in srgb,var(--accent) 7%,transparent)"' : ""}>`
-      + `<td>${chip(c)} ${l.nm}${isNew ? ' <span class="hint">추가 후보</span>' : ""}</td>`
+      + `<td>${chip(c)} ${l.nm}${isNew ? ' <span class="hint">2026-09-26 추가</span>' : ""}</td>`
       + `<td data-label="모드">${l.mode}</td><td data-label="진입"><span>${l.sig}</span></td>`
       + `<td data-label="사다리" class="n"><span>${l.lad}</span></td><td data-label="손절" class="n neg">${l.stop}</td>`
       + `<td data-label="첫 진입" class="n">${money(s.first)}</td></tr>`;
   }).join("");
   document.getElementById("strows").innerHTML = ORDER.map(c => {
-    const l = LEG[c], s = ST[c], isNew = c === "div";
+    const l = LEG[c], s = ST[c], isNew = c === "A4";
     return `<tr${isNew ? ' style="background:color-mix(in srgb,var(--accent) 7%,transparent)"' : ""}>`
       + `<td>${chip(c)} ${l.nm}</td><td data-label="첫 진입" class="n">${money(s.first)}</td>`
       + `<td data-label="거래" class="n">${s.n}건</td><td data-label="승률" class="n">${(s.win * 100).toFixed(0)}%</td>`
@@ -323,8 +363,8 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
   const rowsEl = document.getElementById("rows"), note = document.getElementById("note");
   const dt = document.getElementById("dTitle"), ds = document.getElementById("dSum"),
         dw = document.getElementById("dWrap"), dp = document.getElementById("detail");
-  const LBL = {base: "지금 (5다리)", div: "+ div (6다리)", d: "div 기여"};
-  const SET = {base: ["A1", "A2", "A3", "B1", "B2"], div: ORDER, d: ["div"]};
+  const LBL = {base: "지금 (6다리)", div: "동시 제한 적용", d: "차이"};
+  const SET = {base: ORDER, div: ORDER, d: ORDER};
   let key = "base", cur = null;
 
   const val = (k, y, m) => {
@@ -353,7 +393,9 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
     const o = key === "d" ? null : DVD[key === "div" ? "div" : "base"];
     note.innerHTML = o
       ? `9년 합계 <b>${money(o.tot)}</b> · 전 구간 최대 낙폭 ${money(o.mdd)} · 실측 최대 명목가 ${money(o.maxnoti)}`
-      : `지금 설정과의 <b>차이</b> — div 가 낸 손익이다. 9년 <b>${won(DVD.div.tot - DVD.base.tot)}</b> (${((DVD.div.tot / DVD.base.tot - 1) * 100).toFixed(1)}%) · 139건`;
+      : `동시 제한을 넣었을 때의 <b>차이</b>. 9년 <b>${won(DVD.div.tot - DVD.base.tot)}</b> `
+        + `(${((DVD.div.tot / DVD.base.tot - 1) * 100).toFixed(1)}%) · 축소된 거래 <b>${DVD.trades.filter(r => r.sc).length}건</b> · `
+        + `낙폭은 ${money(DVD.base.mdd)} → <b>${money(DVD.div.mdd)}</b>`;
     close();
   }
   function close() { dp.hidden = true; cur = null; rowsEl.querySelectorAll("td.on").forEach(x => x.classList.remove("on")); }
@@ -363,12 +405,15 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
 
   function table(arr) {
     let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>진입가</th><th>물타기</th><th>청산 사유</th>'
-          + '<th>보유</th><th>청산가</th><th>최대 명목</th><th>손익</th></tr></thead><tbody>';
+          + '<th>보유</th><th>청산가</th><th>손익 (지금)</th><th>적용 후</th></tr></thead><tbody>';
     for (const r of arr)
-      h += `<tr><td class="n">${r.t0}</td><td class="n">${r.e.toLocaleString("ko-KR")}</td>`
+      h += `<tr${r.sc ? ' style="background:color-mix(in srgb,var(--accent) 8%,transparent)"' : ""}>`
+        + `<td class="n">${r.t0}${r.sc ? ' <span class="hint">65%</span>' : ""}</td>`
+        + `<td class="n">${r.e.toLocaleString("ko-KR")}</td>`
         + `<td class="n">${r.d ? r.d + "단계" : "없음"}</td><td>${r.r}</td>`
         + `<td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td>`
-        + `<td class="n">${oku(r.mu)}</td><td class="n ${cls(r.p)}">${won(r.p)}</td></tr>`;
+        + `<td class="n ${cls(r.p)}">${won(r.p)}</td>`
+        + `<td class="n ${cls(r.p2)}">${r.sc ? `<b>${won(r.p2)}</b>` : won(r.p2)}</td></tr>`;
     return h + "</tbody></table></div>";
   }
 
@@ -382,11 +427,14 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
     }
     if (!groups.length) { close(); return; }
     const n = groups.reduce((a, g) => a + g[1].length, 0);
-    const sum = groups.reduce((a, g) => a + g[1].reduce((x, r) => x + r.p, 0), 0);
+    const fld = key === "div" ? "p2" : "p";
+    const sum = groups.reduce((a, g) => a + g[1].reduce((x, r) => x + r[fld], 0), 0);
+    const nsc = groups.reduce((a, g) => a + g[1].filter(r => r.sc).length, 0);
     dt.textContent = ym;
-    ds.innerHTML = `${LBL[key]} · 거래 <b>${n}건</b> · 손익 합계 <b class="${cls(sum)}">${won(sum)}</b>`;
+    ds.innerHTML = `${LBL[key]} · 거래 <b>${n}건</b> · 손익 합계 <b class="${cls(sum)}">${won(sum)}</b>`
+      + (nsc ? ` · <span class="hint">이 중 <b>${nsc}건</b>이 65% 로 축소</span>` : "");
     dw.innerHTML = groups.map(([c, arr]) => {
-      const s = arr.reduce((x, r) => x + r.p, 0);
+      const s = arr.reduce((x, r) => x + r[fld], 0);
       return `<p class="ct">${chip(c)} ${LEG[c].nm} `
         + `<span style="color:var(--dim);font-weight:400">${arr.length}건 · <b class="${cls(s)}">${won(s)}</b></span></p>`
         + table(arr);
@@ -432,10 +480,48 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
        + `<td class="n ${cls(d - b)}">${(d - b) / b >= 0 ? "+" : "−"}${Math.abs((d - b) / b * 100).toFixed(1)}%</td></tr>`;
   }
   h += `<tr style="border-top:2px solid var(--line)"><td><b>9년</b></td>`
-     + `<td class="n pos"><b>${won(G.base)}</b></td><td class="n pos"><b>${won(G.div)}</b></td>`
-     + `<td class="n pos"><b>${won(G.div - G.base)}</b></td>`
-     + `<td class="n pos"><b>+${((G.div - G.base) / G.base * 100).toFixed(1)}%</b></td></tr>`;
+     + `<td class="n ${cls(G.base)}"><b>${won(G.base)}</b></td><td class="n ${cls(G.div)}"><b>${won(G.div)}</b></td>`
+     + `<td class="n ${cls(G.div - G.base)}"><b>${won(G.div - G.base)}</b></td>`
+     + `<td class="n ${cls(G.div - G.base)}"><b>${((G.div - G.base) / G.base * 100).toFixed(1)}%</b></td></tr>`;
   document.getElementById("yrows").innerHTML = h;
+})();
+
+// ── 6장 · 데이터에서 그린다 ──────────────────────────────────
+(function () {
+  const S = DVD.summ, b = S.base, d = S.div;
+  const pct = (x) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(1) + "%";
+  const row = (nm, bv, dv, fmt, better) => {
+    const ch = bv === 0 ? 0 : (dv / bv - 1) * 100;
+    const good = better === "down" ? dv < bv : dv > bv;
+    return `<tr><td>${nm}</td><td data-label="지금" class="n">${fmt(bv)}</td>`
+      + `<td data-label="적용" class="n ${good ? "pos" : "neg"}">${fmt(dv)}</td>`
+      + `<td data-label="변화" class="n ${good ? "pos" : "neg"}">${pct(ch)}</td></tr>`;
+  };
+  document.getElementById("riskrows").innerHTML =
+      row("9년 손익", b.tot, d.tot, money, "up")
+    + row("전 구간 최대 낙폭", b.mdd, d.mdd, money, "down")
+    + row("<b>2024~2026 낙폭</b>", b.mdd_t, d.mdd_t, money, "down")
+    + row("실측 최대 명목가", b.maxnoti, d.maxnoti, money, "down")
+    + row("손실 월", b.neg, d.neg, (v) => v + "개월", "down")
+    + row("손실 월 합계", -b.negsum, -d.negsum, money, "down")
+    + row("<b>최악 2개월</b>", -b.worst2, -d.worst2, money, "down")
+    + row("최악 한 달", -b.worst1, -d.worst1, money, "down");
+
+  const ST = {}; DVD.stats.forEach(x => ST[x.code] = x);
+  document.getElementById("legcost").innerHTML = ORDER.map(c => {
+    const x = ST[c], df = x.tot2 - x.tot;
+    return `<tr><td>${chip(c)} ${LEG[c].nm}</td><td data-label="축소된 거래" class="n">${x.nsc ? "<b>" + x.nsc + "건</b>" : "0건"}</td>`
+      + `<td data-label="9년 손익" class="n"><span>${money(x.tot)} → ${money(x.tot2)}</span></td>`
+      + `<td data-label="차이" class="n ${df < 0 ? "neg" : ""}">${Math.abs(df) < 1 ? "—" : won(df)}</td></tr>`;
+  }).join("");
+
+  document.getElementById("winrows").innerHTML = Object.keys(b.win).map(k => {
+    const [br, bm] = b.win[k], [dr, dm] = d.win[k];
+    const adj = dm > 0 ? dr * bm / dm : 0, ch = (adj / br - 1) * 100;
+    return `<tr><td>${k}</td><td data-label="지금" class="n">${money(br)}</td>`
+      + `<td data-label="적용 후" class="n ${ch >= 0 ? "pos" : "neg"}">${money(adj)}</td>`
+      + `<td data-label="차이" class="n ${ch >= 0 ? "pos" : "neg"}"><b>${(ch >= 0 ? "+" : "−") + Math.abs(ch).toFixed(0)}%</b></td></tr>`;
+  }).join("");
 })();
 </script>
 </body>
