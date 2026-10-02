@@ -85,6 +85,18 @@
   .code{display:inline-block;min-width:22px;text-align:center;font-family:var(--mono);font-size:11.5px;font-weight:650;
     padding:1px 6px;border-radius:5px;margin-right:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
   .code.b{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--dim)}
+  /* 2-1 전략별 월별 거래 — 상세 패널은 #detail 과 같은 모양 */
+  .dpanel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
+  .dpanel .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
+  .dpanel .dh b{font-size:16px}
+  .dpanel .dh span{font-size:13px;color:var(--dim)}
+  .dpanel .close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--dim);font:inherit;font-size:12px;padding:3px 9px;cursor:pointer}
+  .lsum{font-size:13.5px;margin:10px 0 0;line-height:1.7}
+  .lsum b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  td.lc{cursor:pointer}
+  td.lc .pv{text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);text-decoration-thickness:1px;text-underline-offset:3px}
+  td.lc:hover,td.lc:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);outline:none}
+  td.lc.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
   #detail{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;scroll-margin-top:12px}
   #detail .dh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:10px}
   #detail .dh b{font-size:16px}
@@ -179,6 +191,19 @@
 <div id="detail" hidden>
   <div class="dh"><b id="dTitle"></b><span id="dSum"></span><button class="close" id="dClose">닫기</button></div>
   <div id="dWrap"></div>
+</div>
+
+<h2>2-1. 전략별 월별 거래</h2>
+<p class="hint">전략을 고르면 <b>그 전략만의 연·월 표</b>가 나온다. 칸 = 그 달에 <b>진입한</b> 거래의 손익 합계 · 아래 작은 글씨는 <b>건수 · 평균 보유</b>.
+월은 <b>진입 시각(KST)</b> 기준이고, 손익은 위 표의 '지금 (6다리)' 기준(수수료·펀딩 포함, 단위 USDT · 시드 100,000). 칸을 누르면 그 달 거래가 펼쳐진다.</p>
+<div class="tabs" id="ltabs"></div>
+<p id="lsum" class="lsum"></p>
+<div class="scroll"><table><thead><tr>
+  <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
+</tr></thead><tbody id="lrows"></tbody></table></div>
+<div id="ldetail" class="dpanel" hidden>
+  <div class="dh"><b id="lTitle"></b><span id="lSub"></span><button class="close" id="lClose">닫기</button></div>
+  <div id="lWrap"></div>
 </div>
 
 <h2>3. 연도별</h2>
@@ -561,5 +586,68 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
   }).join("");
 })();
 </script>
+<script>
+// ── 2-1 전략별 월별 거래 ─────────────────────────────────────
+// DVD.trades 를 전략 · 진입 월(KST)로 묶는다. 보유는 거래의 h(분). 손익은 p('지금 6다리').
+(() => {
+  const rowsEl = document.getElementById("lrows"), sumEl = document.getElementById("lsum"), tabs = document.getElementById("ltabs");
+  const panel = document.getElementById("ldetail"), tt = document.getElementById("lTitle"), st = document.getElementById("lSub"), wrap = document.getElementById("lWrap");
+  const dur = (m) => m < 1440 ? `${(m / 60).toFixed(1)}시간` : `${(m / 1440).toFixed(1)}일`;
+  const med = (a) => { const b = [...a].sort((x, y) => x - y), n = b.length; return n ? (n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2) : 0; };
+  const by = {};
+  for (const r of DVD.trades) { const ym = kst(r.t0).slice(0, 7); ((by[r.s] ||= {})[ym] ||= []).push(r); }
+  let code = "A1", cur = null;
+  tabs.innerHTML = ORDER.map((c) => `<button data-c="${c}"${c === code ? ' class="on"' : ""}>${c} ${LEG[c].nm}</button>`).join("");
+
+  function draw() {
+    const all = DVD.trades.filter((r) => r.s === code);
+    const hs = all.map((r) => r.h), wins = all.filter((r) => r.p > 0).length, tot = all.reduce((a, r) => a + r.p, 0);
+    const longest = all.reduce((a, r) => (r.h > (a?.h ?? -1) ? r : a), null);
+    sumEl.innerHTML = `${chip(code)} <b>${LEG[code].nm}</b> · 9년 <b>${all.length}건</b> (월 ${(all.length / 109).toFixed(1)}건) · 승률 <b>${(wins / Math.max(all.length, 1) * 100).toFixed(0)}%</b>`
+      + ` · 손익 <b class="${cls(tot)}">${won(tot)}</b><br>보유 기간 — 평균 <b>${dur(hs.reduce((a, b) => a + b, 0) / Math.max(hs.length, 1))}</b>`
+      + ` · 중앙값 <b>${dur(med(hs))}</b>` + (longest ? ` · 최장 <b>${dur(longest.h)}</b> <span class="hint">(${kst(longest.t0).slice(0, 10)} 진입)</span>` : "");
+    let h = "";
+    for (let y = 2017; y <= 2026; y++) {
+      let cells = "", yp = 0, yn = 0, yh = 0;
+      for (let m = 1; m <= 12; m++) {
+        const ym = `${y}-${String(m).padStart(2, "0")}`, arr = (by[code] || {})[ym];
+        if (!arr) { cells += '<td class="n" style="opacity:.35">-</td>'; continue; }
+        const p = arr.reduce((a, r) => a + r.p, 0), ah = arr.reduce((a, r) => a + r.h, 0) / arr.length;
+        yp += p; yn += arr.length; yh += arr.reduce((a, r) => a + r.h, 0);
+        cells += `<td class="n lc${cur === ym ? " on" : ""}" data-ym="${ym}" tabindex="0"><span class="pv ${cls(p)}">${won(p)}</span>`
+          + `<span class="bm">${arr.length}건 · 평균 ${dur(ah)}</span></td>`;
+      }
+      if (y === 2017 && !yn) continue;
+      h += `<tr><td>${y}</td>${cells}<td class="n">${yn ? `<b class="${cls(yp)}">${won(yp)}</b><span class="bm">${yn}건 · 평균 ${dur(yh / yn)}</span>` : "-"}</td></tr>`;
+    }
+    rowsEl.innerHTML = h;
+  }
+  function open(ym) {
+    const arr = (by[code] || {})[ym] || [];
+    if (!arr.length) return;
+    cur = ym; draw();
+    const p = arr.reduce((a, r) => a + r.p, 0), ah = arr.reduce((a, r) => a + r.h, 0) / arr.length;
+    tt.textContent = `${code} ${LEG[code].nm} · ${ym}`;
+    st.innerHTML = `${arr.length}건 · 승률 ${(arr.filter((r) => r.p > 0).length / arr.length * 100).toFixed(0)}% · 손익 <b class="${cls(p)}">${won(p)}</b> · 평균 보유 ${dur(ah)}`;
+    let t = '<div class="scroll"><table><thead><tr><th>진입 시각 (KST)</th><th>진입가</th><th>물타기</th><th>청산 사유</th><th>보유</th><th>청산가</th><th>손익</th></tr></thead><tbody>';
+    for (const r of [...arr].sort((a, b) => (a.t0 < b.t0 ? -1 : 1)))
+      t += `<tr><td class="n">${kst(r.t0)}</td><td class="n">${r.e.toLocaleString("ko-KR")}</td><td class="n">${r.d ? r.d + "단계" : "없음"}</td>`
+        + `<td>${r.r}</td><td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td><td class="n ${cls(r.p)}">${won(r.p)}</td></tr>`;
+    wrap.innerHTML = t + "</tbody></table></div>";
+    panel.hidden = false; panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  function close() { panel.hidden = true; cur = null; draw(); }
+  tabs.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-c]"); if (!b) return;
+    code = b.dataset.c; tabs.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+    panel.hidden = true; cur = null; draw();
+  });
+  rowsEl.addEventListener("click", (e) => { const td = e.target.closest("td[data-ym]"); if (!td) return; cur === td.dataset.ym ? close() : open(td.dataset.ym); });
+  rowsEl.addEventListener("keydown", (e) => { if (e.key !== "Enter" && e.key !== " ") return; const td = e.target.closest("td[data-ym]"); if (!td) return; e.preventDefault(); cur === td.dataset.ym ? close() : open(td.dataset.ym); });
+  document.getElementById("lClose").addEventListener("click", close);
+  draw();
+})();
+</script>
+
 </body>
 </html>
