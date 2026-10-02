@@ -429,6 +429,9 @@ div 는 유지율 <b>87%</b>(지금 설정 76%)로 가장 견고했고 추세 �
 <script src="btc-extra-data.js"></script>
 <script src="btc-div-data.js"></script>
 <script>
+// 데이터 시각은 UTC 로 저장돼 있다(백테스트가 그렇게 만든다). 화면에는 한국 시간으로 보인다 — +9시간.
+const kst = (s) => { if (!s) return s; const d = new Date(s.replace(" ", "T") + ":00Z"); if (isNaN(d)) return s;
+  return new Date(d.getTime() + 9 * 3600_000).toISOString().slice(0, 16).replace("T", " "); };
 const ORDER = ['OLD4','L3927','L248'];
 const FULLNM = {A1:'', A2:'', A3:'', B1:'', B2:''};
 // 리포트의 내부 금액은 원 단위지만 백테스트가 1,000원/USDT 로 계산했다 — 그래서 /1000 이 정확한 USDT 다.
@@ -630,15 +633,15 @@ function renderLiq() {
       + `<td class="n">${r.n === 0 ? '—' : oku(r.med)}</td><td class="n">${r.n === 0 ? '—' : oku(r.mx)}</td>`
       + `<td class="n">${rm(r.room)}</td></tr>`).join('') + '</tbody></table></div>';
 
-  let worst = '<div class="scroll"><table><thead><tr><th>시각(UTC)</th><th>그때 열려 있던 전략</th><th>1분 저가</th><th>계산된 청산가</th><th>추가 여유</th><th>명목가</th><th>자산</th></tr></thead><tbody>'
-    + q.worst.map(r => `<tr><td class="n">${r.t}</td><td>${r.legs.split(' ').map(c => `<span class="code${c[0]==='B'?' b':''}">${c}</span>`).join('')}</td>`
+  let worst = '<div class="scroll"><table><thead><tr><th>시각 (KST)</th><th>그때 열려 있던 전략</th><th>1분 저가</th><th>계산된 청산가</th><th>추가 여유</th><th>명목가</th><th>자산</th></tr></thead><tbody>'
+    + q.worst.map(r => `<tr><td class="n">${kst(r.t)}</td><td>${r.legs.split(' ').map(c => `<span class="code${c[0]==='B'?' b':''}">${c}</span>`).join('')}</td>`
       + `<td class="n">${r.lo}</td><td class="n">${r.liq}</td><td class="n">${rm(r.room)}</td><td class="n">${r.no}</td><td class="n">${r.eq}</td></tr>`).join('')
     + '</tbody></table></div>';
 
   let yrs = '<div class="scroll"><table><thead><tr><th>해</th><th>그 해 최저 여유</th><th>가장 아슬아슬했던 순간</th><th>그때 열린 전략</th><th>명목가</th><th>자산</th></tr></thead><tbody>';
   for (let y = 2017; y <= 2026; y++) {
     const r = yh[y];
-    yrs += r ? `<tr><td>${y}</td><td class="n">${rm(r.room)}</td><td class="n">${r.t}</td>`
+    yrs += r ? `<tr><td>${y}</td><td class="n">${rm(r.room)}</td><td class="n">${kst(r.t)}</td>`
              + `<td>${r.legs.split(' ').map(c => `<span class="code${c[0]==='B'?' b':''}">${c}</span>`).join('')}</td><td class="n">${r.no}</td><td class="n">${r.eq}</td></tr>`
              : `<tr><td>${y}</td><td class="pos"><b>청산 불가</b></td><td colspan="4" class="hint">계좌가 커져 청산가가 0 아래 — 가격이 0이 되어도 청산되지 않는 상태</td></tr>`;
   }
@@ -765,9 +768,9 @@ function show(ym, cell) {
     ? `${list.length}건 · 이익 ${win} · 손실 ${list.length-win}`
     : `이 달에 새로 진입한 거래는 없다`;
   const rows = (arr, mark) => {
-    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각 (KST)</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
     for (const r of arr) {
-      h += `<tr><td class="n">${r.t0}</td><td><span class="code${r.s[0]==='B'?' b':''}">${r.s}</span>${nm[r.s]||''}</td>
+      h += `<tr><td class="n">${kst(r.t0)}</td><td><span class="code${r.s[0]==='B'?' b':''}">${r.s}</span>${nm[r.s]||''}</td>
         <td class="n">${r.e.toLocaleString('ko-KR')}</td><td class="n">${r.d ? r.d+'단계' : '없음'}</td><td>${r.r}</td>
         <td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString('ko-KR')}</td><td class="n">${oku(r.mu)}</td>
         <td class="n ${cls(r.p)}">${won(r.p)}${mark ? ' <span style="color:var(--dim);font-size:11px">전체</span>' : ''}</td></tr>`;
@@ -902,7 +905,7 @@ renderMonths();
       h += `<rect x="${PADL}" y="${yTop}" width="${W - PADL - PADR}" height="${LANE}" fill="var(--ink)" fill-opacity="0.03"/>`
          + `<text x="${PADL - 6}" y="${yTop + LANE / 2 + 4}" fill="var(--ink)" font-size="${FL}" font-weight="600" text-anchor="end">${code}</text>`;
       for (const [v, t] of by[code] || []) {
-        h += `<rect class="tk" x="${(x(v) - tw / 2).toFixed(1)}" y="${yTop + 3}" width="${tw}" height="${LANE - 6}" rx="${tw > 3 ? 1.5 : 0}" fill="${c}" data-t="${t.t0}" data-c="${code}" data-p="${t.p}" data-r="${t.r}" data-d="${t.d}"/>`;
+        h += `<rect class="tk" x="${(x(v) - tw / 2).toFixed(1)}" y="${yTop + 3}" width="${tw}" height="${LANE - 6}" rx="${tw > 3 ? 1.5 : 0}" fill="${c}" data-t="${kst(t.t0)}" data-c="${code}" data-p="${t.p}" data-r="${t.r}" data-d="${t.d}"/>`;
       }
       if (!(by[code] || []).length) h += `<text x="${PADL + 8}" y="${yTop + LANE / 2 + 4}" fill="var(--dim)" font-size="${FS}">진입 없음</text>`;
     });
@@ -1032,9 +1035,9 @@ renderMonths();
 
   // 거래 목록 표 — 4장과 같은 형식
   function table(arr, mark) {
-    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각 (KST)</th><th>전략</th><th>진입가</th><th>물타기</th><th>청산</th><th>보유</th><th>청산가</th><th>최대 명목</th><th>손익(생애)</th></tr></thead><tbody>';
     for (const r of arr) {
-      h += `<tr><td class="n">${r.t0}</td><td><span class="code${r.s[0] === "B" ? " b" : ""}">${r.s}</span>${NM[r.s] || ""}</td>
+      h += `<tr><td class="n">${kst(r.t0)}</td><td><span class="code${r.s[0] === "B" ? " b" : ""}">${r.s}</span>${NM[r.s] || ""}</td>
         <td class="n">${r.e.toLocaleString("ko-KR")}</td><td class="n">${r.d ? r.d + "단계" : "없음"}</td><td>${r.r}</td>
         <td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td><td class="n">${oku(r.mu)}</td>
         <td class="n ${cls(r.p)}">${won(r.p)}${mark ? ' <span style="color:var(--dim);font-size:11px">전체</span>' : ""}</td></tr>`;
@@ -1049,7 +1052,7 @@ renderMonths();
     const ka = new Map(a.map(r => [r.t0, r])), kb = new Map(b.map(r => [r.t0, r]));
     const keys = [...new Set([...ka.keys(), ...kb.keys()])].sort();
     const L1 = "3/9/27 (지금)", L2 = "3/9/9 · 40%";
-    let h = '<div class="scroll"><table class="stack"><thead><tr><th>진입 시각</th><th>진입가</th>' +
+    let h = '<div class="scroll"><table class="stack"><thead><tr><th>진입 시각 (KST)</th><th>진입가</th>' +
             `<th>${L1}</th><th>${L2}</th><th>차이</th></tr></thead><tbody>`;
     let s27 = 0, s09 = 0;
     // flex 로 접히는 칸이라 한 덩어리로 감싼다 — 안 감싸면 "·" 가 따로 떨어진다
@@ -1060,7 +1063,7 @@ renderMonths();
       const x = ka.get(k), y = kb.get(k);
       s27 += x ? x.p : 0; s09 += y ? y.p : 0;
       const d = (y ? y.p : 0) - (x ? x.p : 0), same = Math.abs(d) < 500;   // 0.5 USDT 미만이면 '동일'
-      h += `<tr><td class="n" data-label="진입 시각">${k}</td><td class="n" data-label="진입가">${(x || y).e.toLocaleString("ko-KR")}</td>` +
+      h += `<tr><td class="n" data-label="진입 시각">${kst(k)}</td><td class="n" data-label="진입가">${(x || y).e.toLocaleString("ko-KR")}</td>` +
            `<td data-label="${L1}">${one(x)}</td><td data-label="${L2}">${one(y)}</td>` +
            `<td class="n ${same ? "same" : cls(d)}" data-label="차이">${same ? "동일" : won(d)}</td></tr>`;
     }
@@ -1213,11 +1216,11 @@ renderMonths();
 
   // 4장 거래표와 같은 형식. trend=true 면 방향(롱/숏) 칸을 넣는다 — 추세 다리만 양방향이다.
   function table(arr, trend) {
-    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th>'
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각 (KST)</th>'
       + (trend ? "<th>방향</th>" : "") + '<th>진입가</th><th>물타기</th><th>청산</th>'
       + '<th>보유</th><th>청산가</th>' + (trend ? "" : "<th>최대 명목</th>") + '<th>손익</th></tr></thead><tbody>';
     for (const r of arr)
-      h += `<tr><td class="n">${r.t0}</td>`
+      h += `<tr><td class="n">${kst(r.t0)}</td>`
         + (trend ? `<td class="${r.dir === "숏" ? "neg" : "pos"}">${r.dir}</td>` : "")
         + `<td class="n">${r.e.toLocaleString("ko-KR")}</td>`
         + `<td class="n">${r.d ? r.d + "단계" : "없음"}</td>`

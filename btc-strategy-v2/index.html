@@ -327,6 +327,9 @@ A1·A2·A3 는 전부 &ldquo;얼마나 깊이 빠졌나&rdquo;를 보는데, A4 
 <script src="btc-conc-data.js"></script>
 <script src="btc-month-data.js"></script>
 <script>
+// 데이터 시각은 UTC 로 저장돼 있다(백테스트가 그렇게 만든다). 화면에는 한국 시간으로 보인다 — +9시간.
+const kst = (s) => { if (!s) return s; const d = new Date(s.replace(" ", "T") + ":00Z"); if (isNaN(d)) return s;
+  return new Date(d.getTime() + 9 * 3600_000).toISOString().slice(0, 16).replace("T", " "); };
 // ── 공통 ──────────────────────────────────────────────────────
 const F2 = {minimumFractionDigits: 2, maximumFractionDigits: 2};
 const won   = (v) => (v >= 0 ? "+" : "−") + Math.abs(v / 1000).toLocaleString("ko-KR", F2);
@@ -436,11 +439,11 @@ const chip = (c) => `<span class="code${c[0] === "B" ? " b" : ""}">${c}</span>`;
   const inMonth = (arr, ym) => arr.filter(r => r.t0.slice(0, 7) <= ym && r.t1.slice(0, 7) >= ym);
 
   function table(arr) {
-    let h = '<div class="scroll"><table><thead><tr><th>진입 시각</th><th>진입가</th><th>물타기</th><th>청산 사유</th>'
+    let h = '<div class="scroll"><table><thead><tr><th>진입 시각 (KST)</th><th>진입가</th><th>물타기</th><th>청산 사유</th>'
           + '<th>보유</th><th>청산가</th><th>손익 (지금)</th><th>적용 후</th></tr></thead><tbody>';
     for (const r of arr)
       h += `<tr${r.sc ? ' style="background:color-mix(in srgb,var(--accent) 8%,transparent)"' : ""}>`
-        + `<td class="n">${r.t0}${r.sc ? ' <span class="hint">65%</span>' : ""}</td>`
+        + `<td class="n">${kst(r.t0)}${r.sc ? ' <span class="hint">65%</span>' : ""}</td>`
         + `<td class="n">${r.e.toLocaleString("ko-KR")}</td>`
         + `<td class="n">${r.d ? r.d + "단계" : "없음"}</td><td>${r.r}</td>`
         + `<td class="n">${hold(r.h)}</td><td class="n">${r.x.toLocaleString("ko-KR")}</td>`
