@@ -34,7 +34,7 @@
   .tabs{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:0 6px 6px 0;vertical-align:top}
   .tabs button{font:inherit;font-size:13.5px;padding:7px 12px;white-space:nowrap;border:0;background:var(--card);color:var(--dim);cursor:pointer}
   .startbar{display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;vertical-align:top;font-size:13.5px}
-  .startbar select,.startbar button{font:inherit;font-size:13.5px;padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);cursor:pointer}
+  .startbar input,.startbar select,.startbar button{font:inherit;font-size:13.5px;padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);cursor:pointer}
   .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
   .kpi .k{font-size:12px;color:var(--dim)} .kpi .v{font-family:var(--mono);font-size:18px;font-weight:650;margin-top:2px}
   .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
@@ -74,15 +74,15 @@
 </head>
 <body>
 <div class="wrap">
-<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터 ③ · 첫 진입 118%</h1>
-<p class="sub">시드 10만 USDT · <b>고정</b>(매번 10만 기준 금액) / <b>복리</b>(그때 계좌에 비례) 두 가지로 볼 수 있다 · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
-<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="tabs" id="stabs"><button type="button" data-s="d118" class="on">118% 자동 조절</button><button type="button" data-s="c118">118% 고정</button><button type="button" data-s="c83">83% 고정</button></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 10만</button><button type="button" data-m="cmp">복리</button></div><div class="startbar"><label for="startSel">시작 월</label><select id="startSel"></select><button type="button" id="worstBtn">최악의 달부터</button><button type="button" id="resetBtn">처음부터</button></div><p class="hint" id="modeNote"></p></div>
+<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터 ③ · 잔고 단계별 첫 진입 (125% 부터)</h1>
+<p class="sub">시작 잔액·진입 비중은 아래에서 바꿀 수 있다(기본 7만 · 봇 단계표) · <b>고정</b>(매번 시작 잔액 기준) / <b>복리</b>(그때 계좌에 비례, 주문 기준은 시작 잔액의 5배에서 멈춤) · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
+<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="startbar"><label for="balIn">시작 잔액</label><input id="balIn" type="number" inputmode="numeric" value="70000" min="1000" step="10000" style="width:96px"><span class="hint">USDT</span></div><div class="startbar"><label for="ruleSel">진입 비중</label><select id="ruleSel"><option value="tier" selected>봇 단계표 (125·120·110·105·100%)</option><option value="fixed">고정 비중</option><option value="auto">고정 비중 + 안전 한도까지 자동 낮춤</option></select><span id="pctBox"><input id="pctIn" type="number" inputmode="decimal" value="125" min="10" max="200" step="1" style="width:64px">%</span></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 (시작 잔액)</button><button type="button" data-m="cmp">복리</button></div><div class="startbar"><label for="startSel">시작 월</label><select id="startSel"></select><button type="button" id="worstBtn">최악의 달부터</button><button type="button" id="resetBtn">처음부터</button></div><p class="hint" id="modeNote"></p></div>
 
 <div class="box warn">
   <div class="t">위험 — 먼저 볼 것</div>
-  118% 로 물타기를 끝까지 채우면 포지션이 <b>계좌의 15.3배</b>가 된다. 손절 한 번이 <b>계좌의 약 −59%</b>,
+  125% 로 물타기를 끝까지 채우면 포지션이 <b>계좌의 16.3배</b>가 된다. 손절 한 번이 <b>계좌의 약 −62%</b>,
   최악의 한 달은 <b id="worstMonth"></b>. <span id="cmpWarn"></span>
-  강제청산선은 계좌 10만 · 118% 에서 첫 진입가 −6.4% (손절 −4.5% 보다 1.9%p 아래). 잔고가 커지면 올라오므로 비율을 낮춰야 한다 — 낮추지 않으면 복리 계산에서 실제로 강제청산이 난다(아래 비교표).
+  강제청산선은 계좌 7만 · 125% 에서 첫 진입가 −6.1% (손절 −4.5% 보다 1.6%p 아래). 잔고가 커지면 올라오므로 비율을 낮춰야 한다 — 낮추지 않으면 복리 계산에서 실제로 강제청산이 난다(아래 비교표).
 </div>
 
 <h2 style="border-top:0;padding-top:0;margin-top:26px">1. 규칙</h2>
@@ -94,12 +94,12 @@
     ③ 직전 5분 수익률 ≥ <b>+0.025%</b> (반등 시작 — 아직 떨어지는 중이면 진입 금지)</dd>
   <dt>진입 금지 필터</dt><dd>둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가)<br>    · 1시간봉 RSI(7) &gt; <b>68.7</b> — 1시간 단위로 이미 단기 과열<br>    · 4시간 볼린저 밴드 폭 &lt; <b>6.3%</b> — 4시간 단위로 시장이 너무 조용함<br>    <span class="hint">9년(10만 고정 · 현실 비용): 손절 45 → 33번 · 9년 합 +94.0만 → +110.4만 · 월 진입 16.3 → 13.6회</span></dd>
   <dt>진입 금지 필터 ③</dt><dd>위 필터에 더해, 둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가 · 2021~22 손절 줄이기)<br>    · 직전 15분봉이 <b>뚜렷한 음봉이 아니다</b> — 몸통(종가−시가) ÷ 평균 변동폭 ATR(14) 가 <b>−0.124 보다 크다</b><br>      <span class="hint">= 한 번에 뚝 떨어진 눌림만 산다. 작은 봉으로 조금씩 흘러내리는 하락은 손절로 이어지는 일이 많았다</span><br>    · 1시간봉 RSI(2) &lt; <b>11.9</b> — 1시간 단위로 극단적 과매도(떨어지는 칼날)<br>    <span class="hint">9년(10만 고정): 손절 33 → 16번(2021~22년 13 → 4) · 9년 합 +110.4만 → +126.8만 · 최대 낙폭 15.5만 → 6.2만 · 월 진입 13.6 → 10.6회<br>      경계값은 같은 9년에서 1만여 개 후보 중 고른 값 — 앞으로의 성적은 이 숫자보다 낮게 볼 것</span></dd>
-  <dt>첫 진입</dt><dd>시장가로 <b>그때 계좌의 118%</b>어치 (1단위) — 계좌 10만이면 118,000 · 다 물리면 계좌의 <b>15.3배</b><br>
-    <b>잔고가 커지면 비율을 낮춘다</b> — 다 물렸을 때 강제청산선이 첫 진입가 <b>−6.4%</b>(9년 최악 손절 분 저가 −5.4% + 여유 1%p)보다 아래에 있는 최대 비율까지만.
+  <dt>첫 진입</dt><dd>시장가로 <b>그때 계좌의 일정 비율</b>어치 (1단위) — 봇은 <b>잔고 단계표</b>로 정한다: ~15만 <b>125%</b> · 15만~20만 <b>120%</b> · 20만~30만 <b>110%</b> · 30만~50만 <b>105%</b> · 그 위 <b>100%</b> (2026-10-04)<br>
+    <b>잔고가 커지면 비율을 낮춘다</b> — 다 물렸을 때 강제청산선이 첫 진입가 <b>−6.0%</b>(손절선 −4.5% 아래 1.5%p)보다 아래에 있어야 한다. 단계표는 단계 끝마다 이 한도 안이다.
     거래소 유지증거금률이 포지션이 클수록 높아져서, 같은 비율이라도 큰 계좌는 청산선이 위로 올라온다.<br>
-    <span class="hint">잔고별 안전 최대 — <span id="safeTbl"></span> · 봇이 매번 계산해 앱에 띄운다</span></dd>
+    <span class="hint">잔고별 안전 한도 — <span id="safeTbl"></span> · 봇이 매번 계산해 앱에 띄운다 · 위쪽 '시작 잔액 · 진입 비중' 으로 다른 조합도 볼 수 있다</span></dd>
   <dt>물타기</dt><dd>첫 진입가 <b>−0.5%</b>에 첫 진입의 3배 · <b>−1.0%</b>에 9배 — 지정가 · 다 채우면 포지션 = 첫 진입의 <b>13배</b></dd>
-  <dt>익절</dt><dd>그때 평단 <b>+0.5%</b> 지정가 (물타기가 채워지면 새 평단 기준으로 옮긴다) · 118% 기준 순이익 — 물타기 없음 <b class="pos">+495</b> · 1차 <b class="pos">+2,124</b> · 2차 <b class="pos">+7,008</b> (계좌 10만)</dd>
+  <dt>익절</dt><dd>그때 평단 <b>+0.5%</b> 지정가 (물타기가 채워지면 새 평단 기준으로 옮긴다) · 계좌 7만 · 125% 순이익 — 물타기 없음 <b class="pos">+367</b> · 1차 <b class="pos">+1,575</b> · 2차 <b class="pos">+5,196</b> (금액은 비중·잔액에 비례)</dd>
   <dt>손절</dt><dd>첫 진입가 <b>−4.5%</b> 시장가 · 24시간 안에 안 끝나면 시장가 정리</dd>
   <dt>비용</dt><dd>시장가 0.05% + 미끄러짐 0.01% · 지정가 0.02% · <b>손절은 손절선보다 0.1% 더 밀려 체결</b> · <b>펀딩비 포함</b>(보유 중 펀딩 시각마다 실제 펀딩률)</dd>
   <dt>동시 보유</dt><dd>한 번에 하나 — 들고 있는 동안 나온 신호는 무시</dd>
@@ -107,7 +107,7 @@
 </div>
 
 <h2>2. 9년 요약</h2>
-<p class="hint">진입 비율 세 가지 × 고정 / 복리 — 위쪽에서 고른 필터 기준. 복리는 <b>거래마다 강제청산선을 다시 계산</b>해, 보유 중 최저점이 그 선에 닿았으면 강제청산(계좌의 5% 이하만 남음)으로 친다. 아래 상세는 위쪽 탭에서 고른 쪽으로 바뀐다.</p><div class="scroll"><table class="cards"><thead><tr><th>진입 비율</th><th>9년 결과</th><th>최대 낙폭</th><th>손절</th><th>강제청산</th><th>손실인 해</th></tr></thead><tbody id="cmpS"></tbody></table></div><p class="hint">필터 비교 (118% 자동 조절)</p>
+<p class="hint">진입 비중 세 가지(봇 단계표 · 입력한 고정 비중 · 그 비중 + 안전 자동 낮춤) × 고정 / 복리 — 위쪽에서 고른 필터·시작 잔액·시작 월 기준. 복리는 <b>거래마다 강제청산선을 다시 계산</b>해, 보유 중 최저점이 그 선에 닿았으면 강제청산(계좌의 5% 이하만 남음)으로 친다. 아래 상세는 위쪽 탭에서 고른 쪽으로 바뀐다.</p><div class="scroll"><table class="cards"><thead><tr><th>진입 비율</th><th>9년 결과</th><th>최대 낙폭</th><th>손절</th><th>강제청산</th><th>손실인 해</th></tr></thead><tbody id="cmpS"></tbody></table></div><p class="hint" id="cmpFHint">필터 비교</p>
 <div class="scroll"><table class="cards"><thead><tr><th>조합</th><th>9년 결과</th><th>최대 낙폭</th><th>손절</th><th>월 진입</th><th>손실인 해</th></tr></thead><tbody id="cmp4"></tbody></table></div>
 <div class="kpi" id="kpi"></div>
 <div class="scroll"><table><thead><tr><th>연도</th><th>거래</th><th>승률</th><th>손절</th><th>손익</th><th id="yEqH">연말 자산</th></tr></thead><tbody id="years"></tbody></table></div>
@@ -158,13 +158,16 @@ const row = (t) => `<tr${t.why === "손절" || t.why === "강제청산" ? ' clas
 // 데이터(BD) 손익은 '첫 진입 83,333(계좌 10만의 83.33%)' 기준 금액. 모든 비용이 금액에 비례하므로 비율대로 키운다.
 // 강제청산: 교차 마진 · 바이낸스 BTCUSDT 유지증거금 구간(봇 plan.js 와 같은 표). 다 물린 포지션 기준으로
 // 청산선(첫 진입가 대비)을 구하고, 그 거래의 보유 중 최저점(t.lo)이 거기 닿았으면 강제청산 — 계좌엔 유지증거금만 남는다.
-const FB = 0.833333, BASE = BD.meta.base, FLOOR = -0.064;
+// DB = 데이터 손익의 기준 계좌(10만) · BASE = 화면에서 고른 시작 잔액 · PCT = 입력한 고정 비중(%)
+const FB = 0.833333, DB = BD.meta.base, FLOOR = -0.060;
+let BASE = 70000, PCT = 125;
 const BR = [[5e4, .004, 0], [2.5e5, .005, 50], [3e6, .01, 1300], [2e7, .025, 46300], [4e7, .05, 546300], [1e8, .10, 2546300], [1e18, .125, 5046300]];
 const brk = (n) => BR.find((b) => !(n > b[0])) || BR[0];   // n 이 0 이하·NaN 이면 첫 구간
 const QF = 1 + 3 / 0.995 + 9 / 0.99;            // 다 물렸을 때 수량(첫 진입가 1 기준, 첫 진입 금액 1 당)
-function liqOf(f, W) {                          // → {pct: 청산선(첫 진입가 대비), left: 그때 남는 계좌}
+// N = 주문 기준 금액(봇: min(잔고, 시드 × 5)) · W = 지갑(청산 판정은 지갑 전체로)
+function liqOf(f, W, N = W) {                   // → {pct: 청산선(첫 진입가 대비), left: 그때 남는 계좌}
   if (!(W > 0) || !(f > 0)) return { pct: -1, left: 0 };   // 계좌가 바닥나면 더 거래하지 않는다
-  const cost = 13 * f * W, Q = f * W * QF; let P = 1;
+  const cost = 13 * f * N, Q = f * N * QF; let P = 1;
   for (let i = 0; i < 30; i++) { const [, r, d] = brk(Q * P); P = (cost - W - d) / (Q * (1 - r)); }
   const [, r, d] = brk(Q * Math.max(P, 0));
   // P ≥ 1 이면 다 물리는 순간 이미 청산선 위 = 그 크기로는 들 수 없다. 남는 돈은 계좌를 넘을 수 없다
@@ -172,14 +175,20 @@ function liqOf(f, W) {                          // → {pct: 청산선(첫 진�
   return { pct: P - 1, left: Math.min(W * 0.05, Math.max(0, Q * Math.min(P, 1) * r - d)) };
 }
 function safeF(W) { let lo = 0.01, hi = 4; if (liqOf(lo, W).pct > FLOOR) return 0; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (liqOf(m, W).pct <= FLOOR) lo = m; else hi = m; } return lo; }
-const RULES = { d118: (W) => Math.min(1.18, safeF(W)), c118: () => 1.18, c83: () => FB };
-const RNAME = { d118: "118% 자동 조절 (잔고 따라 낮춤)", c118: "118% 고정", c83: "83.3% 고정" };
+// 봇 단계표 (config.js P1 pctTiers 와 같다)
+const TIERS = [[150_000, 1.25], [200_000, 1.20], [300_000, 1.10], [500_000, 1.05], [Infinity, 1.00]];
+const tierF = (W) => (TIERS.find(([cap]) => W <= cap) ?? TIERS.at(-1))[1];
+const RULES = { tier: tierF, fixed: () => PCT / 100, auto: (W) => Math.min(PCT / 100, safeF(W)) };
+const RNAME = (sk) => ({ tier: "봇 단계표", fixed: `${PCT}% 고정`, auto: `${PCT}% + 안전 자동 낮춤` })[sk];
+const man = (v) => (v >= 1e4 ? Math.round(v / 1e4).toLocaleString("ko-KR") + "만" : Math.round(v).toLocaleString("ko-KR"));
+const CAPM = 5;                                 // 봇 index.js CAP — 주문 기준 잔고는 처음 시드의 5배에서 멈춘다
 function one(t, W, f) {
-  const k = (W / BASE) * (f / FB), lq = liqOf(f, W);
+  const N = Math.min(W, BASE * CAPM);
+  const k = (N / DB) * (f / FB), lq = liqOf(f, W, N);
   if (t.lo / 100 <= lq.pct) return { ...t, why: "강제청산", f, pnl: lq.left - W, pos: Math.round(t.pos * k), liq: true };
   return { ...t, f, pnl: t.pnl * k, pos: Math.round(t.pos * k) };
 }
-// 고정: 매번 계좌 10만으로 본다 / 복리: 그때 계좌로 본다
+// 고정: 매번 시작 잔액으로 본다 / 복리: 그때 계좌로 본다
 function build(src, rule) {
   let ec = BASE, ef = BASE;
   const C = src.map((t) => { const x = one(t, ec, rule(ec)); ec += x.pnl; return { ...x, eq: ec }; });
@@ -192,8 +201,8 @@ const cache = {};
 // 시작 월 — 그 달 1일에 계좌 10만으로 시작했다고 보고 그 뒤 거래만 쓴다(고정·복리 모두)
 const FIRST = "2017-09", LASTM = BD.trades.at(-1).t0.slice(0, 7);
 let START = FIRST;
-const SET = (fk, sk) => (cache[fk + sk + START] ??= build(SRC[fk].filter((t) => t.t0.slice(0, 7) >= START), RULES[sk]));
-let szr = "d118";
+const SET = (fk, sk) => (cache[[fk, sk, START, BASE, PCT].join("|")] ??= build(SRC[fk].filter((t) => t.t0.slice(0, 7) >= START), RULES[sk]));
+let szr = "tier";
 const SETS = new Proxy({}, { get: (_, fk) => SET(fk, szr) });
 let flt = "f3";
 let TC = SET("f3", szr).C, TF = SET("f3", szr).F;
@@ -202,7 +211,7 @@ let nMonths = monthsBetween(START, "2026-09");
 const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; if (t.why === "손절" || t.why === "강제청산") m[k][3]++; } return m; };
 let MF = monthsOf(TF), MC = monthsOf(TC);
 let mode = "fix", A = TF, MM = MF;
-const NOTE = {fix: "매번 계좌 10만으로 들어간다고 본 손익(118% 면 첫 진입 118,000) — 판단용. 연말 자산 열은 10만 + 누적 손익.", cmp: "다음 진입 금액 = 그때 계좌 × 진입 비율. 이익이 나면 키우고 손실이 나면 줄인다. 연말 자산 열이 계좌 잔고다. 큰 금액은 계산상 값(체결 한도 무시)."};
+const NOTE = {get fix() { return `매번 계좌 ${man(BASE)} 으로 들어간다고 본 손익(첫 진입 ${Math.round(BASE * RULES[szr](BASE)).toLocaleString("ko-KR")}) — 판단용. 연말 자산 열은 ${man(BASE)} + 누적 손익.`; }, get cmp() { return `다음 진입 금액 = 그때 계좌 × 진입 비율 — 봇처럼 주문 기준은 시작 잔액의 5배(${man(BASE * CAPM)})에서 멈춘다. 연말 자산 열이 계좌 잔고다.`; }};
 
 const mkt = (ym) => {
   const m = (typeof BTCM !== "undefined") && BTCM[ym];
@@ -220,14 +229,14 @@ function render() {
   const wins = A.filter((t) => t.why === "익절").length, stops = A.filter((t) => t.why === "손절" || t.why === "강제청산");
   const mv = Object.entries(MM);
   const worstM = mv.reduce((a, b) => b[1][0] < a[1][0] ? b : a);
-  let peak = BD.meta.base, mdd = 0, mddU = 0; for (const t of A) { peak = Math.max(peak, t.eq); mdd = Math.max(mdd, 1 - t.eq / peak); mddU = Math.max(mddU, peak - t.eq); }
+  let peak = BASE, mdd = 0, mddU = 0; for (const t of A) { peak = Math.max(peak, t.eq); mdd = Math.max(mdd, 1 - t.eq / peak); mddU = Math.max(mddU, peak - t.eq); }
   { let worst = 0, wk = ""; for (const [k, v] of Object.entries(MC)) { const startEq = v[2] - v[0]; const r = v[0] / startEq; if (r < worst) { worst = r; wk = k; } }
     document.getElementById("worstMonth").textContent = `그달 초 계좌의 ${(worst * 100).toFixed(1)}% (${wk})`; }
-  { let pk = BD.meta.base, pkT = "", dd = 0, ddT = "", trough = 0; let runPk = BD.meta.base, runPkT = "";
+  { let pk = BASE, pkT = "", dd = 0, ddT = "", trough = 0; let runPk = BASE, runPkT = "";
     for (const t of TC) { if (t.eq > runPk) { runPk = t.eq; runPkT = t.t0.slice(0, 7); }
       const d = 1 - t.eq / runPk; if (d > dd) { dd = d; pk = runPk; pkT = runPkT; trough = t.eq; ddT = t.t0.slice(0, 7); } }
     const man = (v) => Math.round(v / 10000).toLocaleString("ko-KR") + "만";
-    document.getElementById("cmpWarn").innerHTML = `복리로 돌리면 ${pkT} 에 ${man(pk)}까지 불었다가 ${ddT} 에 ${man(trough)}으로 <b>${Math.round(dd * 100)}% 줄어든다</b>(최대 낙폭). 큰 금액은 계산상 값 — 수백만 USDT 를 넘으면 실제로는 그만큼 체결되지 않는다.`; }
+    document.getElementById("cmpWarn").innerHTML = `복리로 돌리면 ${pkT} 에 ${man(pk)}까지 불었다가 ${ddT} 에 ${man(trough)}으로 <b>${Math.round(dd * 100)}% 줄어든다</b>(최대 낙폭). 주문 기준은 시작 잔액의 5배에서 멈춘다(봇과 같다).`; }
   const kpi = [
     [mode === "fix" ? "9년 합계 손익" : "9년 뒤 자산", mode === "fix" ? won(tot) : Math.round(A[A.length - 1].eq).toLocaleString("ko-KR"), cls(tot)],
     ["월 평균 손익", won(tot / nMonths), cls(tot)],
@@ -311,23 +320,29 @@ document.getElementById("ftabs").addEventListener("click", (e) => {
   document.querySelectorAll("#ftabs button").forEach((x) => x.classList.toggle("on", x === b));
   refresh();
 });
-document.getElementById("stabs").addEventListener("click", (e) => {
-  const b = e.target.closest("button[data-s]"); if (!b) return;
-  szr = b.dataset.s;
-  document.querySelectorAll("#stabs button").forEach((x) => x.classList.toggle("on", x === b));
+const balIn = document.getElementById("balIn"), ruleSel = document.getElementById("ruleSel"), pctIn = document.getElementById("pctIn");
+function readInputs() {
+  const b = +balIn.value, p = +pctIn.value;
+  if (b >= 1000) BASE = b;
+  if (p >= 10 && p <= 200) PCT = p;
+  szr = ruleSel.value;
+  document.getElementById("pctBox").style.display = szr === "tier" ? "none" : "";
   refresh();
-});
+}
+balIn.addEventListener("change", readInputs); pctIn.addEventListener("change", readInputs); ruleSel.addEventListener("change", readInputs);
+document.getElementById("pctBox").style.display = "none";
 document.getElementById("mtabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-m]"); if (!b) return;
   mode = b.dataset.m; A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
   document.querySelectorAll("#mtabs button").forEach((x) => x.classList.toggle("on", x === b));
   render();
 });
-// 필터 비교표 (118% 자동 조절)
+// 필터 비교표 — 지금 고른 진입 비중 기준
 function cmpF() { const rows = [];
-  for (const [mk, mn] of [["F", "고정 10만"], ["C", "복리"]]) for (const fk of ["f3", "f2", "off"]) {
+  document.getElementById("cmpFHint").textContent = `필터 비교 (${RNAME(szr)} · 시작 ${man(BASE)})`;
+  for (const [mk, mn] of [["F", `고정 ${man(BASE)}`], ["C", "복리"]]) for (const fk of ["f3", "f2", "off"]) {
     const fn_ = FNAME[fk];
-    const A_ = SET(fk, "d118")[mk]; let pk = BD.meta.base, dd = 0, ddU = 0;
+    const A_ = SET(fk, szr)[mk]; let pk = BASE, dd = 0, ddU = 0;
     for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); ddU = Math.max(ddU, pk - t.eq); }
     const tot = A_.reduce((a, t) => a + t.pnl, 0), st = A_.filter((t) => t.why === "손절" || t.why === "강제청산").length;
     const ys = {}; for (const t of A_) ys[t.t0.slice(0, 4)] = (ys[t.t0.slice(0, 4)] || 0) + t.pnl;
@@ -342,7 +357,7 @@ cmpF();
 // 진입 비율 비교표 — 지금 고른 필터 기준
 function cmpS() {
   const rows = [];
-  for (const [mk, mn] of [["F", "고정 10만"], ["C", "복리"]]) for (const sk of ["d118", "c118", "c83"]) {
+  for (const [mk, mn] of [["F", `고정 ${man(BASE)}`], ["C", "복리"]]) for (const sk of ["tier", "fixed", "auto"]) {
     const A_ = SET(flt, sk)[mk]; let pk = BASE, dd = 0, ddU = 0;
     for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); ddU = Math.max(ddU, pk - t.eq); }
     const tot = A_.reduce((a, t) => a + t.pnl, 0);
@@ -350,14 +365,14 @@ function cmpS() {
     const neg = Object.entries(ys).filter(([, v]) => v < 0).map(([y]) => y);
     const lq = A_.filter((t) => t.liq).length, st = A_.filter((t) => t.why === "손절").length;
     const res = mk === "F" ? "합 " + won(tot) : "계좌 " + Math.round(A_[A_.length - 1].eq).toLocaleString("ko-KR");
-    rows.push(`<tr><td data-label="진입 비율"><b>${RNAME[sk]} · ${mn}</b>${mk === "F" && sk === "d118" ? '<br><span class="hint">계좌 10만에서는 118% 그대로</span>' : ""}</td><td data-label="결과" class="n ${cls(tot)}"><b>${res}</b></td>`
+    rows.push(`<tr><td data-label="진입 비율"><b>${RNAME(sk)} · ${mn}</b>${sk === szr ? ' <span class="hint">← 지금 보는 것</span>' : ""}</td><td data-label="결과" class="n ${cls(tot)}"><b>${res}</b></td>`
       + `<td data-label="최대 낙폭" class="n neg">${mk === "F" ? "−" + Math.round(ddU).toLocaleString("ko-KR") : "−" + (dd * 100).toFixed(1) + "%"}</td><td data-label="손절" class="n">${st}번</td>`
       + `<td data-label="강제청산" class="n ${lq ? "neg" : ""}"><b>${lq}번</b></td><td data-label="손실인 해">${neg.length ? neg.join(" · ") : "없음"}</td></tr>`);
   }
   document.getElementById("cmpS").innerHTML = rows.join("");
 }
 cmpS();
-document.getElementById("safeTbl").textContent = [1e5, 2e5, 3e5, 5e5, 1e6, 3e6, 1e7].map((W) => `${W >= 1e6 ? W / 1e6 + "00만" : W / 1e4 + "만"} ${Math.min(118, safeF(W) * 100).toFixed(0)}%`).join(" · ");
+document.getElementById("safeTbl").textContent = [7e4, 1e5, 1.5e5, 2e5, 3e5, 5e5, 1e6, 3e6].map((W) => `${man(W)} ${Math.floor(safeF(W) * 100)}%`).join(" · ");
 render();
 document.getElementById("foot").textContent = `데이터 끝 ${BD.meta.data_end} KST · 생성 ${BD.meta.gen} · 진입 규칙과 숫자 경계(37.7 · +1.53% · +0.025% · 68.7 · 6.3% · −0.124 · 11.9)는 9년 분포에서 정한 값`;
 </script>
