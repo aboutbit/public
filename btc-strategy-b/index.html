@@ -31,7 +31,7 @@
   .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
   .kpi>div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
   .tabbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 8px;margin:18px 0 0;border-bottom:1px solid var(--line)}
-  .tabs{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .tabs{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:0 6px 6px 0;vertical-align:top}
   .tabs button{font:inherit;font-size:13.5px;padding:7px 14px;border:0;background:var(--card);color:var(--dim);cursor:pointer}
   .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
   .kpi .k{font-size:12px;color:var(--dim)} .kpi .v{font-family:var(--mono);font-size:18px;font-weight:650;margin-top:2px}
@@ -71,14 +71,14 @@
 </head>
 <body>
 <div class="wrap">
-<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9</h1>
+<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터</h1>
 <p class="sub">시드 10만 USDT · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트</p>
-<div class="tabbar"><div class="tabs" id="tabs"><button type="button" data-m="fix" class="on">고정 — 매번 10만 기준</button><button type="button" data-m="cmp">복리 — 그때 자산에 비례</button></div><p class="hint" id="modeNote"></p></div>
+<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="on" class="on">필터 적용</button><button type="button" data-f="off">필터 없음 (비교용)</button></div> <div class="tabs" id="tabs"><button type="button" data-m="fix" class="on">고정 — 매번 10만 기준</button><button type="button" data-m="cmp">복리 — 그때 자산에 비례</button></div><p class="hint" id="modeNote"></p></div>
 
 <div class="box warn">
   <div class="t">위험 — 먼저 볼 것</div>
   물타기를 끝까지 채우면 포지션이 <b>108만 USDT(계좌의 10.8배)</b>가 된다. 손절 한 번이 <b>약 −41,000 USDT</b>,
-  최악의 한 달은 <b id="worstMonth"></b>. <b>복리</b>로 굴리면 2021년 말 1,267만까지 불었다가 2022년에 168만으로 <b>87% 증발</b>한다(최대 낙폭 −96.8%).
+  최악의 한 달은 <b id="worstMonth"></b>. <b>복리</b>로 굴리면 <span id="cmpWarn"></span>
   복리의 큰 숫자는 계산상 값이다 — 자산이 수백만 USDT 를 넘으면 포지션이 수천만~억 USDT 라 실제로는 그만큼 체결되지 않는다.
 </div>
 
@@ -89,6 +89,7 @@
     ① 15분봉 RSI(7) &lt; <b>37.7</b> (단기 눌림)<br>
     ② 15분봉 종가가 15분 EMA200보다 <b>+1.53% 이상 위</b> (상승 추세)<br>
     ③ 직전 5분 수익률 ≥ <b>+0.025%</b> (반등 시작 — 아직 떨어지는 중이면 진입 금지)</dd>
+  <dt>진입 금지 필터</dt><dd>둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가)<br>    · 1시간봉 RSI(7) &gt; <b>68.7</b> — 1시간 단위로 이미 단기 과열<br>    · 4시간 볼린저 밴드 폭 &lt; <b>6.3%</b> — 4시간 단위로 시장이 너무 조용함<br>    <span class="hint">9년: 손절 45 → 33번 · 9년 손익 +1,013,097 → +1,156,478 · 월 진입 16.3 → 13.6회</span></dd>
   <dt>첫 진입</dt><dd>시장가 <b class="n">83,333</b> USDT어치 (1단위)</dd>
   <dt>물타기</dt><dd>첫 진입가 <b>−0.5%</b>에 3단위(250,000) · <b>−1.0%</b>에 9단위(750,000) — 지정가</dd>
   <dt>익절</dt><dd>그때 평단 <b>+0.5%</b> 지정가 · 물타기 없이 익절하면 <b class="pos">+350</b></dd>
@@ -128,7 +129,7 @@
 <script src="b-data.js"></script>
 <script src="btc-month-data.js"></script>
 <script>
-const T = BD.trades;
+let T = BD.trades;
 const F0 = {minimumFractionDigits: 0, maximumFractionDigits: 0};
 const won = (v) => (v >= 0 ? "+" : "−") + Math.abs(v).toLocaleString("ko-KR", F0);
 const num = (v) => v.toLocaleString("ko-KR", {minimumFractionDigits: 1, maximumFractionDigits: 1});
@@ -144,13 +145,19 @@ const row = (t) => `<tr${t.why === "손절" ? ' class="stop"' : ""}>`
   + `<td data-label="손익" class="n ${cls(t.pnl)}"><b>${won(t.pnl)}</b></td></tr>`;
 
 // 두 기준 — 고정: 매번 10만 기준 금액 / 복리: 그때 자산 ÷ 10만 배로 키우고 줄인다
-let eqc = BD.meta.base;
-const TC = T.map((t) => { const k = eqc / BD.meta.base; const p = t.pnl * k; eqc += p; return {...t, pnl: p, pos: Math.round(t.pos * k), eq: eqc}; });
-let eqf = BD.meta.base;
-const TF = T.map((t) => { eqf += t.pnl; return {...t, eq: eqf}; });
+// 필터 적용(BD.trades) / 필터 없음(BD.trades_nf) × 고정 / 복리
+function build(src) {
+  let ec = BD.meta.base, ef = BD.meta.base;
+  const C = src.map((t) => { const k = ec / BD.meta.base; const p = t.pnl * k; ec += p; return {...t, pnl: p, pos: Math.round(t.pos * k), eq: ec}; });
+  const F = src.map((t) => { ef += t.pnl; return {...t, eq: ef}; });
+  return {C, F};
+}
+const SETS = {on: build(BD.trades), off: build(BD.trades_nf)};
+let flt = "on";
+let TC = SETS.on.C, TF = SETS.on.F;
 const nMonths = 109;
 const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; } return m; };
-const MF = monthsOf(TF), MC = monthsOf(TC);
+let MF = monthsOf(TF), MC = monthsOf(TC);
 let mode = "fix", A = TF, MM = MF;
 const NOTE = {fix: "매번 첫 진입 83,333 USDT(10만 기준) 그대로 — 이익도 손실도 쌓이지 않는다. 손익 = 전략 자체의 실력.",
               cmp: "다음 진입 금액 = 그때 자산 ÷ 10만 × 83,333. 이익이 나면 키우고 손실이 나면 줄인다. 연말 자산 열이 계좌 잔고다."};
@@ -172,7 +179,13 @@ function render() {
   const mv = Object.entries(MM);
   const worstM = mv.reduce((a, b) => b[1][0] < a[1][0] ? b : a);
   let peak = BD.meta.base, mdd = 0; for (const t of A) { peak = Math.max(peak, t.eq); mdd = Math.max(mdd, 1 - t.eq / peak); }
-  document.getElementById("worstMonth").textContent = `${won(MF[Object.entries(MF).reduce((a, b) => b[1][0] < a[1][0] ? b : a)[0]][0])} (고정 기준 ${Object.entries(MF).reduce((a, b) => b[1][0] < a[1][0] ? b : a)[0]})`;
+  const wf = Object.entries(MF).reduce((a, b) => b[1][0] < a[1][0] ? b : a);
+  document.getElementById("worstMonth").textContent = `${won(wf[1][0])} (고정 기준 ${wf[0]})`;
+  { let pk = BD.meta.base, pkT = "", dd = 0, ddT = "", trough = 0; let runPk = BD.meta.base, runPkT = "";
+    for (const t of TC) { if (t.eq > runPk) { runPk = t.eq; runPkT = t.t0.slice(0, 7); }
+      const d = 1 - t.eq / runPk; if (d > dd) { dd = d; pk = runPk; pkT = runPkT; trough = t.eq; ddT = t.t0.slice(0, 7); } }
+    const man = (v) => Math.round(v / 10000).toLocaleString("ko-KR") + "만";
+    document.getElementById("cmpWarn").innerHTML = `${pkT} 에 ${man(pk)}까지 불었다가 ${ddT} 에 ${man(trough)}으로 <b>${Math.round(dd * 100)}% 줄어든다</b>(복리 최대 낙폭).`; }
   const kpi = [
     [mode === "fix" ? "9년 합계 손익" : "9년 뒤 자산", mode === "fix" ? won(tot) : Math.round(A[A.length - 1].eq).toLocaleString("ko-KR"), cls(tot)],
     ["월 평균 손익", won(tot / nMonths), cls(tot)],
@@ -227,6 +240,13 @@ grid.addEventListener("keydown", (e) => {
   const td = e.target.closest("td[data-ym]"); if (!td) return; e.preventDefault(); cur === td.dataset.ym ? close() : open(td.dataset.ym, td);
 });
 document.getElementById("dClose").addEventListener("click", close);
+document.getElementById("ftabs").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-f]"); if (!b) return;
+  flt = b.dataset.f; TC = SETS[flt].C; TF = SETS[flt].F; MF = monthsOf(TF); MC = monthsOf(TC);
+  A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
+  document.querySelectorAll("#ftabs button").forEach((x) => x.classList.toggle("on", x === b));
+  render();
+});
 document.getElementById("tabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-m]"); if (!b) return;
   mode = b.dataset.m; A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
