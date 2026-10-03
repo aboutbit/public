@@ -72,9 +72,9 @@
 </head>
 <body>
 <div class="wrap">
-<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터</h1>
-<p class="sub">시드 10만 USDT · <b>진입 금액은 그때 계좌에 비례</b>(복리) · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
-<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="on" class="on">필터 적용</button><button type="button" data-f="off">필터 없음 (비교용)</button></div><p class="hint" id="modeNote"></p></div>
+<h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터 ③</h1>
+<p class="sub">시드 10만 USDT · <b>고정</b>(매번 10만 기준 금액) / <b>복리</b>(그때 계좌에 비례) 두 가지로 볼 수 있다 · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
+<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 10만</button><button type="button" data-m="cmp">복리</button></div><p class="hint" id="modeNote"></p></div>
 
 <div class="box warn">
   <div class="t">위험 — 먼저 볼 것</div>
@@ -90,7 +90,8 @@
     ① 15분봉 RSI(7) &lt; <b>37.7</b> (단기 눌림)<br>
     ② 15분봉 종가가 15분 EMA200보다 <b>+1.53% 이상 위</b> (상승 추세)<br>
     ③ 직전 5분 수익률 ≥ <b>+0.025%</b> (반등 시작 — 아직 떨어지는 중이면 진입 금지)</dd>
-  <dt>진입 금지 필터</dt><dd>둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가)<br>    · 1시간봉 RSI(7) &gt; <b>68.7</b> — 1시간 단위로 이미 단기 과열<br>    · 4시간 볼린저 밴드 폭 &lt; <b>6.3%</b> — 4시간 단위로 시장이 너무 조용함<br>    <span class="hint">9년(계좌 비례 · 현실 비용): 손절 45 → 33번 · 9년 뒤 계좌 188만 → 5,628만 · 월 진입 16.3 → 13.6회</span></dd>
+  <dt>진입 금지 필터</dt><dd>둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가)<br>    · 1시간봉 RSI(7) &gt; <b>68.7</b> — 1시간 단위로 이미 단기 과열<br>    · 4시간 볼린저 밴드 폭 &lt; <b>6.3%</b> — 4시간 단위로 시장이 너무 조용함<br>    <span class="hint">9년(10만 고정 · 현실 비용): 손절 45 → 33번 · 9년 합 +94.0만 → +110.4만 · 월 진입 16.3 → 13.6회</span></dd>
+  <dt>진입 금지 필터 ③</dt><dd>위 필터에 더해, 둘 중 <b>하나라도</b> 해당하면 들어가지 않는다 (2026-10-03 추가 · 2021~22 손절 줄이기)<br>    · 직전 15분봉이 <b>뚜렷한 음봉이 아니다</b> — 몸통(종가−시가) ÷ 평균 변동폭 ATR(14) 가 <b>−0.124 보다 크다</b><br>      <span class="hint">= 한 번에 뚝 떨어진 눌림만 산다. 작은 봉으로 조금씩 흘러내리는 하락은 손절로 이어지는 일이 많았다</span><br>    · 1시간봉 RSI(2) &lt; <b>11.9</b> — 1시간 단위로 극단적 과매도(떨어지는 칼날)<br>    <span class="hint">9년(10만 고정): 손절 33 → 16번(2021~22년 13 → 4) · 9년 합 +110.4만 → +126.8만 · 최대 낙폭 15.5만 → 6.2만 · 월 진입 13.6 → 10.6회<br>      경계값은 같은 9년에서 1만여 개 후보 중 고른 값 — 앞으로의 성적은 이 숫자보다 낮게 볼 것</span></dd>
   <dt>첫 진입</dt><dd>시장가로 <b>그때 계좌의 83.3%</b>어치 (1단위) — 계좌 10만이면 83,333 · 6만이면 50,000</dd>
   <dt>물타기</dt><dd>첫 진입가 <b>−0.5%</b>에 첫 진입의 3배 · <b>−1.0%</b>에 9배 — 지정가 · 다 채우면 포지션 = 계좌의 <b>10.8배</b></dd>
   <dt>익절</dt><dd>그때 평단 <b>+0.5%</b> 지정가 · 물타기 없이 익절하면 계좌의 <b class="pos">+0.35%</b> (10만이면 +350)</dd>
@@ -101,8 +102,8 @@
 </div>
 
 <h2>2. 9년 요약</h2>
-<p class="hint">필터 적용 / 없음 비교 — 아래 상세는 위쪽 탭에서 고른 쪽으로 바뀐다.</p>
-<div class="scroll"><table class="cards"><thead><tr><th>조합</th><th>9년 뒤 계좌</th><th>최대 낙폭</th><th>손절</th><th>월 진입</th><th>손실인 해</th></tr></thead><tbody id="cmp4"></tbody></table></div>
+<p class="hint">세 필터 × 고정 / 복리 비교 — 아래 상세는 위쪽 탭에서 고른 쪽으로 바뀐다.</p>
+<div class="scroll"><table class="cards"><thead><tr><th>조합</th><th>9년 결과</th><th>최대 낙폭</th><th>손절</th><th>월 진입</th><th>손실인 해</th></tr></thead><tbody id="cmp4"></tbody></table></div>
 <div class="kpi" id="kpi"></div>
 <div class="scroll"><table><thead><tr><th>연도</th><th>거래</th><th>승률</th><th>손절</th><th>손익</th><th id="yEqH">연말 자산</th></tr></thead><tbody id="years"></tbody></table></div>
 
@@ -155,14 +156,15 @@ function build(src) {
   const F = src.map((t) => { ef += t.pnl; return {...t, eq: ef}; });
   return {C, F};
 }
-const SETS = {on: build(BD.trades), off: build(BD.trades_nf)};
-let flt = "on";
-let TC = SETS.on.C, TF = SETS.on.F;
+const SETS = {f3: build(BD.trades), f2: build(BD.trades_f2), off: build(BD.trades_nf)};
+const FNAME = {f3: "필터 ③ 추가", f2: "기존 필터만", off: "필터 없음"};
+let flt = "f3";
+let TC = SETS.f3.C, TF = SETS.f3.F;
 const nMonths = 109;
 const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; if (t.why === "손절") m[k][3]++; } return m; };
 let MF = monthsOf(TF), MC = monthsOf(TC);
-let mode = "cmp", A = TC, MM = MC;
-const NOTE = {cmp: "다음 진입 금액 = 그때 계좌 × 83.3%. 이익이 나면 키우고 손실이 나면 줄인다 — 청산선은 늘 같은 자리. 연말 자산 열이 계좌 잔고다."};
+let mode = "fix", A = TF, MM = MF;
+const NOTE = {fix: "매번 10만 기준 금액(첫 진입 83,333)으로 들어간다고 본 손익 — 판단용. 연말 자산 열은 10만 + 누적 손익.", cmp: "다음 진입 금액 = 그때 계좌 × 83.3%. 이익이 나면 키우고 손실이 나면 줄인다 — 청산선은 늘 같은 자리. 연말 자산 열이 계좌 잔고다. 큰 금액은 계산상 값(체결 한도 무시)."};
 
 const mkt = (ym) => {
   const m = (typeof BTCM !== "undefined") && BTCM[ym];
@@ -180,20 +182,20 @@ function render() {
   const wins = A.filter((t) => t.why === "익절").length, stops = A.filter((t) => t.why === "손절");
   const mv = Object.entries(MM);
   const worstM = mv.reduce((a, b) => b[1][0] < a[1][0] ? b : a);
-  let peak = BD.meta.base, mdd = 0; for (const t of A) { peak = Math.max(peak, t.eq); mdd = Math.max(mdd, 1 - t.eq / peak); }
+  let peak = BD.meta.base, mdd = 0, mddU = 0; for (const t of A) { peak = Math.max(peak, t.eq); mdd = Math.max(mdd, 1 - t.eq / peak); mddU = Math.max(mddU, peak - t.eq); }
   { let worst = 0, wk = ""; for (const [k, v] of Object.entries(MC)) { const startEq = v[2] - v[0]; const r = v[0] / startEq; if (r < worst) { worst = r; wk = k; } }
     document.getElementById("worstMonth").textContent = `그달 초 계좌의 ${(worst * 100).toFixed(1)}% (${wk})`; }
   { let pk = BD.meta.base, pkT = "", dd = 0, ddT = "", trough = 0; let runPk = BD.meta.base, runPkT = "";
     for (const t of TC) { if (t.eq > runPk) { runPk = t.eq; runPkT = t.t0.slice(0, 7); }
       const d = 1 - t.eq / runPk; if (d > dd) { dd = d; pk = runPk; pkT = runPkT; trough = t.eq; ddT = t.t0.slice(0, 7); } }
     const man = (v) => Math.round(v / 10000).toLocaleString("ko-KR") + "만";
-    document.getElementById("cmpWarn").innerHTML = `${pkT} 에 ${man(pk)}까지 불었다가 ${ddT} 에 ${man(trough)}으로 <b>${Math.round(dd * 100)}% 줄어든다</b>(최대 낙폭). 큰 금액은 계산상 값 — 수백만 USDT 를 넘으면 실제로는 그만큼 체결되지 않는다.`; }
+    document.getElementById("cmpWarn").innerHTML = `복리로 돌리면 ${pkT} 에 ${man(pk)}까지 불었다가 ${ddT} 에 ${man(trough)}으로 <b>${Math.round(dd * 100)}% 줄어든다</b>(최대 낙폭). 큰 금액은 계산상 값 — 수백만 USDT 를 넘으면 실제로는 그만큼 체결되지 않는다.`; }
   const kpi = [
     [mode === "fix" ? "9년 합계 손익" : "9년 뒤 자산", mode === "fix" ? won(tot) : Math.round(A[A.length - 1].eq).toLocaleString("ko-KR"), cls(tot)],
     ["월 평균 손익", won(tot / nMonths), cls(tot)],
     ["월 진입", (A.length / nMonths).toFixed(1) + "회", ""], ["승률", (wins / A.length * 100).toFixed(1) + "%", ""],
     ["손절", stops.length + "번", "neg"], ["최악 1건", won(Math.min(...A.map((t) => t.pnl))), "neg"],
-    ["최악의 달", won(worstM[1][0]), "neg"], ["최대 낙폭 (자산 대비)", "−" + (mdd * 100).toFixed(1) + "%", "neg"],
+    ["최악의 달", won(worstM[1][0]), "neg"], mode === "fix" ? ["최대 낙폭 (누적 손익 기준)", "−" + Math.round(mddU).toLocaleString("ko-KR"), "neg"] : ["최대 낙폭 (자산 대비)", "−" + (mdd * 100).toFixed(1) + "%", "neg"],
   ];
   document.getElementById("kpi").innerHTML = kpi.map(([k, v, c]) => `<div><div class="k">${k}</div><div class="v ${c}">${v}</div></div>`).join("");
   let yh = "";
@@ -249,22 +251,29 @@ document.getElementById("ftabs").addEventListener("click", (e) => {
   document.querySelectorAll("#ftabs button").forEach((x) => x.classList.toggle("on", x === b));
   render();
 });
+document.getElementById("mtabs").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-m]"); if (!b) return;
+  mode = b.dataset.m; A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
+  document.querySelectorAll("#mtabs button").forEach((x) => x.classList.toggle("on", x === b));
+  render();
+});
 // 네 조합 비교표
 { const rows = [];
-  for (const [fk, fn_] of [["on", "필터 적용"], ["off", "필터 없음"]]) for (const [mk, mn] of [["C", "계좌 비례"]]) {
-    const A_ = SETS[fk][mk]; let pk = BD.meta.base, dd = 0;
-    for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); }
+  for (const [mk, mn] of [["F", "고정 10만"], ["C", "복리"]]) for (const fk of ["f3", "f2", "off"]) {
+    const fn_ = FNAME[fk];
+    const A_ = SETS[fk][mk]; let pk = BD.meta.base, dd = 0, ddU = 0;
+    for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); ddU = Math.max(ddU, pk - t.eq); }
     const tot = A_.reduce((a, t) => a + t.pnl, 0), st = A_.filter((t) => t.why === "손절").length;
     const ys = {}; for (const t of A_) ys[t.t0.slice(0, 4)] = (ys[t.t0.slice(0, 4)] || 0) + t.pnl;
     const neg = Object.entries(ys).filter(([, v]) => v < 0).map(([y]) => y);
-    const res = mk === "F" ? won(tot) : Math.round(A_[A_.length - 1].eq).toLocaleString("ko-KR") + " USDT";
+    const res = mk === "F" ? "합 " + won(tot) : "계좌 " + Math.round(A_[A_.length - 1].eq).toLocaleString("ko-KR");
     rows.push(`<tr><td data-label="조합"><b>${fn_} · ${mn}</b></td><td data-label="결과" class="n ${cls(tot)}"><b>${res}</b></td>`
-      + `<td data-label="최대 낙폭" class="n neg">−${(dd * 100).toFixed(1)}%</td><td data-label="손절" class="n">${st}번</td>`
+      + `<td data-label="최대 낙폭" class="n neg">${mk === "F" ? "−" + Math.round(ddU).toLocaleString("ko-KR") : "−" + (dd * 100).toFixed(1) + "%"}</td><td data-label="손절" class="n">${st}번</td>`
       + `<td data-label="월 진입" class="n">${(A_.length / 109).toFixed(1)}회</td><td data-label="손실인 해">${neg.length ? neg.join(" · ") : "없음"}</td></tr>`);
   }
   document.getElementById("cmp4").innerHTML = rows.join(""); }
 render();
-document.getElementById("foot").textContent = `데이터 끝 ${BD.meta.data_end} KST · 생성 ${BD.meta.gen} · 진입 규칙과 숫자 경계(37.7 · +1.53% · +0.025%)는 9년 분포에서 정한 값`;
+document.getElementById("foot").textContent = `데이터 끝 ${BD.meta.data_end} KST · 생성 ${BD.meta.gen} · 진입 규칙과 숫자 경계(37.7 · +1.53% · +0.025% · 68.7 · 6.3% · −0.124 · 11.9)는 9년 분포에서 정한 값`;
 </script>
 </body>
 </html>
