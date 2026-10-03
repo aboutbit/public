@@ -101,6 +101,8 @@
 </div>
 
 <h2>2. 9년 요약</h2>
+<p class="hint">네 가지 조합 한눈에 — 아래 상세는 위쪽 탭에서 고른 조합으로 바뀐다.</p>
+<div class="scroll"><table class="cards"><thead><tr><th>조합</th><th>9년 손익 / 9년 뒤 자산</th><th>최대 낙폭</th><th>손절</th><th>월 진입</th><th>손실인 해</th></tr></thead><tbody id="cmp4"></tbody></table></div>
 <div class="kpi" id="kpi"></div>
 <div class="scroll"><table><thead><tr><th>연도</th><th>거래</th><th>승률</th><th>손절</th><th>손익</th><th id="yEqH">연말 자산</th></tr></thead><tbody id="years"></tbody></table></div>
 
@@ -254,6 +256,20 @@ document.getElementById("tabs").addEventListener("click", (e) => {
   document.querySelectorAll("#tabs button").forEach((x) => x.classList.toggle("on", x === b));
   render();
 });
+// 네 조합 비교표
+{ const rows = [];
+  for (const [fk, fn_] of [["on", "필터 적용"], ["off", "필터 없음"]]) for (const [mk, mn] of [["F", "고정"], ["C", "복리"]]) {
+    const A_ = SETS[fk][mk]; let pk = BD.meta.base, dd = 0;
+    for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); }
+    const tot = A_.reduce((a, t) => a + t.pnl, 0), st = A_.filter((t) => t.why === "손절").length;
+    const ys = {}; for (const t of A_) ys[t.t0.slice(0, 4)] = (ys[t.t0.slice(0, 4)] || 0) + t.pnl;
+    const neg = Object.entries(ys).filter(([, v]) => v < 0).map(([y]) => y);
+    const res = mk === "F" ? won(tot) : Math.round(A_[A_.length - 1].eq).toLocaleString("ko-KR") + " USDT";
+    rows.push(`<tr><td data-label="조합"><b>${fn_} · ${mn}</b></td><td data-label="결과" class="n ${cls(tot)}"><b>${res}</b></td>`
+      + `<td data-label="최대 낙폭" class="n neg">−${(dd * 100).toFixed(1)}%</td><td data-label="손절" class="n">${st}번</td>`
+      + `<td data-label="월 진입" class="n">${(A_.length / 109).toFixed(1)}회</td><td data-label="손실인 해">${neg.length ? neg.join(" · ") : "없음"}</td></tr>`);
+  }
+  document.getElementById("cmp4").innerHTML = rows.join(""); }
 render();
 document.getElementById("foot").textContent = `데이터 끝 ${BD.meta.data_end} KST · 생성 ${BD.meta.gen} · 진입 규칙과 숫자 경계(37.7 · +1.53% · +0.025%)는 9년 분포에서 정한 값`;
 </script>
