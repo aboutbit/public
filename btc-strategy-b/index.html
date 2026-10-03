@@ -47,6 +47,7 @@
   td.cm.on{background:color-mix(in srgb,var(--accent) 22%,transparent);font-weight:650}
   .bm{display:block;margin-top:3px;font-size:10.5px;line-height:1.35;color:var(--dim);font-weight:400}
   .bm .hot{color:var(--accent)}
+  .cnt{display:block;margin-top:2px;font-size:11.5px;color:var(--ink);font-weight:600}
   .tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:5px;font-weight:600}
   .tag.win{background:color-mix(in srgb,var(--pos) 14%,transparent);color:var(--pos)}
   .tag.loss{background:color-mix(in srgb,var(--neg) 14%,transparent);color:var(--neg)}
@@ -104,7 +105,7 @@
 <div class="scroll"><table><thead><tr><th>연도</th><th>거래</th><th>승률</th><th>손절</th><th>손익</th><th id="yEqH">연말 자산</th></tr></thead><tbody id="years"></tbody></table></div>
 
 <h2>3. 월별 손익</h2>
-<p class="hint">각 월 숫자를 누르면 <b>그 달 거래가 전부</b> 펼쳐진다(진입 시각 기준). 칸 아래 작은 글씨는 그 달 BTC 시장 —
+<p class="hint">칸마다 <b>손익 · 거래 수 · 손절 수</b>. 숫자를 누르면 <b>그 달 거래가 전부</b> 펼쳐진다(진입 시각 기준). 맨 아래 작은 글씨는 그 달 BTC 시장 —
   변동성(일간 출렁임, 연율) · 눌림(장중 저가가 시가보다 3% 이상 빠진 날 수) · 등락(전월 말 → 이달 말).</p>
 <div class="scroll"><table><thead><tr>
   <th>연</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>연 합계</th>
@@ -156,7 +157,7 @@ const SETS = {on: build(BD.trades), off: build(BD.trades_nf)};
 let flt = "on";
 let TC = SETS.on.C, TF = SETS.on.F;
 const nMonths = 109;
-const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; } return m; };
+const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; if (t.why === "손절") m[k][3]++; } return m; };
 let MF = monthsOf(TF), MC = monthsOf(TC);
 let mode = "fix", A = TF, MM = MF;
 const NOTE = {fix: "매번 첫 진입 83,333 USDT(10만 기준) 그대로 — 이익도 손실도 쌓이지 않는다. 손익 = 전략 자체의 실력.",
@@ -205,15 +206,15 @@ function render() {
   document.getElementById("years").innerHTML = yh;
   let gh = "";
   for (let y = 2017; y <= 2026; y++) {
-    let cells = "", ytot = 0, any = false;
+    let cells = "", ytot = 0, any = false, yn = 0, ys = 0;
     for (let mo = 1; mo <= 12; mo++) {
       const ym = `${y}-${String(mo).padStart(2, "0")}`;
       const v = MM[ym];
       if (!v) { cells += `<td class="n">${(y === 2017 && mo < 9) || (y === 2026 && mo > 9) ? "-" : "0"}</td>`; continue; }
-      any = true; ytot += v[0];
-      cells += `<td class="n cm ${cls(v[0])}${cur === ym ? " on" : ""}" data-ym="${ym}" tabindex="0"><span class="pv">${won(v[0])}</span><span class="bm">${v[1]}건</span>${mkt(ym)}</td>`;
+      any = true; ytot += v[0]; yn += v[1]; ys += v[3];
+      cells += `<td class="n cm ${cls(v[0])}${cur === ym ? " on" : ""}" data-ym="${ym}" tabindex="0"><span class="pv">${won(v[0])}</span><span class="cnt">${v[1]}건${v[3] ? ` · <span class="neg">손절 ${v[3]}</span>` : ""}</span>${mkt(ym)}</td>`;
     }
-    if (any) gh += `<tr><td>${y}</td>${cells}<td class="n ${cls(ytot)}"><b>${won(ytot)}</b></td></tr>`;
+    if (any) gh += `<tr><td>${y}</td>${cells}<td class="n ${cls(ytot)}"><b>${won(ytot)}</b><span class="cnt">${yn}건${ys ? ` · <span class="neg">손절 ${ys}</span>` : ""}</span></td></tr>`;
   }
   grid.innerHTML = gh;
   document.getElementById("stops").innerHTML = stops.map(row).join("");
