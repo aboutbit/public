@@ -33,6 +33,8 @@
   .tabbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 8px;margin:18px 0 0;border-bottom:1px solid var(--line)}
   .tabs{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:0 6px 6px 0;vertical-align:top}
   .tabs button{font:inherit;font-size:13.5px;padding:7px 12px;white-space:nowrap;border:0;background:var(--card);color:var(--dim);cursor:pointer}
+  .startbar{display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;vertical-align:top;font-size:13.5px}
+  .startbar select,.startbar button{font:inherit;font-size:13.5px;padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);cursor:pointer}
   .tabs button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--ink);font-weight:650}
   .kpi .k{font-size:12px;color:var(--dim)} .kpi .v{font-family:var(--mono);font-size:18px;font-weight:650;margin-top:2px}
   .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
@@ -74,7 +76,7 @@
 <div class="wrap">
 <h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터 ③ · 첫 진입 118%</h1>
 <p class="sub">시드 10만 USDT · <b>고정</b>(매번 10만 기준 금액) / <b>복리</b>(그때 계좌에 비례) 두 가지로 볼 수 있다 · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
-<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="tabs" id="stabs"><button type="button" data-s="d118" class="on">118% 자동 조절</button><button type="button" data-s="c118">118% 고정</button><button type="button" data-s="c83">83% 고정</button></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 10만</button><button type="button" data-m="cmp">복리</button></div><p class="hint" id="modeNote"></p></div>
+<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="tabs" id="stabs"><button type="button" data-s="d118" class="on">118% 자동 조절</button><button type="button" data-s="c118">118% 고정</button><button type="button" data-s="c83">83% 고정</button></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 10만</button><button type="button" data-m="cmp">복리</button></div><div class="startbar"><label for="startSel">시작 월</label><select id="startSel"></select><button type="button" id="worstBtn">최악의 달부터</button><button type="button" id="resetBtn">처음부터</button></div><p class="hint" id="modeNote"></p></div>
 
 <div class="box warn">
   <div class="t">위험 — 먼저 볼 것</div>
@@ -187,16 +189,20 @@ function build(src, rule) {
 const SRC = { f3: BD.trades, f2: BD.trades_f2, off: BD.trades_nf };
 const FNAME = {f3: "필터 ③ 추가", f2: "기존 필터만", off: "필터 없음"};
 const cache = {};
-const SET = (fk, sk) => (cache[fk + sk] ??= build(SRC[fk], RULES[sk]));
+// 시작 월 — 그 달 1일에 계좌 10만으로 시작했다고 보고 그 뒤 거래만 쓴다(고정·복리 모두)
+const FIRST = "2017-09", LASTM = BD.trades.at(-1).t0.slice(0, 7);
+let START = FIRST;
+const SET = (fk, sk) => (cache[fk + sk + START] ??= build(SRC[fk].filter((t) => t.t0.slice(0, 7) >= START), RULES[sk]));
 let szr = "d118";
 const SETS = new Proxy({}, { get: (_, fk) => SET(fk, szr) });
 let flt = "f3";
 let TC = SET("f3", szr).C, TF = SET("f3", szr).F;
-const nMonths = 109;
+const monthsBetween = (a, b) => (+b.slice(0, 4) - +a.slice(0, 4)) * 12 + (+b.slice(5, 7) - +a.slice(5, 7)) + 1;
+let nMonths = monthsBetween(START, "2026-09");
 const monthsOf = (A) => { const m = {}; for (const t of A) { const k = t.t0.slice(0, 7); (m[k] = m[k] || [0, 0, 0, 0]); m[k][0] += t.pnl; m[k][1]++; m[k][2] = t.eq; if (t.why === "손절" || t.why === "강제청산") m[k][3]++; } return m; };
 let MF = monthsOf(TF), MC = monthsOf(TC);
 let mode = "fix", A = TF, MM = MF;
-const NOTE = {fix: "매번 계좌 10만으로 들어간다고 본 손익(118% 면 첫 진입 118,000) — 판단용. 연말 자산 열은 10만 + 누적 손익.", cmp: "다음 진입 금액 = 그때 계좌 × 83.3%. 이익이 나면 키우고 손실이 나면 줄인다 — 청산선은 늘 같은 자리. 연말 자산 열이 계좌 잔고다. 큰 금액은 계산상 값(체결 한도 무시)."};
+const NOTE = {fix: "매번 계좌 10만으로 들어간다고 본 손익(118% 면 첫 진입 118,000) — 판단용. 연말 자산 열은 10만 + 누적 손익.", cmp: "다음 진입 금액 = 그때 계좌 × 진입 비율. 이익이 나면 키우고 손실이 나면 줄인다. 연말 자산 열이 계좌 잔고다. 큰 금액은 계산상 값(체결 한도 무시)."};
 
 const mkt = (ym) => {
   const m = (typeof BTCM !== "undefined") && BTCM[ym];
@@ -209,7 +215,7 @@ const dp = document.getElementById("detail");
 let cur = null;
 
 function render() {
-  document.getElementById("modeNote").textContent = NOTE[mode];
+  document.getElementById("modeNote").textContent = (START !== FIRST ? `${START} 1일에 계좌 10만으로 시작했다고 본 결과 (${nMonths}개월) · ` : "") + NOTE[mode];
   const tot = A.reduce((a, t) => a + t.pnl, 0);
   const wins = A.filter((t) => t.why === "익절").length, stops = A.filter((t) => t.why === "손절" || t.why === "강제청산");
   const mv = Object.entries(MM);
@@ -235,7 +241,8 @@ function render() {
     const ts = A.filter((t) => t.t0.startsWith(String(y)));
     if (!ts.length) continue;
     const s = ts.reduce((a, t) => a + t.pnl, 0), w = ts.filter((t) => t.why === "익절").length, l = ts.filter((t) => t.why === "손절" || t.why === "강제청산").length;
-    yh += `<tr><td>${y}${y === 2017 ? " (9~12월)" : y === 2026 ? " (1~9월)" : ""}</td><td class="n">${ts.length}</td><td class="n">${(w / ts.length * 100).toFixed(1)}%</td>`
+    const sy = START.slice(0, 4) === String(y) && START !== `${y}-01` ? ` (${+START.slice(5, 7)}~${y === 2026 ? 9 : 12}월)` : y === 2026 ? " (1~9월)" : "";
+    yh += `<tr><td>${y}${sy}</td><td class="n">${ts.length}</td><td class="n">${(w / ts.length * 100).toFixed(1)}%</td>`
        + `<td class="n ${l ? "neg" : ""}">${l}</td><td class="n ${cls(s)}"><b>${won(s)}</b></td><td class="n">${Math.round(ts[ts.length - 1].eq).toLocaleString("ko-KR")}</td></tr>`;
   }
   document.getElementById("years").innerHTML = yh;
@@ -245,7 +252,7 @@ function render() {
     for (let mo = 1; mo <= 12; mo++) {
       const ym = `${y}-${String(mo).padStart(2, "0")}`;
       const v = MM[ym];
-      if (!v) { cells += `<td class="n">${(y === 2017 && mo < 9) || (y === 2026 && mo > 9) ? "-" : "0"}</td>`; continue; }
+      if (!v) { cells += `<td class="n">${ym < START || (y === 2026 && mo > 9) ? "-" : "0"}</td>`; continue; }
       any = true; ytot += v[0]; yn += v[1]; ys += v[3];
       cells += `<td class="n cm ${cls(v[0])}${cur === ym ? " on" : ""}" data-ym="${ym}" tabindex="0"><span class="pv">${won(v[0])}</span><span class="cnt">${v[1]}건${v[3] ? ` · <span class="neg">손절 ${v[3]}</span>` : ""}</span>${mkt(ym)}</td>`;
     }
@@ -276,19 +283,39 @@ grid.addEventListener("keydown", (e) => {
   const td = e.target.closest("td[data-ym]"); if (!td) return; e.preventDefault(); cur === td.dataset.ym ? close() : open(td.dataset.ym, td);
 });
 document.getElementById("dClose").addEventListener("click", close);
+function refresh() {
+  TC = SET(flt, szr).C; TF = SET(flt, szr).F; MF = monthsOf(TF); MC = monthsOf(TC);
+  A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
+  nMonths = monthsBetween(START, "2026-09");
+  if (cur && cur < START) close();
+  render(); cmpS(); cmpF();
+}
+const startSel = document.getElementById("startSel");
+{ const opts = []; let y = 2017, m = 9;
+  while (`${y}-${String(m).padStart(2, "0")}` <= LASTM) { const k = `${y}-${String(m).padStart(2, "0")}`; opts.push(`<option value="${k}">${k}</option>`); if (++m > 12) { m = 1; y++; } }
+  startSel.innerHTML = opts.join(""); }
+function setStart(k) { START = k; startSel.value = k; refresh(); }
+startSel.addEventListener("change", () => setStart(startSel.value));
+document.getElementById("resetBtn").addEventListener("click", () => setStart(FIRST));
+// 최악의 달 = 지금 고른 필터·비율로 처음부터 돌렸을 때 '그달 초 계좌 대비' 가장 크게 잃은 달 (복리 기준 — 고정이면 금액 기준)
+document.getElementById("worstBtn").addEventListener("click", () => {
+  const keep = START; START = FIRST;
+  const S = SET(flt, szr), M = monthsOf(mode === "fix" ? S.F : S.C);
+  let wk = null, wv = Infinity;
+  for (const [k, v] of Object.entries(M)) { const r = mode === "fix" ? v[0] : v[0] / (v[2] - v[0]); if (r < wv) { wv = r; wk = k; } }
+  START = keep; setStart(wk || FIRST);
+});
 document.getElementById("ftabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-f]"); if (!b) return;
-  flt = b.dataset.f; TC = SET(flt, szr).C; TF = SET(flt, szr).F; MF = monthsOf(TF); MC = monthsOf(TC);
-  A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
+  flt = b.dataset.f;
   document.querySelectorAll("#ftabs button").forEach((x) => x.classList.toggle("on", x === b));
-  render(); cmpS();
+  refresh();
 });
 document.getElementById("stabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-s]"); if (!b) return;
-  szr = b.dataset.s; TC = SET(flt, szr).C; TF = SET(flt, szr).F; MF = monthsOf(TF); MC = monthsOf(TC);
-  A = mode === "fix" ? TF : TC; MM = mode === "fix" ? MF : MC;
+  szr = b.dataset.s;
   document.querySelectorAll("#stabs button").forEach((x) => x.classList.toggle("on", x === b));
-  render(); cmpS();
+  refresh();
 });
 document.getElementById("mtabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-m]"); if (!b) return;
@@ -296,8 +323,8 @@ document.getElementById("mtabs").addEventListener("click", (e) => {
   document.querySelectorAll("#mtabs button").forEach((x) => x.classList.toggle("on", x === b));
   render();
 });
-// 네 조합 비교표
-{ const rows = [];
+// 필터 비교표 (118% 자동 조절)
+function cmpF() { const rows = [];
   for (const [mk, mn] of [["F", "고정 10만"], ["C", "복리"]]) for (const fk of ["f3", "f2", "off"]) {
     const fn_ = FNAME[fk];
     const A_ = SET(fk, "d118")[mk]; let pk = BD.meta.base, dd = 0, ddU = 0;
@@ -308,9 +335,10 @@ document.getElementById("mtabs").addEventListener("click", (e) => {
     const res = mk === "F" ? "합 " + won(tot) : "계좌 " + Math.round(A_[A_.length - 1].eq).toLocaleString("ko-KR");
     rows.push(`<tr><td data-label="조합"><b>${fn_} · ${mn}</b></td><td data-label="결과" class="n ${cls(tot)}"><b>${res}</b></td>`
       + `<td data-label="최대 낙폭" class="n neg">${mk === "F" ? "−" + Math.round(ddU).toLocaleString("ko-KR") : "−" + (dd * 100).toFixed(1) + "%"}</td><td data-label="손절" class="n">${st}번</td>`
-      + `<td data-label="월 진입" class="n">${(A_.length / 109).toFixed(1)}회</td><td data-label="손실인 해">${neg.length ? neg.join(" · ") : "없음"}</td></tr>`);
+      + `<td data-label="월 진입" class="n">${(A_.length / nMonths).toFixed(1)}회</td><td data-label="손실인 해">${neg.length ? neg.join(" · ") : "없음"}</td></tr>`);
   }
   document.getElementById("cmp4").innerHTML = rows.join(""); }
+cmpF();
 // 진입 비율 비교표 — 지금 고른 필터 기준
 function cmpS() {
   const rows = [];
