@@ -122,14 +122,14 @@
 <div id="detail" hidden>
   <div class="dh"><b id="dTitle"></b><span id="dSum" class="hint"></span><button id="dClose" type="button">닫기</button></div>
   <div class="scroll"><table class="cards"><thead><tr>
-    <th>진입 (KST)</th><th>진입가</th><th>물타기</th><th>평단</th><th>결과</th><th>청산 (KST)</th><th>청산가</th><th>보유</th><th>첫 진입 비율</th><th>최대 포지션</th><th>손익</th>
+    <th>진입 (KST)</th><th>진입가</th><th>물타기</th><th>평단</th><th>결과</th><th>청산 (KST)</th><th>청산가</th><th>보유</th><th>첫 진입 비율</th><th>보유 중 최저</th><th>강제청산가<br><span class="hint">다 물렸을 때</span></th><th>최대 포지션</th><th>손익</th>
   </tr></thead><tbody id="dRows"></tbody></table></div>
 </div>
 
 <h2>4. 손절 · 강제청산 전체</h2>
 <p class="hint">9년 동안 손절(또는 강제청산)로 끝난 거래 전부 — 이 거래들이 손익의 대부분을 깎는다.</p>
 <div class="scroll"><table class="cards"><thead><tr>
-  <th>진입 (KST)</th><th>진입가</th><th>물타기</th><th>평단</th><th>결과</th><th>청산 (KST)</th><th>청산가</th><th>보유</th><th>첫 진입 비율</th><th>최대 포지션</th><th>손익</th>
+  <th>진입 (KST)</th><th>진입가</th><th>물타기</th><th>평단</th><th>결과</th><th>청산 (KST)</th><th>청산가</th><th>보유</th><th>첫 진입 비율</th><th>보유 중 최저</th><th>강제청산가<br><span class="hint">다 물렸을 때</span></th><th>최대 포지션</th><th>손익</th>
 </tr></thead><tbody id="stops"></tbody></table></div>
 
 <p class="hint" id="foot"></p>
@@ -151,6 +151,9 @@ const row = (t) => `<tr${t.why === "손절" || t.why === "강제청산" ? ' clas
   + `<td data-label="결과">${tag(t.why)}</td><td data-label="청산" class="n">${t.t1}</td>`
   + `<td data-label="청산가" class="n">${t.why === "강제청산" ? "—" : num(t.x)}</td><td data-label="보유">${hold(t.h)}</td>`
   + `<td data-label="첫 진입 비율" class="n">${(t.f * 100).toFixed(1)}%</td>`
+  + `<td data-label="보유 중 최저" class="n">${num(t.e * (1 + t.lo / 100))}<br><span class="hint">${t.lo.toFixed(2)}%</span></td>`
+  + `<td data-label="강제청산가 (다 물렸을 때)" class="n ${t.liq ? "neg" : t.liqPct - t.lo / 100 > -0.01 ? "warn" : ""}">${t.liqPct > -1 ? num(t.e * (1 + t.liqPct)) : "—"}`
+  + `<br><span class="hint">${t.liqPct > -1 ? (t.liqPct * 100).toFixed(2) + "% · 여유 " + ((t.lo / 100 - t.liqPct) * 100).toFixed(2) + "%p" : "청산 없음"}</span></td>`
   + `<td data-label="최대 포지션" class="n">${t.pos.toLocaleString("ko-KR")}</td>`
   + `<td data-label="손익" class="n ${cls(t.pnl)}"><b>${won(t.pnl)}</b></td></tr>`;
 
@@ -185,8 +188,9 @@ const CAPM = 5;                                 // 봇 index.js CAP — 주문 �
 function one(t, W, f) {
   const N = Math.min(W, BASE * CAPM);
   const k = (N / DB) * (f / FB), lq = liqOf(f, W, N);
-  if (t.lo / 100 <= lq.pct) return { ...t, why: "강제청산", f, pnl: lq.left - W, pos: Math.round(t.pos * k), liq: true };
-  return { ...t, f, pnl: t.pnl * k, pos: Math.round(t.pos * k) };
+  // liqPct = 이 거래에서 물타기를 다 채웠을 때의 강제청산선(첫 진입가 대비) — 그때 잔고·비중 기준
+  if (t.lo / 100 <= lq.pct) return { ...t, why: "강제청산", f, pnl: lq.left - W, pos: Math.round(t.pos * k), liq: true, liqPct: lq.pct };
+  return { ...t, f, pnl: t.pnl * k, pos: Math.round(t.pos * k), liqPct: lq.pct };
 }
 // 고정: 매번 시작 잔액으로 본다 / 복리: 그때 계좌로 본다
 function build(src, rule) {
