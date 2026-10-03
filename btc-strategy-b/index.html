@@ -145,9 +145,12 @@ const num = (v) => v.toLocaleString("ko-KR", {minimumFractionDigits: 1, maximumF
 const cls = (v) => v > 0 ? "pos" : v < 0 ? "neg" : "";
 const hold = (m) => m < 60 ? `${m}분` : `${Math.floor(m / 60)}시간${m % 60 ? " " + (m % 60) + "분" : ""}`;
 const tag = (w) => `<span class="tag ${w === "익절" ? "win" : w === "손절" || w === "강제청산" ? "loss" : "time"}">${w}</span>`;
+// 물타기 자리 — 첫 진입가 −0.5%(×3) · −1.0%(×9). 체결된 것은 진하게, 안 된 것은 흐리게
+const addTxt = (t) => [[0.005, "1차"], [0.010, "2차"]].map(([g, nm], k) =>
+  `<br><span class="${k < t.d ? "" : "hint"}" style="font-size:11.5px">${nm} ${num(t.e * (1 - g))}${k < t.d ? " ✓" : ""}</span>`).join("");
 const row = (t) => `<tr${t.why === "손절" || t.why === "강제청산" ? ' class="stop"' : ""}>`
   + `<td data-label="진입" class="n">${t.t0}</td><td data-label="진입가" class="n">${num(t.e)}</td>`
-  + `<td data-label="물타기">${t.d ? t.d + "번" : "없음"}</td><td data-label="평단" class="n">${num(t.avg)}</td>`
+  + `<td data-label="물타기">${t.d ? t.d + "번" : "없음"}${addTxt(t)}</td><td data-label="평단" class="n">${num(t.avg)}</td>`
   + `<td data-label="결과">${tag(t.why)}</td><td data-label="청산" class="n">${t.t1}</td>`
   + `<td data-label="청산가" class="n">${t.why === "강제청산" ? "—" : num(t.x)}</td><td data-label="보유">${hold(t.h)}</td>`
   + `<td data-label="첫 진입 비율" class="n">${(t.f * 100).toFixed(1)}%</td>`
