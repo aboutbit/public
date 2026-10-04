@@ -76,7 +76,7 @@
 <div class="wrap">
 <h1>BTC B 전략 — 상승장 눌림 + 물타기 1·3·9 + 진입 금지 필터 ③ · 잔고 단계별 첫 진입 (125% 부터)</h1>
 <p class="sub">시작 잔액·진입 비중은 아래에서 바꿀 수 있다(기본 7만 · 봇 단계표) · <b>고정</b>(매번 시작 잔액 기준) / <b>복리</b>(그때 계좌에 비례, 주문 기준은 시작 잔액의 5배에서 멈춤) · 2017-09 ~ 2026-09 · 단위 USDT · 바이낸스 BTCUSDT 1분봉 백테스트 · 2026-10-03 재검사판(지표 독립 재계산 일치 · 수량 가중 평단 · 펀딩·손절 미끄러짐 포함)</p>
-<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button></div><div class="startbar"><label for="balIn">시작 잔액</label><input id="balIn" type="number" inputmode="numeric" value="70000" min="1000" step="10000" style="width:96px"><span class="hint">USDT</span></div><div class="startbar"><label for="ruleSel">진입 비중</label><select id="ruleSel"><option value="tier" selected>봇 단계표 (125·120·110·105·100%)</option><option value="fixed">고정 비중</option><option value="auto">고정 비중 + 안전 한도까지 자동 낮춤</option></select><span id="pctBox"><input id="pctIn" type="number" inputmode="decimal" value="125" min="10" max="200" step="1" style="width:64px">%</span></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 (시작 잔액)</button><button type="button" data-m="cmp">복리</button></div><div class="startbar"><label for="startSel">시작 월</label><select id="startSel"></select><button type="button" id="worstBtn">최악의 달부터</button><button type="button" id="resetBtn">처음부터</button></div><p class="hint" id="modeNote"></p></div>
+<div class="tabbar"><div class="tabs" id="ftabs"><button type="button" data-f="f3" class="on">필터 ③ 추가</button><button type="button" data-f="f2">기존 필터만</button><button type="button" data-f="off">필터 없음</button><button type="button" data-f="bc">B + C1</button><button type="button" data-f="c1">C1만</button></div><div class="startbar"><label for="balIn">시작 잔액</label><input id="balIn" type="number" inputmode="numeric" value="70000" min="1000" step="10000" style="width:96px"><span class="hint">USDT</span></div><div class="startbar"><label for="ruleSel">진입 비중</label><select id="ruleSel"><option value="tier" selected>봇 단계표 (125·120·110·105·100%)</option><option value="fixed">고정 비중</option><option value="auto">고정 비중 + 안전 한도까지 자동 낮춤</option></select><span id="pctBox"><input id="pctIn" type="number" inputmode="decimal" value="125" min="10" max="200" step="1" style="width:64px">%</span></div><div class="tabs" id="mtabs"><button type="button" data-m="fix" class="on">고정 (시작 잔액)</button><button type="button" data-m="cmp">복리</button></div><div class="startbar"><label for="startSel">시작 월</label><select id="startSel"></select><button type="button" id="worstBtn">최악의 달부터</button><button type="button" id="resetBtn">처음부터</button></div><p class="hint" id="modeNote"></p></div>
 
 <div class="box warn">
   <div class="t">위험 — 먼저 볼 것</div>
@@ -104,6 +104,11 @@
   <dt>손절</dt><dd>첫 진입가 <b>−4.5%</b> 시장가 · 24시간 안에 안 끝나면 시장가 정리</dd>
   <dt>비용</dt><dd>시장가 0.05% + 미끄러짐 0.01% · 지정가 0.02% · <b>손절은 손절선보다 0.1% 더 밀려 체결</b> · <b>펀딩비 포함</b>(보유 중 펀딩 시각마다 실제 펀딩률)</dd>
   <dt>동시 보유</dt><dd>한 번에 하나 — 들고 있는 동안 나온 신호는 무시</dd>
+  <dt>C1 (후보 · 2026-10-04)</dt><dd><b>B 가 쉬는 시간</b>(15분 EMA200 이격 &lt; +1.53%)에만 — <b>4시간 강한 상승 추세 중 숨 고르기</b> 롱<br>
+    · 4시간봉이 EMA50 보다 <b>+4.4% 이상</b> 위 · 직전 4시간 수익률 <b>−0.14% ~ +0.18%</b>(쉬는 중) · 1시간 RSI(2) <b>≥ 50.8</b>(지금 떨어지는 중이 아님)<br>
+    · 사다리는 B 와 같다(1·3·9 · −0.5%·−1.0% · 손절 −4.5% · 24시간) · <b>익절 평단 +0.3%</b><br>
+    · B 와 함께 돌릴 때 <b>한 번에 한 포지션</b> — 둘 중 하나라도 들고 있으면 다른 쪽 신호는 건너뛴다. B 거래는 하나도 안 줄고 C1 은 1,021 → 968건<br>
+    <span class="hint">위쪽 탭 'B + C1' · 'C1만' 으로 바꿔 본다. 거래 표의 진입 칸 앞 C1 표시가 C1 거래다. 수만 개 후보 중 고른 조합이라 B 보다 과적합 위험이 크다 — 앞으로의 손절은 9년 숫자보다 많게 볼 것</span></dd>
 </dl>
 </div>
 
@@ -150,7 +155,7 @@ const tag = (w) => `<span class="tag ${w === "익절" ? "win" : w === "손절" |
 const addTxt = (t) => [[0.005, "1차"], [0.010, "2차"]].map(([g, nm], k) =>
   `<br><span class="${k < t.d ? "" : "hint"}" style="font-size:11.5px">${nm} ${num(t.e * (1 - g))}${k < t.d ? " ✓" : ""}</span>`).join("");
 const row = (t) => `<tr${t.why === "손절" || t.why === "강제청산" ? ' class="stop"' : ""}>`
-  + `<td data-label="진입" class="n">${t.t0}</td><td data-label="진입가" class="n">${num(t.e)}</td>`
+  + `<td data-label="진입" class="n">${t.s === "C1" ? '<span class="tag time">C1</span> ' : ""}${t.t0}</td><td data-label="진입가" class="n">${num(t.e)}</td>`
   + `<td data-label="물타기">${t.d ? t.d + "번" : "없음"}${addTxt(t)}</td><td data-label="평단" class="n">${num(t.avg)}</td>`
   + `<td data-label="결과">${tag(t.why)}</td><td data-label="청산" class="n">${t.t1}</td>`
   + `<td data-label="청산가" class="n">${t.why === "강제청산" ? "—" : num(t.x)}</td><td data-label="보유">${hold(t.h)}</td>`
@@ -205,8 +210,8 @@ function build(src, rule) {
   const F = src.map((t) => { const x = one(t, BASE, rule(BASE)); ef += x.pnl; return { ...x, eq: ef }; });
   return { C, F };
 }
-const SRC = { f3: BD.trades, f2: BD.trades_f2, off: BD.trades_nf };
-const FNAME = {f3: "필터 ③ 추가", f2: "기존 필터만", off: "필터 없음"};
+const SRC = { f3: BD.trades, f2: BD.trades_f2, off: BD.trades_nf, bc: BD.trades_bc, c1: BD.trades_c1 };
+const FNAME = {f3: "B (필터 ③)", f2: "기존 필터만", off: "필터 없음", bc: "B + C1", c1: "C1만"};
 const cache = {};
 // 시작 월 — 그 달 1일에 계좌 10만으로 시작했다고 보고 그 뒤 거래만 쓴다(고정·복리 모두)
 const FIRST = "2017-09", LASTM = BD.trades.at(-1).t0.slice(0, 7);
@@ -350,7 +355,7 @@ document.getElementById("mtabs").addEventListener("click", (e) => {
 // 필터 비교표 — 지금 고른 진입 비중 기준
 function cmpF() { const rows = [];
   document.getElementById("cmpFHint").textContent = `필터 비교 (${RNAME(szr)} · 시작 ${man(BASE)})`;
-  for (const [mk, mn] of [["F", `고정 ${man(BASE)}`], ["C", "복리"]]) for (const fk of ["f3", "f2", "off"]) {
+  for (const [mk, mn] of [["F", `고정 ${man(BASE)}`], ["C", "복리"]]) for (const fk of ["f3", "bc", "c1", "f2", "off"]) {
     const fn_ = FNAME[fk];
     const A_ = SET(fk, szr)[mk]; let pk = BASE, dd = 0, ddU = 0;
     for (const t of A_) { pk = Math.max(pk, t.eq); dd = Math.max(dd, 1 - t.eq / pk); ddU = Math.max(ddU, pk - t.eq); }
