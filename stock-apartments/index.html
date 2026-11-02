@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>[hidden]{display:none!important}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>주식 평가액별 아파트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 손 조작 기준. 조작부는 화면 아래에 고정하고, 단지는 상태별 목록으로 옮겨 다닌다. 막대와 슬라이더는 같은 폭이라 눈금이 맞는다 */
+:root{--bg:#fbfcfd;--panel:#f0f3f6;--fg:#15202b;--mute:#5a6775;--line:#d9e0e7;--accent:#1f5fa8;--soft:#b4cdea;--warn:#a2470f;
+--sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--dock:190px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--sans);word-break:keep-all;-webkit-text-size-adjust:100%}
+.wrap{max-width:680px;margin:0 auto;padding-top:24px;padding-bottom:calc(var(--dock) + 28px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:32px}
+.wrap>*{min-width:0}
+.eyebrow{font-size:13px;color:var(--mute)}
+h1{font-size:27px;line-height:1.3;margin:4px 0 8px;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:19px;line-height:1.4;margin:0 0 4px;letter-spacing:-.01em}
+p{margin:0 0 8px}
+.kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.kpi div{background:var(--panel);border-radius:8px;padding:10px}
+.kpi b{display:block;font:500 20px/1.3 var(--mono);letter-spacing:-.03em}
+.kpi span{display:block;color:var(--mute);font-size:12.5px;line-height:1.35;margin-top:2px}
+
+/* 집값 시나리오와 범례 */
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;color:var(--mute);margin-top:10px}
+.seg{display:inline-flex;background:var(--panel);border-radius:8px;padding:3px;flex:none}
+.seg button{font:500 13px var(--sans);color:var(--fg);background:transparent;border:0;border-radius:6px;padding:7px 10px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--bg);color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--mute);margin-top:12px}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:2px;margin-right:5px}
+.legend .a{background:var(--accent)}.legend .b{background:var(--soft)}
+.legend .c{width:7px;height:7px;border-radius:0;background:var(--fg);transform:rotate(45deg)}
+
+/* 상태별 목록 */
+.grp{margin-top:20px}
+.grp[hidden]{display:none}
+.gh{display:flex;align-items:baseline;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--fg)}
+.gh b{font-weight:700;font-size:16px}
+.gh span{font-size:13px;color:var(--mute)}
+.g-ok .gh b{color:var(--accent)}
+.g-no .gh b{color:var(--warn)}
+.row{border-bottom:1px solid var(--line)}
+.rb{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:start;width:100%;padding:11px 0 7px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.rb:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.t b{font-weight:500;font-size:15.5px;line-height:1.35}
+.t small{display:block;color:var(--mute);font-size:13px;line-height:1.35}
+.t em{font-style:normal;font-size:11.5px;font-weight:500;color:var(--accent);background:var(--panel);border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:1px;white-space:nowrap}
+.v{text-align:right;line-height:1.3}
+.v b{display:block;font:500 16px/1.3 var(--mono);letter-spacing:-.02em}
+.v small{display:block;color:var(--mute);font-size:12.5px}
+.g-no .v b{color:var(--warn)}
+.bar{position:relative;height:18px;margin-bottom:9px;border-radius:3px;background:var(--panel)}
+.bar i{position:absolute;display:block}
+.bar .low,.bar .full{top:5px;height:8px}
+.bar .low{background:var(--soft)}
+.bar .full{background:var(--accent);right:0;border-radius:0 3px 3px 0}
+.bar .dm{top:5.5px;width:7px;height:7px;margin-left:-3.5px;background:var(--fg);outline:1.5px solid var(--bg);transform:rotate(45deg)}
+.bar .now{top:0;bottom:0;width:2px;margin-left:-1px;background:var(--fg)}
+.dt{padding:0 0 12px;font-size:14px}
+.dt[hidden]{display:none}
+.dt dl{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 14px;margin:0;font-variant-numeric:tabular-nums}
+.dt dt,.dt dd{margin:0}
+.dt .h{color:var(--mute);font-size:12.5px}
+.dt dd{text-align:right}
+
+/* 사다리 */
+ol.lad{list-style:none;margin:10px 0 0;padding:0}
+ol.lad li{border-bottom:1px solid var(--line)}
+ol.lad button{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;width:100%;padding:11px 0;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+ol.lad button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+ol.lad .a b{display:block;font:500 16px/1.3 var(--mono);letter-spacing:-.02em}
+ol.lad .a small{display:block;color:var(--mute);font-size:12.5px;line-height:1.35}
+ol.lad .b small{display:block;color:var(--mute);font-size:13px}
+ol.lad .b span{display:block;font-size:15px;line-height:1.45}
+ol.lad li.on .a b{color:var(--accent)}
+.note{background:var(--panel);padding:13px 14px;border-radius:8px;font-size:15px}
+.note p:last-child{margin:0}
+.src{font-size:13.5px;color:var(--mute);line-height:1.55}
+.src ul{margin:6px 0 0;padding-left:16px;display:grid;gap:5px}
+a{color:var(--accent)}
+
+/* 아래 고정 조작부 */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--bg);border-top:1px solid var(--line);padding-top:9px;padding-bottom:max(10px,env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:648px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.read{min-width:0}
+.read label{display:block;font-size:12.5px;color:var(--mute);line-height:1.3}
+.read output{display:block;font:500 28px/1.2 var(--mono);letter-spacing:-.03em}
+.sum{font-size:13px;color:var(--mute);line-height:1.4;text-align:right;flex:1;min-width:0}
+.sum b{color:var(--fg);font-weight:500}
+.step{display:flex;gap:6px;flex:none}
+.step button{width:40px;height:40px;font:500 20px/1 var(--sans);color:var(--fg);background:var(--panel);border:0;border-radius:8px;cursor:pointer}
+input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:calc(100% + 28px);margin:4px 0 4px -14px;height:36px;background:transparent;cursor:pointer;touch-action:none}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:2px}
+input[type=range]::-moz-range-track{height:4px;background:var(--line);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-12px;border-radius:50%;background:var(--accent);border:4px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:4px solid var(--bg)}
+input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:8px}
+.pre{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;-webkit-overflow-scrolling:touch}
+.pre::-webkit-scrollbar{display:none}
+.pre button{flex:none;font:500 13px var(--sans);color:var(--fg);background:var(--panel);border:0;border-radius:16px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+.pre button[aria-pressed=true]{background:var(--accent);color:var(--bg)}
+.dock button:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (min-width:720px){.wrap{padding-top:40px;gap:40px}h1{font-size:34px}.kpi b{font-size:24px}.kpi div{padding:12px 14px}.pre{margin:0;padding:0}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+<div class="eyebrow">2026-11-02 · 부부 합산 · 대출 4억 · 비상금 3천만원 유지</div>
+<h1>주식 평가액별 아파트</h1>
+<p>아래 슬라이더를 밀면 단지가 가능한 쪽으로 옮겨 갑니다. 단지를 누르면 가격별 필요 평가액이 보입니다.</p>
+<div class="kpi">
+<div><b>16.9억</b><span>지금 4.5억의 상한</span></div>
+<div><b>17.9억</b><span>원금 회복 시 상한</span></div>
+<div><b>6.7억</b><span>광교센트럴뷰 19억 필요액</span></div>
+</div>
+</header>
+
+<section aria-label="단지 목록">
+<div class="opt"><span>두 집이 함께 오르면</span><span id="gs" class="seg" role="group" aria-label="집값 변화"></span></div>
+<div class="legend"><span><i class="a"></i>호가 중앙값까지</span><span><i class="b"></i>싼 매물만</span><span><i class="c"></i>최근 실거래</span></div>
+<div class="grp g-ok" id="g-ok"><div class="gh"><b>지금 가능</b><span></span></div><div class="ls"></div></div>
+<div class="grp g-part" id="g-part"><div class="gh"><b>싼 매물만 가능</b><span></span></div><div class="ls"></div></div>
+<div class="grp g-no" id="g-no"><div class="gh"><b>아직 부족</b><span></span></div><div class="ls"></div></div>
+</section>
+
+<section>
+<h2>평가액 구간별로 새로 열리는 곳</h2>
+<p style="font-size:14px;color:var(--mute);margin:0">호가 중앙값 기준입니다. 누르면 그 평가액으로 옮겨 갑니다.</p>
+<ol class="lad" id="lad"></ol>
+</section>
+
+<section class="note"><p><b>1순위는 그대로 동천자이입니다.</b> 13억에 사면 금융자산이 4.38억 남고 하루 차량은 25분입니다. 광교 단지는 하루 73~80분이고, 광교더리브부터는 주식을 거의 다 팔아야 합니다.</p></section>
+
+<section class="src">
+<h2>계산 기준</h2>
+<ul>
+<li>쓸 수 있는 돈: 지금 집 10.7억, 주담대 4억, 주식 평가액, 코인 0.4억, 현금 0.03억에서 신용대출 상환 1.6억과 매도 복비 590만원을 뺐습니다.</li>
+<li>드는 돈: 매수가, 취득세 3.3%, 중개보수 법정 상한, 채권·법무·이사 750만원, 비상금 3천만원입니다.</li>
+<li>주식은 와이프 자산을 포함한 평가액 4.5억, 원금 5.5억입니다. 전부 판다는 전제의 필요액입니다.</li>
+<li>호가는 2026-11-02 네이버 3층 이상 34평, 실거래는 8월 이후 국토부 3층 이상 중앙값입니다. 광교더힐은 7월 값, 광교센트럴뷰는 13층 19억입니다(3층은 16.9억).</li>
+<li>'함께 오르면'은 지금 집과 살 집이 같은 비율로 오르고 주식은 그대로라고 본 값입니다.</li>
+<li>인테리어, 주식 매도 수수료, 양도세는 넣지 않았습니다. 와이프 자금을 쓰는 방법은 세무사에게 확인하세요.</li>
+</ul>
+</section>
+</main>
+
+<div class="dock" id="dock"><div class="in">
+<div class="top">
+<div class="read"><label for="s">주식 평가액</label><output id="out" for="s">4.5억</output></div>
+<div class="sum" id="sum"></div>
+<div class="step"><button type="button" id="dn" aria-label="0.1억 내리기">−</button><button type="button" id="up" aria-label="0.1억 올리기">+</button></div>
+</div>
+<input id="s" type="range" min="0" max="11" step="0.1" value="4.5">
+<div class="pre" id="pre" role="group" aria-label="평가액 바로 고르기"></div>
+</div></div>
+
+<script>
+(function(){
+// [이름, 동, 하루 차량, 실거래, 호가 하단, 호가 중앙, 순위]
+var A=[
+['동천자이','동천동',25,12.5,13,13.5,'1순위'],
+['동천디이스트','동천동',33,12.7,12.4,13.2,'2순위'],
+['동천센트럴자이','동천동',32,14.07,15.4,15.5,'3순위'],
+['동천마을현대홈타운1차','동천동',38,12,12.6,13.15,'4순위'],
+['더샵동천이스트포레','동천동',47,12.8,13.8,14.45,'5순위'],
+['판교풍경채어바니티7단지','대장동',37,14.68,14.5,15,'대안'],
+['포레나광교상현','상현동',80,11,11.5,12.5,''],
+['광교더힐','상현동',73,12.9,15,15,''],
+['광교더리브','하동',75,15.08,15.8,16.9,''],
+['광교자이더클래스','상현동',78,16.4,16.5,18.2,''],
+['광교센트럴뷰','이의동',75,19,18.9,19.5,''],
+['자연앤힐스테이트','이의동',77,20.9,21,22.5,''],
+['광교중흥에스클래스','원천동',79,19.75,21,23,'']];
+var MAX=11,PRIN=5.5,NOW=4.5,g=0,S=NOW;
+function fee(P){var r=P<12?.005:P<15?.006:.007;return P*.033+P*r*1.1+.075}
+function base(){var h=10.7*(1+g);return h-h*.0055-1.6+4+.43}
+function cost(P){return P+fee(P)+.3-base()}           // 그 가격에 필요한 주식 평가액, 비상금 포함
+function need(P){return cost(P*(1+g))}                // 지금 호가 P인 단지가 g만큼 오른 경우
+function cap(s){var P=8;while(cost(P+.01)<=s&&P<40)P+=.01;return P}
+function x(v){return Math.max(0,Math.min(100,v/MAX*100))}
+function f(v){return v.toFixed(1)+'억'}
+function pct(s){var r=(s/PRIN-1)*100;if(Math.abs(r)<.05)return '원금과 같음';return '원금 대비 '+(r>0?'+':'−')+Math.abs(r).toFixed(1)+'%'}
+var el=function(i){return document.getElementById(i)};
+var G={ok:el('g-ok'),part:el('g-part'),no:el('g-no')};
+var R=A.slice().sort(function(a,b){return a[5]-b[5]});
+R.forEach(function(a){
+ var d=document.createElement('article');d.className='row';
+ d.innerHTML='<button type="button" class="rb" aria-expanded="false"><span class="t"><b></b><small></small></span><span class="v"><b></b><small></small></span></button><div class="bar" aria-hidden="true"><i class="low"></i><i class="full"></i><i class="dm"></i><i class="now"></i></div><div class="dt" hidden></div>';
+ var t=d.querySelector('.t b');t.textContent=a[0];
+ if(a[6]){var e=document.createElement('em');e.textContent=a[6];t.appendChild(e)}
+ d.querySelector('.t small').textContent=a[1]+' · 하루 '+a[2]+'분';
+ var b=d.querySelector('.rb'),dt=d.querySelector('.dt');
+ b.addEventListener('click',function(){dt.hidden=!dt.hidden;b.setAttribute('aria-expanded',!dt.hidden)});
+ a.el=d;
+});
+function detail(a){
+ var r=[['최근 실거래',a[3]],['호가 하단',a[4]],['호가 중앙',a[5]]],h='<dl><dt class="h">기준</dt><dd class="h">가격</dd><dd class="h">필요 평가액</dd>';
+ r.forEach(function(c){var q=c[1]*(1+g);h+='<dt>'+c[0]+'</dt><dd>'+q.toFixed(2).replace(/\.?0+$/,'')+'억</dd><dd>'+f(Math.max(need(c[1]),0))+'</dd>'});
+ return h+'</dl>';
+}
+function paint(){
+ var cnt={ok:0,part:0,no:0};
+ el('out').textContent=f(S);
+ el('sum').innerHTML=pct(S)+'<br>상한 <b>'+cap(S).toFixed(1)+'억</b>';
+ Object.keys(G).forEach(function(k){G[k].querySelector('.ls').textContent=''});
+ R.forEach(function(a){
+  var l=need(a[4]),m=need(a[5]),d=a.el,q=d.querySelector.bind(d),k=m<=S?'ok':l<=S?'part':'no';
+  q('.low').style.left=x(l)+'%';q('.low').style.width=Math.max(0,x(m)-x(l))+'%';
+  q('.full').style.left=x(m)+'%';q('.full').hidden=m>=MAX;
+  q('.dm').style.left=x(need(a[3]))+'%';q('.now').style.left=x(S)+'%';
+  var v=q('.v b'),u=q('.v small');
+  if(k==='ok'){v.textContent=f(S-Math.max(m,0));u.textContent='남는 주식'}
+  else if(k==='part'){v.textContent=f(m-S);u.textContent='중앙값까지 부족'}
+  else{v.textContent=f(l-S);u.textContent='더 필요'}
+  q('.dt').innerHTML=detail(a);
+  cnt[k]++;G[k].querySelector('.ls').appendChild(d);
+ });
+ Object.keys(G).forEach(function(k){G[k].hidden=!cnt[k];G[k].querySelector('.gh span').textContent=cnt[k]+'곳'});
+ document.querySelectorAll('#pre button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===S)});
+ document.querySelectorAll('#gs button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===g)});
+ document.querySelectorAll('#lad li').forEach(function(l){l.classList.toggle('on',+l.dataset.v===S)});
+}
+function set(v){S=Math.round(Math.max(0,Math.min(MAX,v))*10)/10;el('s').value=S;paint()}
+function ladder(){
+ var stops=[3,4,NOW,5,5.5,6,need(19),need(19.5),need(20),8.5,need(21),need(22.5),MAX],prev=-99,h='';
+ stops=stops.map(function(v){return Math.ceil(v*10)/10}).filter(function(v,i,a){return v>0&&v<=MAX&&a.indexOf(v)===i}).sort(function(a,b){return a-b});
+ stops.forEach(function(s){
+  var nw=R.filter(function(a){var m=need(a[5]);return m<=s&&m>prev}).map(function(a){return a[0]});
+  var tag=s===NOW?'지금':s===PRIN?'원금':'';
+  h+='<li data-v="'+s+'"><button type="button"><span class="a"><b>'+f(s)+'</b><small>'+tag+'</small></span><span class="b"><small>상한 '+cap(s).toFixed(1)+'억</small><span>'+(nw.length?nw.join(', '):'새로 열리는 곳 없음')+'</span></span></button></li>';
+  prev=s;
+ });
+ el('lad').innerHTML=h;
+ document.querySelectorAll('#lad button').forEach(function(b){b.addEventListener('click',function(){set(+b.parentNode.dataset.v)})});
+}
+[[NOW,'4.5억 지금'],[5,'5억'],[5.5,'5.5억 원금'],[6.7,'6.7억 센트럴뷰 19억'],[7.2,'7.2억 센트럴뷰 19.5억']].forEach(function(c){
+ var b=document.createElement('button');b.type='button';b.dataset.v=c[0];b.textContent=c[1];
+ b.addEventListener('click',function(){set(c[0])});el('pre').appendChild(b)});
+[[0,'지금'],[.05,'+5%'],[.1,'+10%']].forEach(function(c){
+ var b=document.createElement('button');b.type='button';b.dataset.v=c[0];b.textContent=c[1];
+ b.addEventListener('click',function(){g=c[0];ladder();paint()});el('gs').appendChild(b)});
+el('s').addEventListener('input',function(e){S=+e.target.value;paint()});
+el('dn').addEventListener('click',function(){set(S-.1)});
+el('up').addEventListener('click',function(){set(S+.1)});
+function fit(){document.documentElement.style.setProperty('--dock',el('dock').offsetHeight+'px')}
+addEventListener('resize',fit);fit();
+ladder();paint();
+})();
+</script>
+</body>
+</html>
