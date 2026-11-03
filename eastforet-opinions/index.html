@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>[hidden]{display:none!important}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>더샵동천이스트포레 평판 조사</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 줄 읽기. 결론 → 언급량 → 쟁점별 양쪽 의견 → 거주자 후기 → 가격 → 우리 집 판단 순서. 이사 리포트와 같은 팔레트 */
+:root{--bg:#fbfcfd;--panel:#f0f3f6;--fg:#15202b;--mute:#5a6775;--line:#d9e0e7;--accent:#1f5fa8;--soft:#b4cdea;--warn:#a2470f;
+--sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.65 var(--sans);word-break:keep-all;-webkit-text-size-adjust:100%}
+.wrap{max-width:680px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:38px}
+.wrap>*{min-width:0}
+.eyebrow{font-size:13px;color:var(--mute)}
+h1{font-size:27px;line-height:1.32;margin:4px 0 10px;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:21px;line-height:1.4;margin:0 0 8px;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:16.5px;line-height:1.4;margin:0}
+p{margin:0 0 10px}
+.kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.kpi div{background:var(--panel);border-radius:8px;padding:10px}
+.kpi b{display:block;font:500 21px/1.3 var(--mono);letter-spacing:-.03em}
+.kpi span{display:block;color:var(--mute);font-size:12.5px;line-height:1.35;margin-top:2px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.two h3{margin-bottom:6px}
+ul.tick{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+ul.tick li{padding-left:14px;position:relative;line-height:1.45}
+ul.tick li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.neg ul.tick li::before{background:var(--warn);border-radius:0}
+.bars{display:grid;gap:7px;margin-top:10px}
+.b{display:grid;grid-template-columns:104px minmax(0,1fr);gap:10px;align-items:center;font-size:14px}
+.b i{display:block;height:16px;background:var(--accent);border-radius:0 4px 4px 0;min-width:2px}
+.b span{display:flex;align-items:center;gap:7px;min-width:0}
+.b em{font:500 13px var(--mono);font-style:normal;color:var(--fg)}
+.small{font-size:13.5px;color:var(--mute);line-height:1.55}
+.topic{border-top:1px solid var(--line);padding:14px 0 4px}
+.topic:last-child{border-bottom:1px solid var(--line)}
+.th{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.chip{flex:none;font-size:12.5px;font-weight:500;border-radius:4px;padding:2px 7px;background:var(--panel)}
+.chip.good{color:var(--accent)}
+.chip.mix{color:var(--fg)}
+.chip.bad{color:var(--warn)}
+.say{margin:0 0 9px;font-size:15px;line-height:1.55}
+.say b{font-weight:500}
+.q{font-size:14.5px;color:var(--mute);line-height:1.5;margin:0 0 8px;padding-left:10px;border-left:2px solid var(--line)}
+.q a{white-space:nowrap}
+.chk{font-size:14px;margin:0 0 10px}
+.chk b{font-weight:500}
+.card{background:var(--panel);border-radius:8px;padding:12px 13px;font-size:14.5px;line-height:1.5}
+.cards{display:grid;gap:8px}
+.card h3{font-size:14.5px;font-weight:500;margin-bottom:3px}
+.card small{display:block;color:var(--mute);font-size:13px}
+ol.price{list-style:none;margin:10px 0;padding:0}
+ol.price li{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+ol.price b{font:500 15px var(--mono);letter-spacing:-.02em}
+ol.price span:first-child{font-variant-numeric:tabular-nums;color:var(--mute)}
+.note{background:var(--panel);padding:13px 14px;border-radius:8px;font-size:15px}
+.note p:last-child{margin:0}
+.cmp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1fr);margin:10px 0;font-size:14px;line-height:1.4}
+.cmp>*{padding:8px 8px 8px 0;border-bottom:1px solid var(--line);min-width:0}
+.cmp b{font-weight:500}
+.cmp .h{color:var(--mute);font-size:13px;border-bottom-color:var(--fg)}
+.cmp .l{color:var(--mute);font-size:13px}
+ol.check{margin:8px 0 0;padding-left:20px;display:grid;gap:7px;font-size:15px}
+.src{font-size:13.5px;color:var(--mute);line-height:1.55}
+.src ul{margin:6px 0 0;padding-left:16px;display:grid;gap:5px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (min-width:720px){h1{font-size:34px}.wrap{padding-top:40px;gap:44px}}
+@media (max-width:430px){.two{grid-template-columns:minmax(0,1fr);gap:16px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+<div class="eyebrow">2026-11-03 · 네이버 블로그·카페 전수 조사</div>
+<h1>학교와 버스로 사랑받고, 언덕에서 갈리는 단지입니다</h1>
+<p>사는 사람들의 만족도는 높습니다. 초·중·고가 가깝고 버스가 많아서입니다. 반대로 집을 보러 온 사람들은 언덕과 먼 지하철역 때문에 망설입니다. 아이 둘에 어린이집을 푸르니수지로 유지하는 우리 집 기준으로는 <b style="font-weight:500">5순위가 그대로 맞습니다.</b> 초등 이후까지 오래 살 계획이라면 다시 볼 만합니다.</p>
+<div class="kpi">
+<div><b>518건</b><span>검색으로 찾은 글</span></div>
+<div><b>213건</b><span>광고·시세 글을 뺀 의견 글</span></div>
+<div><b>4 / 4</b><span>거주 후기 중 추천한다는 답</span></div>
+</div>
+</header>
+
+<section>
+<h2>한눈에 보기</h2>
+<div class="two">
+<div><h3>좋다는 이유</h3><ul class="tick">
+<li>수지중·손곡중·수지고가 도보 5분 안팎</li>
+<li>단지 앞 버스가 2~3분 간격</li>
+<li>동천도서관, 느티나무도서관, 청소년문화의집</li>
+<li>헬스·골프·사우나·독서실, 여름 물놀이장</li>
+<li>뒷산 산책로와 조용한 뒷동</li>
+</ul></div>
+<div class="neg"><h3>꺼리는 이유</h3><ul class="tick">
+<li>단지 안 언덕과 앞뒤 동 높이 차이</li>
+<li>동천역·수지구청역 도보 15~20분</li>
+<li>풍덕초가 도보 10분 정도로 초품아가 아님</li>
+<li>차량 출입 동선이 제한적</li>
+<li>세대당 주차 1.25대, 작은 평형 주차 불만</li>
+</ul></div>
+</div>
+</section>
+
+<section>
+<h2>무엇을 가장 많이 말하나</h2>
+<p>의견 글 213건에서 단지 이름 근처에 해당 주제가 나온 글 수입니다. 많이 언급됐다는 뜻이지 좋다는 뜻은 아닙니다.</p>
+<div class="bars" id="bars" role="img" aria-label="주제별 언급 글 수. 학교·학군 66, 지하철 거리 56, 버스 42, 초등학교 거리 34, 상권·병원 29, 커뮤니티 24, 언덕 21, 숲·산책 20, 어린이집·유치원 17, 도서관 14, 주차 14, 소음 6, 관리비 3"></div>
+</section>
+
+<section>
+<h2>쟁점별 양쪽 의견</h2>
+<div class="topic"><div class="th"><h3>언덕과 단차</h3><span class="chip mix">갈림</span></div>
+<p class="say"><b>가장 큰 쟁점입니다.</b> 산을 깎아 지어 단지가 2단으로 나뉩니다. 거주자는 엘리베이터로 해결된다고 하고, 방문자는 생각보다 심하다고 합니다. 언덕 때문에 포기했다는 글도 있습니다.</p>
+<p class="q">"언덕배기 극혐이었으나 다른 장점들이 충분히 커버" · "단차마다 평지화돼 있고 경사로엔 엘베 4대나 있어 힘들게 다닐 일은 없어요" <a href="https://cafe.naver.com/rainup/3177145">거주자 2024</a></p>
+<p class="q">"더샵 가봤는데 저는 경사가 좀 심한 것 같아서 포기했어요" <a href="https://cafe.naver.com/represent20/9330">카페 2025</a> · "언덕으로 시작해, 언덕으로 끝나는 아파트" <a href="https://blog.naver.com/pouing_v/223768413971">임장기</a></p>
+<p class="chk"><b>확인할 점.</b> 앞동(101~105동)은 경사 부담이 적고 상가·정류장이 가깝습니다. 뒷동(106~109동)은 조용하고 숲과 가깝습니다. 유모차 동선은 엘리베이터로 큰 무리가 없다는 <a href="https://blog.naver.com/yuni__mom_/224326779862">임장기</a>가 있습니다. 눈 온 날 불편했다는 <a href="https://blog.naver.com/soyoung7280/222642924034">임장기</a>도 있습니다.</p></div>
+
+<div class="topic"><div class="th"><h3>지하철</h3><span class="chip bad">약점</span></div>
+<p class="say"><b>역세권이 아닙니다.</b> 동천역 도보 시간은 거주자 12분, 임장기 15~20분, 중개사 글 20~30분으로 다릅니다. 언덕 위 뒷동일수록 더 걸립니다.</p>
+<p class="q">"다만 걸어서 동천역 가긴 좀 빡시구요" <a href="https://cafe.naver.com/rainup/2943668">카페 2022</a> · "신분당선 동천역 도보 12분 거리인데 버스가 많아서 굳이 걸어가지 않음" <a href="https://cafe.naver.com/kig/18748343">거주자 2024</a></p></div>
+
+<div class="topic"><div class="th"><h3>버스</h3><span class="chip good">호평</span></div>
+<p class="say"><b>지하철의 약점을 버스가 메운다는 평이 일관됩니다.</b> 수지중학교 정류장에서 마을버스 5·5-1·11·15번과 일반·광역버스를 탑니다. 동천역까지 버스로 약 5분입니다.</p>
+<p class="q">"단지 바로 앞 버스 9개 노선이 트램처럼 이어와서 분당 및 강남쪽 접근 용이합니다" <a href="https://cafe.naver.com/rainup/2503790">거주자 2021</a></p>
+<p class="chk"><b>확인할 점.</b> 광역버스는 출근 시간에 자리가 없는 경우가 있다는 <a href="https://cafe.naver.com/rainup/2908935">논쟁</a>이 있습니다. 수지구청역 쪽 이야기라 이 단지 정류장과 다를 수 있습니다.</p></div>
+
+<div class="topic"><div class="th"><h3>학교</h3><span class="chip good">호평</span></div>
+<p class="say"><b>이 단지를 고르는 가장 큰 이유입니다.</b> 동천동 신축 중 중·고교가 가장 가깝다는 데 의견이 모입니다. 초등학교만 평이 나뉩니다. 풍덕초 도보 10분 또는 6~7분이라는 글이 많고, 사잇길로 걸으면 가깝다는 거주자도 있습니다.</p>
+<p class="q">"이사와보니 초등도 여기 소문과 달리 가까운 거리였고 중고교는 말할 필요도 없이 넘 편합니다" <a href="https://cafe.naver.com/rainup/3015314">거주자 2023</a> · "초등학교가 멀어서?" <a href="https://cafe.naver.com/one31/7333">임장기 2022</a></p>
+<p class="chk"><b>확인할 점.</b> 초등 배정은 풍덕초라는 글이 많지만 동에 따라 손곡초라는 <a href="https://blog.naver.com/amelie2023/223405445041">블로그</a>도 있어 교육지원청 확인이 필요합니다. 수지중은 전입 시기에 따라 다른 학교로 갈 수 있고, 고등학교는 <a href="https://cafe.naver.com/rainup/3015314">추첨이라 수지고가 보장되지 않는다</a>는 지적이 있습니다.</p></div>
+
+<div class="topic"><div class="th"><h3>상권과 병원</h3><span class="chip good">대체로 호평</span></div>
+<p class="say"><b>단지 앞 상가, 후문 쪽 이스트팰리스 상권, 2024년 전후 들어선 수지메디파크를 함께 씁니다.</b> 소아과와 이비인후과가 도보 10분 안이라는 거주자 답변이 있습니다.</p>
+<p class="q">"언덕 올라가면 평지에 놀이터 좋아보이나 상가까지 너무 멀다. 겨울에 장난 아닐듯" <a href="https://cafe.naver.com/wecando7/6382580">임장기 2022</a></p></div>
+
+<div class="topic"><div class="th"><h3>주차와 차량 동선</h3><span class="chip bad">확인 필요</span></div>
+<p class="say"><b>지상에 차가 없는 대신 세대당 1.25대입니다.</b> 동천자이 1.29대와 비슷합니다. 입주 때는 주차 폭이 넓다는 칭찬이 많았고, 최근에는 어렵다는 말이 나옵니다. 주차장은 101~105동과 106~110동 두 구역으로 나뉘고 서로 통하지 않는다는 분양 당시 답변이 있습니다. 뒷쪽 구역은 주출입구만 쓴다는 내용입니다. <a href="https://cafe.naver.com/rainup/1030030">2016</a></p>
+<p class="q">"근처 삽니다. 이스트포레 등록차량이 많은지 주차 어렵습니다" <a href="https://cafe.naver.com/represent20/9330">카페 2025</a> · "작은평수는 주차가 어렵다고 들었음" <a href="https://cafe.naver.com/kig/18986914">전 거주자 2025</a></p>
+<p class="chk"><b>확인할 점.</b> 2025년에 지하주차장으로 빗물이 샌 것처럼 보였다는 <a href="https://cafe.naver.com/dkdlfjsrmfla/29990">질문글</a>과 주차장 공사로 임시 주차 중이었다는 <a href="https://blog.naver.com/gstar_v1/223978838113">임장기</a>가 있습니다. 원인과 보수 결과는 글에서 확인되지 않아 관리사무소에 물어봐야 합니다.</p></div>
+
+<div class="topic"><div class="th"><h3>아이 키우기</h3><span class="chip good">대체로 호평</span></div>
+<p class="say"><b>놀이터, 물놀이장, 등하원 차량용 키즈스테이션, 단지 내 시립어린이집이 자주 칭찬받습니다.</b> 물놀이장은 2022년부터 여름마다 운영됐습니다. 유치원 셔틀도 여러 곳이 들어온다는 글이 있습니다.</p>
+<p class="q">"미취학 아이 둘 있으면 무조건 이스트포레로 가세요" <a href="https://cafe.naver.com/jaegebal/6048070">카페 2025</a></p>
+<p class="q">"근데 동천은 뭐랄까... 어린 아이키우기 시설이 좀 부족한 느낌이구요" <a href="https://cafe.naver.com/rainup/2943668">카페 2022</a></p>
+<p class="chk"><b>확인할 점.</b> 시립어린이집은 <a href="https://cafe.naver.com/sujilovemom/468627">대기가 길다</a>는 글이 있습니다.</p></div>
+
+<div class="topic"><div class="th"><h3>소음과 관리비</h3><span class="chip mix">자료 부족</span></div>
+<p class="say"><b>조용하다는 평이 많지만 근거가 얇습니다.</b> 거주 후기 3건의 방음 점수는 5·5·4점(5점 만점)입니다. 층간소음을 직접 평가한 글은 찾지 못했습니다. 관리비는 후기에 월 20~35만원으로 나옵니다. 평형과 계절이 달라 임장 때 최근 고지서를 보는 것이 정확합니다.</p></div>
+
+<div class="topic"><div class="th"><h3>곰팡이·결로</h3><span class="chip mix">참고만</span></div>
+<p class="say">베란다와 대피공간의 곰팡이 작업 글이 여러 건 있지만 모두 <a href="https://blog.naver.com/deokyun0707/224370424751">시공 업체 홍보글</a>입니다. 얼마나 흔한지는 알 수 없습니다. 사전점검 때는 하자가 적었다는 후기가 많았습니다.</p></div>
+</section>
+
+<section>
+<h2>거주자가 직접 쓴 후기 4건</h2>
+<p>'피터팬의 좋은방 구하기' 카페의 양식 후기입니다. 네 명 모두 추천한다고 답했습니다.</p>
+<div class="cards">
+<div class="card"><h3>6층 · 2020년 입주 · 관리비 32만원</h3>장점은 버스, 수지중·고, 물놀이장. 단점은 고속도로 지하화 전이라 분당에 갈 때 미금역 쪽으로 돌아가는 것.<small><a href="https://cafe.naver.com/kig/18748343">2024-10</a></small></div>
+<div class="card"><h3>층 미기재 · 2021년 입주 · 관리비 20만원</h3>장점은 뒤가 산이라 조용한 것. 단점은 지대가 높아 오르막이 있는 것.<small><a href="https://cafe.naver.com/kig/18132308">2023-12</a></small></div>
+<div class="card"><h3>22층 · 2020년 입주 · 관리비 35만원</h3>장점은 광교산 산책로와 학교. 단점은 단지 내 경사.<small><a href="https://cafe.naver.com/kig/17233433">2022-10</a></small></div>
+<div class="card"><h3>1층 · 43평 · 2020~2024 거주 · 관리비 35만원</h3>장점은 학교, 상가, 교통, 관리팀, 커뮤니티. 단점은 작은 평수 주차.<small><a href="https://cafe.naver.com/kig/18986914">2025-03</a></small></div>
+</div>
+</section>
+
+<section>
+<h2>동별로 보면</h2>
+<p>로얄동이 한 곳으로 정해져 있지는 않습니다. 입구 쪽을 좋아하는 사람과 조망을 중시하는 사람의 답이 갈립니다. 아래 의견은 대부분 2016~2018년 분양 당시 글이라 살아 본 평가는 아닙니다.</p>
+<div class="cards">
+<div class="card"><h3>101·102동, 맨 앞</h3>상가와 버스가 가깝고 풍덕초 쪽으로 가기 좋다는 이유로 추천이 가장 많았습니다. 102동은 배치상 가장 남향이라는 말이 있습니다. 대로변 소음을 걱정한 글도 있습니다.<small><a href="https://cafe.naver.com/rainup/1289330">2018</a> · <a href="https://cafe.naver.com/rainup/1026794">2016</a></small></div>
+<div class="card"><h3>103·104·105동, 앞쪽</h3>103동과 107동 중 하나를 묻는 글에서는 주출입구가 가까운 103동을 고른 답이 많았습니다. 104·105동 앞에는 키즈스테이션, 커뮤니티, 놀이터가 있습니다. 105동 4호 라인은 조경과 트인 뷰가 좋다는 입주자 글이 있습니다.<small><a href="https://cafe.naver.com/rainup/1027187">2016</a> · <a href="https://blog.naver.com/pharmabridge/222912844167">임장기</a> · <a href="https://cafe.naver.com/rainup/2006029">2020</a></small></div>
+<div class="card"><h3>107동, 43평 후보</h3>43평은 동간거리가 길고 중앙공원이 보이는 107동이 좋다는 의견이 있습니다. 넣은 평형이 가장 많이 들어간 동이라 로얄동이 될 것이라는 말도 있었습니다. 단지 안쪽 구석이라는 점은 단점입니다.<small><a href="https://cafe.naver.com/rainup/1289330">2018</a> · <a href="https://cafe.naver.com/rainup/1026505">2016</a></small></div>
+<div class="card"><h3>109동</h3>앞을 가리는 동이 없다는 평이 있습니다. 서남서향이고 앞쪽 20~30m에 옹벽이 있다는 말도 있어 일조를 확인해야 합니다.<small><a href="https://cafe.naver.com/rainup/1157285">2017</a></small></div>
+<div class="card"><h3>110동, 30평대 후보</h3>남동향이 남향에 가깝고 앞이 트였다는 추천과, 모델하우스 직원이 30평대 로얄동이라고 했다는 글이 있습니다. 분양 상담 말이라 그대로 믿기는 어렵습니다.<small><a href="https://cafe.naver.com/rainup/1289330">2018</a></small></div>
+</div>
+<p style="margin-top:12px"><b style="font-weight:500">동별 주차.</b> 분양 당시 문의 글 기준으로 107~109동 1.42대, 101~105동 1.2대 수준, 106·110동 1.17대입니다. 실제 값은 관리사무소에 확인해야 합니다.</p>
+<p><b style="font-weight:500">실거래로 본 동 프리미엄은 뚜렷하지 않습니다.</b> 2026년 34평 거래에서 5월은 105동 12.25억, 104동 11.95억, 109동 11.65억이었고, 8월은 105동과 107동이 모두 12.25억이었습니다. 표본이 적고 시기와 층의 영향이 더 큽니다.</p>
+<p><b style="font-weight:500">우리 집은 34평이면 103·105동, 43평이면 104·105동을 먼저 보세요.</b> 유아 둘의 유모차와 등하원 동선을 기준으로 한 제 판단입니다. 조용한 산 쪽과 주차를 더 원하면 107동이 대안입니다.</p>
+</section>
+
+<section>
+<h2>다른 단지와 비교할 때</h2>
+<div class="cards">
+<div class="card"><h3>동천자이와 비교</h3>입지·학교·버스는 이스트포레, 조경과 단지 자체는 동천자이가 낫다는 구도입니다. 어린이집 도보권은 동천자이만의 장점입니다. 2026년 카페 추천 댓글에서는 동천자이, 이스트팰리스, 이스트포레 순으로 꼽은 사례도 있습니다.<small><a href="https://cafe.naver.com/rainup/2582834">2021</a> · <a href="https://cafe.naver.com/rainup/3494014">2026</a></small></div>
+<div class="card"><h3>동천센트럴자이와 비교</h3>아파트 자체는 센트럴자이, 초등 자녀가 있는 집의 입지는 이스트포레라는 거주자 의견이 있습니다. 호가는 15.4억부터로 더 높습니다.<small><a href="https://cafe.naver.com/rainup/2582834">2021</a> · <a href="https://cafe.naver.com/jaegebal/6475951">2026</a></small></div>
+<div class="card"><h3>래미안수지이스트파크와 비교</h3>수지맘 카페에서 가장 자주 함께 비교됩니다. 평지와 체육공원 옆 입지는 이스트파크, 연식과 학교는 이스트포레 쪽입니다. 다만 수지맘 카페 글은 대부분 답글을 읽지 못했습니다.<small><a href="https://cafe.naver.com/jaegebal/6503200">2026</a></small></div>
+</div>
+</section>
+
+<section>
+<h2>최근 가격은 빠르게 올랐습니다</h2>
+<p>이 부분은 제가 앞서 드린 설명을 고칩니다. 8월 이후 실거래 12.8억을 기준으로 협상 여지가 크다고 말씀드렸는데, 10월 거래가 크게 올라 지금은 맞지 않습니다.</p>
+<ol class="price">
+<li><span>7/23</span><span>34B · 22층</span><b>12.3억</b></li>
+<li><span>8/12</span><span>34B · 9층</span><b>12.25억</b></li>
+<li><span>8/13</span><span>34B · 18층</span><b>12.05억</b></li>
+<li><span>10/01</span><span>34A · 4층</span><b>13.5억</b></li>
+<li><span>10/09</span><span>34A · 16층 · 신고가</span><b>14.5억</b></li>
+<li><span>10/20</span><span>34B · 26층</span><b>13.35억</b></li>
+</ol>
+<p>지금 34평 호가는 13.8~15억, 전세 호가는 7.5~8억입니다. 14.5억에 대출 4억이면 금융자산 약 2.8억이 남습니다. 협상 목표는 12억대가 아니라 13억대 중반으로 잡는 편이 현실적입니다.</p>
+<p class="small">출처는 네이버 부동산 실거래입니다. 10월 거래는 신고 기한이 남아 더 늘 수 있습니다.</p>
+</section>
+
+<section>
+<h2>30평대와 40평대 중 무엇을 볼까</h2>
+<p><b style="font-weight:500">지금은 34평과 43평의 호가가 거의 같습니다.</b> 실거래 중앙값 차이가 2024년 하반기 1.5억에서 2026년 상반기 0.7억으로 줄었고, 10월 34평이 14.5억까지 오르면서 더 좁혀졌습니다.</p>
+<div class="cmp">
+<span class="h">항목</span><span class="h">34평</span><span class="h">43평</span>
+<span class="l">호가</span><span>13.8~15억</span><span>14~16억</span>
+<span class="l">최근 실거래</span><span>13.35~14.5억<br>(10월)</span><span>11.7~13.4억<br>(1~2월)</span>
+<span class="l">최근 1년 거래</span><span>23건</span><span><b>3건</b></span>
+<span class="l">세대수</span><span>435세대</span><span>167세대</span>
+<span class="l">구조</span><span>방3, 욕실2</span><span>방3+알파룸, 욕실2</span>
+<span class="l">취득세율</span><span>3.3%</span><span>3.5%</span>
+<span class="l">재산세 추정</span><span>연 107만원</span><span>연 126만원</span>
+<span class="l">14.5억 매수 후 남는 금융자산</span><span>2.82억</span><span>2.79억</span>
+</div>
+<p class="small">거래는 2025-11 이후 국토부 3층 이상 중개거래이고 같은 거래의 중복 신고를 뺤 수입니다. 43평은 이 기준 거래가 3월 이후 없고, 5월에 2층 11.8억과 3층 직거래 8억이 있었습니다. 41평은 52세대로 호가 14~15.7억, 9월 실거래 13.7억입니다. 관리비 차이는 확인하지 못했습니다.</p>
+<ul class="tick" style="margin-top:10px">
+<li><b style="font-weight:500">43평이 나은 경우:</b> 10년 이상 실거주하고 아이 둘의 공간이 중요할 때입니다. 같은 돈으로 9평이 더 넓습니다.</li>
+<li><b style="font-weight:500">34평이 나은 경우:</b> 5년 안에 갈아탈 가능성이 있을 때입니다. 거래가 약 8배 많고 가격 상승도 빨랐습니다.</li>
+<li><b style="font-weight:500">주의:</b> 43평 호가는 최근 거래로 확인된 가격이 아닙니다. 내년 계약 때는 두 평형 차이가 다시 벌어질 수 있습니다.</li>
+</ul>
+<p style="margin-top:12px"><b style="font-weight:500">40평대를 원하면 동천자이 41평을 먼저 보세요.</b> 호가 13.5~15.5억, 방 4개, 237세대이고 최근 1년 거래도 14건으로 이 단지 43평보다 많습니다. 등원 2분, 하루 차량 25분도 그대로입니다.</p>
+</section>
+
+<section class="note"><h2>우리 집 기준 판단</h2>
+<p><b style="font-weight:500">지금 조건이면 동천자이가 낫습니다.</b> 이 단지의 강점은 중·고등학교인데 우리 아이들은 아직 영유아입니다. 등원은 13분, 하루 차량은 47분으로 동천자이의 2분, 25분보다 깁니다. 가격도 10월 기준으로는 비슷하거나 더 높습니다.</p>
+<p><b style="font-weight:500">그래도 살펴볼 조건은 분명합니다.</b> 초등 입학 후까지 10년 이상 살 계획이고, 호가 13억대 중반 앞동 매물이 나오는 경우입니다.</p>
+</section>
+
+<section>
+<h2>임장 때 확인할 것</h2>
+<ol class="check">
+<li>유모차를 밀고 정문에서 해당 동, 상가, 정류장까지 걸어 보기</li>
+<li>평일 08:00 전후 정문 차량 출차와 수지중 앞 정체</li>
+<li>평일 밤 주차 상황, 지하주차장 누수 보수 결과</li>
+<li>동별 초등 배정을 용인교육지원청에 확인</li>
+<li>시립이스트포레어린이집 대기 순번</li>
+<li>최근 관리비 고지서(34평과 43평 비교), 베란다·대피공간 결로 흔적</li>
+<li>눈 오는 날 제설 방식과 단지 내 경사로 상태</li>
+</ol>
+</section>
+
+<section class="src">
+<h2>조사 방법과 한계</h2>
+<ul>
+<li>검색어 29개로 네이버 블로그·카페를 조회해 중복을 뺀 518건을 찾았습니다. 검색어마다 결과는 약 30건이어서 네이버에 있는 글 전체는 아닙니다.</li>
+<li>본문을 수집한 글은 396건입니다. 글 전체를 한 줄씩 읽기보다 단지가 언급된 문장과 댓글을 중심으로 분류했습니다. 카페 글 117건은 로그인이 필요해 본문과 댓글을 읽지 못했고, 이 중 53건만 검색 요약을 의견 글에 넣었습니다. 전달받은 쿠키에 로그인 값(NID_AUT, NID_SES)이 빠져 있었습니다.</li>
+<li>수지맘 카페 글 38건이 이 안에 들어 있어 어린이집·유치원 실제 답변이 가장 부족합니다.</li>
+<li>이후 아름다운 내집갖기 카페 가입 후 동 선택 글 5건의 본문과 답글을 추가로 읽었습니다. 같은 카페의 나머지 글과 수지맘 카페 글은 읽지 못했습니다.</li>
+<li>분양 광고, 업체 시공 글, 시세 자동 게시글, 중개 매물 글은 의견 글에서 뺐습니다. 다만 제목으로 걸렀기 때문에 일부가 섞였을 수 있습니다.</li>
+<li>입주민은 자기 단지를 좋게 쓰는 경향이 있고 부동산 카페 댓글에는 다른 단지 입주민의 공격도 섞입니다. 거주자 호평은 그만큼 낮춰 읽어야 합니다.</li>
+<li>2016~2019년 글은 분양 시기 기대가 많아 생활 평가에서는 2020년 입주 이후 글을 우선했습니다.</li>
+<li>인용문은 맞춤법만 고쳤습니다. 단지 내 동 구분과 차량 출입은 임장기 기준이라 현장 확인이 필요합니다.</li>
+</ul>
+</section>
+</main>
+<script>
+(function(){
+var D=[['학교·학군',66],['지하철 거리',56],['버스',42],['초등 거리',34],['상권·병원',29],['커뮤니티',24],['언덕·단차',21],['숲·산책',20],['어린이집',17],['도서관',14],['주차',14],['소음',6],['관리비',3]];
+var w=document.getElementById('bars'),h='';
+D.forEach(function(d){h+='<div class="b"><div>'+d[0]+'</div><span><i style="width:'+(d[1]/66*86)+'%"></i><em>'+d[1]+'</em></span></div>'});
+w.innerHTML=h;
+})();
+</script>
+
+</body>
+</html>
