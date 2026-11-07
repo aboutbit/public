@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>[hidden]{display:none!important}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>동천 4개 단지 평판</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 줄 읽기. 결론 → 단지 비교표 → 단지별 장단점과 실제 목소리 → 맞대결 글 → 쟁점. 이사 리포트와 같은 팔레트 */
+:root{--bg:#fbfcfd;--panel:#f0f3f6;--fg:#15202b;--mute:#5a6775;--line:#d9e0e7;--accent:#1f5fa8;--soft:#b4cdea;--warn:#a2470f;--heat:31,95,168;
+--sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;--heat:125,178,238;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10161c;--panel:#19212a;--fg:#e8edf2;--mute:#9aa7b4;--line:#2c3743;--accent:#7db2ee;--soft:#2f4f75;--warn:#f0a26a;--heat:125,178,238;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.65 var(--sans);word-break:keep-all;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+.wrap>*{min-width:0}
+.eyebrow{font-size:13px;color:var(--mute)}
+h1{font-size:27px;line-height:1.32;margin:4px 0 10px;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:21px;line-height:1.4;margin:0 0 8px;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:16.5px;line-height:1.4;margin:0}
+p{margin:0 0 10px}
+.kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.kpi div{background:var(--panel);border-radius:8px;padding:10px}
+.kpi b{display:block;font:500 21px/1.3 var(--mono);letter-spacing:-.03em}
+.kpi span{display:block;color:var(--mute);font-size:12.5px;line-height:1.35;margin-top:2px}
+.verdicts{display:grid;gap:8px;margin-top:14px}
+.v{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5}
+.v b{font-weight:500}
+.tw{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.4}
+th,td{text-align:left;padding:8px 8px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--mute);font-size:13px;border-bottom-color:var(--fg)}
+td.n,th.n{font-variant-numeric:tabular-nums;text-align:right;padding-right:10px}
+table.spec{min-width:620px}
+table.heat{min-width:520px}
+table.heat td.n{font-family:var(--mono);font-size:13px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:6px 0 12px}
+.two h3{margin-bottom:6px;font-size:15px}
+ul.tick{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+ul.tick li{padding-left:14px;position:relative;line-height:1.45}
+ul.tick li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.neg ul.tick li::before{background:var(--warn);border-radius:0}
+.cx{border-top:2px solid var(--fg);padding-top:14px}
+.cx .meta{font-size:13.5px;color:var(--mute);margin-bottom:10px}
+.q{font-size:14.5px;color:var(--mute);line-height:1.55;margin:0 0 8px;padding-left:10px;border-left:2px solid var(--line)}
+.q a{white-space:nowrap}
+.q.live{border-left-color:var(--accent)}
+.lbl{font-size:12px;font-weight:500;color:var(--accent);margin-right:4px}
+.chk{font-size:14px;margin:6px 0 0}
+.chk b{font-weight:500}
+.topic{border-top:1px solid var(--line);padding:14px 0 4px}
+.th{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.chip{flex:none;font-size:12.5px;font-weight:500;border-radius:4px;padding:2px 7px;background:var(--panel)}
+.say{margin:0 0 9px;font-size:15px;line-height:1.55}
+.say b{font-weight:500}
+.note{background:var(--panel);padding:13px 14px;border-radius:8px;font-size:15px}
+.note p:last-child{margin:0}
+.small{font-size:13.5px;color:var(--mute);line-height:1.55}
+.src{font-size:13.5px;color:var(--mute);line-height:1.55}
+.src ul{margin:6px 0 0;padding-left:16px;display:grid;gap:5px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (min-width:720px){h1{font-size:34px}.wrap{padding-top:40px;gap:46px}}
+@media (max-width:480px){.two{grid-template-columns:minmax(0,1fr);gap:14px}.v{grid-template-columns:minmax(0,1fr);gap:2px}.kpi b{font-size:18px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+<div class="eyebrow">2026-11-07 · 네이버 카페·블로그 조사 · 국토부 실거래 · 네이버 부동산 · 카카오 지도</div>
+<h1>새 아파트의 동천자이·센트럴, 살기 좋은 이팰, 학교의 이스트포레</h1>
+<p>동천동 주요 4개 단지에 대한 글과 댓글을 모아 읽었습니다. 단지마다 고르는 이유가 뚜렷하게 다릅니다. 동천자이와 동천센트럴자이는 <b style="font-weight:500">새 아파트, 차 없는 단지, 동천초</b>로 고릅니다. 래미안이스트팰리스는 <b style="font-weight:500">넓은 평형, 주차, 단지 앞 상권, 한빛초·한빛중</b>으로 고릅니다. 더샵동천이스트포레는 <b style="font-weight:500">중·고교와 버스</b>로 고릅니다. 네 곳 모두 신분당선 역세권은 아닙니다.</p>
+<div class="kpi">
+<div><b>1,104건</b><span>검색으로 찾은 카페·블로그 글</span></div>
+<div><b>894건</b><span>본문·댓글을 읽은 글 (카페 299, 블로그 595)</span></div>
+<div><b>207건</b><span>회원 전용 맘카페라 못 읽은 글</span></div>
+</div>
+</header>
+
+<section>
+<h2>한 줄 평</h2>
+<div class="verdicts">
+<div class="v"><b>동천자이</b><span>차 없는 단지, 1km 둘레길, 계절마다 예쁜 정원. 동천초가 길 건너. 거주자 만족이 높고 값은 네 곳 중 가장 낮습니다. 대신 "외지다", "중·고교와 역이 멀다"는 말이 따라붙습니다.</span></div>
+<div class="v"><b>동천센트럴자이</b><span>동천자이와 같은 GS 자이, 1년 더 새것. 역에 500m 가깝고 조경·커뮤니티 호평. 34평이 2.5억 더 비쌉니다. "아파트 가치는 좋고 동네 가치는 그저 그렇다", "가격 포지션이 애매하다"는 평이 있습니다.</span></div>
+<div class="v"><b>래미안이스트팰리스</b><span>2010년 삼성물산, 4개 단지 2,393세대. "실거주 10점 만점", "동천동의 메인"이라는 칭찬이 가장 많습니다. 주차 세대당 2대 안팎, 한빛초·한빛중이 단지 옆, 단지 앞 상권. 대신 관리비가 높고 연식이 있고 대중교통이 불편합니다.</span></div>
+<div class="v"><b>더샵동천이스트포레</b><span>2020년 포스코. 수지중·수지고·동천도서관이 붙어 있고 버스가 촘촘합니다. 단지 안 언덕과 동 사이 높이 차이가 가장 큰 쟁점입니다. 초등학교(풍덕초)는 걸어서 10분 정도입니다.</span></div>
+</div>
+</section>
+
+<section>
+<h2>숫자로 비교</h2>
+<p class="small">단지 정보는 네이버 부동산, 거리는 카카오 지도(직선), 가격은 국토부 실거래(2025.10~2026.09, 해제·직거래 제외) 중앙값입니다.</p>
+<div class="tw"><table class="spec">
+<thead><tr><th>항목</th><th>동천자이</th><th>동천센트럴자이</th><th>래미안이스트팰리스</th><th>더샵동천이스트포레</th></tr></thead>
+<tbody>
+<tr><td>입주 · 시공</td><td>2018.08 · GS</td><td>2019.05 · GS</td><td>2010.05 · 삼성물산</td><td>2020.03 · 포스코</td></tr>
+<tr><td>세대 · 동</td><td>1,437 · 10개 동</td><td>1,057 · 8개 동</td><td>2,393 · 4개 단지</td><td>980 · 10개 동</td></tr>
+<tr><td>주차 (세대당)</td><td>1.29대</td><td>1.34대</td><td><b style="font-weight:500">1.82~2.19대</b></td><td>1.25대</td></tr>
+<tr><td>동천역 (직선)</td><td>1.4km</td><td><b style="font-weight:500">0.9km</b></td><td>1.1~1.6km</td><td>1.1km</td></tr>
+<tr><td>초등학교</td><td>동천초 300m</td><td>동천초 340m</td><td><b style="font-weight:500">한빛초 130~290m</b></td><td>풍덕초 (도보 약 10분)</td></tr>
+<tr><td>가까운 중학교</td><td>한빛중 1.1km</td><td>손곡중 740m</td><td>한빛중 (단지 옆)</td><td><b style="font-weight:500">수지중 250m</b></td></tr>
+<tr><td>34평 (전용 84㎡)</td><td class="n">11.00억 · 47건</td><td class="n">13.18억 · 28건</td><td class="n">11.6~11.7억 · 24건</td><td class="n">11.70억 · 26건</td></tr>
+<tr><td>40평대 이상</td><td class="n">11.50억 · 16건</td><td class="n">14.00억 · 11건</td><td class="n">12.5~13.0억 · 125건</td><td class="n">11.78억 · 12건</td></tr>
+</tbody></table></div>
+<p class="small">이팰 34평은 2·3단지에만 있습니다. 이팰 40평대 이상에는 전용 103~199㎡가 섞여 있어 평형 구성이 다른 단지와 다릅니다.</p>
+</section>
+
+<section>
+<h2>단지별로 무엇을 많이 말하나</h2>
+<p>단지 이름이 나온 글 중 해당 주제가 함께 나온 글 수입니다. 많이 말한다는 뜻이지 좋다는 뜻은 아닙니다. 색이 진할수록 그 단지에서 자주 나온 주제입니다.</p>
+<div class="tw"><table class="heat" id="heat"></table></div>
+<p class="small">모든 단지에서 지하철 이야기가 가장 많습니다. 네 곳 모두 역세권이 아니라는 점이 늘 논쟁거리라는 뜻입니다. 이스트포레는 중·고교와 언덕, 이팰은 상권과 주차가 다른 단지보다 많이 나옵니다.</p>
+</section>
+
+<section class="cx">
+<h2>동천자이</h2>
+<div class="meta">글 140건 · 거주 후기와 비교 질문글 위주로 읽음</div>
+<div class="two">
+<div><h3>좋다는 이유</h3><ul class="tick">
+<li>지상에 차가 없어 아이가 마음껏 뛰어놂</li>
+<li>단지 안 둘레길 약 1km, 계절마다 예쁜 정원</li>
+<li>동천초가 길 건너, 아침에 초등·유치원생으로 북적</li>
+<li>헬스·골프·사우나·도서관·게스트룸까지 커뮤니티 완비</li>
+<li>평지에 반듯한 부지, 조용한 동네</li>
+<li>단지 앞 스트리트몰·동천프라자에 초등 학원</li>
+</ul></div>
+<div class="neg"><h3>꺼리는 이유</h3><ul class="tick">
+<li>동천역 도보 15~20분, 마을버스가 불편하다는 의견</li>
+<li>중·고교가 멂</li>
+<li>"외진 곳", 큰 상권과 병원은 걸어서 10분</li>
+<li>센트럴보다 역이 멀어 값이 낮다는 평</li>
+<li>입주 7년 차를 넘어 인테리어가 필요한 집이 생김</li>
+</ul></div>
+</div>
+<p class="q live"><span class="lbl">거주자</span>"대단지이지만 동간 간격이 넓어서 사생활 보호가 잘 되고 있다고 생각합니다… 단지내 둘레길 길이가 거의 1키로 정도나 되서… 차없는 단지이니 부모로서 마음이 놓이는 우리 아파트입니다" <a href="https://cafe.naver.com/rainup/2244736">2020</a></p>
+<p class="q live"><span class="lbl">거주자</span>"써니벨리 살다가 동천자이 입주해서 지금 거주중입니다… 지상에 차가 없다는 것이 아이키우면서 얼마나 좋은곳인지 느낄수 있을거에요" <a href="https://cafe.naver.com/jaegebal/5317141">2024</a></p>
+<p class="q live"><span class="lbl">거주자</span>"동천센트럴자이 뒤에 동천자이 사는데… 센트럴자이 지나서 오는데 12분?이면 가던데 그정도는 걸을만 하죠" <a href="https://cafe.naver.com/dkdlfjsrmfla/29679">2025</a></p>
+<p class="q">"입지자체가 동센자가 압승인데요. 동천자이는 마을버스 이용도 불편하고 초등 가까운거 말고는 중고등 다 불편하고 역도 더 멀고 상권도 안좋고" <a href="https://cafe.naver.com/jaegebal/5170922">2024 댓글</a></p>
+<p class="q">"동천자이1차 거리상은 외졌으나 초등학교 가깝고 동네 조용하고 넘 좋더라고요. 다만 학원이 별로 없어서 고민" → 답글 "동천자이 동네 학원은 크게 아쉽지 않게 있을건 대부분 있는듯요… 대형학원 차량운행도 괜찮아서 만족" <a href="https://cafe.naver.com/jaegebal/4458328">2023</a></p>
+<p class="chk"><b>확인할 점.</b> 카페에서는 동천자이를 "1차", 동천센트럴자이를 "2차"로 부르는 글이 섞여 있습니다(분양 당시 이름으로 추정). 단지 앞 오피스텔 예정 부지(104동 앞) 이야기가 있으니, 앞이 트인 동이라면 조망이 유지되는지 확인하세요 <a href="https://cafe.naver.com/jaegebal/5317141">(2024)</a>. "동천 물류센터 개발"이 발목을 잡는다는 2017~2020년 글도 있습니다.</p>
+</section>
+
+<section class="cx">
+<h2>동천센트럴자이</h2>
+<div class="meta">글 143건</div>
+<div class="two">
+<div><h3>좋다는 이유</h3><ul class="tick">
+<li>"조경 예술", 지상에 차 없음</li>
+<li>도서관·헬스·실내놀이터·사우나 등 깨끗한 커뮤니티</li>
+<li>동천초 도보 7분</li>
+<li>4곳 중 동천역이 가장 가까움 (걸어서 갈 수는 있음)</li>
+<li>33평 방 4개 구조가 좋다는 평</li>
+<li>정자·판교 출퇴근, 분당·수지구청 학원 셔틀</li>
+</ul></div>
+<div class="neg"><h3>꺼리는 이유</h3><ul class="tick">
+<li>그래도 역까지 도보 15~19분, 역세권은 아님</li>
+<li>주변 상권이 빈약, 포레나 상가 쪽에만 모여 있음</li>
+<li>근처에 중학교가 없음</li>
+<li>동천초 정문까지 가는 길이 아쉽다는 의견</li>
+<li>"가성비 애매" — 조금 더 주면 성복역 신축이나 분당</li>
+</ul></div>
+</div>
+<p class="q live"><span class="lbl">거주자</span>"단지 내 조경이 워낙 잘 되어 있어서 집 안에서도 초록이 많이 보여… 다만 동천역이 도보로는 좀 멀어서, 출퇴근 시간엔 자차나 버스를 타게 된다는 단점이… 초등학교까지는 도보 7분 정도… 주변 상권은 포레나 상가 쪽에만 좀 모여 있어서 생활 편의는 무난한 수준" <a href="https://cafe.naver.com/dkdlfjsrmfla/29679">실거주 4년 차, 2025</a></p>
+<p class="q">"아파트 가치는 아주 좋고 동네 가치는 그저그렇습니다." · "단점: 동천역 조금 먼 느낌, 가격으로 보면 포지션 애매함 (조금 더 주면 성복역 신축 가능, 조금 더 주면 분당 진입)" <a href="https://cafe.naver.com/jaegebal/5942792">2025 댓글</a></p>
+<p class="q">"동천센트럴자이의 아쉬운 점이 학교와 학원이 좀 애매하다. 근처 중학교의 부재와 학원가는 수지구청이나 분당을 이용… 신혼부부가 입주하여 초등학교 입학 전까지 살다가 분당 판교 서울로 가는 전략" <a href="https://blog.naver.com/drims12/223925041961">중개 블로그</a></p>
+<p class="q">"동천 센트럴 자이는 신축이고 동천역까지 걸어갈 수 있어서 좋긴 하나 주변 상권이 다소 빈약한 것 같고, 동천 초등학교 정문까지 걸어가는 길이 좀.." <a href="https://cafe.naver.com/jaegebal/4546998">2023</a></p>
+<p class="chk"><b>왜 더 비싼가.</b> 카페에서도 같은 질문이 나왔습니다. 답은 "역이 조금 더 가깝고, 1년 더 새것" 두 가지였습니다 <a href="https://cafe.naver.com/jaegebal/5170922">(2024)</a>. 두 단지에 다 살아본 사람은 역까지 2~3분 차이밖에 안 났다고 했습니다. 실거래로 보면 차이가 2024년 15%에서 2026년 22%(2.5억)로 벌어졌습니다.</p>
+</section>
+
+<section class="cx">
+<h2>래미안이스트팰리스 (한빛마을 1~4단지)</h2>
+<div class="meta">글 296건 · 4개 단지 중 대형 평형은 1·4단지, 34평은 2·3단지</div>
+<div class="two">
+<div><h3>좋다는 이유</h3><ul class="tick">
+<li>"실거주 10점 만점", "동천동의 메인", "끝판왕"</li>
+<li>주차 세대당 2대 안팎, "3대 주차하는데 늘 자리 많음"</li>
+<li>한빛초·한빛중이 단지에 붙어 있고 수지고도 가까움</li>
+<li>단지 앞 상권: 소아과·한의원·은행·스타벅스, 세계로마트 개점</li>
+<li>삼성이 공들여 지은 자재와 조경, 단지별 사우나에 대형 스파</li>
+<li>층간소음 없다는 거주자, 남향 위주·넓은 전용률</li>
+</ul></div>
+<div class="neg"><h3>꺼리는 이유</h3><ul class="tick">
+<li>관리비: 55평 여름·겨울 100만 원 가까이, 2단지 평균 35만 원</li>
+<li>2010년 준공 연식, 시스템에어컨 교체 같은 수리</li>
+<li>대중교통: 마을버스로 동천역, 출근길 스쿨존 정체</li>
+<li>지상에 차가 다니고 단지가 도로로 나뉨</li>
+<li>언덕 지형, 4단지는 눈 오면 미끄럽다는 경험담</li>
+<li>집값이 분양가(2008)에서 거의 안 올랐다는 거주자</li>
+</ul></div>
+</div>
+<p class="q live"><span class="lbl">거주자</span>"실거주는 10점 만점에 감히 10점드립니다. 거의 유일한 단점이 관리비인데… 55평 기준 여름/겨울은 거의 100만원에 육박하는 관리비가 부담입니다… 다만, 투자가 목적이시라면 크게 추천드리지 않습니다. 2008년 분양가에서 지금까지 거의 안올랐습니다" <a href="https://cafe.naver.com/jaegebal/5815059">2025</a></p>
+<p class="q live"><span class="lbl">거주자</span>"서울 출근하는데 광역버스 타고 다닙니다… 관리 잘 되고 스파, 사우나, 골프, 헬스 등 커뮤니티 편리하고 조경 예뻐요. 3대 주차하는데 늘 자리 많고 여유롭네요. 초 중이 단지에 다 있어서 아이들도 만족해요" <a href="https://cafe.naver.com/jaegebal/5815059">2025</a></p>
+<p class="q live"><span class="lbl">매수자</span>"외관부터 상권 생활환경 세대수 조경 커뮤니티… 주차 2대급 나와서 동천 내 주차 탑이에요… 유일하게 초품아 중품아 다 있는 곳" <a href="https://cafe.naver.com/rainup/3494014">2026</a></p>
+<p class="q">반론: "동센자, 동자도 탕 3개 있는 대형 사우나 있습니다… 이팰은 지상에 차가 다니고 단지가 다 쪼개져 있어서 단지 산책하기 별로고… 평지가 아니고 경사가 있어서… 버스노선도 2~3개밖에 없고 그쪽이 다 스쿨존이라 아침 출근시간에는 차막혀서 속 터지죠" <a href="https://cafe.naver.com/rainup/3494014">2026 댓글</a></p>
+<p class="q">"단점이라하면 언덕지형이라.. 4단지 겨울에 눈한번 오면.. 차가지고 나오다가 커브돌때 미끄러짐 작살입니다" <a href="https://cafe.naver.com/rainup/2392729">2021 댓글</a></p>
+<p class="chk"><b>확인할 점.</b> 저층과 옹벽 앞 동은 조망이 나쁘다는 글이 있습니다(4단지 70평 3층 13.5억 급매 사례, <a href="https://cafe.naver.com/jaegebal/6188099">2026</a>). 광역버스 정류장과 마을버스 증차를 주민들이 추진 중이라는 글이 2026년에 두 번 나왔습니다. 대형 평형은 관리비를 꼭 물어보세요.</p>
+</section>
+
+<section class="cx">
+<h2>더샵동천이스트포레</h2>
+<div class="meta">글 224건 · 11월 3일 별도 평판 리포트(518건)와 같은 흐름</div>
+<div class="two">
+<div><h3>좋다는 이유</h3><ul class="tick">
+<li>수지중·수지고 도보권, 동천도서관·청소년문화의집</li>
+<li>단지 앞 버스가 5분 간격, 동천역·서울 방면</li>
+<li>입주 때 하자가 거의 없었다는 사전점검 후기</li>
+<li>단지 안 국공립 어린이집, 등산로 연결</li>
+<li>헬스·골프·탁구 등 체육시설</li>
+</ul></div>
+<div class="neg"><h3>꺼리는 이유</h3><ul class="tick">
+<li>언덕 위 단지, 동 사이 높이 차이가 아파트 4~5층</li>
+<li>걸어서 동천역 가기는 힘듦</li>
+<li>풍덕초는 초품아가 아님</li>
+<li>상가까지 멀다는 임장기, 소아과는 써니밸리 쪽</li>
+<li>세대당 주차 1.25대, 최근 주차가 어렵다는 말</li>
+</ul></div>
+</div>
+<p class="q">"언덕 위 신축, 동간 차이가 아파트 4~5층 정도, 엘베 타고 올라가보니 무서웠다 고장날까봐" · "언덕올라가면 평지에 놀이터 좋아보이나 상가까지 너무 멀다" <a href="https://cafe.naver.com/wecando7/6382580">임장기 2022</a></p>
+<p class="q">"초중고/ 도서관/ 숲/ 상권 /버스노선… 다 갖춘 단지니 함 보세요. 특히 버스노선과 학교는 어지간해서는 증설되기 어려워서 그냥 있는 곳으로 이사해야겠더라고요" <a href="https://cafe.naver.com/rainup/3492564">2026 댓글</a></p>
+<p class="q">"이스트포레에서 풍덕초 삼성4차로 질러가면 정문기준 초등학교 거리는 비슷합니다. 중학교 고등학교 수지구청 학원가는 더욱이 더 이스트포레가 가깝구요" ↔ "참고로 초등학교는 동센자가 더 가깝습니다" <a href="https://cafe.naver.com/jaegebal/6475951">2026 댓글 논쟁</a></p>
+<p class="q live"><span class="lbl">전 거주자</span>"이스트포레 살았는데 살기 좋아요. 동천동 그립네요" <a href="https://cafe.naver.com/jaegebal/5231403">2024</a></p>
+</section>
+
+<section>
+<h2>4개 단지를 놓고 물은 글</h2>
+<p>2026년 3월 "유치원생, 내년 초등 입학, 센트럴은 14억 가까워 불가능"이라며 네 곳을 비교해 달라는 글 <a href="https://cafe.naver.com/rainup/3494014">(링크)</a>에 달린 답입니다.</p>
+<div class="tw"><table>
+<thead><tr><th>답한 사람</th><th>추천</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td>댓글 1</td><td>래미안</td><td>아이 키우는 실거주</td></tr>
+<tr><td>댓글 2</td><td>동천자이 → 이팰 → 이스트포레</td><td>초등생이면 초품아 우선. 자차로 서울·분당 출근이면 동천자이, 버스가 중요하면 이스트포레</td></tr>
+<tr><td>이팰 매수자</td><td>이팰</td><td>주차, 상권, 초·중 단지 옆, 대형 스파. 단점은 관리비와 연식</td></tr>
+<tr><td>반론</td><td>동천자이·센트럴</td><td>커뮤니티는 신축이 더 좋고 차 없는 단지, 이팰은 경사·정체·버스 노선 부족</td></tr>
+</tbody></table></div>
+<p class="small">동천동 아파트 5곳에 살아봤다는 사람은 "가격이 정직하다, 종합 점수 내보면 딱 가격 순서대로 좋다"고 했습니다 <a href="https://cafe.naver.com/jaegebal/4458328">(2023)</a>.</p>
+</section>
+
+<section>
+<h2>쟁점별 정리</h2>
+<div class="topic"><div class="th"><h3>지하철과 버스</h3><span class="chip">모두 약점</span></div>
+<p class="say"><b>네 곳 모두 역세권(500m)이 아닙니다.</b> 걸어서 역까지 거주자 말로는 동천자이 12~15분, 센트럴 15~17분입니다. 이팰과 이스트포레는 마을버스나 일반 버스를 탑니다. 버스는 이스트포레 앞이 가장 촘촘하다는 데 의견이 모입니다. 이팰은 출근 시간 스쿨존 정체 불만이 있습니다.</p></div>
+<div class="topic"><div class="th"><h3>초등학교</h3><span class="chip">이팰·자이 우세</span></div>
+<p class="say"><b>이팰(한빛초 단지 옆)과 동천자이(동천초 길 건너)가 가장 가깝습니다.</b> 센트럴은 동천초 도보 7분이고, 이스트포레는 풍덕초 10분 안팎입니다. 중학교까지 단지 옆인 곳은 이팰뿐이고, 중·고교는 이스트포레가 가장 가깝습니다.</p></div>
+<div class="topic"><div class="th"><h3>단지 안 환경</h3><span class="chip">신축 우세</span></div>
+<p class="say"><b>지상에 차가 없는 건 동천자이·센트럴·이스트포레</b>입니다. 이팰은 지상에 차가 다니고 단지가 도로로 나뉩니다. 대신 이팰은 조경과 대형 스파, 넉넉한 주차로 만회합니다.</p></div>
+<div class="topic"><div class="th"><h3>언덕</h3><span class="chip">이스트포레 > 이팰 > 자이</span></div>
+<p class="say"><b>이스트포레가 가장 크고, 이팰 3·4단지 입구도 경사가 있습니다.</b> 동천자이는 "부지가 반듯하고 평지"라는 평이 많고, 센트럴도 큰 불만은 없습니다.</p></div>
+<div class="topic"><div class="th"><h3>주차와 관리비</h3><span class="chip">이팰이 양 끝</span></div>
+<p class="say"><b>이팰은 주차가 가장 넉넉하고 관리비가 가장 높습니다.</b> 신축 세 곳은 1.25~1.34대로 비슷하고, 최근 주차가 빡빡해졌다는 말이 이스트포레와 동천자이(입주 초 주차 부족 영상)에서 나옵니다.</p></div>
+<div class="topic"><div class="th"><h3>상권과 병원</h3><span class="chip">이팰 우세</span></div>
+<p class="say"><b>동천 중심 상권은 이팰 앞입니다.</b> 소아과, 한의원, 은행, 카페와 2026년 생긴 세계로마트가 있습니다. 동천자이는 스트리트몰·동천프라자·하나로마트, 센트럴은 포레나 상가 쪽을 씁니다. 동천역 쪽 구축 상권은 낡았다는 평이 있습니다.</p></div>
+</section>
+
+<section class="src">
+<h2 style="font-size:17px">조사 방법과 한계</h2>
+<ul>
+<li>네이버 카페·블로그를 검색어 72개(단지 이름 × 후기·장단점·학군·주차·언덕 등)로 각 3쪽씩 찾았습니다. 제목에 동천이나 단지 이름이 들어간 1,104건 중 894건의 본문과 댓글을 읽었습니다.</li>
+<li>카페 207건은 회원 전용 맘카페라 본문을 읽지 못했습니다. 수지·동천 맘카페의 육아·어린이집 이야기가 가장 덜 반영됐습니다.</li>
+<li>분양·중개·인테리어 광고 글은 뺐습니다. 다만 중개사가 쓴 단지 분석 블로그 일부는 단지 정보 확인용으로만 썼고, 따로 표시했습니다.</li>
+<li>"주제별 언급 수"는 단지 이름 근처 문장에 주제어가 나온 글 수입니다. 좋다·나쁘다를 판정한 숫자가 아닙니다.</li>
+<li>오래된 글(2015~2020년)은 분양·입주 당시 이야기라 지금과 다를 수 있습니다. 인용에 연도를 붙였습니다.</li>
+<li>가격은 국토부 실거래(2025.10~2026.09) 중앙값이고, 단지 정보는 2026-11-07 네이버 부동산 기준입니다.</li>
+</ul>
+</section>
+</main>
+<script>
+const T=['지하철','초등학교','중·고교','상권·마트','노후·연식','교통·도로','산책·자연','주차','커뮤니티','조망·일조','버스','언덕·경사','관리·하자','아이 키우기'];
+const C={'동천자이':[140,{'지하철':58,'초등학교':43,'교통·도로':36,'상권·마트':30,'중·고교':26,'산책·자연':22,'노후·연식':22,'버스':19,'조망·일조':19,'주차':14,'커뮤니티':10,'아이 키우기':6,'언덕·경사':5,'관리·하자':3}],
+'동천센트럴자이':[143,{'지하철':57,'초등학교':32,'상권·마트':32,'노후·연식':29,'중·고교':27,'커뮤니티':24,'교통·도로':19,'조망·일조':18,'주차':14,'산책·자연':12,'아이 키우기':9,'관리·하자':9,'버스':8,'언덕·경사':5}],
+'래미안이스트팰리스':[296,{'지하철':79,'상권·마트':68,'중·고교':64,'초등학교':63,'노후·연식':55,'산책·자연':45,'교통·도로':41,'주차':40,'커뮤니티':32,'조망·일조':31,'버스':23,'관리·하자':20,'언덕·경사':17,'아이 키우기':6}],
+'더샵동천이스트포레':[224,{'중·고교':60,'지하철':51,'상권·마트':51,'초등학교':44,'노후·연식':43,'커뮤니티':27,'버스':26,'산책·자연':26,'주차':24,'언덕·경사':23,'조망·일조':22,'교통·도로':21,'관리·하자':14,'아이 키우기':12}]};
+const names=Object.keys(C);
+let h='<thead><tr><th>주제</th>'+names.map(n=>`<th class="n">${n}<br><span style="font-weight:400">${C[n][0]}글</span></th>`).join('')+'</tr></thead><tbody>';
+T.forEach(t=>{h+=`<tr><td>${t}</td>`+names.map(n=>{const v=C[n][1][t]||0,s=v/C[n][0];return `<td class="n" style="background:rgba(var(--heat),${(s*1.6).toFixed(2)})">${Math.round(s*100)}%</td>`}).join('')+'</tr>'});
+document.getElementById('heat').innerHTML=h+'</tbody>';
+</script>
+
+</body>
+</html>
